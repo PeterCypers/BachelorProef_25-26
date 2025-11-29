@@ -15,14 +15,14 @@
 \section{Inleiding}%
 \label{sec:inleiding}
 
-In moderne softwareontwikkeling zijn APIs een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze APIs vereist echter veel repetitieve en technische handelingen, zoals het schrijven van testcases, het valideren van responses, en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Er is nood aan een intelligente assistent die deze taken kan ondersteunen of deels automatiseren. De vraag rijst of een AI-agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, hierin een rol kan spelen.
+In moderne softwareontwikkeling zijn API's een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze API's vereist echter veel repetitieve en technische handelingen zoals het schrijven van testcases, het valideren van responses, en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Er is nood aan een intelligente assistent die deze taken kan ondersteunen of deels automatiseren. De vraag rijst of een AI-agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, hierin een rol kan spelen.
 
-De onderzoeksvraag vanuit mijn stagebedrijf IT1 luid als volgt: \emph{Hoe kan een AI-agent bijdragen aan het ondersteunen van het ontwikkel- en testproces van RESTful APIs binnen een agile softwareontwikkeltraject?} 
+De onderzoeksvraag vanuit mijn stagebedrijf IT1 luidt als volgt: \emph{Hoe kan een AI-agent bijdragen aan het ondersteunen van het ontwikkel- en testproces van RESTful API's binnen een agile softwareontwikkeltraject?} 
 
 Hieronder is het probleem opgesplitst in een aantal deelvragen die zullen bijdragen tot een uitwerking van de hoofdonderzoeksvraag:
 
 \begin{itemize}
-  \item Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van RESTful APIs?
+  \item Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van RESTful API's?
   \item Welke taken binnen dit proces zijn het meest repetitief of foutgevoelig?
   \item Welke bestaande tools en frameworks worden momenteel gebruikt voor API
   testing en documentatie?
@@ -31,7 +31,7 @@ Hieronder is het probleem opgesplitst in een aantal deelvragen die zullen bijdra
   \item Wat zijn de beperkingen en risico’s van het inzetten van een AI-agent in dit domein?
 \end{itemize}
 
-Het doel van dit onderzoek is om na te gaan in welke mate een AI-agent kan bijdragen aan het efficiënter ontwikkelen en testen van RESTful APIs. Dit gebeurt door het analyseren van bestaande tools, het ontwikkelen van een proof-of-concept AI-agent, en het evalueren van de impact ervan op het ontwikkelproces binnen een afgebakend scenario.
+Het doel van dit onderzoek is om na te gaan in welke mate een AI-agent kan bijdragen aan het efficiënter ontwikkelen en testen van RESTful API's. Dit gebeurt door het analyseren van bestaande tools, het ontwikkelen van een proof-of-concept AI-agent en het evalueren van de impact ervan op het ontwikkelproces binnen een afgebakend scenario.
 
 %---------- Stand van zaken ---------------------------------------------------
 
@@ -74,25 +74,34 @@ Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur v
 \section{Methodologie}%
 \label{sec:methodologie}
 
-Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor literatuurstudie, interviews met belanghebbenden (bv.~voor requirements-analyse), experimenten, simulaties, vergelijkende studie, risico-analyse, PoC, \ldots?
+In de initiele fase zal ik een literatuurstudie doen om inzichten te verwerven over het problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van Restful APIs.
 
-Valt je onderwerp onder één van de typische soorten bachelorproeven die besproken zijn in de lessen Research Methods (bv.\ vergelijkende studie of risico-analyse)? Zorg er dan ook voor dat we duidelijk de verschillende stappen terug vinden die we verwachten in dit soort onderzoek!
+% TODO: in welke fase?
 
-Vermijd onderzoekstechnieken die geen objectieve, meetbare resultaten kunnen opleveren. Enquêtes, bijvoorbeeld, zijn voor een bachelorproef informatica meestal \textbf{niet geschikt}. De antwoorden zijn eerder meningen dan feiten en in de praktijk blijkt het ook bijzonder moeilijk om voldoende respondenten te vinden. Studenten die een enquête willen voeren, hebben meestal ook geen goede definitie van de populatie, waardoor ook niet kan aangetoond worden dat eventuele resultaten representatief zijn.
+Betreffende AI-agents zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder anderen over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke taal(en) en framework(s) ik de proof of concept zal uitwerken.
 
-Uit dit onderdeel moet duidelijk naar voor komen dat je bachelorproef ook technisch voldoen\-de diepgang zal bevatten. Het zou niet kloppen als een bachelorproef informatica ook door bv.\ een student marketing zou kunnen uitgevoerd worden.
+De POC AI-agent zal het volgende kunnen:
+\begin{itemize}
+    \item API-specificaties interpreteren (bvb.: Swagger/OpenAPI)
+    \item Automatisch testcases genereren (bvb.: met Postman of via Python/JavaScript)
+    \item Foutmeldingen analyseren en suggesties geven
+    \item Documentatie aanvullen or genereren
+\end{itemize}
 
-Je beschrijft ook al welke tools (hardware, software, diensten, \ldots) je denkt hiervoor te gebruiken of te ontwikkelen.
+In de volgende fase zullen deze functionaliteiten van de POC agent geïmplementeerd worden, er zal ook uitgezocht worden welke soort testen er kunnen worden gedaan en met welke tools de agent kan werken om die verschillende soorten testen te doen/ondersteunen.
 
-Probeer ook een tijdschatting te maken. Hoe lang zal je met elke fase van je onderzoek bezig zijn en wat zijn de concrete \emph{deliverables} in elke fase?
+%todo : welke metingen? welke technieken gebruik ik om die metingen te maken?
+In de volgende fase zal ik bepaalde metingen doen met de POC agent die een mogelijke verbetering in efficiëntie van werken aan APIs moet kunnen aantonen
+
+%todo: laatste fase
+En een laatste fase verbonden met de resultaten...
 
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
 
-Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de onderdelen van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet welk soort data je moet verzamelen en hoe je die moet meten.
+Men verwacht dat de POC AI-Agent zal kunnen aantonen of er een meetbare verbetering is in efficiëntie van werken door het automatiseren van repetitieve taken bij het ontwikkelen en testen van RESTful APIs. Dat er kan aangetoond worden dat die automatisaties tijdsbesparend zullen zijn. Ook dat er weinig fouten zullen gebeuren bij het genereren van testcases. Er wordt een hoge test-coverage verwacht. Ook binnen de verwachtingen valt dat de agent zich houdt aan bepaalde best-practices en API-specificaties.
 
-Wat heeft de doelgroep van je onderzoek aan het resultaat? Op welke manier zorgt jouw bachelorproef voor een meerwaarde?
+Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan niet gebruiken van een AI-Agent bij het werken aan APIs bij IT1 en ook wat inzicht bieden over de verschillende mogelijkheden binnen de wereld van agentic workflows.
 
-Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is \textbf{niet} erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.
 
