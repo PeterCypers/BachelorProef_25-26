@@ -51,6 +51,78 @@ Citation-test
     \item \autocite{AnthropicMCP2025}
 \end{itemize}
 
+\subsection{Wat zijn REST APIs?}
+%todo: bijlezen van Fielding: focus op API disambiguation & REST principes
+API staat voor \emph{Application Programming Interface}. Dit is een
+software-interface die het mogelijk maakt dat twee
+applicaties met elkaar kunnen communiceren. Dit in
+tegenstelling tot een User Interface, die mensen met
+software laat werken.
+
+Volgens \textcite{Fielding2000} gebruikt het moderne internet HTTP als een network-based Application Programming Interface (API).
+
+Rest is een architectuurstijl die staat voor \emph{Representative state transfer}. Dit omschrijft een reeks van constraints die een soort best practice opstellen voor het gebruiken van APIs. De term REST wordt toegewezen aan en komt uit het werk van Roy \textcite{Fielding2000}
+
+%todo: fill in the 6 principles
+\subsubsection{REST-Principes/-constraints:}
+
+Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding2000}:
+\begin{enumerate}
+    %todo: explain request-response under one of these items
+    \item \textbf{Uniforme Interface} \\
+    TODO
+    \item \textbf{Client/server-architectuur} \\
+    TODO
+    \item \textbf{Stateless} \\
+    TODO
+    \item \textbf{Cacheable} \\
+    TODO
+    \item \textbf{Gelaagd systeem} \\
+    TODO
+    \item \textbf{code-on-demand (optioneel)} \\
+    TODO
+\end{enumerate}
+
+\subsubsection{RESTfulness}
+Wanneer een API aan alle verplichte constraints voldoet wordt het RESTful genoemd. Als het ontwerp van een API de REST constraints volgt maar in overtreding valt van minstens 1 verplicht constraint kan het hooguit "REST-like" genoemd worden, het niet toepassen van HATEOAS is een mogelijke oorzaak hiervan 
+%todo: add reference - see reminders
+
+
+\subsection{Testen Van RESTful APIs}
+
+\subsubsection{Soorten Testen}
+\label{sec:soorten_testen}
+Bij een recente survey van gebruikte test-technieken bij 92 wetenschappelijke artikels door \textcite{Golmohammadi2023} zijn er 8 vaak voorkomende soorten tests relevant voor APIs ontdekt:
+System Testing / Security Testing /  Integration Testing /  Unit Testing /  Regression Testing / Robustness Testing /  Architecture Design Testing / 
+Acceptance Testing
+
+
+\subsubsection{Testing Tools}
+Een niet exhaustieve lijst van tools die gebruikt worden om APIs te testen getroffen bij de survey van \textcite{Golmohammadi2023}:
+RESTest / RestAssured / Swagger Schema Validator / Postman / Burp Suite / SoapUI / APIFuzzer
+
+Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uiteenlopende vereisten bij het testen van APIs. Bvb.: Postman, een client tool voor het manueel testen van APIs en het valideren van responses, Burp Suite om de security te testen. RestAssured gebruikt DSL(domain specific language) om integration testen voor Java applicaties te schrijven met leesbare syntax in de vorm van een logische given().when().then() ketting.
+
+%todo: find & source PHP+Laravel testing tools
+
+\subsubsection{Documentatie Tools}
+
+
+%todo: find & source PHP+Laravel documentation tools
+
+\subsection{OpenAPI Specification(OAS)}
+%todo: gebrik Golgohammadi insight #03
+
+%todo: also refer to martin-lopez' findings as a possible time-consuming & difficult factor while developing APIs
+
+\subsection{AI Agents}
+
+%todo: brief disambigation of what AI means -> cold be from wiki or anywhere
+%todo: brief disambiguation of LLMs
+%todo: Link
+
+\subsubsection{Integratie van LLM’s in projecten met API’s}
+
 Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
 
 Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
@@ -74,7 +146,7 @@ Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur v
 \section{Methodologie}%
 \label{sec:methodologie}
 
-In de initiele fase zal ik een literatuurstudie doen om inzichten te verwerven over het problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van Restful APIs.
+In de initiële fase zal ik een literatuurstudie doen om inzichten te verwerven over het problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van RESTful APIs.
 
 % TODO: in welke fase?
 
@@ -88,10 +160,12 @@ De POC AI-agent zal het volgende kunnen:
     \item Documentatie aanvullen or genereren
 \end{itemize}
 
-In de volgende fase zullen deze functionaliteiten van de POC agent geïmplementeerd worden, er zal ook uitgezocht worden welke soort testen er kunnen worden gedaan en met welke tools de agent kan werken om die verschillende soorten testen te doen/ondersteunen.
+In de volgende fase zullen deze functionaliteiten van de POC agent geïmplementeerd worden, er zal ook uitgezocht worden welke soort testen er kunnen worden gedaan en met welke tools de agent kan werken om die verschillende soorten testen te doen/ondersteunen. Van de relevante testmethoden \ref{sec:soorten_testen} zal er in de eerste plaats een focus zijn op unit testing, mogelijks uitbreiden naar integratie testing en
+afhankelijk van feedback mogelijks verder uitbreiden naar andere testmethodes.
 
 %todo : welke metingen? welke technieken gebruik ik om die metingen te maken?
-In de volgende fase zal ik bepaalde metingen doen met de POC agent die een mogelijke verbetering in efficiëntie van werken aan APIs moet kunnen aantonen
+In de volgende fase zal het correct werken van de verschillende functionaliteiten van de agent worden getoetst. Daarna zal
+de agent vergeleken worden met de in-house test/documentatie technieken. Mogelijke metrics: test-coverage, foutdetectie en performantie. Dit zal een mogelijke verbetering in efficiëntie van de API development / testing workflow kunnen aantonen.
 
 %todo: laatste fase
 En een laatste fase verbonden met de resultaten...
