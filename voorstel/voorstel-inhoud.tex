@@ -69,15 +69,15 @@ Rest is een architectuurstijl die staat voor \emph{Representative state transfer
 Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding2000}:
 \begin{enumerate}
     %todo: explain request-response under one of these items
-    \item \textbf{Uniforme Interface} \\
-    TODO
-    \item \textbf{Client/server-architectuur} \\
-    TODO
+    \item \textbf{Client-server} \\
+    Client-server architectuur. Seperation of concerns is het principe achter deze constraint. Het scheiden van user interface (client) en data storage (server) zorgt voor verbeterde portability en scalability. Zo kunnen de twee onafhankelijk van elkaar evolueren.
     \item \textbf{Stateless} \\
     TODO
-    \item \textbf{Cacheable} \\
+    \item \textbf{Cache} \\
+    Cachable
+    \item \textbf{Uniform Interface} \\
     TODO
-    \item \textbf{Gelaagd systeem} \\
+    \item \textbf{Layered System} \\
     TODO
     \item \textbf{code-on-demand (optioneel)} \\
     TODO
@@ -107,10 +107,22 @@ Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uite
 
 \subsubsection{Documentatie Tools}
 
+Bij HoGent hebben we reeds Swagger\footnote{\href{https://swagger.io/}{https://swagger.io/}} gebruikt om interactief te interageren met API endpoints, deze tool kan gebruikt worden om de endpoints op te lijsten en de bijhorende documentatie weer te geven, de tool kan ook gebruikt worden om requests te sturen en de responses te bekijken. Ook status codes en eventuele error berichten kunnen hiermee gecontroleerd worden.
+
+OpenAPI is de specificatie en Swagger is de tool om die specificatie te implementeren. Zo luidt de vergelijking van die twee termen volgens \autocite{Pinkham2017}
 
 %todo: find & source PHP+Laravel documentation tools
 
 \subsection{OpenAPI Specification(OAS)}
+
+De OAS is meer dan een guideline, het is zowat dé conventie die gehanteerd wordt bij het ontwikkelen van API's. Deze omschrijft onder anderen wat de correcte structuur is van API-requests \& responses. Het is belangrijk dat één werkwijze wordt gevolgd door ontwikkelaars zodat de werking van API's voorspelbaar en gebruiksvriendelijk blijft. Deze volgt REST-principes maar wordt ook up-to-date gehouden door de OpenAPI Initiative onder de Linux Foundation. \autocite{OpenAPIInitiativea}
+\begin{quotation}
+    "The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to HTTP APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service with a minimal amount of implementation logic.
+    
+    An OpenAPI Description can then be used by documentation generation tools to display the API, code generation tools to generate servers and clients in various programming languages, testing tools, and many other use cases."
+\end{quotation}
+\hfill \autocite{OpenAPIInitiative}
+
 %todo: gebrik Golgohammadi insight #03
 
 %todo: also refer to martin-lopez' findings as a possible time-consuming & difficult factor while developing APIs
@@ -149,8 +161,9 @@ Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur v
 In de initiële fase zal ik een literatuurstudie doen om inzichten te verwerven over het problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van RESTful APIs.
 
 % TODO: in welke fase?
+In de volgende fase zal ik de stand van zaken onderzoeken wat betreft reeds beschikbare AI-agents op de markt, experimenteren met lokale LLMs die beschikbaar zijn met Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}.
 
-Betreffende AI-agents zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder anderen over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke taal(en) en framework(s) ik de proof of concept zal uitwerken.
+Voor het maken van mijn eigen AI-agent zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder anderen over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke taal(en) en framework(s) ik de proof of concept zal uitwerken.
 
 De POC AI-agent zal het volgende kunnen:
 \begin{itemize}
@@ -167,8 +180,6 @@ afhankelijk van feedback mogelijks verder uitbreiden naar andere testmethodes.
 In de volgende fase zal het correct werken van de verschillende functionaliteiten van de agent worden getoetst. Daarna zal
 de agent vergeleken worden met de in-house test/documentatie technieken. Mogelijke metrics: test-coverage, foutdetectie en performantie. Dit zal een mogelijke verbetering in efficiëntie van de API development / testing workflow kunnen aantonen.
 
-%todo: laatste fase
-En een laatste fase verbonden met de resultaten...
 
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
@@ -177,5 +188,52 @@ En een laatste fase verbonden met de resultaten...
 Men verwacht dat de POC AI-Agent zal kunnen aantonen of er een meetbare verbetering is in efficiëntie van werken door het automatiseren van repetitieve taken bij het ontwikkelen en testen van RESTful APIs. Dat er kan aangetoond worden dat die automatisaties tijdsbesparend zullen zijn. Ook dat er weinig fouten zullen gebeuren bij het genereren van testcases. Er wordt een hoge test-coverage verwacht. Ook binnen de verwachtingen valt dat de agent zich houdt aan bepaalde best-practices en API-specificaties.
 
 Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan niet gebruiken van een AI-Agent bij het werken aan APIs bij IT1 en ook wat inzicht bieden over de verschillende mogelijkheden binnen de wereld van agentic workflows.
+
+\onecolumn
+\section{Mindmap}%
+\label{sec:Mindmap}
+\begin{tikzpicture}
+    \path [
+    mindmap,
+    text = white,
+    level 1 concept/.append style =
+    {font=\small\bfseries, sibling angle=90},
+    level 2 concept/.append style =
+    {font=\small\bfseries},
+    level 3 concept/.append style =
+    {font=\small\bfseries},
+    BP/.style     = {concept, ball color=blue,
+        font=\Huge\bfseries},
+    Agents/.style = {concept, ball color=green!50!black},
+    APIs/.style = {concept, ball color=blue!50!black},
+    LLMs/.style = {concept, ball color=red!90!black},
+    OpenAPI/.style = {concept, ball color=orange!90!black}
+    ]
+    node [BP] {BP} [clockwise from=0]
+    child[concept color=green!50!black, nodes={Agents}] {
+        node {Agents} [clockwise from=90]
+        child { node {Types} }
+        child { node {MCP} }
+        child { node {RAG} }
+        child { node {Workflow} }}
+    child [concept color=blue, nodes={APIs}] {
+        node {APIs} [clockwise from=300]
+        child { node {Docu.} }
+        child { node {Testen} }
+        child { node {REST} }}
+    child [concept color=red, nodes={LLMs}] {
+        node {LLMs} [clockwise from=210]
+        child { node {Modellen} [clockwise from=300]
+            child { node {X vs Y} }}
+        child { node {Prompts} [clockwise from=60]
+            child { node {Tokens} }}}
+    child [concept color=orange, nodes={OpenAPI}] {
+        node {OpenAPI} };
+\end{tikzpicture}
+
+Mindmap van Stefan Kottwitz: \href{https://www.packtpub.com/hardware-and-creative/latex-cookbook}{https://www.packtpub.com/hardware-and-creative/latex-cookbook}
+%\newpage
+%\pagebreak
+
 
 

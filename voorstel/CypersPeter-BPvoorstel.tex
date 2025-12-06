@@ -8,6 +8,13 @@
 % Let op: kan enkel na toestemming van de bachelorproefcoördinator!
 \documentclass{hogent-article}
 
+% Preamble imports
+\usepackage{hyperref}
+\usepackage[landscape]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{mindmap}
+\usepackage{metalogo}
+
 % Invoegen bibliografiebestand
 \addbibresource{voorstel.bib}
 
@@ -22,20 +29,17 @@
 
 \academicyear{2025-2026} % TODO: pas het academiejaar aan
 
-% TODO: Werktitel
 \title{Onderzoek naar de inzet van een AI-agent ter ondersteuning van het ontwikkelen en testen van RESTful API's in een agile ontwikkelomgeving bij IT1}
 
-% TODO: Studentnaam en emailadres invullen
 \author{Peter Cypers}
 \email{peter.cypers@student.hogent.be}
 
-% TODO: Medestudent
 % Gaat het om een bachelorproef in samenwerking met een student in een andere
 % opleiding? Geef dan de naam en emailadres hier
 % \author{Yasmine Alaoui (naam opleiding)}
 % \email{yasmine.alaoui@student.hogent.be}
 
-% TODO: Geef de co-promotor op
+%TODO: voeg promotor toe?
 \supervisor[Co-promotor]{Toon De Groote (IT1, \href{mailto:t.degroote@webrand.be}{t.degroote@webrand.be})}
 
 % Binnen welke specialisatierichting uit 3TI situeert dit onderzoek zich?
@@ -55,7 +59,7 @@
 \begin{document}
 %TODO Methodologie verder uitwerken
 \begin{abstract}
-  In deze bachelorproef onderzoeken we de mogelijkheden tot automatisatie van de ontwikkel- en testprocessen bij API’s, en in hoeverre dit kan ondersteund worden door een AI-agent. Het bedrijf IT1 nodigt me uit om een proof-of-concept(POC) A.I. agent te ontwikkelen met/mbv [todo] [... Methodologie (1: hoe-AGENT maken/gebruiken) \& (2:gebruikte tech.) \& (3:hoe success meten) ... ] De agent zal belangrijke taken kunnen uitvoeren zoals het interpreteren van API-specificaties, het automatisch genereren van testcases, analyseren van foutmeldingen en eventueel documentatie aanvult of genereert. De uitwerking van de POC AI-agent zal aanwijzen of het inzetten van een gelijkaardige AI-agent de efficientie van het API development process al dan niet kan optimaliseren.
+  In deze bachelorproef onderzoeken we de mogelijkheden tot automatisatie van de ontwikkel- en testprocessen bij API’s, en in hoeverre dit kan ondersteund worden door een AI-agent. Het bedrijf IT1 nodigt me uit om een proof-of-concept(POC) A.I. agent te ontwikkelen. Ik zal een keuze maken uit beschikbare agent development mogelijkheden, er bestaan no-/lowcode agent build platvormen en SDK's(software development kits) die ik kan gebruiken. Mogelijke opties verkennen omtrent het gebruik van MCP(Model Context Protocol)-tools ...(verbinden met AI-apis? bvb Anthropic) [todo] [... Methodologie (1: hoe-AGENT maken/gebruiken) \& (2:gebruikte tech.) \& (3:hoe success meten) ... ] De agent zal belangrijke taken kunnen uitvoeren zoals het interpreteren van API-specificaties, het automatisch genereren van testcases, analyseren van foutmeldingen en eventueel documentatie aanvult of genereert. De uitwerking van de POC AI-agent zal aanwijzen of het inzetten van een gelijkaardige AI-agent de efficientie van het API development process al dan niet kan optimaliseren.
 \end{abstract}
 
 \tableofcontents
