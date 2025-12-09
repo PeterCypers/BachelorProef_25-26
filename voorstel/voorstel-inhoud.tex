@@ -38,19 +38,6 @@ Het doel van dit onderzoek is om na te gaan in welke mate een AI-agent kan bijdr
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
-Citation-test
-\begin{itemize}
-    \item \autocite{Ehsan2022}
-    \item \autocite{Golmohammadi2023}
-    \item \autocite{Kim2023}
-    \item \autocite{NavarathnaMudiyanselage2024}
-    \item \autocite{Fielding2000}
-    \item \autocite{IBMTech2025}
-    \item \autocite{Gutowska2025}
-    \item \autocite{Martin-Lopez2022}
-    \item \autocite{AnthropicMCP2025}
-\end{itemize}
-
 \subsection{Wat zijn REST APIs?}
 %todo: bijlezen van Fielding: focus op API disambiguation & REST principes
 API staat voor \emph{Application Programming Interface}. Dit is een
@@ -61,7 +48,7 @@ software laat werken.
 
 Volgens \textcite{Fielding2000} gebruikt het moderne internet HTTP als een network-based Application Programming Interface (API).
 
-Rest is een architectuurstijl die staat voor \emph{Representative state transfer}. Dit omschrijft een reeks van constraints die een soort best practice opstellen voor het gebruiken van APIs. De term REST wordt toegewezen aan en komt uit het werk van Roy \textcite{Fielding2000}
+Rest is een architectuurstijl die staat voor \emph{Representative state transfer}. Dit omschrijft een reeks van constraints die een soort best practice opstellen voor het gebruiken van APIs. De term REST wordt toegewezen aan en komt uit het werk van Roy \textcite{Fielding2000}.
 
 %todo: fill in the 6 principles
 \subsubsection{REST-Principes/-constraints:}
@@ -72,27 +59,34 @@ Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding200
     \item \textbf{Client-server} \\
     Client-server architectuur. Seperation of concerns is het principe achter deze constraint. Het scheiden van user interface (client) en data storage (server) zorgt voor verbeterde portability en scalability. Zo kunnen de twee onafhankelijk van elkaar evolueren.
     \item \textbf{Stateless} \\
-    TODO
+    Een extra constraint die aan de client-server constraint wordt toegevoegd, namelijk dat deze interactie stateless moet zijn. Ten eerste moet een request vanuit de client alle nodige informatie bevatten zodat de server die request kan begrijpen. Het kan niet dat een request gebruik moet maken van context(vb: info van die client) dat opgeslagen is op de server. Stateless in het kort: De client bevat alle nodige (session)state, server is stateless (client-stateless-server CSS-style).
     \item \textbf{Cache} \\
-    Cachable
+    Cachable data. De REST API moet caching van vaak gevraagde data mogelijk maken om latency(vertraging) en serverbelasting te verminderen. De API moet identificeren wat cachable resources zijn wie ze kan cachen en hoe lang ze in de cache blijven. Dus een response moet impliciet of expliciet gelabeld worden als wel/niet cachable (client-cache-stateless-server style).
     \item \textbf{Uniform Interface} \\
-    TODO
+    De hoofdzaak bij REST, het zijn deze principes die zorgen voor een uniforme interactie(interface) tussen netwerk-componenten(vb. Browser -> Servers/gateways). Er zijn 4 architecturele beperkingen nodig om het gedrag van componenten vast te leggen:
+    \begin{enumerate}[label*=\arabic*.]
+        \item \textbf{Identificatie van resources}
+        Een request identificeert een resource door gebruik te maken van URI's (Uniform Resource Identifiers).
+        \item \textbf{Manipulatie van resources door representatie} (JSON, XML,...). Deze bevatten genoeg info om de resource aan te passen.
+        \item \textbf{Zelf-omschrijvende berichten}
+        Een bericht (request of response) bevat genoeg info om te weten wat deze doet. Gebruikmaken van descriptieve HTTP-methodes en headers(vb: POST/GET, Content-Type: text/plain).
+        \item \textbf{Hypermedia as the Engine of Application State(HATEOAS)}
+        Clients kunnen dynamisch navigeren met behulp van info verkregen in server responses. (zoals links naar verdere webpages)
+    \end{enumerate}
     \item \textbf{Layered System} \\
-    TODO
+    Het systeem waarmee de client interageert is schaalbaar, deze is een gelaagd en hiërarchisch systeem, elke component "ziet" niet verder dan de lagen waarmee die direct in contact is. Zo kunnen er lagen(vb. services) toegevoegd of verwijderd worden 
     \item \textbf{code-on-demand (optioneel)} \\
-    TODO
+    Het uitbreiden van client functionaliteiten door code of uitvoerbare scripts mee te sturen in server-responses.
 \end{enumerate}
 
 \subsubsection{RESTfulness}
-Wanneer een API aan alle verplichte constraints voldoet wordt het RESTful genoemd. Als het ontwerp van een API de REST constraints volgt maar in overtreding valt van minstens 1 verplicht constraint kan het hooguit "REST-like" genoemd worden, het niet toepassen van HATEOAS is een mogelijke oorzaak hiervan 
-%todo: add reference - see reminders
-
+Wanneer een API aan alle verplichte constraints voldoet wordt het RESTful genoemd. Als het ontwerp van een API de REST constraints volgt maar in overtreding valt van minstens 1 verplicht constraint kan het hooguit "REST-like" genoemd worden, het niet toepassen van HATEOAS is een mogelijke oorzaak hiervan \autocite{Bush2020}.
 
 \subsection{Testen Van RESTful APIs}
 
 \subsubsection{Soorten Testen}
 \label{sec:soorten_testen}
-Bij een recente survey van gebruikte test-technieken bij 92 wetenschappelijke artikels door \textcite{Golmohammadi2023} zijn er 8 vaak voorkomende soorten tests relevant voor APIs ontdekt:
+Bij een recente survey van gebruikte testtechnieken bij 92 wetenschappelijke artikels door \textcite{Golmohammadi2023} zijn er 8 vaak voorkomende soorten tests relevant voor APIs ontdekt:
 System Testing / Security Testing /  Integration Testing /  Unit Testing /  Regression Testing / Robustness Testing /  Architecture Design Testing / 
 Acceptance Testing
 
@@ -101,7 +95,7 @@ Acceptance Testing
 Een niet exhaustieve lijst van tools die gebruikt worden om APIs te testen getroffen bij de survey van \textcite{Golmohammadi2023}:
 RESTest / RestAssured / Swagger Schema Validator / Postman / Burp Suite / SoapUI / APIFuzzer
 
-Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uiteenlopende vereisten bij het testen van APIs. Bvb.: Postman, een client tool voor het manueel testen van APIs en het valideren van responses, Burp Suite om de security te testen. RestAssured gebruikt DSL(domain specific language) om integration testen voor Java applicaties te schrijven met leesbare syntax in de vorm van een logische given().when().then() ketting.
+Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uiteenlopende vereisten bij het testen van APIs. Vb.: Postman, een client tool voor het manueel testen van APIs en het valideren van responses, Burp Suite om de security te testen. RestAssured gebruikt DSL(domain specific language) om integration testen voor Java applicaties te schrijven met leesbare syntax in de vorm van een logische \\ given().when().then() ketting.
 
 %todo: find & source PHP+Laravel testing tools
 
@@ -109,7 +103,7 @@ Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uite
 
 Bij HoGent hebben we reeds Swagger\footnote{\href{https://swagger.io/}{https://swagger.io/}} gebruikt om interactief te interageren met API endpoints, deze tool kan gebruikt worden om de endpoints op te lijsten en de bijhorende documentatie weer te geven, de tool kan ook gebruikt worden om requests te sturen en de responses te bekijken. Ook status codes en eventuele error berichten kunnen hiermee gecontroleerd worden.
 
-OpenAPI is de specificatie en Swagger is de tool om die specificatie te implementeren. Zo luidt de vergelijking van die twee termen volgens \autocite{Pinkham2017}
+OpenAPI is de specificatie en Swagger is de tool om die specificatie te implementeren. Zo luidt de vergelijking van die twee termen volgens \autocite{Pinkham2017}.
 
 %todo: find & source PHP+Laravel documentation tools
 
@@ -121,29 +115,93 @@ De OAS is meer dan een guideline, het is zowat dé conventie die gehanteerd word
     
     An OpenAPI Description can then be used by documentation generation tools to display the API, code generation tools to generate servers and clients in various programming languages, testing tools, and many other use cases."
 \end{quotation}
-\hfill \autocite{OpenAPIInitiative}
+\hfill \autocite{OpenAPIInitiative} \\
 
-%todo: gebrik Golgohammadi insight #03
+Volgens het onderzoek van \textcite{Martin-Lopez2022} waren de helft van de gevonden fouten disconformiteiten tussen API-responses en hun specificaties(F\_OAS). 
 
-%todo: also refer to martin-lopez' findings as a possible time-consuming & difficult factor while developing APIs
+Dit toont het belang aan van het volgen van de OAS bij het ontwerpen en testen van REST APIs.
 
-\subsection{AI Agents}
+\subsection{AI \& LLMs}
+\textbf{todo}
 
+Het verschil tussen AI(Artificiële Intelligentie) en LLMs(Large Language Models), AI is een bredere term, LLMs gaat specifiek over ...TODO
 %todo: brief disambigation of what AI means -> cold be from wiki or anywhere
 %todo: brief disambiguation of LLMs
 %todo: Link
 
-\subsubsection{Integratie van LLM’s in projecten met API’s}
+\subsection{AI Agents}
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
+\subsubsection{Wat zijn AI-Agents?}
+Volgens \textcite{Masterman2024} kunnen \textbf{Agents} zo omschreven worden:
+Een AI agent is een LLM-gestuurde entiteit die planningen kan maken, acties ondernemen en doelen verwezenlijken over meerdere iteraties heen. AI-agent architectuur bestaat uit één of meerdere agents die samenwerken om een probleem op te lossen \autocite{Masterman2024}.
 
-Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
+Er bestaat een verschil tussen het prompten van LLMs zoals ChatGPT en het gebruiken van agents, ook wel te omschrijven als non-agentic vs agentic workflow \autocite{Dilmegani2025}. Bij non-agentic workflows genereert een LLM een output na het ontvangen van een prompt. Dit kan bijvoorbeeld via een text input vanuit een user interface (zoals het prompten van ChatGPT via de browser). Bij agentic workflows heb je AI-gedreven processen waarbij agents autonome beslissingen maken en taken vervullen, dit kan met minimale menselijke input \autocite{Dilmegani2025}.
 
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom.
+Een voorbeeld van een \textbf{agentic workflow} volgens \textcite{Dilmegani2025}:
+\begin{enumerate}
+    \item \textbf{Gebruiker query:} De gebruiker stelt een vraag.
+    \item \textbf{LLM analyse:} De LLM interpreteert de vraag en stelt vast of er externe tools nodig zijn.
+    \item \textbf{Externe tool activatie:} Een zoek-tool haalt real-time informatie op.
+    \item \textbf{Response creatie:} De LLM combineert de data en stuurt een gepast response terug. 
+\end{enumerate}
 
-Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron.
+In de context van AI-agents zijn \textbf{Tools} functies die de agent kan oproepen en dit laat hen toe om data van die bron te ontvangen of naar die bron te sturen \autocite{Masterman2024}.
 
-Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
+\textbf{Single Agent Architectures:} Deze architectuur wordt gestuurd door één LLM die alle denkwerk, planning en tool gebruik zelf kan regelen, er is geen feedback mechanisme naar andere agenten met deze architectuur. Het is wel mogelijk voor de gebruiker om sturende feedback aan deze agent te geven. \autocite{Masterman2024}
+
+\textbf{Multi Agent Architectures:} Deze architectuur omvat steeds meer dan 1 AI agent, ze kunnen dezelfde of verschillende LLMs gebruiken, ze kunnen dezelfde maar ook verschillende tools ter beschikking hebben, elke agent heeft hier zijn eigen persona. Binnen deze architectuur heb je typisch twee verschillende stromen:
+\begin{enumerate}
+    \item \textbf{Vertical Architecture:} In deze architectuur heb je één agent die zich als leider gedraagt terwijl de anderen rechtstreeks aan deze agent rapporteren. Er bestaat een duidelijke onderscheid tussen de lead-agent en de agents die eronder staan.
+    \item \textbf{Horizontal Architecture:} In deze architectuur heb je een groep van agents die als gelijken een groeps-discussie kunnen voeren over een bepaalde taak, ze kunnen elkaars berichten zien. De agents kunnen zich elk als vrijwilliger aanbieden om bepaalde taken of tool calls te doen. Dit is vooral nuttig als samenwerking en discussie belangrijk zijn om een taak succesvol te vervullen.
+\end{enumerate}
+\hfill \autocite{Masterman2024} \\
+
+Multi Agent Architecture kan ook gezien worden als een agentic design-patroon.
+
+\subsubsection{Agentic design patterns}
+% use: https://research.aimultiple.com/agentic-ai-design-patterns/
+% Dilmegani2025
+
+% single vs multiple -> use Masterman2024
+% Single Agent Pattern
+% Multi Agent Pattern
+% sub: Vertical vs Horizontal
+
+
+Volgens \textcite{Dilmegani2025} zijn er 4 agentic design patterns:
+\begin{enumerate}
+    \item \textbf{Reflection pattern:} Dit is een patroon waar de agent zijn eigen output evalueert en probeert om in verdere iteraties(volgende gesprekken) zichzelf te verbeteren (vb. Github Copilot).
+    \item \textbf{Tool use pattern:} Laat agents toe om te interageren met externe tools en resources. Protocollen zoals Model Context Protocol(\textbf{MCP}) helpen dit proces te standaardiseren.  Dit laat toe dat de AI buiten zijn bestaande trainings- data kan bewegen om bijvoorbeeld via APIs toegang tot externe informatie te krijgen en dit te gebruiken om betere responses te genereren.
+    \item \textbf{Planning pattern:} Laat agents toe om grote taken te ontleden in kleinere subtaken en deze te organiseren in een logische sequentie die lineair of parallel uitgevoerd zullen worden.
+    \item \textbf{Multi-agent pattern:} Dit patroon heeft een focus op taak-delegatie waarbij verschillende agents verschillende taken kunnen vervullen. De flow van infromatie tussen deze agents gebeurt volgens Agent-to-Agent(A2A) protocollen, vb. \textbf{Google A2A protocol}\footnote{\href{https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/}{https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/}}. Andere multi-agent voorbeelden: AutoGen / LangChain / ChatDev / OpenAI Swarm
+\end{enumerate}
+
+\subsubsection{MCP}
+\textbf{todo}
+\subsubsection{RAG}
+\textbf{todo}
+\subsubsection{Integratie van LLM API's in projecten}
+
+Volgens \autocite{IBM} gedragen APIs zich als tolken tussen LLMs en AI applicaties en zorgen ervoor dat ze elkaar kunnen verstaan, dat maakt de integratie van NLP(Natural Language Processing) functionaliteiten mogelijk binnen software systemen.
+
+Met behulp van LLM APIs kunnen AI modellen meehelpen in business workflows zoals bijvoorbeeld een customer service chatbot met een LLM kan verbonden worden om betere responses te geven, of ze kunnen hun AI coding assistent verbinden met een LLM voor robuustere code analyse en codegeneration \autocite{IBM}.
+
+Volgens \autocite{IBM} werken LLM APIs zo:
+\begin{enumerate}
+    \item Een applicatie stuurt een request, meestal in de vorm van een HTTP-request naar de API. Vooraleer deze doorgestuurd wordt zal die eerst geconverteerd worden naar het verwachte formaat, meestal JSON. Dit bevat informatie zoals het model variant, de prompt zelf en mogelijks nog andere parameters
+    \item Nadat de API de request ontvangt wordt deze doorgestuurd naar de LLM voor verdere verwerking.
+    \item De machine learning model gebruikt zijn NLP skills(content generation, question answering, sentiment analysis, text generation of text summarization) om een response terug naar de API te sturen.
+    \item De API stuurt de response terug naar de applicatie.
+\end{enumerate}
+
+Om toegang te krijgen tot LLM APIs moeten gebruikers zich bij een provider aanmelden en API-keys genereren voor authenticatie \autocite{IBM}. 
+
+\subsubsection{Tokens}
+LLMs verwerken prompts door de gebruiker input(en eventueel bijkomende context) in tokens op te splitsen, die worden door het model verwerkt om een toepasselijke response terug te sturen. Het doorsturen van tokens naar LLM APIs komt met een bepaalde prijskaartje.
+
+Bijvoorbeeld bij Azure AI Foundry Models Pricing\footnote{\href{https://azure.microsoft.com/en-us/pricing/details/ai-foundry-models/microsoft/}{https://azure.microsoft.com/en-us/pricing/details/ai-foundry-models/microsoft/}} zien we een input token kost en een output token kost, per duizend tokens.
+
+We kunnen zelf uitproberen hoeveel tokens er gebruikt worden bij een bepaalde prompt. Dit kan door gebruik te maken van OpenAI's Tokenizer\footnote{\href{https://platform.openai.com/tokenizer}{https://platform.openai.com/tokenizer}}, achter de schermen gebruikt deze tiktoken\footnote{\href{https://github.com/openai/tiktoken}{https://github.com/openai/tiktoken}}, een tokeniser die we ook lokaal kunnen installeren om hetzelfde offline te verwezenlijken. Deze werken uitsluitend met de modellen van OpenAI, bv.: GPT-4 en GPT-4o mini.
 
 % Voor literatuurverwijzingen zijn er twee belangrijke commando's:
 % \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
@@ -151,24 +209,20 @@ Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle no
 % \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
 %   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
 %   ...'')
-
-Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
-
 %---------- Methodologie ------------------------------------------------------
 \section{Methodologie}%
 \label{sec:methodologie}
 
 In de initiële fase zal ik een literatuurstudie doen om inzichten te verwerven over het problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van RESTful APIs.
 
-% TODO: in welke fase?
 In de volgende fase zal ik de stand van zaken onderzoeken wat betreft reeds beschikbare AI-agents op de markt, experimenteren met lokale LLMs die beschikbaar zijn met Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}.
 
 Voor het maken van mijn eigen AI-agent zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder anderen over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke taal(en) en framework(s) ik de proof of concept zal uitwerken.
 
 De POC AI-agent zal het volgende kunnen:
 \begin{itemize}
-    \item API-specificaties interpreteren (bvb.: Swagger/OpenAPI)
-    \item Automatisch testcases genereren (bvb.: met Postman of via Python/JavaScript)
+    \item API-specificaties interpreteren (vb. Swagger/OpenAPI)
+    \item Automatisch testcases genereren (vb. met Postman of via Python/JavaScript)
     \item Foutmeldingen analyseren en suggesties geven
     \item Documentatie aanvullen or genereren
 \end{itemize}
@@ -232,6 +286,8 @@ Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan 
 \end{tikzpicture}
 
 Mindmap van Stefan Kottwitz: \href{https://www.packtpub.com/hardware-and-creative/latex-cookbook}{https://www.packtpub.com/hardware-and-creative/latex-cookbook}
+
+\twocolumn
 %\newpage
 %\pagebreak
 
