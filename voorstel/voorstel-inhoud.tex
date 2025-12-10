@@ -15,31 +15,30 @@
 \section{Inleiding}%
 \label{sec:inleiding}
 
-In moderne softwareontwikkeling zijn API's een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze API's vereist echter veel repetitieve en technische handelingen zoals het schrijven van testcases, het valideren van responses, en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Er is nood aan een intelligente assistent die deze taken kan ondersteunen of deels automatiseren. De vraag rijst of een AI-agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, hierin een rol kan spelen.
+In moderne softwareontwikkeling zijn APIs een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze APIs vereist echter veel repetitieve en technische handelingen zoals het schrijven van testcases, het valideren van responses, en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Er is nood aan een intelligente assistent die deze taken kan ondersteunen of deels automatiseren. De vraag rijst of een AI agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, hierin een rol kan spelen.
 
-De onderzoeksvraag vanuit mijn stagebedrijf IT1 luidt als volgt: \emph{Hoe kan een AI-agent bijdragen aan het ondersteunen van het ontwikkel- en testproces van RESTful API's binnen een agile softwareontwikkeltraject?} 
+De onderzoeksvraag vanuit mijn stagebedrijf IT1 luidt als volgt: \emph{Hoe kan een AI agent bijdragen aan het ondersteunen van het ontwikkel- en testproces van RESTful APIs binnen een agile softwareontwikkeltraject?} 
 
 Hieronder is het probleem opgesplitst in een aantal deelvragen die zullen bijdragen tot een uitwerking van de hoofdonderzoeksvraag:
 
 \begin{itemize}
-  \item Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van RESTful API's?
+  \item Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van RESTful APIs?
   \item Welke taken binnen dit proces zijn het meest repetitief of foutgevoelig?
   \item Welke bestaande tools en frameworks worden momenteel gebruikt voor API
   testing en documentatie?
   \item Welke AI-technieken (bv. LLMs, NLP, code generation) zijn geschikt om deze taken te ondersteunen?
-  \item Hoe kan een AI-agent geïntegreerd worden in een bestaande ontwikkelworkflow?
-  \item Wat zijn de beperkingen en risico’s van het inzetten van een AI-agent in dit domein?
+  \item Hoe kan een AI agent geïntegreerd worden in een bestaande ontwikkelworkflow?
+  \item Wat zijn de beperkingen en risico’s van het inzetten van een AI agent in dit domein?
 \end{itemize}
 
-Het doel van dit onderzoek is om na te gaan in welke mate een AI-agent kan bijdragen aan het efficiënter ontwikkelen en testen van RESTful API's. Dit gebeurt door het analyseren van bestaande tools, het ontwikkelen van een proof-of-concept AI-agent en het evalueren van de impact ervan op het ontwikkelproces binnen een afgebakend scenario.
+Het doel van dit onderzoek is om na te gaan in welke mate een AI agent kan bijdragen aan het efficiënter ontwikkelen en testen van RESTful APIs. Dit gebeurt door het analyseren van bestaande tools, het ontwikkelen van een proof-of-concept AI agent en het evalueren van de impact ervan op het ontwikkelproces binnen een afgebakend scenario.
 
 %---------- Stand van zaken ---------------------------------------------------
 
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
 
-\subsection{Wat zijn REST APIs?}
-%todo: bijlezen van Fielding: focus op API disambiguation & REST principes
+\subsection{Wat zijn REST API's?}
 API staat voor \emph{Application Programming Interface}. Dit is een
 software-interface die het mogelijk maakt dat twee
 applicaties met elkaar kunnen communiceren. Dit in
@@ -50,31 +49,29 @@ Volgens \textcite{Fielding2000} gebruikt het moderne internet HTTP als een netwo
 
 Rest is een architectuurstijl die staat voor \emph{Representative state transfer}. Dit omschrijft een reeks van constraints die een soort best practice opstellen voor het gebruiken van APIs. De term REST wordt toegewezen aan en komt uit het werk van Roy \textcite{Fielding2000}.
 
-%todo: fill in the 6 principles
 \subsubsection{REST-Principes/-constraints:}
 
 Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding2000}:
 \begin{enumerate}
-    %todo: explain request-response under one of these items
     \item \textbf{Client-server} \\
     Client-server architectuur. Seperation of concerns is het principe achter deze constraint. Het scheiden van user interface (client) en data storage (server) zorgt voor verbeterde portability en scalability. Zo kunnen de twee onafhankelijk van elkaar evolueren.
     \item \textbf{Stateless} \\
-    Een extra constraint die aan de client-server constraint wordt toegevoegd, namelijk dat deze interactie stateless moet zijn. Ten eerste moet een request vanuit de client alle nodige informatie bevatten zodat de server die request kan begrijpen. Het kan niet dat een request gebruik moet maken van context(vb: info van die client) dat opgeslagen is op de server. Stateless in het kort: De client bevat alle nodige (session)state, server is stateless (client-stateless-server CSS-style).
+    Een extra constraint die aan de client-server constraint wordt toegevoegd, namelijk dat deze interactie stateless moet zijn. Ten eerste moet een request vanuit de client alle nodige informatie bevatten zodat de server die request kan begrijpen. Het kan niet dat een request gebruik moet maken van context (vb: info van die client) dat opgeslagen is op de server. Stateless in het kort: De client bevat alle nodige (session)state, server is stateless (client-stateless-server CSS-style).
     \item \textbf{Cache} \\
-    Cachable data. De REST API moet caching van vaak gevraagde data mogelijk maken om latency(vertraging) en serverbelasting te verminderen. De API moet identificeren wat cachable resources zijn wie ze kan cachen en hoe lang ze in de cache blijven. Dus een response moet impliciet of expliciet gelabeld worden als wel/niet cachable (client-cache-stateless-server style).
+    Cachable data. De REST API moet caching van vaak gevraagde data mogelijk maken om latency (vertraging) en serverbelasting te verminderen. De API moet identificeren wat cachable resources zijn wie ze kan cachen en hoe lang ze in de cache blijven. Dus een response moet impliciet of expliciet gelabeld worden als wel/niet cachable (client-cache-stateless-server style).
     \item \textbf{Uniform Interface} \\
-    De hoofdzaak bij REST, het zijn deze principes die zorgen voor een uniforme interactie(interface) tussen netwerk-componenten(vb. Browser -> Servers/gateways). Er zijn 4 architecturele beperkingen nodig om het gedrag van componenten vast te leggen:
+    De hoofdzaak bij REST, het zijn deze principes die zorgen voor een uniforme interactie (interface) tussen netwerk-componenten (vb. Browser -> Servers/gateways). Er zijn 4 architecturele beperkingen nodig om het gedrag van componenten vast te leggen:
     \begin{enumerate}[label*=\arabic*.]
         \item \textbf{Identificatie van resources}
         Een request identificeert een resource door gebruik te maken van URI's (Uniform Resource Identifiers).
         \item \textbf{Manipulatie van resources door representatie} (JSON, XML,...). Deze bevatten genoeg info om de resource aan te passen.
         \item \textbf{Zelf-omschrijvende berichten}
-        Een bericht (request of response) bevat genoeg info om te weten wat deze doet. Gebruikmaken van descriptieve HTTP-methodes en headers(vb: POST/GET, Content-Type: text/plain).
-        \item \textbf{Hypermedia as the Engine of Application State(HATEOAS)}
+        Een bericht (request of response) bevat genoeg info om te weten wat deze doet. Gebruikmaken van descriptieve HTTP-methodes en headers (vb: POST/GET, Content-Type: text/plain).
+        \item \textbf{Hypermedia as the Engine of Application State (HATEOAS)}
         Clients kunnen dynamisch navigeren met behulp van info verkregen in server responses. (zoals links naar verdere webpages)
     \end{enumerate}
     \item \textbf{Layered System} \\
-    Het systeem waarmee de client interageert is schaalbaar, deze is een gelaagd en hiërarchisch systeem, elke component "ziet" niet verder dan de lagen waarmee die direct in contact is. Zo kunnen er lagen(vb. services) toegevoegd of verwijderd worden 
+    Het systeem waarmee de client interageert is schaalbaar, deze is een gelaagd en hiërarchisch systeem, elke component "ziet" niet verder dan de lagen waarmee die direct in contact is. Zo kunnen er lagen (vb. services) toegevoegd of verwijderd worden 
     \item \textbf{code-on-demand (optioneel)} \\
     Het uitbreiden van client functionaliteiten door code of uitvoerbare scripts mee te sturen in server-responses.
 \end{enumerate}
@@ -95,7 +92,7 @@ Acceptance Testing
 Een niet exhaustieve lijst van tools die gebruikt worden om APIs te testen getroffen bij de survey van \textcite{Golmohammadi2023}:
 RESTest / RestAssured / Swagger Schema Validator / Postman / Burp Suite / SoapUI / APIFuzzer
 
-Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uiteenlopende vereisten bij het testen van APIs. Vb.: Postman, een client tool voor het manueel testen van APIs en het valideren van responses, Burp Suite om de security te testen. RestAssured gebruikt DSL(domain specific language) om integration testen voor Java applicaties te schrijven met leesbare syntax in de vorm van een logische \\ given().when().then() ketting.
+Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uiteenlopende vereisten bij het testen van APIs. Vb.: Postman, een client tool voor het manueel testen van APIs en het valideren van responses, Burp Suite om de security te testen. RestAssured gebruikt DSL (domain specific language) om integration testen voor Java applicaties te schrijven met leesbare syntax in de vorm van een logische \\ given().when().then() ketting.
 
 %todo: find & source PHP+Laravel testing tools
 
@@ -107,9 +104,9 @@ OpenAPI is de specificatie en Swagger is de tool om die specificatie te implemen
 
 %todo: find & source PHP+Laravel documentation tools
 
-\subsection{OpenAPI Specification(OAS)}
+\subsection{OpenAPI Specification (OAS)}
 
-De OAS is meer dan een guideline, het is zowat dé conventie die gehanteerd wordt bij het ontwikkelen van API's. Deze omschrijft onder anderen wat de correcte structuur is van API-requests \& responses. Het is belangrijk dat één werkwijze wordt gevolgd door ontwikkelaars zodat de werking van API's voorspelbaar en gebruiksvriendelijk blijft. Deze volgt REST-principes maar wordt ook up-to-date gehouden door de OpenAPI Initiative onder de Linux Foundation. \autocite{OpenAPIInitiativea}
+De OAS is meer dan een guideline, het is zowat dé conventie die gehanteerd wordt bij het ontwikkelen van APIs. Deze omschrijft onder andere wat de correcte structuur is van API-requests \& responses. Het is belangrijk dat één werkwijze wordt gevolgd door ontwikkelaars zodat de werking van APIs voorspelbaar en gebruiksvriendelijk blijft. Deze volgt REST-principes maar wordt ook up-to-date gehouden door de OpenAPI Initiative onder de Linux Foundation. \autocite{OpenAPIInitiativea}
 \begin{quotation}
     "The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to HTTP APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service with a minimal amount of implementation logic.
     
@@ -117,23 +114,24 @@ De OAS is meer dan een guideline, het is zowat dé conventie die gehanteerd word
 \end{quotation}
 \hfill \autocite{OpenAPIInitiative} \\
 
-Volgens het onderzoek van \textcite{Martin-Lopez2022} waren de helft van de gevonden fouten disconformiteiten tussen API-responses en hun specificaties(F\_OAS). 
+Volgens het onderzoek van \textcite{Martin-Lopez2022} waren de helft van de gevonden fouten disconformiteiten tussen API-responses en hun specificaties (F\_OAS). 
 
 Dit toont het belang aan van het volgen van de OAS bij het ontwerpen en testen van REST APIs.
 
-\subsection{AI \& LLMs}
-\textbf{todo}
+% verplaatst naar de BP zelf
+%\subsection{AI \& LLMs}
 
-Het verschil tussen AI(Artificiële Intelligentie) en LLMs(Large Language Models), AI is een bredere term, LLMs gaat specifiek over ...TODO
-%todo: brief disambigation of what AI means -> cold be from wiki or anywhere
-%todo: brief disambiguation of LLMs
-%todo: Link
+
 
 \subsection{AI Agents}
 
+Over de concepten van Artificiële Intelligentie (AI) en Large Language Models (LLMs) zal ik nu nog niet verder uitweiden. Eerst een toespitsing op Agents.
+
+Toch even LLMs in het kort: Een gesimplificeerde omschrijving zou zijn dat een \textbf{LLM} een zeer sterke autocomplete machine is dat een bepaalde hoeveelheid trainings-data verwerkt heeft om op een input te kunnen reageren gebruik makend van dat uitgebreide arsenaal aan informatie en tracht een zo nauwkeurig mogelijk antwoord als een puzzel samen te stellen en dan terug te sturen als response.
+
 \subsubsection{Wat zijn AI-Agents?}
 Volgens \textcite{Masterman2024} kunnen \textbf{Agents} zo omschreven worden:
-Een AI agent is een LLM-gestuurde entiteit die planningen kan maken, acties ondernemen en doelen verwezenlijken over meerdere iteraties heen. AI-agent architectuur bestaat uit één of meerdere agents die samenwerken om een probleem op te lossen \autocite{Masterman2024}.
+Een AI agent is een LLM-gestuurde entiteit die planningen kan maken, acties ondernemen en doelen verwezenlijken over meerdere iteraties heen. AI agent architectuur bestaat uit één of meerdere agents die samenwerken om een probleem op te lossen \autocite{Masterman2024}.
 
 Er bestaat een verschil tussen het prompten van LLMs zoals ChatGPT en het gebruiken van agents, ook wel te omschrijven als non-agentic vs agentic workflow \autocite{Dilmegani2025}. Bij non-agentic workflows genereert een LLM een output na het ontvangen van een prompt. Dit kan bijvoorbeeld via een text input vanuit een user interface (zoals het prompten van ChatGPT via de browser). Bij agentic workflows heb je AI-gedreven processen waarbij agents autonome beslissingen maken en taken vervullen, dit kan met minimale menselijke input \autocite{Dilmegani2025}.
 
@@ -145,7 +143,7 @@ Een voorbeeld van een \textbf{agentic workflow} volgens \textcite{Dilmegani2025}
     \item \textbf{Response creatie:} De LLM combineert de data en stuurt een gepast response terug. 
 \end{enumerate}
 
-In de context van AI-agents zijn \textbf{Tools} functies die de agent kan oproepen en dit laat hen toe om data van die bron te ontvangen of naar die bron te sturen \autocite{Masterman2024}.
+In de context van AI agents zijn \textbf{Tools} functies die de agent kan oproepen en dit laat hen toe om data van die bron te ontvangen of naar die bron te sturen \autocite{Masterman2024}.
 
 \textbf{Single Agent Architectures:} Deze architectuur wordt gestuurd door één LLM die alle denkwerk, planning en tool gebruik zelf kan regelen, er is geen feedback mechanisme naar andere agenten met deze architectuur. Het is wel mogelijk voor de gebruiker om sturende feedback aan deze agent te geven. \autocite{Masterman2024}
 
@@ -170,19 +168,23 @@ Multi Agent Architecture kan ook gezien worden als een agentic design-patroon.
 
 Volgens \textcite{Dilmegani2025} zijn er 4 agentic design patterns:
 \begin{enumerate}
-    \item \textbf{Reflection pattern:} Dit is een patroon waar de agent zijn eigen output evalueert en probeert om in verdere iteraties(volgende gesprekken) zichzelf te verbeteren (vb. Github Copilot).
-    \item \textbf{Tool use pattern:} Laat agents toe om te interageren met externe tools en resources. Protocollen zoals Model Context Protocol(\textbf{MCP}) helpen dit proces te standaardiseren.  Dit laat toe dat de AI buiten zijn bestaande trainings- data kan bewegen om bijvoorbeeld via APIs toegang tot externe informatie te krijgen en dit te gebruiken om betere responses te genereren.
+    \item \textbf{Reflection pattern:} Dit is een patroon waar de agent zijn eigen output evalueert en probeert om in verdere iteraties (volgende gesprekken) zichzelf te verbeteren (vb. Github Copilot).
+    \item \textbf{Tool use pattern:} Laat agents toe om te interageren met externe tools en resources. Protocollen zoals Model Context Protocol (\textbf{MCP}) helpen dit proces te standaardiseren.  Dit laat toe dat de AI buiten zijn bestaande trainings- data kan bewegen om bijvoorbeeld via APIs toegang tot externe informatie te krijgen en dit te gebruiken om betere responses te genereren.
     \item \textbf{Planning pattern:} Laat agents toe om grote taken te ontleden in kleinere subtaken en deze te organiseren in een logische sequentie die lineair of parallel uitgevoerd zullen worden.
-    \item \textbf{Multi-agent pattern:} Dit patroon heeft een focus op taak-delegatie waarbij verschillende agents verschillende taken kunnen vervullen. De flow van infromatie tussen deze agents gebeurt volgens Agent-to-Agent(A2A) protocollen, vb. \textbf{Google A2A protocol}\footnote{\href{https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/}{https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/}}. Andere multi-agent voorbeelden: AutoGen / LangChain / ChatDev / OpenAI Swarm
+    \item \textbf{Multi-agent pattern:} Dit patroon heeft een focus op taak-delegatie waarbij verschillende agents verschillende taken kunnen vervullen. De flow van infromatie tussen deze agents gebeurt volgens Agent-to-Agent (A2A) protocollen, vb. \textbf{Google A2A protocol}\footnote{\href{https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/}{https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/}}. Andere multi-agent voorbeelden: AutoGen / LangChain / ChatDev / OpenAI Swarm
 \end{enumerate}
 
 \subsubsection{MCP}
-\textbf{todo}
-\subsubsection{RAG}
-\textbf{todo}
-\subsubsection{Integratie van LLM API's in projecten}
+Model Context Protocol (MCP) is een open-source standaard om AI applicaties te verbinden met externe systemen (zoals tools of file systemen) \autocite{AnthropicMCP2025}.
 
-Volgens \autocite{IBM} gedragen APIs zich als tolken tussen LLMs en AI applicaties en zorgen ervoor dat ze elkaar kunnen verstaan, dat maakt de integratie van NLP(Natural Language Processing) functionaliteiten mogelijk binnen software systemen.
+Uit een korte video introductie van \textcite{IBMTech2025} zien we dat MCP een transportlaag is tussen een MCP host (vb.: chat app of IDE) en een MCP server. De MCP server is verantwoordelijk voor het verbinden met externe resources/tools, de MCP host krijgt een gebruiker prompt en gaat hiermee naar de MCP server die zal bepalen welke tools beschikbaar zijn en stuurt deze terug naar de host, deze stuurt dan de prompt + beschikbare tools naar een LLM. De LLM zal bepalen welke tool(s) nodig zijn om de prompt te verwerken. Nu kan de MCP host terug naar de MCP server gaan om een tool-result op te halen. De externe resources waarmee de MCP server verbinding maakt kan bijvoorbeeld een database zijn, een file of een API. De MCP host en LLM kunnen deze prompt nu afwerken met de gekregen tool(s).
+\subsubsection{RAG}
+Vöör Anthropic MCP introduceerden hadden we RAG (Retrieval-Augmented Generation) van Facebook.
+
+Uit het werk - \textit{Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks} - lezen we dat een prompt naar een LLM ondersteund kan worden door het toevoegen van lokale files als context. Ze gebruiken RAG-modellen die een inputsequentie \(x\) gebruiken om tekst documenten \(z\) op te halen die ze gebruiken als bijkomende context voor het genereren van de output sequentie \(y\) \autocite{Lewis2021}.
+
+\subsubsection{Integratie van LLM API's in projecten}
+Volgens \autocite{IBM} gedragen APIs zich als tolken tussen LLMs en AI applicaties en zorgen ervoor dat ze elkaar kunnen verstaan, dat maakt de integratie van NLP (Natural Language Processing) functionaliteiten mogelijk binnen software systemen.
 
 Met behulp van LLM APIs kunnen AI modellen meehelpen in business workflows zoals bijvoorbeeld een customer service chatbot met een LLM kan verbonden worden om betere responses te geven, of ze kunnen hun AI coding assistent verbinden met een LLM voor robuustere code analyse en codegeneration \autocite{IBM}.
 
@@ -190,14 +192,14 @@ Volgens \autocite{IBM} werken LLM APIs zo:
 \begin{enumerate}
     \item Een applicatie stuurt een request, meestal in de vorm van een HTTP-request naar de API. Vooraleer deze doorgestuurd wordt zal die eerst geconverteerd worden naar het verwachte formaat, meestal JSON. Dit bevat informatie zoals het model variant, de prompt zelf en mogelijks nog andere parameters
     \item Nadat de API de request ontvangt wordt deze doorgestuurd naar de LLM voor verdere verwerking.
-    \item De machine learning model gebruikt zijn NLP skills(content generation, question answering, sentiment analysis, text generation of text summarization) om een response terug naar de API te sturen.
+    \item De machine learning model gebruikt zijn NLP skills (content generation, question answering, sentiment analysis, text generation of text summarization) om een response terug naar de API te sturen.
     \item De API stuurt de response terug naar de applicatie.
 \end{enumerate}
 
 Om toegang te krijgen tot LLM APIs moeten gebruikers zich bij een provider aanmelden en API-keys genereren voor authenticatie \autocite{IBM}. 
 
 \subsubsection{Tokens}
-LLMs verwerken prompts door de gebruiker input(en eventueel bijkomende context) in tokens op te splitsen, die worden door het model verwerkt om een toepasselijke response terug te sturen. Het doorsturen van tokens naar LLM APIs komt met een bepaalde prijskaartje.
+LLMs verwerken prompts door de gebruiker input (en eventueel bijkomende context) in tokens op te splitsen, die worden door het model verwerkt om een toepasselijke response terug te sturen. Het doorsturen van tokens naar LLM APIs komt met een bepaald prijskaartje.
 
 Bijvoorbeeld bij Azure AI Foundry Models Pricing\footnote{\href{https://azure.microsoft.com/en-us/pricing/details/ai-foundry-models/microsoft/}{https://azure.microsoft.com/en-us/pricing/details/ai-foundry-models/microsoft/}} zien we een input token kost en een output token kost, per duizend tokens.
 
@@ -213,13 +215,13 @@ We kunnen zelf uitproberen hoeveel tokens er gebruikt worden bij een bepaalde pr
 \section{Methodologie}%
 \label{sec:methodologie}
 
-In de initiële fase zal ik een literatuurstudie doen om inzichten te verwerven over het problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van RESTful APIs.
+In de initiële fase zal ik een literatuurstudie doen om inzichten te verwerven over de problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van RESTful APIs.
 
-In de volgende fase zal ik de stand van zaken onderzoeken wat betreft reeds beschikbare AI-agents op de markt, experimenteren met lokale LLMs die beschikbaar zijn met Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}.
+In de volgende fase zal ik de stand van zaken onderzoeken wat betreft reeds beschikbare AI agents op de markt, experimenteren met lokale LLMs die beschikbaar zijn met Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}.
 
-Voor het maken van mijn eigen AI-agent zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder anderen over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke taal(en) en framework(s) ik de proof of concept zal uitwerken.
+Voor het maken van mijn eigen AI agent zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder andere over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke taal(en) en framework(s) ik de proof of concept zal uitwerken.
 
-De POC AI-agent zal het volgende kunnen:
+De POC AI agent zal het volgende kunnen:
 \begin{itemize}
     \item API-specificaties interpreteren (vb. Swagger/OpenAPI)
     \item Automatisch testcases genereren (vb. met Postman of via Python/JavaScript)
@@ -239,9 +241,9 @@ de agent vergeleken worden met de in-house test/documentatie technieken. Mogelij
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
 
-Men verwacht dat de POC AI-Agent zal kunnen aantonen of er een meetbare verbetering is in efficiëntie van werken door het automatiseren van repetitieve taken bij het ontwikkelen en testen van RESTful APIs. Dat er kan aangetoond worden dat die automatisaties tijdsbesparend zullen zijn. Ook dat er weinig fouten zullen gebeuren bij het genereren van testcases. Er wordt een hoge test-coverage verwacht. Ook binnen de verwachtingen valt dat de agent zich houdt aan bepaalde best-practices en API-specificaties.
+Men verwacht dat de POC AI Agent zal kunnen aantonen of er een meetbare verbetering is in efficiëntie van werken door het automatiseren van repetitieve taken bij het ontwikkelen en testen van RESTful APIs. Dat er kan aangetoond worden dat die automatisaties tijdsbesparend zullen zijn. Ook dat er weinig fouten zullen gebeuren bij het genereren van testcases. Er wordt een hoge test-coverage verwacht. Ook binnen de verwachtingen valt dat de agent zich houdt aan bepaalde best-practices en API-specificaties.
 
-Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan niet gebruiken van een AI-Agent bij het werken aan APIs bij IT1 en ook wat inzicht bieden over de verschillende mogelijkheden binnen de wereld van agentic workflows.
+Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan niet gebruiken van een AI Agent bij het werken aan APIs bij IT1 en ook wat inzicht bieden over de verschillende mogelijkheden binnen de wereld van agentic workflows.
 
 \onecolumn
 \section{Mindmap}%
