@@ -15,20 +15,33 @@
 \section{Inleiding}%
 \label{sec:inleiding}
 
-In moderne softwareontwikkeling zijn APIs een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze APIs vereist echter veel repetitieve en technische handelingen zoals het schrijven van testcases, het valideren van responses, en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Er is nood aan een intelligente assistent die deze taken kan ondersteunen of deels automatiseren. De vraag rijst of een AI agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, hierin een rol kan spelen.
+In moderne softwareontwikkeling zijn APIs een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze APIs vereist echter veel repetitieve en technische handelingen zoals het schrijven van testcases, het valideren van responses en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Er is nood aan een intelligente assistent die deze taken kan ondersteunen of deels automatiseren. De vraag rijst of een AI agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, hierin een rol kan spelen.
 
-De onderzoeksvraag vanuit mijn stagebedrijf IT1 luidt als volgt: \emph{Hoe kan een AI agent bijdragen aan het ondersteunen van het ontwikkel- en testproces van RESTful APIs binnen een agile softwareontwikkeltraject?} 
-
-Hieronder is het probleem opgesplitst in een aantal deelvragen die zullen bijdragen tot een uitwerking van de hoofdonderzoeksvraag:
+De \textbf{onderzoeksvraag} vanuit mijn stagebedrijf IT1 luidt als volgt: 
+\begin{tcolorbox}[colback=yellow!30]
+    \emph{Hoe kan een AI agent bijdragen aan het ondersteunen van het ontwikkel- en testproces van RESTful APIs binnen een agile softwareontwikkeltraject?} 
+\end{tcolorbox}
+Hieronder is het probleem opgesplitst in een aantal \textbf{deelvragen} die zullen bijdragen tot een uitwerking van de hoofdonderzoeksvraag:
 
 \begin{itemize}
-  \item Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van RESTful APIs?
-  \item Welke taken binnen dit proces zijn het meest repetitief of foutgevoelig?
-  \item Welke bestaande tools en frameworks worden momenteel gebruikt voor API
-  testing en documentatie?
-  \item Welke AI-technieken (bv. LLMs, NLP, code generation) zijn geschikt om deze taken te ondersteunen?
-  \item Hoe kan een AI agent geïntegreerd worden in een bestaande ontwikkelworkflow?
-  \item Wat zijn de beperkingen en risico’s van het inzetten van een AI agent in dit domein?
+  \item[] \begin{tcolorbox}[colback=yellow!30]
+      Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van RESTful APIs?
+    \end{tcolorbox} 
+  \item[] \begin{tcolorbox}[colback=yellow!30]
+      Welke taken binnen dit proces zijn het meest repetitief of foutgevoelig?
+    \end{tcolorbox}
+  \item[] \begin{tcolorbox}[colback=yellow!30]
+      Welke bestaande tools en frameworks worden momenteel gebruikt voor API testing en documentatie?
+    \end{tcolorbox}
+  \item[] \begin{tcolorbox}[colback=yellow!30]
+      Welke AI-technieken (bv. LLMs, NLP, code generation) zijn geschikt om deze taken te ondersteunen?
+    \end{tcolorbox}
+  \item[] \begin{tcolorbox}[colback=yellow!30]
+      Hoe kan een AI agent geïntegreerd worden in een bestaande ontwikkelworkflow?
+    \end{tcolorbox}
+  \item[] \begin{tcolorbox}[colback=yellow!30]
+      Wat zijn de beperkingen en risico’s van het inzetten van een AI agent in dit domein?
+    \end{tcolorbox}
 \end{itemize}
 
 Het doel van dit onderzoek is om na te gaan in welke mate een AI agent kan bijdragen aan het efficiënter ontwikkelen en testen van RESTful APIs. Dit gebeurt door het analyseren van bestaande tools, het ontwikkelen van een proof-of-concept AI agent en het evalueren van de impact ervan op het ontwikkelproces binnen een afgebakend scenario.
@@ -58,9 +71,9 @@ Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding200
     \item \textbf{Stateless} \\
     Een extra constraint die aan de client-server constraint wordt toegevoegd, namelijk dat deze interactie stateless moet zijn. Ten eerste moet een request vanuit de client alle nodige informatie bevatten zodat de server die request kan begrijpen. Het kan niet dat een request gebruik moet maken van context (vb: info van die client) dat opgeslagen is op de server. Stateless in het kort: De client bevat alle nodige (session)state, server is stateless (client-stateless-server CSS-style).
     \item \textbf{Cache} \\
-    Cachable data. De REST API moet caching van vaak gevraagde data mogelijk maken om latency (vertraging) en serverbelasting te verminderen. De API moet identificeren wat cachable resources zijn wie ze kan cachen en hoe lang ze in de cache blijven. Dus een response moet impliciet of expliciet gelabeld worden als wel/niet cachable (client-cache-stateless-server style).
+    Cachable data. De REST API moet caching van vaak gevraagde data mogelijk maken om latency (vertraging) en serverbelasting te verminderen. De API moet identificeren wat cachable resources zijn, wie ze kan cachen en hoe lang ze in de cache blijven. Dus een response moet impliciet of expliciet gelabeld worden als wel/niet cachable (client-cache-stateless-server style).
     \item \textbf{Uniform Interface} \\
-    De hoofdzaak bij REST, het zijn deze principes die zorgen voor een uniforme interactie (interface) tussen netwerk-componenten (vb. Browser -> Servers/gateways). Er zijn 4 architecturele beperkingen nodig om het gedrag van componenten vast te leggen:
+    De hoofdzaak bij REST, het zijn deze principes die zorgen voor een uniforme interactie (interface) tussen netwerk-componenten (vb. Browser $\rightarrow$ Servers/gateways). Er zijn 4 architecturele beperkingen nodig om het gedrag van componenten vast te leggen:
     \begin{enumerate}[label*=\arabic*.]
         \item \textbf{Identificatie van resources}
         Een request identificeert een resource door gebruik te maken van URI's (Uniform Resource Identifiers).
@@ -71,7 +84,7 @@ Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding200
         Clients kunnen dynamisch navigeren met behulp van info verkregen in server responses. (zoals links naar verdere webpages)
     \end{enumerate}
     \item \textbf{Layered System} \\
-    Het systeem waarmee de client interageert is schaalbaar, deze is een gelaagd en hiërarchisch systeem, elke component "ziet" niet verder dan de lagen waarmee die direct in contact is. Zo kunnen er lagen (vb. services) toegevoegd of verwijderd worden 
+    We verbeteren de schaalbaarheid door van de API een gelaagd systeem te maken dat bestaat uit hiërarchisch lagen van componenten of services, elke component "ziet" niet verder dan de lagen waarmee die direct in contact is. Er kunnen gemakkelijk lagen toegevoegd of verwijderd worden en elke laag heeft zijn eigen verantwoordelijkheid, daardoor krijgen we een seperation of concerns. Dit maak ook de encapsulatie van legacy services mogelijk.
     \item \textbf{code-on-demand (optioneel)} \\
     Het uitbreiden van client functionaliteiten door code of uitvoerbare scripts mee te sturen in server-responses.
 \end{enumerate}
@@ -98,7 +111,7 @@ Er bestaan enorm veel tools die elk een specifieke oplossing bieden voor de uite
 
 \subsubsection{Documentatie Tools}
 
-Bij HoGent hebben we reeds Swagger\footnote{\href{https://swagger.io/}{https://swagger.io/}} gebruikt om interactief te interageren met API endpoints, deze tool kan gebruikt worden om de endpoints op te lijsten en de bijhorende documentatie weer te geven, de tool kan ook gebruikt worden om requests te sturen en de responses te bekijken. Ook status codes en eventuele error berichten kunnen hiermee gecontroleerd worden.
+Bij HoGent hebben we reeds Swagger\footnote{\href{https://swagger.io/}{https://swagger.io/}} gebruikt om te interageren met API endpoints, deze tool kan gebruikt worden om de endpoints op te lijsten en de bijhorende documentatie weer te geven, de tool kan ook gebruikt worden om requests te sturen en de responses te bekijken. Ook status codes en eventuele error berichten kunnen hiermee gecontroleerd worden.
 
 OpenAPI is de specificatie en Swagger is de tool om die specificatie te implementeren. Zo luidt de vergelijking van die twee termen volgens \autocite{Pinkham2017}.
 
@@ -127,7 +140,7 @@ Dit toont het belang aan van het volgen van de OAS bij het ontwerpen en testen v
 
 Over de concepten van Artificiële Intelligentie (AI) en Large Language Models (LLMs) zal ik nu nog niet verder uitweiden. Eerst een toespitsing op Agents.
 
-Toch even LLMs in het kort: Een gesimplificeerde omschrijving zou zijn dat een \textbf{LLM} een zeer sterke autocomplete machine is dat een bepaalde hoeveelheid trainings-data verwerkt heeft om op een input te kunnen reageren gebruik makend van dat uitgebreide arsenaal aan informatie en tracht een zo nauwkeurig mogelijk antwoord als een puzzel samen te stellen en dan terug te sturen als response.
+Toch even LLMs in het kort: Een gesimplificeerde omschrijving zou zijn dat een \textbf{LLM} een zeer sterke autocomplete machine is die een bepaalde hoeveelheid trainings-data verwerkt heeft om op een input te kunnen reageren gebruik makend van dat uitgebreide arsenaal aan informatie en tracht een zo nauwkeurig mogelijk antwoord als een puzzel samen te stellen en dan terug te sturen als response.
 
 \subsubsection{Wat zijn AI-Agents?}
 Volgens \textcite{Masterman2024} kunnen \textbf{Agents} zo omschreven worden:
@@ -149,7 +162,7 @@ In de context van AI agents zijn \textbf{Tools} functies die de agent kan oproep
 
 \textbf{Multi Agent Architectures:} Deze architectuur omvat steeds meer dan 1 AI agent, ze kunnen dezelfde of verschillende LLMs gebruiken, ze kunnen dezelfde maar ook verschillende tools ter beschikking hebben, elke agent heeft hier zijn eigen persona. Binnen deze architectuur heb je typisch twee verschillende stromen:
 \begin{enumerate}
-    \item \textbf{Vertical Architecture:} In deze architectuur heb je één agent die zich als leider gedraagt terwijl de anderen rechtstreeks aan deze agent rapporteren. Er bestaat een duidelijke onderscheid tussen de lead-agent en de agents die eronder staan.
+    \item \textbf{Vertical Architecture:} In deze architectuur heb je één agent die zich als leider gedraagt terwijl de anderen rechtstreeks aan deze agent rapporteren. Er bestaat een duidelijk onderscheid tussen de lead-agent en de agents die eronder staan.
     \item \textbf{Horizontal Architecture:} In deze architectuur heb je een groep van agents die als gelijken een groeps-discussie kunnen voeren over een bepaalde taak, ze kunnen elkaars berichten zien. De agents kunnen zich elk als vrijwilliger aanbieden om bepaalde taken of tool calls te doen. Dit is vooral nuttig als samenwerking en discussie belangrijk zijn om een taak succesvol te vervullen.
 \end{enumerate}
 \hfill \autocite{Masterman2024} \\
@@ -179,7 +192,7 @@ Model Context Protocol (MCP) is een open-source standaard om AI applicaties te v
 
 Uit een korte video introductie van \textcite{IBMTech2025} zien we dat MCP een transportlaag is tussen een MCP host (vb.: chat app of IDE) en een MCP server. De MCP server is verantwoordelijk voor het verbinden met externe resources/tools, de MCP host krijgt een gebruiker prompt en gaat hiermee naar de MCP server die zal bepalen welke tools beschikbaar zijn en stuurt deze terug naar de host, deze stuurt dan de prompt + beschikbare tools naar een LLM. De LLM zal bepalen welke tool(s) nodig zijn om de prompt te verwerken. Nu kan de MCP host terug naar de MCP server gaan om een tool-result op te halen. De externe resources waarmee de MCP server verbinding maakt kan bijvoorbeeld een database zijn, een file of een API. De MCP host en LLM kunnen deze prompt nu afwerken met de gekregen tool(s).
 \subsubsection{RAG}
-Vöör Anthropic MCP introduceerden hadden we RAG (Retrieval-Augmented Generation) van Facebook.
+Vóór Anthropic MCP introduceerden hadden we RAG (Retrieval-Augmented Generation) van Facebook.
 
 Uit het werk - \textit{Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks} - lezen we dat een prompt naar een LLM ondersteund kan worden door het toevoegen van lokale files als context. Ze gebruiken RAG-modellen die een inputsequentie \(x\) gebruiken om tekst documenten \(z\) op te halen die ze gebruiken als bijkomende context voor het genereren van de output sequentie \(y\) \autocite{Lewis2021}.
 
@@ -192,7 +205,7 @@ Volgens \autocite{IBM} werken LLM APIs zo:
 \begin{enumerate}
     \item Een applicatie stuurt een request, meestal in de vorm van een HTTP-request naar de API. Vooraleer deze doorgestuurd wordt zal die eerst geconverteerd worden naar het verwachte formaat, meestal JSON. Dit bevat informatie zoals het model variant, de prompt zelf en mogelijks nog andere parameters
     \item Nadat de API de request ontvangt wordt deze doorgestuurd naar de LLM voor verdere verwerking.
-    \item De machine learning model gebruikt zijn NLP skills (content generation, question answering, sentiment analysis, text generation of text summarization) om een response terug naar de API te sturen.
+    \item Het machine learning model gebruikt zijn NLP skills (content generation, question answering, sentiment analysis, text generation of text summarization) om een response terug naar de API te sturen.
     \item De API stuurt de response terug naar de applicatie.
 \end{enumerate}
 
@@ -219,21 +232,21 @@ In de initiële fase zal ik een literatuurstudie doen om inzichten te verwerven 
 
 In de volgende fase zal ik de stand van zaken onderzoeken wat betreft reeds beschikbare AI agents op de markt, experimenteren met lokale LLMs die beschikbaar zijn met Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}.
 
-Voor het maken van mijn eigen AI agent zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder andere over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke taal(en) en framework(s) ik de proof of concept zal uitwerken.
+Voor het maken van mijn eigen AI agent zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder andere over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke ta(a)l(en) en framework(s) ik de proof of concept zal uitwerken.
 
 De POC AI agent zal het volgende kunnen:
 \begin{itemize}
     \item API-specificaties interpreteren (vb. Swagger/OpenAPI)
     \item Automatisch testcases genereren (vb. met Postman of via Python/JavaScript)
     \item Foutmeldingen analyseren en suggesties geven
-    \item Documentatie aanvullen or genereren
+    \item Documentatie aanvullen of genereren
 \end{itemize}
 
 In de volgende fase zullen deze functionaliteiten van de POC agent geïmplementeerd worden, er zal ook uitgezocht worden welke soort testen er kunnen worden gedaan en met welke tools de agent kan werken om die verschillende soorten testen te doen/ondersteunen. Van de relevante testmethoden \ref{sec:soorten_testen} zal er in de eerste plaats een focus zijn op unit testing, mogelijks uitbreiden naar integratie testing en
 afhankelijk van feedback mogelijks verder uitbreiden naar andere testmethodes.
 
 %todo : welke metingen? welke technieken gebruik ik om die metingen te maken?
-In de volgende fase zal het correct werken van de verschillende functionaliteiten van de agent worden getoetst. Daarna zal
+Uiteindelijk zal het correct werken van de verschillende functionaliteiten van de agent worden getoetst. Daarna zal
 de agent vergeleken worden met de in-house test/documentatie technieken. Mogelijke metrics: test-coverage, foutdetectie en performantie. Dit zal een mogelijke verbetering in efficiëntie van de API development / testing workflow kunnen aantonen.
 
 
