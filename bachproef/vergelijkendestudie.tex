@@ -1,0 +1,1278 @@
+%%=============================================================================
+%% Vergelijkende Studie
+%%=============================================================================
+\chapter{\IfLanguageName{dutch}{Vergelijkende Studie}{Comparative Study}}%
+\label{ch:vergelijkende-studie}
+
+Er wordt gezocht naar de meest passende kandidaat die zal dienen als AI agent.
+%todo: nog verder uitwerken
+
+\section{Ollama}%
+\label{sec:Ollama}
+
+Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}, van het gelijknamig bedrijf, is een gratis open-source software dat het gebruik van LLMs vereenvoudigt. Deze software maakt het mogelijk om LLMs te downloaden op een lokaal machine zodat ze ook offline kunnen draaien. De software  behandelt de achterliggende complexiteit grotendeels zelf af, dus deze moet eerst geïnstalleerd zijn om met de gedownloade modellen te kunnen werken.\\
+
+In dit tabel\ref{tab:populaireollamallms} staan de meest gedownloade LLMs aangeboden door  \autocite{Ollama}. Deze nummers waren correct bij het maken van de tabel op 23-12-2025. De "b" naast het getal in de kolom "grootte", staat voor billion (miljard) en stelt het aantal parameters van het model voor. Aantal pulls is hoe vaak deze LLMs zijn gedownload met de commando: "ollama pull <modelnaam>" (voor Ollama commando's, zie \ref{sssec:ollamacliandcommandos})
+
+%todo: how do I reference scraped data from a webpage?
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcr}
+        \toprule
+        \textbf{\IfLanguageName{dutch}{Model Naam}{Model Name}} & \textbf{\IfLanguageName{dutch}{Aantal Pulls}{Pull Count}} & \textbf{\IfLanguageName{dutch}{Kenmerken/Grootte}{Features/Size}} \\
+        \midrule
+ llama3.1                 & 107.800.000 & tools, 8b, 70b, 405b \\
+ deepseek-r1              & 74.800.000  & tools, thinking, 1.5b, 7b, 8b, 14b, 32b, 70b, 671b \\
+ llama3.2                 & 50.400.000  & tools, 1b, 3b \\
+ nomic-embed-text         & 48.300.000  & embedding \\
+ gemma3                   & 28.600.000  & vision, cloud, 270m, 1b, 4b, 12b, 27b \\
+ mistral                  & 23.400.000  & tools, 7b \\
+ qwen2.5                  & 18.400.000  & tools, 0.5b, 1.5b, 3b, 7b, 14b, 32b, 72b \\
+ qwen3                    & 15.500.000  & tools, thinking, 0.6b, 1.7b, 4b, 8b, 14b, 30b, 32b, 235b \\
+ phi3                     & 15.200.000  & 3.8b, 14b \\
+ llama3                   & 13.100.000  & 8b, 70b \\
+ llava                    & 12.000.000  & vision, 7b, 13b, 34b \\
+ gemma2                   & 11.800.000  & 2b, 9b, 27b \\
+ qwen2.5-coder            & 9.400.000   & tools, 0.5b, 1.5b, 3b, 7b, 14b, 32b \\
+ phi4                     & 6.600.000   & 14b \\
+ mxbai-embed-large        & 5.900.000   & embedding, 335m \\
+ gemma                    & 5.600.000   & 2b, 7b \\
+ gpt-oss                  & 5.400.000   & tools, thinking, cloud, 20b, 120b \\
+ qwen                     & 5.100.000   & 0.5b, 1.8b, 4b, 7b, 14b, 32b, 72b, 110b \\
+ llama2                   & 4.800.000   & 7b, 13b, 70b \\
+ qwen2                    & 4.600.000   & tools, 0.5b, 1.5b, 7b, 72b \\
+        \bottomrule
+    \end{tabular}
+    \caption[Populaire Ollama modellen]{\label{tab:populaireollamallms}Top 20 meest gedownloade Ollama modellen.}
+\end{table}
+
+Er werden een aantal LLMs gekozen om bepaalde functionaliteiten uit te testen zowel offline als online (in de cloud). De keuze werd beinvloed door een paar factoren, namelijk: populariteit, kenmerken en grootte.
+Het werken met de LLMs gebeurde op computer A met specificaties:
+\begin{itemize}
+    \item[] \textbf{Compter A:} Lenovo Ideapad 3
+    \item \textbf{Opslag:} 1 TerraByte
+    \item \textbf{Processor:} AMD Ryzen 7 5700U with Radeon Graphics
+    \item \textbf{RAM:} 16.0 GB (13.8 GB bruikbaar)
+    \item \textbf{Besturingssysteem:} Windows 11 Home
+\end{itemize}
+Er werd een voorkeur gegeven aan modellen van een beperkte grootte die het gebruik van tools toelieten en ook cloud-modellen. Computer A heeft een beperkte hoeveelheid beschikbare RAM(random-access memory) of werkgeheugen. LLMs nemen heel wat RAM in beslag omdat ze in het werkgeheugen worden ingeladen om in werking te kunnen treden.%todo: bewijs nodig?)
+
+\subsection{RAM Vereisten van Offline LLMs}
+\label{ssec:ramvereistenofflinellms}
+
+Bij de cloud modellen is het niet zo zeer van belang hoe groot deze zijn want ze zullen het werkgeheugen van dat ander systeem belasten. Bij het gebruiken van offline modellen is de hoeveelheid beschikbare RAM wel een sterk limiterende factor voor het kiezen van een LLM. \\
+
+Bijvoorbeeld heeft gpt-oss:120b 80GB RAM nodig om vlot te werken, volgens de release informatie van \autocite{OpenAI2025}:
+
+\begin{quote}
+    "The weights for both gpt-oss-120b and gpt-oss-20b are freely available for download on Hugging Face and come natively quantized in MXFP4. This allows for the gpt-oss-120B model to run within 80GB of memory, while gpt-oss-20b only requires 16GB."
+\end{quote}
+
+Het was niet mogelijk om een 20b(gpt-oss:20b) model te laten draaien op computer A. Door middel van Quantization \todo{link to reference} neemt gpt-oss:20b(20b $\rightarrow$ 20 miljard) parameter model 16GB RAM in beslag.  Computer A gebruikt al wat RAM om andere achtergrondprocessen te laten draaien en er blijft nadien niet meer genoeg om modellen van deze grootte in te laden. \\
+
+Figuur \ref{fig:ollamaram} toont een piek van RAM gebruikt bij het lokaal draaien van qwen3-vl:8b op Computer A. Ollama zorgt ervoor dat de machine nooit meer dan de beschikbare RAM zal gebruiken bij het runnen van een lokale LLM, in Ollama-CLI zal er een foutboodschap getoond worden dat aangeeft hoeveel het tekort aan resources bedraagt. Dit is ook hoe er geweten is dat model gpt-oss:20b niet kan draaien op Computer A. Ook bij het gebruik van de Ollama App, of Ollama Code zal het runnen van de LLM onderbroken worden als er andere processen zorgen voor een cumulatief teveel aan RAM-gebruik. Wanneer een LLM aan het runnen is blijft die gedurende 5 minuten ingeladen als achtergrond proces(ollama ps). Wanneer tijdens deze periode een ander model opgestart wordt. Ollama ondersteunt twee lopende LLMs tegelijkertijd\footnote{\href{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}}, wanneer het systeem genoeg beschikbare werk geheugen heeft zal de nieuwe LLM ook opgestart worden, anders zal het eerder opgestarte model afgesloten worden door Ollama (ollama stop <modelnaam>) om genoeg RAM vrij te maken voor de nieuwe opstart.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ollama_ram.png}
+    \caption[Ollama Lokaal LLM RAM gebruik op Computer A]{\label{fig:ollamaram}Computer A RAM gebruik bij opstart van lokaal model qwen3-vl:8b.}
+\end{figure}
+
+\subsubsection{Geheugen op de schijf}
+\label{sssec:geheugenopdeschijf}
+
+Als men LLMs op de lokale machine willen gebruiken moet de opslag van deze ook in rekening gebracht worden, hoe groter de LLM, hoe meer schijfruimte deze zal innemen, als men kiest voor een groot model bijvoorbeeld gpt-oss:120b\footnote{\href{https://ollama.com/library/gpt-oss}{https://ollama.com/library/gpt-oss}} zal deze 65 GigaByte schijfruimte in beslag nemen. Dit is nog haalbaar, nogmaals door middel van Quantization \todo{link to reference in aienllms chapter}. Men zal eerder tegen een RAM-vereisten muur(\ref{ssec:ramvereistenofflinellms}) oplopen dan een opslag-vereisten muur.
+
+Het volgende tabel bevat de LLMs
+\footnote{\href{https://ollama.com/library/llava:7b}{https://ollama.com/library/llava:7b}}
+\footnote{\href{https://ollama.com/library/gemma3:4b}{https://ollama.com/library/gemma3:4b}}
+\footnote{\href{https://ollama.com/library/gpt-oss:120b-cloud}{https://ollama.com/library/gpt-oss:120b-cloud}}
+\footnote{\href{https://ollama.com/adelnazmy2002/Qwen3-VL-8B-Instruct}{https://ollama.com/adelnazmy2002/Qwen3-VL-8B-Instruct}}
+\footnote{\href{https://ollama.com/library/qwen3-vl:8b}{https://ollama.com/library/qwen3-vl:8b}}
+die op Computer A geïnstalleerd werden en hoeveel schijfruimte ze in beslag namen.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcr}
+        \toprule
+        \textbf{Model Naam} & \textbf{Schijf Ruimte} & \textbf{Sterke Eigenschappen} \\
+        \midrule
+llava:7b                & 4.7 GB    &    Sterke Visueel assistent, werken met foto's \\
+gemma3:latest*          & 3.3 GB    &    Text + Vision + Cloud, gebaseerd op Google Gemini \\
+gpt-oss:120b-cloud      & -         &    Tools + Cloud gebruik \\
+qwen3-vl:8b-instruct    & 6.1 GB    &    Tools + Vision + Cloud, "non-thinking" variant \\
+qwen3-vl:8b             & 6.1 GB    &    Tools + Vision + Cloud + "thinking" \\
+gpt-oss:20b**           & 14  GB    &    Tools + Cloud + "thinking" \\
+        \bottomrule
+    \end{tabular}
+    \caption[Gekozen Ollamallms]{\label{tab:gekozenollamallms}Gekozen Ollama LLMs.}
+\end{table}
+
+
+*: De 'latest' van gemma3 is een 4b parameter model genaamd 'gemma3:4b'. Dit model zal gebruikt worden in de tests met gemma3, maar omdat deze bij installatie werd installeert met commando: \textit{ollama run gemma3:latest} is dit op Computer A de alias geworden van gemma3:4b.
+
+**: gpt-oss:20b werd initieel geinstalleerd op Computer A, maar kon niet gebruikt worden vanwege RAM-restricties en werd snel verwijdert om schijfruimte vrij te maken (ollama rm <modelnaam>).
+
+\subsection{Ollama LLM Kenmerken en Functionaliteiten}
+\label{ssec:ollamallmkenmerkenenfunctionaliteiten}
+
+\subsubsection{Multimodal LLM (MLLM)}
+Multimodal LLMs zijn modellen die meerdere soorten data tegelijk kunnen verwerken, naast tekst ook afbeeldingen, geluid of video. \autocite{Varughese}
+De gebruikte vision modellen(llava, qwen3-vl, gemma3) zijn per definitie ook multimodal.
+
+%todo: check output of ollama show gemma3 -> explain things like 
+
+\subsubsection{Vision}
+De beschikbare vision LLMs bij Ollama zijn multimodal LLMs die ook afbeeldingen kunnen interpreteren.
+
+\subsubsection{Cloud}
+De Cloud modellen van Ollama staan ons het gebruik toe van grote LLMs met "datacenter-grade hardware" die te groot zijn om op een lokaal machine te laten draaien. Ollama's cloud houdt je data ook niet bij, dit verzekert je privacy en security. \autocite{Ollama2025} \\
+
+Lokaal geïnstalleerde LLMs hebben een onbeperkt gebruik, de cloud modellen hebben een gebruikslimiet. Zie figuur \ref{fig:ollamacloudlimieten}.
+
+\subsubsection{Thinking}
+De gebruiker ziet voor de eigenlijke output eerst het denkproces van de LLM te zien en krijgt daarmee inzicht van wat in de opgebouwde context heeft geleid tot die antwoord. Modellen zoals gpt-oss:20b-cloud hebben deze feature, men krijgt inzicht tot de model zijn chain-of-thaught \footnote{\href{https://ollama.com/library/gpt-oss:20b-cloud}{https://ollama.com/library/gpt-oss:20b-cloud}}.
+
+Met Ollama CLI is het denken voorgesteld op hetzelfde manier als het eigenlijke antwoord, maar in het grijs afgebeeld, terwijl het geconcludeerde antwoord volgt, in het wit.
+
+Standaard gedrag van qwen3-vl:8b is dat het denk proces eerst uitgeprint wordt vooraleer een echt antwoord wordt weergegeven. Qwen3-vl:8b-instruct is een variant die ter beschikking wordt gesteld als work-around\footnote{\href{https://github.com/ollama/ollama/issues/12907\#issuecomment-3478500546}{https://github.com/ollama/ollama/issues/12907\#issuecomment-3478500546}} omdat het afzetten van qwen3-vl zijn denk proces niet meer werkt met het meegeven van een extra parameter bij het prompten via de Ollama CLI(command line interface) commando's.
+
+\subsubsection{Tools}
+Het oproepen van externe resources zoals het web browsen om informatie te zoeken, functies oproepen, "python tool calls" en het genereren van gestructureerde output(JSON, CSV, MD, etc.), kort gezegd, "Agentic capabilities" \footnote{\href{https://ollama.com/library/gpt-oss}{https://ollama.com/library/gpt-oss}}.
+
+\subsection{Interacties met Ollama}
+\label{ssec:interactiesmetollama}
+
+Bij lokaal geïnstalleerde LLMs is het gebruik ongelimiteerd, maar bij de cloud modellen moet er rekening gehouden worden met de aantal gebruikte tokens. Het kost geld om LLMs te laten draaien \todo{zie hoofdstuk Tokens \& Pricing}  \\ 
+
+Gebruikers van LLMs die in de cloud draaien kunnen hun resterend krediet vaak online raadplegen bij de provider van die bepaalde service. Bij Ollama ziet dit er zo uit:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ollama_cloud_gebruik.png}
+    \caption[Ollama Cloud Gebruik Limieten]{\label{fig:ollamacloudlimieten}Cloud-gebruik limieten van Ollama.}
+\end{figure}
+
+Wat volgt zijn drie manieren om Ollama te gebruiken:
+
+\subsubsection{Ollama API}
+\label{sssec:ollamaapi}
+
+Ollama heeft een gereserveerd poortnummer(11434) waarmee verbonden kan worden gebruikmakend van TCP(Transmission Control Protocol)\footnote{\href{https://en.wikipedia.org/wiki/List\_of\_TCP\_and\_UDP\_port\_numbers}{https://en.wikipedia.org/wiki/List\_of\_TCP\_and\_UDP\_port\_numbers}} met de bijschrift: "Ollama to run LLM locally". Deze API kan gebruikt worden zonder internet verbinding.
+
+De Ollama API endpoints\footnote{\href{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}} die aangeroepen kunnen worden met API-requests zijn:
+\begin{itemize}
+    \item \textbf{http://localhost:11434/api/generate}: Generate wordt gebruikt om een bepaald LLM een eenmalige prompt te sturen.
+    \item \textbf{http://localhost:11434/api/chat}: Chat wordt gebruikt om meerdere vragen(prompts) na elkaar te kunnen stellen aan een bepaald LLM.
+\end{itemize}
+
+Deze API zal verschillende keren gebruikt worden bij \ref{ssec:ollamametcode}.
+Hiervoor zullen we wat code nodig hebben van \autocite{OllamaApi}.
+
+\subsubsection{Ollama GUI}
+\label{sssec:ollamagui}
+
+Als we op Computer A windows zoeken naar Ollama vinden we de gelijknamige App. Bij het opstarten biedt deze een GUI aan dat goed lijkt op gekende internet browser interfaces van online LLMs zoals die van chatgpt.com en claude.ai, onder anderen. Een sober design met als focus de prompt input om een vraag aan de LLM te stellen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{bp ollama installation 03.png}
+    \caption[Ollama GUI]{\label{fig:ollamagui}De Ollama App + GUI.}
+\end{figure}
+
+Er kan een LLM gekozen worden om mee te communiceren, maar eerst moet die gedownload worden, dit kan wat tijd duren en er is bij de GUI geen feedback te zien over het download proces, dus men kan niet gemakkelijk zien wanneer het downloaden klaar is. De CLI download commando's (ollama pull <modelnaam> \& ollama run <modelnaam>) worden daarom verkozen om de gekozen LLM te downloaden vooraleer deze te gebruiken met de GUI. \\
+
+De GUI bevat features die we kennen van online LLM browser schermen, er wordt per nieuwe chat sessie een titel gekozen en aan de linker kant van het scherm is een lijst beschikbaar van verleden conversaties met de daarbij horende chat geschiedenis. Men kan kiezen om een gekozen chat opnieuw verder te zetten waardoor die chatgeschiedenis zal gebruikt worden als context. De chat(meerdere na elkaar prompts vs. één enkele prompt = "generate") feature is het gemakkelijkst te bekomen via de GUI. Er kan gemakkelijk een afbeelding worden toegevoegd aan de context en internet opzoekingen kunnen ook geactiveerd/gedeactiveerd worden. In de LLM select lijst ziet men onder anderen de beschikbare cloud modellen en een lijst van lokale LLMs, waarbij een download pijl staat als ze nog niet op de machine staan. Zoals eerder vermeld, dit is niet aan te raden. De GUI is heel gebruiksvriendelijk, maar heeft als nadeel dat men geen toegang heeft tot de code om bijvoorbeeld nieuwe tool-gebruik te introduceren.
+
+\subsubsection{Ollama CLI \& Commandos}
+\label{sssec:ollamacliandcommandos}
+
+De CLI kan aangesproken worden vanuit een Windows cmd omgeving of powershell omgeving. Het is ook aangeraden om in de CLI een lokaal LLM te downloaden omdat de download-progressie ook wordt afgebeeld. Hier volgen een aantal nuttige commando's\footnote{\href{https://docs.ollama.com/cli}{https://docs.ollama.com/cli}} om via de CLI LLMs(lokaal en cloud) te gebruiken. \\
+
+\begin{itemize}
+    \item \textbf{ollama --version}: Hiermee controleren we de installatie van de Ollama software
+    \item \textbf{ollama pull <modelnaam>}: Downloadt een LLM.
+    \item \textbf{ollama run <modelnaam>}: Start een LLM op, waarna je automatisch in een chatvenster zit om ermee te communiceren. Als de LLM nog niet gedownload is zal deze commando de LLM downloaden.
+    \item \textbf{/bye}: Deze input zal de chatvenster met de LLM verlaten, men kan ook "ctrl + d" in typen om hetzelfde te bekomen.
+    \item \textbf{ctrl + c}: Onderbreken van een LLM-output.
+    \item \textbf{ollama stop <modelnaam>}: Stopt een draaiende LLM.
+    \item \textbf{ollama ls}: Geeft een lijst weer van geïnstalleerde LLMs (of cloud-manifesten) en hoeveel ruimte ze op de machine gebruiken.
+    \item \textbf{ollama ps}: Toont de actieve LLM proces(sen).
+    \item \textbf{ollama show <modelnaam>}: Geeft wat info over een bepaald model (architectuur, parameters, context lengte, embedding lengte, quantizatie methode, temperatuur(0|1), top\_k, top\_p)
+    \item \textbf{"""}: Start/einde van een multi-line input.
+     \item \textbf{ollama rm <modelnaam>}: Verwijdert een LLM van de harde schijf.
+     \item \textbf{ollama signin}: Hiermee wordt een link uitgeprint, wanneer deze gevolgd wordt zal de computer verbonden worden met de Ollama account, deze device is nu gekoppeld aan de account. Dit is een manier om cloud modellen te mogen gebruiken(een andere manier is met een API-key).
+     \item \textbf{ollama signout}: De computer loskoppelen van de Ollama account.
+\end{itemize}
+
+Om een \textbf{afbeelding in ollama CLI} te laten analyseren door een vision model gebruikt men een commando dat deze structuur heeft:
+
+\begin{quote}
+    \textit{ollama run qwen3-vl:8b-instruct "what's in this image? \textbackslash Users\textbackslash peter\textbackslash Voorbeeld 01.jpg"}
+\end{quote}
+
+Ollama CLI kan om met afbeeldingen, achter de schermen wordt deze geconverteerd naar iets dat de LLM kan interpreteren, een base64 geëncodeerde string. Er moet enkel een absoluut pad meegegeven worden naar de afbeelding vanuit de root van de PC, dus alles wat achter C: staat. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ollama_actieve_llmproces.png}
+    \caption[Ollama CLI PS]{\label{fig:ollamaactieveprocessen}Ollama CLI actieve LLMs.}
+\end{figure}
+
+Met bovenstaande afbeelding is te zien dat actieve LLMs als processen weergegeven en ook dat ze standaard 5 minuten in leven worden gehouden, wanneer een nieuw LLM zou opgestart worden binnen deze tijds venster zal de actieve LLM eerst afgesloten worden als er niet genoeg RAM is om meerdere LLMs tegelijk te laten draaien. %todo: heb ik ergens vermeld dat meerdere LLMs niet kunnen draaien? -> ze kunnen wel, "ollama ps" kan meerdere processen tonen
+
+\subsubsection{Ollama met Code}
+\label{sssec:ollamametcode}
+
+Een derde manier om via Ollama te verbinden met LLMs is door dit te integreren in een codebase, zie \ref{ssec:ollamametcode}
+
+\subsection{Ollama met Code \& Tijds-Controle}
+\label{ssec:ollamametcode}
+
+Nu dat we zeker drie manieren kennen om te communiceren met Ollama LLMs is er een vergelijkende test gedaan op vlak van efficiëntie, gemeten in snelheid van response in seconden bij de verschillende manieren van werken met de LLMs. Tussen elke test werd de Bash commando 'Ollama stop <llm-naam>' gebruikt zodat de opstart tijd van de LLM ook meegerekend werd. 
+Bij onderstaande code fragmenten wordt er vermeld als ze offline of online moeten gebruikt worden. Wanneer het online is betekent dit dat deze methode van communiceren met de LLM een internet verbinding nodig heeft. Voor deze tests werd python versie 3.12.9 gebruikt. \\
+
+Een test met de \textit{qwen3-vl:8b-instruct} model, dit is een variant van de \textit{qwen3-vl:8b} LLM die het denk proces niet zal weergeven in de output. Dat tonen van het denk proces vertraagt namelijk de response tijd aanzienlijk en in sommige gevallen, zoals bij moeilijkere vragen of een lange chatsessie kan de LLM vastlopen. \\
+
+Eerst werd de Ollama\footnote{\href{https://ollama.com/download}{https://ollama.com/download}} software op Computer A gedownload. \\
+
+Om de LLM te gebruiken moest deze eerst op de lokale machine Computer A aanwezig zijn. Dit werd gedownload naar Computer A met volgende Bash commando:
+\textit{ollama pull qwen3-vl:8b-instruct}
+
+Het downloaden van een LLM kan wat tijd in beslag nemen, dit zijn volledige LLMs, in dit voorbeeld \textit{qwen3-vl:8b-instruct} neemt 6.1GB schijfruimte in. \\
+
+\subsubsection{Ollama Lokaal (offline)}
+\label{sssec:ollamalokaal}
+
+Deze methode gebruikt ChatResponse van Ollama om met een gegeven vraag een antwoord te verkrijgen. Deze methode heeft een ongelukkige naam gekregen, er kan hiermee verbonden worden met een cloud LLM, maar de Ollama package moet geïnstalleerd zijn in python. De test wordt gedaan met een lokaal geïnstalleerde LLM.
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-lokaal-test}
+
+\begin{listing}
+    \begin{minted}{python}
+        ####### Prep #######
+        # als er meerdere python versies zijn: zet python interpreter op niewste(waar pip installs naar wijzen) (3.12.9)
+        # pip install ollama
+        # kies een model op: https://ollama.com/search
+        # download de gekozen ollama model (bvb qwen3-vl:8b-instruct) via deze shell commando: "ollama run qwen3-vl:8b-instruct"
+        # info: je kan ook modellen downloaden via de GUI van de ollama app, maar dan heb je geen enkele feedback of kennis van wanneer het model
+        # volledig is gedownload
+        # nu kan je deze file runnen (ook offline)
+        
+        import time
+        
+        t1 = time.time()
+        
+        ################################# code verkregen van: https://github.com/ollama/ollama-python
+        
+        from ollama import chat
+        from ollama import ChatResponse
+        
+        response: ChatResponse = chat(model='qwen3-vl:8b-instruct', messages=[
+        {
+            'role': 'user',
+            'content': 'Why is the sky blue?',
+        },
+        ])
+        print(response['message']['content'])
+        # or access fields directly from the response object
+        # print(response.message.content)
+        
+        #################################
+        
+        t2 = time.time()
+        
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+    \end{minted}
+    \caption[Ollama Lokaal Code]{Code om te communiceren met \textit{qwen3-vl:8b-instruct}.}
+    \label{lst:ollama-lokaal-test}
+\end{listing}
+
+\textbf{Vraag:} 'Why is the sky blue?'
+
+\textbf{Output:} 
+
+\begin{minted}{markdown}
+    The sky appears blue due to a phenomenon called **Rayleigh scattering**. Here's how it works:
+    
+    ### 1. **Sunlight is White, But Made of Many Colors**
+    Sunlight, or white light, is actually composed of all the colors of the visible spectrum—red, orange, yellow, green, blue, indigo, and violet. These colors travel at different wavelengths.
+    
+    ### 2. **Atmosphere Scatters Shorter Wavelengths More**
+    The atmosphere contains molecules (like nitrogen and oxygen) and tiny particles. When sunlight enters the atmosphere, these molecules scatter the sunlight in all directions.
+    
+    - **Shorter wavelengths** (like **blue and violet**) are scattered much more effectively than longer wavelengths (like red and orange).
+    - This is because the scattering intensity is **inversely proportional to the fourth power of the wavelength** (Rayleigh scattering law: *I ∝ 1/λ⁴*).
+    
+    ### 3. **Why We See Blue, Not Violet**
+    Although **violet** light is scattered even more than blue, our eyes are **less sensitive to violet**, and some of the violet light is absorbed by the upper atmosphere. So the dominant color we perceive is **blue**.
+    
+    ### 4. **What Happens at Sunrise or Sunset?**
+    At sunrise or sunset, sunlight travels through more atmosphere. This causes **most of the blue and violet to be scattered out of our line of sight**, so the remaining light (with longer wavelengths like red and orange) reaches us — that’s why sunsets are orange or red.
+    
+    ---
+    
+    ✅ In summary:
+    **The sky is blue because molecules in the atmosphere scatter shorter-wavelength blue light more than other colors, and our eyes are most sensitive to blue — making it the color we see most often in the daytime sky.**
+    Response tijd in seconden: 84.42009
+\end{minted}
+
+\subsubsection{Ollama Cloud-Signin (online)}
+\label{sssec:ollamacloudsignin}
+
+Bij deze methode verbinden we Computer A met een bestaand online Ollama account. \\
+
+Voorbereiding op de test:
+\begin{enumerate}
+    \item Er werd een Ollama account aangemaakt.
+    \item Bash commando: \textit{ollama signin} genereerde een link.
+    \item Deze link werd gevolgd om Computer A te verbinden met de Ollama account.
+    \item Deze bash commando werd uitgevoerd: \textit{ollama pull gpt-oss:120b-cloud}.
+\end{enumerate}
+
+In tegenstelling tot de lokale modellen wordt er bij de cloud varianten geen schijfruimte op de gebruikte machine ingenomen, in plaats daarvan wordt een manifest met metadata over het model bijgehouden, bijvoorbeeld als het bash commando: \textit{ollama pull qwen3-vl:235b} wordt ingegeven in de terminal zal niet op het lokaal systeem een ontzettend groot LLM met 235 miljard parameters gedownload worden, maar in de plaats daarvan zal een 'manifest' gecreëerd worden dat slechts enkele bytes op de schijf nodig heeft. Zie figuur \ref{fig:cloud_manifest} \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{bp_ollama_cloud_manifest.png}
+    \caption[Ollama Cloud model manifest download]{\label{fig:cloud_manifest}De terminal output bij het downloaden van een Ollama cloud LLM.}
+\end{figure}
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-signin-test} \\
+
+\begin{listing}
+    \begin{minted}{python}
+        # setup:
+        # run following 2 commands in terminal:
+        
+        # 1)
+        # ollama signin
+        # generated the following for me:
+        # https://ollama.com/connect?name=LAPTOP-1CQ3QTCS&key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorK245dlBpY0JOVzZqZnFWRDF1Wm1Ldnh4eitYc0RwN2RkQzRZb2tJSC8
+        # (follow the link and connect this device with your ollama account)
+        
+        # 2)
+        # ollama pull gpt-oss:120b-cloud
+        # save metadata about the cloud model on your system (this does not install the 65gb model locally, only some metadata)
+        # "manifest" sha256
+        
+        # https://github.com/ollama/ollama-python?tab=readme-ov-file#cloud-models
+        
+        import time
+        t1 = time.time()
+        
+        from ollama import Client
+        
+        client = Client()
+        
+        messages = [
+        {
+            'role': 'user',
+            'content': 'Why is the sky blue?',
+        },
+        ]
+        
+        for part in client.chat('gpt-oss:120b-cloud', messages=messages, stream=True):
+        print(part.message.content, end='', flush=True)
+        
+        t2 = time.time()
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+    \end{minted}
+    \caption[Ollama Cloud-Signin Code]{Code om te communiceren met \textit{gpt-oss:120b-cloud}.}
+    \label{lst:ollama-cloud-signin-test}
+\end{listing}
+
+\textbf{Vraag:} 'Why is the sky blue?'
+
+\textbf{Output:} 
+
+\begin{minted}{markdown}
+    **Short answer:**  
+    The sky appears blue because molecules and tiny particles in Earth’s atmosphere scatter short‑wavelength (blue) light from the Sun far more efficiently than they scatter longer‑wavelength (red) light. Our eyes see that scattered blue light coming from every direction overhead.
+    
+    ---
+    
+    ## The physics behind it
+    
+    | Step | What happens | Why it matters |
+    |------|--------------|----------------|
+    | **1. Sunlight is white** | Sunlight contains a continuous spectrum of colors—from violet (~380 nm) to red (~700 nm). | “White” light is just a mix of all visible wavelengths. |
+    | **2. Light enters the atmosphere** | As sunlight passes through the lower ~100 km of the atmosphere, it encounters nitrogen (N₂), oxygen (O₂), and trace gases. | These molecules are far smaller than the wavelength of visible light. |
+    | **3. Rayleigh scattering** | Light is scattered by particles that are much smaller than its wavelength. The scattering intensity follows **\(I \propto \frac{1}{\lambda^4}\)** (the Rayleigh law). | Shorter wavelengths (blue, violet) get scattered 10‑16 times more strongly than red. |
+    | **4. Human eye sensitivity** | The eye’s photoreceptor (cones) are most responsive to wavelengths around 555 nm (green) and less to violet (< 400 nm). The eye also has three cone types (S, M, L) that together weight blue (≈450 nm) more than violet. | Even though violet is scattered the most, we perceive the sky as blue because our eyes are less sensitive to violet and the atmosphere absorbs much of it. |
+    | **5. Observed sky color** | The scattered blue light reaches us from every direction, giving the dome overhead its characteristic hue. | The direct Sun’s beam stays relatively unscattered, so we see the Sun as white/yellow while the background sky is blue. |
+    
+    ---
+    
+    ## Why the sky isn’t violet (even though violet scatters more)
+    
+    1. **Eye sensitivity:** Our photoreceptors are ~5–10× less sensitive to violet than to blue.  
+    2. **Solar spectrum:** The Sun emits less energy at violet wavelengths than at blue.  
+    3. **Atmospheric absorption:** Ozone and other gases absorb part of the violet/ultraviolet light before it can be scattered back to us.
+    
+    Combined, these effects tip the balance toward the **blue** we perceive.
+    
+    ---
+    
+    ## When the sky changes color
+    
+    | Situation | What changes | Resulting color |
+    |-----------|-------------|-----------------|
+    | **Sun low on the horizon (sunrise / sunset)** | Light traverses a much longer atmospheric path → more scattering of blue & green, leaving reds & oranges. | Warm reds, pinks, and oranges dominate. |
+    | **Dust, pollution, or volcanic ash** | Larger particles cause **Mie scattering**, which is less wavelength‑dependent. | Sky can look whitish, hazy, or take on a brownish tint. |
+    | **Clear, dry air at high altitude** | Fewer scattering molecules, less water vapor → less overall scattering. | Sky can appear a deeper, almost **ultramarine** blue. |
+    | **Night** | No direct sunlight; only scattered starlight and occasional moonlight. | Sky is dark; only faint airglow or auroral emissions may be visible. |
+    
+    ---
+    
+    ## A quick mental picture
+    
+    1. Imagine shining a flashlight (white light) into a foggy room. The fog’s tiny water droplets scatter all colors more or less equally → the room glows white.  
+    2. Now replace the droplets with **tiny gas molecules** that are orders of magnitude smaller. They act like a “blue‑biased” fog, sending far more blue photons toward your eyes from every direction. That’s the sky we see on a clear day.
+    
+    ---
+    
+    ### TL;DR
+    
+    - Sunlight = all colors.  
+    - Molecules in the atmosphere scatter light **more efficiently at short wavelengths** (Rayleigh scattering ∝ 1/λ⁴).  
+    - Blue light (≈450 nm) is scattered ~10× more than red (≈650 nm).  
+    - Our eyes are tuned to see blue better than violet, and violet is partly absorbed.  
+    - The net effect: a sky bathed in scattered blue light.  
+    
+    That’s why, on a clear day, you look up and see a beautiful blue dome. 🌤️
+    Response tijd in seconden: 6.93436 
+\end{minted}
+
+\subsubsection{Ollama Cloud-API (online)}
+\label{sssec:ollamacloudapi}
+
+Deze methode vereist dat er bij de provider (Ollama) een account aangemaakt is en dat een API-key gegenereerd wordt. Dit zal gebruikt worden voor autorisatie van de gebruiker bij het verbinden met een bepaald cloud LLM en zal ook het gebruik ervan bijhouden, er is een gelimiteerd gebruik afhankelijk van betalingsplan, in dit geval gaat het om een gratis plan. Zie figuur \ref{fig:ollamacloudlimieten}. Het gebruik van een API-key of access token is een veelgebruikte manier om cloud-LLMs te gebruiken. %todo: give some examples of llms that a api-key or access token is used
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-api-test}
+
+\begin{listing}
+    \begin{minted}{python}
+        OLLAMA_API_KEY="d22e2e0258e749dd82b3db75a57c0fea.TNwiekYbQv1k1P_mv-vUTguW"
+        
+        import time
+        t1 = time.time()
+        
+        '''
+        normale procedure(voor security wil je een geheim api-key):
+        
+        export OLLAMA_API_KEY=your_api_key
+        
+        import os
+        
+        os.environ.get('OLLAMA_API_KEY')
+        '''
+        
+        # https://github.com/ollama/ollama-python?tab=readme-ov-file#cloud-api-ollamacom
+        from ollama import Client
+        
+        client = Client(
+        host='https://ollama.com',
+        headers={'Authorization': 'Bearer ' + OLLAMA_API_KEY}
+        )
+        
+        messages = [
+        {
+            'role': 'user',
+            'content': 'Why is the sky blue?',
+        },
+        ]
+        # model: 'gpt-oss:120b' also works, not sure why, but -cloud suffix not needed
+        for part in client.chat('gpt-oss:120b-cloud', messages=messages, stream=True):
+        print(part.message.content, end='', flush=True)
+        
+        t2 = time.time()
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+    \end{minted}
+    \caption[Ollama Cloud API Code]{Code om te communiceren met \textit{gpt-oss:120b-cloud}.}
+    \label{lst:ollama-cloud-api-test}
+\end{listing}
+
+\textbf{Vraag:} 'Why is the sky blue?'
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    **Short answer:**  
+    The sky looks blue because molecules and tiny particles in Earth’s atmosphere scatter short‑wavelength (blue) light from the Sun much more efficiently than they scatter the longer‑wavelength (red, orange, yellow) colors. Our eyes receive a lot of that scattered blue light from every direction, so the whole dome overhead appears blue.
+    
+    ---
+    
+    ## The physics behind the color
+    
+    | Step | What happens | Why it matters for color |
+    |------|--------------|---------------------------|
+    | 1. Sunlight reaches Earth | Sunlight is a mixture of all visible colors (roughly a black‑body spectrum at ~5,800 K). | The light contains roughly equal amounts of red, green, blue, etc. |
+    | 2. Light enters the atmosphere | Photons encounter air molecules (N₂, O₂) and very small particles (dust, water droplets). | These scatter the photons away from the straight‑line path. |
+    | 3. **Rayleigh scattering** dominates | For particles **much smaller** than the wavelength of light (≈ 0.1 µm vs. 0.4–0.7 µm), the scattering cross‑section follows \(\sigma \propto \lambda^{-4}\). | Short‑wavelength (blue, ~450 nm) light is scattered **≈ 10 times** more than red (~650 nm). |
+    | 4. Scattered light reaches our eyes | The scattered photons come to us from every part of the sky, not just the Sun’s direction. | Because blue photons are far more numerous after scattering, the sky’s overall hue is blue. |
+    | 5. Direct sunlight stays relatively unscattered | Most of the Sun’s beam goes straight through the atmosphere; only a tiny fraction is removed. | The Sun itself appears yellowish/white because the scattering removes a bit more blue than red. |
+    
+    ### Rayleigh’s \(\lambda^{-4}\) law (very basic)
+    
+    \[
+    I_{\text{scattered}}(\lambda) \;=\; I_0(\lambda)\,\frac{2\pi^5}{3}\,\frac{(n^2-1)^2}{N^2\lambda^4}\,L
+    \]
+    
+    * \(I_0(\lambda)\) – incident intensity at wavelength \(\lambda\)  
+    * \(n\) – refractive index of air  
+    * \(N\) – molecular density  
+    * \(L\) – path length through the scattering medium  
+    
+    The \(\lambda^{-4}\) term makes the intensity drop off sharply with increasing wavelength, giving blue its advantage.
+    
+    ---
+    
+    ## Why isn’t the sky black?
+    
+    If there were no atmosphere, we would see the blackness of space (no scattering). The atmosphere *fills* the line of sight with light that’s been redirected from the Sun. Even though each individual molecule scatters only a tiny fraction of the incident photons, the **enormous number** of molecules (≈ 2.5 × 10²⁵ per cubic meter at sea level) adds up to a noticeable glow.
+    
+    ---
+    
+    ## Variations in sky color
+    
+    | Condition | What changes | Resulting color |
+    |-----------|--------------|-----------------|
+    | **Sunrise / Sunset** | Light travels through **more atmosphere** → longer path → more scattering of blue & green → only the longest wavelengths (red–orange) survive. | Sky and Sun appear red/orange. |
+    | **High humidity / haze** | Small water droplets (Mie scattering) are **size‑comparable** to visible wavelengths; scattering becomes less wavelength‑selective. | Sky looks whiter or milky. |
+    | **Air pollution (smog, dust)** | Larger particles increase Mie scattering; sometimes preferentially scatter red light (e.g., after volcanic eruptions). | Sky can adopt pink, orange, or even brown tones. |
+    | **Polar regions** | Low Sun angle + very clean, cold air can produce vivid indigo or violet hues due to even stronger scattering of short wavelengths. | Deep blue to violet skies. |
+    | **Night** | Sun is below the horizon → no direct daylight to scatter → sky is black except for scattered moonlight and airglow. | Dark night sky. |
+    
+    ---
+    
+    ## A quick “back‑of‑the‑envelope” estimate
+    
+    Take a column of air 1 km thick at sea level. The probability that a given photon is scattered at least once in that column is roughly:
+    
+    \[
+    P \approx 1 - e^{- \tau},\quad \tau = n\,\sigma L
+    \]
+    
+    * \(n \approx 2.5\times10^{25}\,\text{m}^{-3}\) (molecules)  
+    * \(\sigma_{\text{blue}} \approx 5\times10^{-31}\,\text{m}^2\) (for λ≈450 nm)  
+    * \(L = 1000\ \text{m}\)
+    
+    \[
+    \tau_{\text{blue}} \approx (2.5\times10^{25})(5\times10^{-31})(10^3) \approx 0.013
+    \]
+    
+    So about **1 %** of blue photons are scattered in a 1 km slab. Over the whole atmosphere (≈ 10 km effective scattering height) the cumulative scattering reaches a few percent—enough to give the sky its characteristic brightness.
+    
+    ---
+    
+    ## TL;DR for a non‑technical audience
+    
+    Sunlight contains all colors. When it passes through the air, the tiny gas molecules act like tiny prisms that preferentially bounce around the **blue** part of the light. Because that blue light is redirected toward us from every direction, the sky looks blue. At sunrise and sunset the light has to travel through **even more** air, so most of the blue gets scattered away before it reaches us, leaving the reds and oranges we see at those times.
+    
+    --- 
+    
+    **Key take‑away:** The sky is blue because **Rayleigh scattering** makes the atmosphere far more effective at redirecting short‑wavelength (blue) sunlight than longer‑wavelength (red) sunlight, and our eyes see that scattered blue light coming from all over the dome above us.
+    Response tijd in seconden: 12.76668
+\end{minted}
+\subsubsection{Ollama AsyncClient (offline)}
+\label{sssec:ollamaasyncclient}
+
+Deze methode gebruikt ollama AsyncClient en zorgt ervoor dat de communicatie met een gekozen LLM geen blokkerende actie is, dus de code kan verder terwijl de chat in een zij-proces bezig is, we zien bij het uitvoeren van deze test dat "after async function call" in de output verschijnt voor dat een antwoord wordt getoond.
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-asyncclient-test}
+
+\begin{listing}
+    \begin{minted}{python}
+        import time
+        t1 = time.time()
+        
+        # https://github.com/ollama/ollama-python?tab=readme-ov-file#async-client
+        import asyncio
+        from ollama import AsyncClient
+        
+        async def chat():
+        message = {'role': 'user', 'content': 'Why is the sky blue?'}
+        response = await AsyncClient().chat(model='gemma3', messages=[message])
+        # print(type(response))
+        # print(dir(response))
+        print(response.message.content)
+        t2 = time.time()
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+        
+        print("*********after async function call**********")
+        
+        asyncio.run(chat())
+    \end{minted}
+    \caption[Ollama AsyncClient Code]{Code om te communiceren met \textit{gemma3:4b}.}
+    \label{lst:ollama-asyncclient-test}
+\end{listing}
+
+\textbf{Vraag:} 'Why is the sky blue?'
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    *********after async function call**********
+    That's a fantastic question, and one that's fascinated people for centuries! The short answer is: **the sky is blue because of a phenomenon called Rayleigh scattering.** Here's a breakdown of the explanation:
+    
+    **1. Sunlight and Colors:**
+    
+    * Sunlight appears white, but it's actually made up of all the colors of the rainbow – red, orange, yellow, green, blue, indigo, and violet. You can see this when light passes through a prism and splits into a rainbow.
+    
+    **2. What is Rayleigh Scattering?**
+    
+    * **Atmospheric Particles:** The Earth’s atmosphere is filled with tiny particles like nitrogen and oxygen molecules.
+    * **Scattering Light:** When sunlight enters the atmosphere, it collides with these particles. This collision causes the light to scatter in different directions.
+    * **Wavelength Matters:**  Here's the key:  **Shorter wavelengths of light (blue and violet) are scattered *much* more strongly than longer wavelengths (red and orange).** Think of it like throwing a small ball (blue light) at a bumpy surface – it's more likely to bounce off in many directions. A larger ball (red light) would be less affected.
+    
+    **3. Why Blue Specifically?**
+    
+    * **Violet is scattered *even* more than blue:**  Violet light has the shortest wavelength and is scattered the most. However, our eyes are more sensitive to blue, and the sun emits less violet light, so we primarily see blue.
+    
+    **4. At Sunset/Sunrise:**
+    
+    * When the sun is low on the horizon, sunlight has to travel through *much* more of the atmosphere to reach your eyes.
+    * This longer path means that almost all the blue light has been scattered away before it reaches you.
+    * The remaining light is mostly the longer wavelengths – orange and red – which haven't been scattered as much.  That's why sunsets and sunrises often appear red or orange.
+    
+    
+    
+    **In short:  The sky is blue because blue light is scattered more effectively by the molecules in the air than other colors.**
+    
+    ---
+    
+    **Resources for more information:**
+    
+    * **NASA - Why is the sky blue?:** [https://science.nasa.gov/sky-and-telescope/optics/why-is-the-sky-blue/](https://science.nasa.gov/sky-and-telescope/optics/why-is-the-sky-blue/)  
+    * **National Geographic - Why is the sky blue?:** [https://www.nationalgeographic.org/encyclopedia/sky](https://www.nationalgeographic.org/encyclopedia/sky)
+    
+    
+    Do you want me to delve into any specific aspect of this explanation, such as:
+    
+    *   The role of different wavelengths?
+    *   How this affects the color of clouds?
+    
+    Response tijd in seconden: 67.68256
+\end{minted}
+\subsubsection{Ollama Async Generator (offline)}
+\label{sssec:ollamaasyncgenerator}
+
+Net zoals bij \ref{sssec:ollamaasyncclient} wordt hier AsyncClient gebruikt, maar in plaats van de response van de LLM in één keer af te printen gaan we stukje per stukje de output weergeven, dus voor de gebruiker geeft dit de indruk dat de LLM aan het typen is. Op deze manier krijgt de gebruiker sneller feedback dan bij alles in één uitprint-methoden.
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-async-generator-test}
+
+\begin{listing}
+    \begin{minted}{python}
+        import time
+        t1 = time.time()
+        
+        # https://github.com/ollama/ollama-python?tab=readme-ov-file#async-client
+        import asyncio
+        from ollama import AsyncClient
+        
+        async def chat():
+        message = {'role': 'user', 'content': 'Why is the sky blue?'}
+        async for part in await AsyncClient().chat(model='gemma3', messages=[message], stream=True):
+        print(part['message']['content'], end='', flush=True)
+        
+        asyncio.run(chat())
+        
+        t2 = time.time()
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+    \end{minted}
+    \caption[Ollama Async Generator Code]{Code om te communiceren met \textit{gemma3:4b}.}
+    \label{lst:ollama-async-generator-test}
+\end{listing}
+
+\textbf{Vraag:} 'Why is the sky blue?'
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    Okay, let's break down why the sky is blue – it’s a fascinating phenomenon called **Rayleigh scattering**. Here's the explanation:
+    
+    **1. Sunlight and its Colors:**
+    
+    * Sunlight isn't actually white. It's made up of *all* the colors of the rainbow – red, orange, yellow, green, blue, indigo, and violet.  You can see this when light passes through a prism and separates into its different colors.
+    
+    **2. The Atmosphere and Scattering:**
+    
+    * The Earth's atmosphere is filled with tiny particles – mostly nitrogen and oxygen molecules.
+    * When sunlight enters the atmosphere, it collides with these molecules. This collision causes the light to scatter in different directions.
+    
+    **3. Rayleigh Scattering – The Key Process:**
+    
+    * **Rayleigh scattering** is a specific type of scattering that’s *most effective with shorter wavelengths of light*.  Shorter wavelengths are blue and violet light.
+    * Think of it like this: blue and violet light waves are much smaller and more energetic. They are more easily bounced around by the tiny air molecules.  Red and orange light have longer wavelengths and are less affected – they tend to pass straight through.
+    
+    **4. Why Blue, Not Violet?**
+    
+    * Violet light is scattered *even more* than blue. However, there are a couple of reasons we see blue instead of violet:
+    * **Sunlight's Spectrum:** The sun emits slightly less violet light than blue light.
+    * **Our Eyes:** Our eyes are more sensitive to blue light than violet.
+    
+    
+    **In simpler terms:**  The air molecules scatter blue light more than other colors, so when we look up at the sky, we’re seeing the scattered blue light.
+    
+    **What about sunsets?**
+    
+    At sunset (or sunrise), the sunlight has to travel through *much* more of the atmosphere to reach our eyes.  This long path means that almost all of the blue light has been scattered away *before* it gets to us.  The longer wavelengths (reds and oranges) are less scattered and can make it through, giving us those beautiful sunset colors.
+    
+    
+    
+    **Resources for Further Learning:**
+    
+    * **NASA - Why is the sky blue?** [https://science.nasa.gov/sky-science/why-is-the-sky-blue/](https://science.nasa.gov/sky-science/why-is-the-sky-blue/)
+    * **Wikipedia - Rayleigh scattering:** [https://en.wikipedia.org/wiki/Rayleigh_scattering](https://en.wikipedia.org/wiki/Rayleigh_scattering)
+    
+    
+    Do you want to delve into any specific aspect of this explanation, such as:
+    
+    *   The math behind Rayleigh scattering?
+    *   How it relates to other colors like red and orange?
+    Response tijd in seconden: 69.89036
+\end{minted}
+\subsubsection{Ollama Img Async Generator (offline)}
+\label{sssec:ollamaimgasyncgenerator}
+
+Bij het gebruiken van de CLI kan Ollama omgaan met een absoluut pad naar de afbeelding, wanneer we zelf code schrijven om een vraag aan de LLM te stellen dat een afbeelding gebruikt moeten we deze zelf eerst omzetten naar base64-decoded tekst, dus eerst encoderen dan weer decoderen\footnote{\href{https://www.geeksforgeeks.org/python/python-convert-image-to-string-and-vice-versa/}{https://www.geeksforgeeks.org/python/python-convert-image-to-string-and-vice-versa/}} naar unicode standaard UTF-8\footnote{\href{https://en.wikipedia.org/wiki/UTF-8}{https://en.wikipedia.org/wiki/UTF-8}}, dit is wat de LLM als data verwacht om de foto te kunnen analyseren. \\
+
+Het inladen van een afbeelding neemt altijd meer tijd dan wanneer enkel een text vraag gesteld wordt. Een base64 afbeelding is een zeer lange string van tekst dat allemaal verwerkt moet worden door de LLM. \\ %todo: see Tokens \& context window
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-img-async-generator-test}
+
+\begin{listing}
+    \begin{minted}{python}
+        import time
+        t1 = time.time()
+        
+        # https://github.com/ollama/ollama-python?tab=readme-ov-file#async-client
+        
+        from ollama import chat
+        import base64
+        
+        MODEL1 = 'qwen3-vl:8b-instruct'
+        MODEL2 = 'gemma3'
+        
+        img1 = r"C:\Users\peter\OneDrive\Bureaublad\Workspace\Ollama\Beksinski 01.jpg"
+        img2 = r"C:\Users\peter\OneDrive\Bureaublad\Workspace\Ollama\untitled-nightmare-tree-zdzislaw-beksinski.jpg"
+        
+        with open(img2, "rb") as img:
+        s = base64.b64encode(img.read()).decode("utf-8")
+        
+        stream = chat(
+        model=MODEL2,
+        messages=[{'role': 'user', 'content': "what's in this image?", 'images': [s]}],
+        stream=True,
+        )
+        
+        for chunk in stream:
+        print(chunk['message']['content'], end='', flush=True)
+        
+        t2 = time.time()
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+    \end{minted}
+    \caption[Ollama Img Async Generator Code]{Code om te communiceren met \textit{gemma3:4b}.}
+    \label{lst:ollama-img-async-generator-test}
+\end{listing}
+
+\textbf{Vraag:} 'what's in this image?' + afbeelding als base64 encoded tekst
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    Here's a breakdown of what's depicted in the image:
+    
+    *   **Distorted Tree:** The most striking element is a massive, deeply shadowed tree with branches that curve dramatically upward and outward, almost like a monstrous face. It dominates the scene.
+    
+    *   **Moon and Sky:** Above the tree is a crescent moon in a pale, hazy sky. The sky has a yellowish/golden hue.
+    
+    *   **Red Landscape:** Below the tree is a vast, desolate landscape covered in a thick layer of deep red foliage, like dried leaves or perhaps a blood-like substance.
+    
+    *   **Boat-Like Structures:** Two dark, boat-like or vaguely humanoid structures are present on the red landscape, adding to the surreal and unsettling atmosphere.
+    
+    **Overall Impression:** The painting evokes a sense of unease, melancholy, and the surreal. It is strongly reminiscent of the style of Zdzisław Beksiński, a Polish surrealist painter known for his dark, unsettling, and often apocalyptic landscapes.
+    Response tijd in seconden: 86.98152
+\end{minted}
+\subsubsection{Ollama Localhost-API Img (offline)}
+\label{sssec:ollamalocalhostapi}
+
+In deze methode wordt de Ollama API aangesproken met een multimodal model \todo{link to segment where I discus multimodal models} die ook in de Ollama API docs wordt aangeraden: llava. Er kunnen meerdere geëncodeerde afbeeldingen mee gestuurd worden. In de code is er een soort controle mechanisme gemaakt voor wanneer de gekozen model nog niet zou gedownload(geïnstalleerd) zijn. Als gekozen model nog niet in de lijst staat wordt die gedownload. Dit is echter geen al te goede oplossing want er is weer geen feedback te zien van de download-progressie. We zien enkel dat de terminal bezet is met iets. \\
+
+De structuur van response die terugkeert van de API is nogal omslachtig.
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-localhost-api-img-test}
+
+\begin{listing}
+    \begin{minted}{python}
+        import base64
+        import requests
+        import ollama
+        
+        import time
+        t1 = time.time()
+        
+        '''
+        code from: https://ollama.com/library/llava  &  https://github.com/ollama/ollama/blob/main/docs/api.md#request-5
+        
+        Request:
+        
+        curl http://localhost:11434/api/generate -d '{
+            "model": "llava",
+            "prompt":"What is in this picture?",
+            "images": ["iVBORw0KGgoAAAANSUhEUgAA..."]
+        }'
+        
+        Response:
+        
+        {
+            "model": "llava",
+            "created_at": "2023-11-03T15:36:02.583064Z",
+            "response": "A happy cartoon character, which is cute and cheerful.",
+            "done": true,
+            "context": [1, 2, 3],
+            "total_duration": 2938432250,
+            "load_duration": 2559292,
+            "prompt_eval_count": 1,
+            "prompt_eval_duration": 2195557000,
+            "eval_count": 44,
+            "eval_duration": 736432000
+        }
+        
+        '''
+        
+        MODEL = 'llava:7b'
+        
+        def model_installed(model) -> bool:
+        models = ollama.list().models
+        model_names = [m.model for m in models]
+        if model in model_names:
+        print("Model is installed, executing query.")
+        return True
+        print(f"Model not yet installed, installing {model}")
+        return False
+        
+        
+        if not model_installed(MODEL):
+        print(f"Please wait while Installing {MODEL}")
+        ollama.pull(MODEL)
+        else:
+        print(f"Encoding image and prompting {MODEL}")
+        # Encode the image to a base64 string.
+        with open(r"C:\Users\peter\OneDrive\Bureaublad\Workspace\Ollama\Beksinski 01.jpg", "rb") as img:
+        s = base64.b64encode(img.read()).decode("utf-8")
+        
+        json = {
+            "model": MODEL,
+            "prompt": "What is in this picture?",
+            "stream": False,
+            "images": [s]
+        }
+        response = requests.post(
+        "http://localhost:11434/api/generate",
+        json=json
+        )
+        # print(response.text) # (response.status_code / response.headers / response.content / response.text / response.json())
+        
+        data = response.json()
+        '''
+        print(data.keys())
+        dict_keys(['model', 'created_at', 'response', 'done', 'done_reason', 'context', 'total_duration', 'load_duration', 'prompt_eval_count', 'prompt_eval_duration', 'eval_count', 'eval_duration'])
+        '''
+        text_output = data.get("response", "")
+        print(text_output)
+        
+        t2 = time.time()
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+    \end{minted}
+    \caption[Ollama API Img Code]{Code om te communiceren met \textit{llava:7b}.}
+    \label{lst:ollama-localhost-api-img-test}
+\end{listing}
+
+\textbf{Vraag:} 'What is in this picture?' + afbeelding als base64 encoded tekst
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    Model is installed, executing query.
+    Encoding image and prompting llava:7b
+    The image features a large, stylized tree with a prominent canopy and multiple branches. It appears to be set within an artificial or painted environment that mimics a forest setting. In the background, there's a glowing light source emanating from between the branches of the tree, creating a somewhat magical or ethereal atmosphere. The color palette is rich with warm tones, contributing to the serene and mystical ambiance of the scene.
+    
+    Response tijd in seconden: 73.27115
+\end{minted}
+\subsubsection{Ollama + Tools (offline)}
+\label{sssec:ollamaplustools}
+
+In dit voorbeeld hebben we als tools functies die aangeroepen kunnen worden wanneer de gebruikers invoer hints bevat dat de LLM overtuigt dat er een tool kan gebruikt worden om te helpen met het antwoorden van de gestelde vraag. De LLM zal deze tool(functie) aanbieden met de correcte parameter(s).
+
+Voor het gebruiken van tools hebben we ook de Ollama API nodig: zie \ref{sssec:ollamaapi}
+De test werd gedaan met de codefragment: \ref{lst:ollama-tools-test}
+
+\begin{listing}
+    \begin{minted}{python}
+        import requests
+        import time
+        t1 = time.time()
+        
+        ''' Ollama API nodig voor tool use: https://github.com/ollama/ollama/blob/main/docs/api.md#chat-request-no-streaming-with-tools
+        
+        Request structure
+        #################
+        curl http://localhost:11434/api/chat -d '{
+            "model": "llama3.2",
+            "messages": [
+            {
+                "role": "user",
+                "content": "what is the weather in tokyo?"
+            }
+            ],
+            "tools": [
+            {
+                "type": "function",
+                "function": {
+                    "name": "get_weather",
+                    "description": "Get the weather in a given city",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "city": {
+                                "type": "string",
+                                "description": "The city to get the weather for"
+                            }
+                        },
+                        "required": ["city"]
+                    }
+                }
+            }
+            ],
+            "stream": false
+        }'
+        Response structure
+        ##################
+        {
+            "model": "llama3.2",
+            "created_at": "2025-07-07T20:32:53.844124Z",
+            "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                {
+                    "function": {
+                        "name": "get_weather",
+                        "arguments": {
+                            "city": "Tokyo"
+                        }
+                    }
+                }
+                ]
+            },
+            "done_reason": "stop",
+            "done": true,
+            "total_duration": 3244883583,
+            "load_duration": 2969184542,
+            "prompt_eval_count": 169,
+            "prompt_eval_duration": 141656333,
+            "eval_count": 18,
+            "eval_duration": 133293625
+        }
+        
+        '''
+        
+        QUESTION = [
+        {
+            'role': 'user',
+            'content': 'Why is the sky blue?',
+        },
+        ]
+        
+        QUESTION_TWO = [
+        {
+            'role': 'user',
+            'content': 'could you list me 3 composers of classical music?',
+        },
+        ]
+        
+        TOOL_CALL_QUESTION = [
+        {
+            'role': 'user',
+            'content': 'what is the weather in tokyo?',
+        },
+        ]
+        
+        TOOL_CALL_QUESTION_TWO = [
+        {
+            'role': 'user',
+            'content': 'what is the time in tokyo?',
+        },
+        ]
+        
+        tools =  [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get the weather in a given city",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {
+                            "type": "string",
+                            "description": "The city to get the weather for"
+                        }
+                    },
+                    "required": ["city"]
+                }
+            }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_time",
+                "description": "Get the current local time in the specified city",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {
+                            "type": "string",
+                            "description": "The city to get the current time for"
+                        }
+                    },
+                    "required": ["city"]
+                }
+            }
+        }
+        ]
+        
+        MODEL = 'qwen3-vl:8b'
+        
+        json = {
+            "model": MODEL,
+            "messages": TOOL_CALL_QUESTION_TWO,
+            "tools": tools,
+            "stream": False,
+        }
+        
+        response = requests.post(
+        "http://localhost:11434/api/chat",
+        json=json
+        )
+        # print(response.text) # (response.status_code / response.headers / response.content / response.text / response.json())
+        
+        data = response.json()
+        
+        '''
+        print(data.keys())
+        dict_keys(['model', 'created_at', 'message', 'done', 'done_reason', 'total_duration', 'load_duration', 'prompt_eval_count', 'prompt_eval_duration', 'eval_count', 'eval_duration'])
+        
+        note: response from the api/chat including a tools parameter is structured differently, it has 'message' field instead of a 'response' field
+        '''
+        
+        response_msg = data.get("response", "")
+        response_toolcall = data.get("message", "")
+        
+        # print(response_msg if response_msg != "" else response_toolcall)
+        print(response_toolcall)
+        
+        t2 = time.time()
+        print("\nResponse tijd in seconden: %.5f " % (t2 - t1))
+    \end{minted}
+    \caption[Ollama Tools Code]{Code om te communiceren met \textit{qwen3-vl:8b}.}
+    \label{lst:ollama-tools-test}
+\end{listing}
+
+Er werd eerst een \textbf{gemakkelijke vraag} gesteld waarvoor er geen tool beschikbaar was dat de vraag kon helpen oplossen.
+
+\textbf{Vraag A:} 'could you list me 3 composers of classical music?'
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    {'role': 'assistant', 'content': "I don't have access to a music database or composer knowledge base through the current toolset. The available tools only provide weather and time information. Would you like me to check the weather or current time for a specific city instead?", 'thinking': "Okay, the user is asking for 3 composers of classical music. Let me check the tools provided. The available functions are get_weather and get_current_time. Neither of those functions can provide information about composers. The user's request is about classical music, which isn't related to weather or time. So I can't use any of the provided tools here. I should inform them that I don't have the capability to list composers and maybe offer to use the tools if they need weather or time info instead."}
+    
+    Response tijd in seconden: 50.35526 
+\end{minted}
+
+De \textbf{standaard vraag} werd gesteld. De LLM stelde vast dat er geen tool gebruik nodig was en beantwoord de vraag zonder een hulpfunctie aan te bieden.
+
+\textbf{Vraag B:} 'Why is the sky blue?'
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    {'role': 'assistant', 'content': "The reason the sky appears blue is due to a phenomenon called **Rayleigh scattering**. When sunlight enters Earth's atmosphere, it interacts with gas molecules and small particles. Shorter wavelengths of light (like blue and violet) scatter more easily in all directions than longer wavelengths (like red and yellow). While both blue and violet light are scattered, our eyes are more sensitive to blue, and some violet light is absorbed by the upper atmosphere, resulting in the dominant blue appearance we observe. This effect is most noticeable during the day when the sun is high in the sky. \n\nSince this question requires a scientific explanation rather than weather or time data, I cannot use any of the provided tools to answer it. Let me know if you'd like to explore weather or time-related queries!", 'thinking': "Okay, the user is asking why the sky is blue. Let me think. I need to check if any of the provided tools can help answer this.\n\nFirst, looking at the tools: there's get_weather and get_current_time. Both are related to weather and time data. The question is about the scientific explanation of why the sky appears blue. \n\nThe get_weather function gives weather info for a city, which might include sky conditions, but not the reason behind the color. Similarly, get_current_time just gives the time, not relevant here. \n\nSince neither tool provides scientific explanations or physical principles, I can't use them to answer why the sky is blue. The user's question is more about atmospheric science, specifically Rayleigh scattering. \n\nSo, I should inform them that I can't use the available tools to answer that and provide the explanation directly instead."}
+    
+    Response tijd in seconden: 94.66958
+\end{minted}
+
+Indien er een vraag gesteld werd waarbij een hulpfunctie kon opgeroepen worden, dit is een voorbeeld van een \textbf{tool use vraag}. De meest geschikte hulpfunctie werd voorgesteld. Het "description" veld binnen een tools object is redelijk doorslaggevend om de prompt van de gebruiker te matchen met de juiste tool. Er was ook een tool beschikbaar om het weer in Tokio op te halen, maar de LLM heeft de vraag correct gekoppeld aan de tool om de tijd in Tokio op te halen.
+
+\textbf{Vraag C:} 'what is the time in tokyo?'
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    {'role': 'assistant', 'content': '', 'thinking': 'Okay, the user is asking for the time in Tokyo. Let me check the available tools.\n\nFirst, there\'s the get_current_time function, which requires the city name. The user mentioned Tokyo, so I should use that. The function needs the city parameter, which is Tokyo here.\n\nWait, the other tool is get_weather, but the user is asking about time, not weather. So I shouldn\'t use that one. Just need to call get_current_time with city set to Tokyo.\n\nLet me make sure the parameters are correct. The required parameter is city, a string. Tokyo is the city they want. So the tool call should be {"name": "get_current_time", "arguments": {"city": "Tokyo"}}.\n\nI should output this in the specified XML format. No other functions are needed here since it\'s a straightforward time request.', 'tool_calls': [{'id': 'call_5ve2n87w', 'function': {'index': 0, 'name': 'get_current_time', 'arguments': {'city': 'Tokyo'}}}]}
+    
+    Response tijd in seconden: 67.45627 
+\end{minted}
+
+\subsubsection{Ollama + JavaScript (offline)}
+\label{sssec:ollamaplusjavascript}
+
+Communiceren met LLMs gebruik makend van JavaScript. Bij de documentatie van Ollama vinden we dat er het meeste met python en JavaScript wordt gewerkt om de LLMs te gebruiken. Er zal nog een keuze gemaakt worden met welke taal de AI-agent zal werken bij het kiezen van Ollama.
+
+De test werd gedaan met de codefragment: \ref{lst:ollama-javascript-test}
+
+\begin{listing}
+    \begin{minted}{js}
+        /**
+        * setup
+        * -----
+        * 
+        * ollama model downloaden & ollama programma installeren binnen de node omgeving
+        * 
+        * bash:
+        * ollama pull gemma3
+        * npm i ollama
+        */
+        
+        /* js */
+        import ollama from 'ollama'
+        
+        const STARTTIME = new Date().getTime();
+        
+        async function runDemo() {
+            /* codefragment from: https://docs.ollama.com/quickstart#javascript */
+            const response = await ollama.chat({
+                model: 'gemma3',
+                messages: [{ role: 'user', content: 'Why is the sky blue?' }],
+            })
+            console.log(response.message.content)
+            /* end codefragment */
+            
+            const ENDTIME = new Date().getTime();
+            console.log(`\nResponse tijd in seconden: ${(ENDTIME - STARTTIME) / 1000}`);
+        }
+        
+        runDemo();
+        
+        /* demo opstarten:
+        Bash:
+        cd containing-directory
+        node quickstart.js
+        */
+    \end{minted}
+    \caption[Ollama Javascript Code]{Code om te communiceren met \textit{gemma3:4b}.}
+    \label{lst:ollama-javascript-test}
+\end{listing}
+
+\textbf{Vraag:} 'Why is the sky blue?'
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    (node:40768) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/peter/OneDrive/Bureaublad/Workspace/Ollama/js/quickstart.js is not specified and it doesn't parse as CommonJS.
+    Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+    To eliminate this warning, add "type": "module" to C:\Users\peter\package.json.
+    (Use `node --trace-warnings ...` to show where the warning was created)
+    That's a fantastic question, and it's one that's fascinated people for centuries! The short answer is: **the sky is blue because of a phenomenon called Rayleigh scattering.** Here's a more detailed explanation:
+    
+    **1. Sunlight and its Colors:**
+    
+    * Sunlight appears white, but it’s actually made up of *all* the colors of the rainbow (red, orange, yellow, green, blue, indigo, and violet). You can see this when you see a rainbow – those colors are separated by raindrops.
+    
+    **2. What is Rayleigh Scattering?**
+    
+    * **Light and Air Molecules:** The Earth's atmosphere is full of tiny air molecules (mostly nitrogen and oxygen) and particles.
+    * **Scattering:** When sunlight enters the atmosphere, it collides with these air molecules. This collision causes the light to scatter in different directions.     
+    * **Wavelength Matters:** Here's the crucial part: **shorter wavelengths of light (blue and violet) are scattered *much* more strongly than longer wavelengths (red and orange).**  This is because the shorter wavelengths interact more powerfully with the small air molecules.
+    
+    **3. Why Blue, Not Violet?**
+    
+    * Violet light has the shortest wavelength and is scattered *even more* than blue. However, there are a couple of reasons why we see a blue sky instead of a violet one:
+    * **Sun's Emission:** The sun actually emits slightly less violet light than blue light.
+    * **Our Eyes are Less Sensitive to Violet:** Our eyes are more sensitive to blue light than violet.
+    
+    
+    **Think of it like this:** Imagine throwing a small ball (blue light) and a large ball (red light) at a bumpy surface (the atmosphere). The small ball will bounce around in many directions, while the larger ball will mostly continue in its original path.
+    
+    **4. Sunsets & Sunrises – Why Red and Orange?**
+    
+    At sunrise and sunset, the sun is lower on the horizon. This means the sunlight has to travel through *much* more of the atmosphere to reach our eyes.  Because the blue light has been scattered away along its longer path, the remaining light that reaches us is predominantly the longer wavelengths - red and orange.
+    
+    
+    
+    **Resources for Further Learning:**
+    
+    * **NASA - Why is the sky blue?:** [https://science.nasa.gov/sky-science/why-is-the-sky-blue/](https://science.nasa.gov/sky-science/why-is-the-sky-blue/)
+    * **National Geographic - Why is the Sky Blue?:** [https://www.nationalgeographic.org/encyclopedia/sky](https://www.nationalgeographic.org/encyclopedia/sky)
+    
+    
+    Do you want me to delve deeper into any specific aspect of this explanation, such as:
+    
+    *   The physics behind Rayleigh scattering in more detail?
+    *   How this affects seeing stars?
+    *   The role of aerosols (pollution) in the sky’s color?
+    
+    Response tijd in seconden: 60.498
+\end{minted}
+
+De output werd voorafgegaan door een waarschuwing omdat we in de runtime omgeving van Node.js een file lieten lopen dat een import nodig had, dus we hadden de Node.js runtime omgeving gebruikt om deze file buiten de web-omgeving te laten lopen. Normaal gezien draait js in een browser omgeving.
+
+\subsubsection{Ollama Test Conclusies}
+\label{sssec:ollamatestconclusies}
+
+Bij elke methode werd het gemiddelde response tijd gemeten, beginnend bij het invoeren van de prompt tot het afwerken en weergeven van het antwoord, eindigend waar de LLM klaar staat voor de volgende prompt.
+
+%todo: (expect) Bij de kleine lokale modellen is de tijdsverschil van antwoorden eerder afhankelijk van de gekozen communicatiemethode dan de eigenschappen van de LLMs zelf
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{l l l c c r}
+        \toprule
+        \textbf{Methode} &
+        \textbf{Model} &
+        \textbf{Resource} &
+        \textbf{Offline} &
+        \textbf{Stream} &
+        \textbf{Tijd} \\
+        \midrule
+        lokaal & qwen3-vl:8b-instruct & / & \ding{51} & \ding{55} & 84.42009 \\
+        cloud-signin & gpt-oss:120b-cloud & / & \ding{55} & \ding{51} & 6.93436 \\
+        cloud-api & gpt-oss:120b-cloud & / & \ding{55} & \ding{51} & 12.76668 \\
+        asyncclient & gemma3:4b & / & \ding{51} & \ding{55} & 67.68256 \\
+        async generator & gemma3:4b & / & \ding{51} & \ding{51} & 69.89036 \\
+        img async generator & gemma3:4b & jpg & \ding{51} & \ding{51} & 86.98152 \\
+        localhost-api img & llava:7b & jpg & \ding{51} & \ding{55} & 73.27115 \\
+        + tools(A) & qwen3-vl:8b & tools lijst & \ding{51} & \ding{55} & 50.35526 \\
+        + tools(B) & qwen3-vl:8b & tools lijst & \ding{51} & \ding{55} & 94.66958 \\
+        + tools(C) & qwen3-vl:8b & tools lijst & \ding{51} & \ding{55} & 67.45627 \\
+        + JavaScript & gemma3:4b & / & \ding{51} & \ding{55} & 60.498 \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Response tijden bij verschillende methodes van communicatie met Ollama LLMs}
+    \label{tab:ollamatijdstabel}
+\end{table}
+
+Deze tabel bevat de gebruikte methodes om te verbinden met verschillende LLMs gebruikmakend van Ollama code, vooral python, met één laatste methode die JavaScript gebruikt. Volgende kolommen, de model waarmee verbonden werd, een gebruikte resource, offline modellen kunnen werken zonder verbinding met het internet te maken, stream geeft aan of de output response van de LLM beetje bij beetje verscheen, of als het allemaal tegelijk uitgeprint werd. Laatst, de tijd is hoeveel seconden de LLM nodig had om de output volledig weer te geven. \\
+
+De grootte(aantal tokens), of de complexiteit van een vraag en het toevoegen van resources zal een impact hebben op de tijd nodig voor de LLM om een response terug te geven, zie \todo{reference to chapter Context Window}
+
+Van alle offline LLM methodes van interactie 'oogt' de async generator methode het snelste, dit omdat er meteen een output stream te zien is, dus er moet maar heel even gewacht worden om feedback te zien. Het duurt toch bijna even lang als de andere modellen eer dat het volledige antwoord als output op het scherm te zien is. Bij de offline LLMs moet men telkens een minuut of langer wachten op een response, of dit nu extra resources gebruikt of niet. \\
+
+Het inladen van een afbeelding nam meer dan de helft van de tijd in beslag bij de methodes waar als resource een afbeelding meegegeven werd, de response output van de LLM die een afbeelding als input mee kreeg was relatief kort. De responses van de methodes waar geen afbeelding gebruikt werd waren relatief lang en er moest worden gewacht tot die volledige response op het scherm verscheen. Dus het gebruiken van een afbeelding, of het uitprinten van een lange uitleg zijn beiden vertragende factoren. De tijd om een response uit te printen loopt daarom wat gelijk bij alle offline modellen. Het lijkt ook zo, dat wanneer de gekozen LLM en input hetzelfde zijn, de tijd van reageren hetzelfde is voor een gestreamde response versus een alles in één response. Zie methoden: asyncclient \& async generator.\\
+
+%todo: after running all avg tests - expect when a short question that leads to tool use is asked, quick response, when the standard question is asked a: same time as other offline(non-img) LLMs or slightly longer time (because tools added to context)
+We merken bij de LLM waar een tool gebruikt werd op dat het tool gebruik de LLM niet vertraagde ten opzichte van het de methoden waar geen tool werd gebruikt. \\
+
+Bij een aantal LLMs is ervoor gekozen om de response stream parameter op false te zetten, dit was om het eenvoudiger te maken om de LLM response in de output weer te geven. \\
+
+Bij de online modellen, welke te groot zijn om op Computer A te installeren is er een aanzienlijk grote snelheidsverschil te zien met de offline modellen, dit zal vermoedelijk te wijten zijn aan de aanzienlijk grootte van die modellen en ook het feit dat ze op een sterkere machine draaien dan Computer A. \\
+
+Als er wordt gekozen voor Ollama om de Agent te maken, zou er bij de offline bruikbare LLMs een voorkeur zijn voor een combinatie van de methodes: async generator + tool gebruik. De redenen hiervoor zijn de snelle feedback van het direct afprinten van chunks tekst in de response stream en de mogelijkheid om tools op te roepen. Als een online methode wordt gekozen, dit ligt nog niet vast, maar de cloud-signin methode heeft een extra stap nodig om Computer A te verbinden met een Ollama account, de andere methode, verbinden met de Ollama cloud-api heeft een API sleutel nodig om de verbinding te autoriseren. Dit brengt een extra veiligheids- risico met zich mee, er moet veilig omgegaan worden met die API sleutel...
+
+Belangrijker dan de snelheids- testen zijn de bruikbare codefragmenten om eventueel gebruik van de maken als Ollama gekozen wordt om de AI-agent mee te bouwen. Er kunnen eventuele bijkomende factoren zijn die de keuze voor Ollama zullen beïnvloeden.
+
+

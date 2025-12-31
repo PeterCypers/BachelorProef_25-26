@@ -1,0 +1,24 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+The sky appears blue due to a phenomenon called \PYG{g+gs}{**Rayleigh scattering**}. Here\PYGZsq{}s how it works:
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{}\PYGZsh{} 1. **Sunlight is White, But Made of Many Colors**}
+Sunlight, or white light, is actually composed of all the colors of the visible spectrum—red, orange, yellow, green, blue, indigo, and violet. These colors travel at different wavelengths.
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{}\PYGZsh{} 2. **Atmosphere Scatters Shorter Wavelengths More**}
+The atmosphere contains molecules (like nitrogen and oxygen) and tiny particles. When sunlight enters the atmosphere, these molecules scatter the sunlight in all directions.
+
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }\PYG{g+gs}{**Shorter wavelengths**} (like \PYG{g+gs}{**blue and violet**}) are scattered much more effectively than longer wavelengths (like red and orange).
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }This is because the scattering intensity is \PYG{g+gs}{**inversely proportional to the fourth power of the wavelength**} (Rayleigh scattering law: \PYG{g+ge}{*I ∝ 1/λ⁴*}).
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{}\PYGZsh{} 3. **Why We See Blue, Not Violet**}
+Although \PYG{g+gs}{**violet**} light is scattered even more than blue, our eyes are \PYG{g+gs}{**less sensitive to violet**}, and some of the violet light is absorbed by the upper atmosphere. So the dominant color we perceive is \PYG{g+gs}{**blue**}.
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{}\PYGZsh{} 4. **What Happens at Sunrise or Sunset?**}
+At sunrise or sunset, sunlight travels through more atmosphere. This causes \PYG{g+gs}{**most of the blue and violet to be scattered out of our line of sight**}, so the remaining light (with longer wavelengths like red and orange) reaches us — that’s why sunsets are orange or red.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+✅ In summary:
+\PYG{g+gs}{**The sky is blue because molecules in the atmosphere scatter shorter\PYGZhy{}wavelength blue light more than other colors, and our eyes are most sensitive to blue — making it the color we see most often in the daytime sky.**}
+Response tijd in seconden: 84.42009
+\end{MintedVerbatim}

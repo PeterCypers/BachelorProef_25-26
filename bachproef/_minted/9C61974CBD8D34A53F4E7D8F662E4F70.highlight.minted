@@ -1,0 +1,30 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{time}
+\PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} https://github.com/ollama/ollama\PYGZhy{}python?tab=readme\PYGZhy{}ov\PYGZhy{}file\PYGZsh{}async\PYGZhy{}client}
+
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{ollama}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{chat}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{base64}
+
+\PYG{n}{MODEL1} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}qwen3\PYGZhy{}vl:8b\PYGZhy{}instruct\PYGZsq{}}
+\PYG{n}{MODEL2} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}gemma3\PYGZsq{}}
+
+\PYG{n}{img1} \PYG{o}{=} \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}C:\PYGZbs{}Users\PYGZbs{}peter\PYGZbs{}OneDrive\PYGZbs{}Bureaublad\PYGZbs{}Workspace\PYGZbs{}Ollama\PYGZbs{}Beksinski 01.jpg\PYGZdq{}}
+\PYG{n}{img2} \PYG{o}{=} \PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}C:\PYGZbs{}Users\PYGZbs{}peter\PYGZbs{}OneDrive\PYGZbs{}Bureaublad\PYGZbs{}Workspace\PYGZbs{}Ollama\PYGZbs{}untitled\PYGZhy{}nightmare\PYGZhy{}tree\PYGZhy{}zdzislaw\PYGZhy{}beksinski.jpg\PYGZdq{}}
+
+\PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}rb\PYGZdq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{img}\PYG{p}{:}
+\PYG{n}{s} \PYG{o}{=} \PYG{n}{base64}\PYG{o}{.}\PYG{n}{b64encode}\PYG{p}{(}\PYG{n}{img}\PYG{o}{.}\PYG{n}{read}\PYG{p}{())}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}utf\PYGZhy{}8\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{stream} \PYG{o}{=} \PYG{n}{chat}\PYG{p}{(}
+\PYG{n}{model}\PYG{o}{=}\PYG{n}{MODEL2}\PYG{p}{,}
+\PYG{n}{messages}\PYG{o}{=}\PYG{p}{[\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}what\PYGZsq{}s in this image?\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}images\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{n}{s}\PYG{p}{]\PYGZcb{}],}
+\PYG{n}{stream}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+\PYG{p}{)}
+
+\PYG{k}{for} \PYG{n}{chunk} \PYG{o+ow}{in} \PYG{n}{stream}\PYG{p}{:}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{chunk}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}message\PYGZsq{}}\PYG{p}{][}\PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{],} \PYG{n}{end}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{flush}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+\PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Response tijd in seconden: }\PYG{l+s+si}{\PYGZpc{}.5f}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{t2} \PYG{o}{\PYGZhy{}} \PYG{n}{t1}\PYG{p}{))}
+\end{MintedVerbatim}

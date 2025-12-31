@@ -1,0 +1,37 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{OLLAMA\PYGZus{}API\PYGZus{}KEY}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}d22e2e0258e749dd82b3db75a57c0fea.TNwiekYbQv1k1P\PYGZus{}mv\PYGZhy{}vUTguW\PYGZdq{}}
+
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{time}
+\PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{normale procedure(voor security wil je een geheim api\PYGZhy{}key):}
+
+\PYG{l+s+sd}{export OLLAMA\PYGZus{}API\PYGZus{}KEY=your\PYGZus{}api\PYGZus{}key}
+
+\PYG{l+s+sd}{import os}
+
+\PYG{l+s+sd}{os.environ.get(\PYGZsq{}OLLAMA\PYGZus{}API\PYGZus{}KEY\PYGZsq{})}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{c+c1}{\PYGZsh{} https://github.com/ollama/ollama\PYGZhy{}python?tab=readme\PYGZhy{}ov\PYGZhy{}file\PYGZsh{}cloud\PYGZhy{}api\PYGZhy{}ollamacom}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{ollama}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Client}
+
+\PYG{n}{client} \PYG{o}{=} \PYG{n}{Client}\PYG{p}{(}
+\PYG{n}{host}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}https://ollama.com\PYGZsq{}}\PYG{p}{,}
+\PYG{n}{headers}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}Authorization\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Bearer \PYGZsq{}} \PYG{o}{+} \PYG{n}{OLLAMA\PYGZus{}API\PYGZus{}KEY}\PYG{p}{\PYGZcb{}}
+\PYG{p}{)}
+
+\PYG{n}{messages} \PYG{o}{=} \PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Why is the sky blue?\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{]}
+\PYG{c+c1}{\PYGZsh{} model: \PYGZsq{}gpt\PYGZhy{}oss:120b\PYGZsq{} also works, not sure why, but \PYGZhy{}cloud suffix not needed}
+\PYG{k}{for} \PYG{n}{part} \PYG{o+ow}{in} \PYG{n}{client}\PYG{o}{.}\PYG{n}{chat}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}gpt\PYGZhy{}oss:120b\PYGZhy{}cloud\PYGZsq{}}\PYG{p}{,} \PYG{n}{messages}\PYG{o}{=}\PYG{n}{messages}\PYG{p}{,} \PYG{n}{stream}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{):}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{part}\PYG{o}{.}\PYG{n}{message}\PYG{o}{.}\PYG{n}{content}\PYG{p}{,} \PYG{n}{end}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{flush}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+\PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Response tijd in seconden: }\PYG{l+s+si}{\PYGZpc{}.5f}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{t2} \PYG{o}{\PYGZhy{}} \PYG{n}{t1}\PYG{p}{))}
+\end{MintedVerbatim}

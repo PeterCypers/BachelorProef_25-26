@@ -1,0 +1,57 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{g+gs}{**Short answer:**}
+The sky appears blue because molecules and tiny particles in Earth’s atmosphere scatter short‑wavelength (blue) light from the Sun far more efficiently than they scatter longer‑wavelength (red) light. Our eyes see that scattered blue light coming from every direction overhead.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} The physics behind it}
+
+| Step | What happens | Why it matters |
+|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|
+| \PYG{g+gs}{**1. Sunlight is white**} | Sunlight contains a continuous spectrum of colors—from violet (\PYGZti{}380 nm) to red (\PYGZti{}700 nm). | “White” light is just a mix of all visible wavelengths. |
+| \PYG{g+gs}{**2. Light enters the atmosphere**} | As sunlight passes through the lower \PYGZti{}100 km of the atmosphere, it encounters nitrogen (N₂), oxygen (O₂), and trace gases. | These molecules are far smaller than the wavelength of visible light. |
+| \PYG{g+gs}{**3. Rayleigh scattering**} | Light is scattered by particles that are much smaller than its wavelength. The scattering intensity follows \PYG{g+gs}{**\PYGZbs{}(I \PYGZbs{}propto \PYGZbs{}frac\PYGZob{}1\PYGZcb{}\PYGZob{}\PYGZbs{}lambda\PYGZca{}4\PYGZcb{}\PYGZbs{})**} (the Rayleigh law). | Shorter wavelengths (blue, violet) get scattered 10‑16 times more strongly than red. |
+| \PYG{g+gs}{**4. Human eye sensitivity**} | The eye’s photoreceptor (cones) are most responsive to wavelengths around 555 nm (green) and less to violet (\PYGZlt{} 400 nm). The eye also has three cone types (S, M, L) that together weight blue (≈450 nm) more than violet. | Even though violet is scattered the most, we perceive the sky as blue because our eyes are less sensitive to violet and the atmosphere absorbs much of it. |
+| \PYG{g+gs}{**5. Observed sky color**} | The scattered blue light reaches us from every direction, giving the dome overhead its characteristic hue. | The direct Sun’s beam stays relatively unscattered, so we see the Sun as white/yellow while the background sky is blue. |
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} Why the sky isn’t violet (even though violet scatters more)}
+
+\PYG{k}{1.} \PYG{g+gs}{**Eye sensitivity:**} Our photoreceptors are \PYGZti{}5–10× less sensitive to violet than to blue.
+\PYG{k}{2.} \PYG{g+gs}{**Solar spectrum:**} The Sun emits less energy at violet wavelengths than at blue.
+\PYG{k}{3.} \PYG{g+gs}{**Atmospheric absorption:**} Ozone and other gases absorb part of the violet/ultraviolet light before it can be scattered back to us.
+
+Combined, these effects tip the balance toward the \PYG{g+gs}{**blue**} we perceive.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} When the sky changes color}
+
+| Situation | What changes | Resulting color |
+|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|
+| \PYG{g+gs}{**Sun low on the horizon (sunrise / sunset)**} | Light traverses a much longer atmospheric path → more scattering of blue \PYGZam{} green, leaving reds \PYGZam{} oranges. | Warm reds, pinks, and oranges dominate. |
+| \PYG{g+gs}{**Dust, pollution, or volcanic ash**} | Larger particles cause \PYG{g+gs}{**Mie scattering**}, which is less wavelength‑dependent. | Sky can look whitish, hazy, or take on a brownish tint. |
+| \PYG{g+gs}{**Clear, dry air at high altitude**} | Fewer scattering molecules, less water vapor → less overall scattering. | Sky can appear a deeper, almost \PYG{g+gs}{**ultramarine**} blue. |
+| \PYG{g+gs}{**Night**} | No direct sunlight; only scattered starlight and occasional moonlight. | Sky is dark; only faint airglow or auroral emissions may be visible. |
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} A quick mental picture}
+
+\PYG{k}{1.} Imagine shining a flashlight (white light) into a foggy room. The fog’s tiny water droplets scatter all colors more or less equally → the room glows white.
+\PYG{k}{2.} Now replace the droplets with \PYG{g+gs}{**tiny gas molecules**} that are orders of magnitude smaller. They act like a “blue‑biased” fog, sending far more blue photons toward your eyes from every direction. That’s the sky we see on a clear day.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{}\PYGZsh{} TL;DR}
+
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Sunlight = all colors.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Molecules in the atmosphere scatter light \PYG{g+gs}{**more efficiently at short wavelengths**} (Rayleigh scattering ∝ 1/λ⁴).
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Blue light (≈450 nm) is scattered \PYGZti{}10× more than red (≈650 nm).
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Our eyes are tuned to see blue better than violet, and violet is partly absorbed.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }The net effect: a sky bathed in scattered blue light.
+
+That’s why, on a clear day, you look up and see a beautiful blue dome. 🌤️
+Response tijd in seconden: 6.93436
+\end{MintedVerbatim}

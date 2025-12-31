@@ -1,0 +1,37 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} setup:}
+\PYG{c+c1}{\PYGZsh{} run following 2 commands in terminal:}
+
+\PYG{c+c1}{\PYGZsh{} 1)}
+\PYG{c+c1}{\PYGZsh{} ollama signin}
+\PYG{c+c1}{\PYGZsh{} generated the following for me:}
+\PYG{c+c1}{\PYGZsh{} https://ollama.com/connect?name=LAPTOP\PYGZhy{}1CQ3QTCS\PYGZam{}key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUorK245dlBpY0JOVzZqZnFWRDF1Wm1Ldnh4eitYc0RwN2RkQzRZb2tJSC8}
+\PYG{c+c1}{\PYGZsh{} (follow the link and connect this device with your ollama account)}
+
+\PYG{c+c1}{\PYGZsh{} 2)}
+\PYG{c+c1}{\PYGZsh{} ollama pull gpt\PYGZhy{}oss:120b\PYGZhy{}cloud}
+\PYG{c+c1}{\PYGZsh{} save metadata about the cloud model on your system (this does not install the 65gb model locally, only some metadata)}
+\PYG{c+c1}{\PYGZsh{} \PYGZdq{}manifest\PYGZdq{} sha256}
+
+\PYG{c+c1}{\PYGZsh{} https://github.com/ollama/ollama\PYGZhy{}python?tab=readme\PYGZhy{}ov\PYGZhy{}file\PYGZsh{}cloud\PYGZhy{}models}
+
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{time}
+\PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{ollama}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Client}
+
+\PYG{n}{client} \PYG{o}{=} \PYG{n}{Client}\PYG{p}{()}
+
+\PYG{n}{messages} \PYG{o}{=} \PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Why is the sky blue?\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{]}
+
+\PYG{k}{for} \PYG{n}{part} \PYG{o+ow}{in} \PYG{n}{client}\PYG{o}{.}\PYG{n}{chat}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}gpt\PYGZhy{}oss:120b\PYGZhy{}cloud\PYGZsq{}}\PYG{p}{,} \PYG{n}{messages}\PYG{o}{=}\PYG{n}{messages}\PYG{p}{,} \PYG{n}{stream}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{):}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{part}\PYG{o}{.}\PYG{n}{message}\PYG{o}{.}\PYG{n}{content}\PYG{p}{,} \PYG{n}{end}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{flush}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+\PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Response tijd in seconden: }\PYG{l+s+si}{\PYGZpc{}.5f}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{t2} \PYG{o}{\PYGZhy{}} \PYG{n}{t1}\PYG{p}{))}
+\end{MintedVerbatim}

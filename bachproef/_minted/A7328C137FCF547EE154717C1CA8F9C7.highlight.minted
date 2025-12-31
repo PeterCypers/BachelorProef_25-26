@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+Model is installed, executing query.
+Encoding image and prompting llava:7b
+The image features a large, stylized tree with a prominent canopy and multiple branches. It appears to be set within an artificial or painted environment that mimics a forest setting. In the background, there\PYGZsq{}s a glowing light source emanating from between the branches of the tree, creating a somewhat magical or ethereal atmosphere. The color palette is rich with warm tones, contributing to the serene and mystical ambiance of the scene.
+
+Response tijd in seconden: 73.27115
+\end{MintedVerbatim}

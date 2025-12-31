@@ -1,0 +1,81 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{base64}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{requests}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{ollama}
+
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{time}
+\PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{code from: https://ollama.com/library/llava  \PYGZam{}  https://github.com/ollama/ollama/blob/main/docs/api.md\PYGZsh{}request\PYGZhy{}5}
+
+\PYG{l+s+sd}{Request:}
+
+\PYG{l+s+sd}{curl http://localhost:11434/api/generate \PYGZhy{}d \PYGZsq{}\PYGZob{}}
+\PYG{l+s+sd}{    \PYGZdq{}model\PYGZdq{}: \PYGZdq{}llava\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}prompt\PYGZdq{}:\PYGZdq{}What is in this picture?\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}images\PYGZdq{}: [\PYGZdq{}iVBORw0KGgoAAAANSUhEUgAA...\PYGZdq{}]}
+\PYG{l+s+sd}{\PYGZcb{}\PYGZsq{}}
+
+\PYG{l+s+sd}{Response:}
+
+\PYG{l+s+sd}{\PYGZob{}}
+\PYG{l+s+sd}{    \PYGZdq{}model\PYGZdq{}: \PYGZdq{}llava\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}created\PYGZus{}at\PYGZdq{}: \PYGZdq{}2023\PYGZhy{}11\PYGZhy{}03T15:36:02.583064Z\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}response\PYGZdq{}: \PYGZdq{}A happy cartoon character, which is cute and cheerful.\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}done\PYGZdq{}: true,}
+\PYG{l+s+sd}{    \PYGZdq{}context\PYGZdq{}: [1, 2, 3],}
+\PYG{l+s+sd}{    \PYGZdq{}total\PYGZus{}duration\PYGZdq{}: 2938432250,}
+\PYG{l+s+sd}{    \PYGZdq{}load\PYGZus{}duration\PYGZdq{}: 2559292,}
+\PYG{l+s+sd}{    \PYGZdq{}prompt\PYGZus{}eval\PYGZus{}count\PYGZdq{}: 1,}
+\PYG{l+s+sd}{    \PYGZdq{}prompt\PYGZus{}eval\PYGZus{}duration\PYGZdq{}: 2195557000,}
+\PYG{l+s+sd}{    \PYGZdq{}eval\PYGZus{}count\PYGZdq{}: 44,}
+\PYG{l+s+sd}{    \PYGZdq{}eval\PYGZus{}duration\PYGZdq{}: 736432000}
+\PYG{l+s+sd}{\PYGZcb{}}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{MODEL} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}llava:7b\PYGZsq{}}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{model\PYGZus{}installed}\PYG{p}{(}\PYG{n}{model}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{bool}\PYG{p}{:}
+\PYG{n}{models} \PYG{o}{=} \PYG{n}{ollama}\PYG{o}{.}\PYG{n}{list}\PYG{p}{()}\PYG{o}{.}\PYG{n}{models}
+\PYG{n}{model\PYGZus{}names} \PYG{o}{=} \PYG{p}{[}\PYG{n}{m}\PYG{o}{.}\PYG{n}{model} \PYG{k}{for} \PYG{n}{m} \PYG{o+ow}{in} \PYG{n}{models}\PYG{p}{]}
+\PYG{k}{if} \PYG{n}{model} \PYG{o+ow}{in} \PYG{n}{model\PYGZus{}names}\PYG{p}{:}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Model is installed, executing query.\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{return} \PYG{k+kc}{True}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Model not yet installed, installing }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{return} \PYG{k+kc}{False}
+
+
+\PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{model\PYGZus{}installed}\PYG{p}{(}\PYG{n}{MODEL}\PYG{p}{):}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Please wait while Installing }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{MODEL}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{ollama}\PYG{o}{.}\PYG{n}{pull}\PYG{p}{(}\PYG{n}{MODEL}\PYG{p}{)}
+\PYG{k}{else}\PYG{p}{:}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Encoding image and prompting }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{MODEL}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Encode the image to a base64 string.}
+\PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+sa}{r}\PYG{l+s+s2}{\PYGZdq{}C:\PYGZbs{}Users\PYGZbs{}peter\PYGZbs{}OneDrive\PYGZbs{}Bureaublad\PYGZbs{}Workspace\PYGZbs{}Ollama\PYGZbs{}Beksinski 01.jpg\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}rb\PYGZdq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{img}\PYG{p}{:}
+\PYG{n}{s} \PYG{o}{=} \PYG{n}{base64}\PYG{o}{.}\PYG{n}{b64encode}\PYG{p}{(}\PYG{n}{img}\PYG{o}{.}\PYG{n}{read}\PYG{p}{())}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}utf\PYGZhy{}8\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{json} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}model\PYGZdq{}}\PYG{p}{:} \PYG{n}{MODEL}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}prompt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}What is in this picture?\PYGZdq{}}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}stream\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}images\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}\PYG{n}{s}\PYG{p}{]}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{response} \PYG{o}{=} \PYG{n}{requests}\PYG{o}{.}\PYG{n}{post}\PYG{p}{(}
+\PYG{l+s+s2}{\PYGZdq{}http://localhost:11434/api/generate\PYGZdq{}}\PYG{p}{,}
+\PYG{n}{json}\PYG{o}{=}\PYG{n}{json}
+\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} print(response.text) \PYGZsh{} (response.status\PYGZus{}code / response.headers / response.content / response.text / response.json())}
+
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{response}\PYG{o}{.}\PYG{n}{json}\PYG{p}{()}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{print(data.keys())}
+\PYG{l+s+sd}{dict\PYGZus{}keys([\PYGZsq{}model\PYGZsq{}, \PYGZsq{}created\PYGZus{}at\PYGZsq{}, \PYGZsq{}response\PYGZsq{}, \PYGZsq{}done\PYGZsq{}, \PYGZsq{}done\PYGZus{}reason\PYGZsq{}, \PYGZsq{}context\PYGZsq{}, \PYGZsq{}total\PYGZus{}duration\PYGZsq{}, \PYGZsq{}load\PYGZus{}duration\PYGZsq{}, \PYGZsq{}prompt\PYGZus{}eval\PYGZus{}count\PYGZsq{}, \PYGZsq{}prompt\PYGZus{}eval\PYGZus{}duration\PYGZsq{}, \PYGZsq{}eval\PYGZus{}count\PYGZsq{}, \PYGZsq{}eval\PYGZus{}duration\PYGZsq{}])}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{text\PYGZus{}output} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}response\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{text\PYGZus{}output}\PYG{p}{)}
+
+\PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Response tijd in seconden: }\PYG{l+s+si}{\PYGZpc{}.5f}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{t2} \PYG{o}{\PYGZhy{}} \PYG{n}{t1}\PYG{p}{))}
+\end{MintedVerbatim}

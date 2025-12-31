@@ -1,0 +1,35 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{} Prep \PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{} als er meerdere python versies zijn: zet python interpreter op niewste(waar pip installs naar wijzen) (3.12.9)}
+\PYG{c+c1}{\PYGZsh{} pip install ollama}
+\PYG{c+c1}{\PYGZsh{} kies een model op: https://ollama.com/search}
+\PYG{c+c1}{\PYGZsh{} download de gekozen ollama model (bvb qwen3\PYGZhy{}vl:8b\PYGZhy{}instruct) via deze shell commando: \PYGZdq{}ollama run qwen3\PYGZhy{}vl:8b\PYGZhy{}instruct\PYGZdq{}}
+\PYG{c+c1}{\PYGZsh{} info: je kan ook modellen downloaden via de GUI van de ollama app, maar dan heb je geen enkele feedback of kennis van wanneer het model}
+\PYG{c+c1}{\PYGZsh{} volledig is gedownload}
+\PYG{c+c1}{\PYGZsh{} nu kan je deze file runnen (ook offline)}
+
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{time}
+
+\PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{} code verkregen van: https://github.com/ollama/ollama\PYGZhy{}python}
+
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{ollama}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{chat}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{ollama}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{ChatResponse}
+
+\PYG{n}{response}\PYG{p}{:} \PYG{n}{ChatResponse} \PYG{o}{=} \PYG{n}{chat}\PYG{p}{(}\PYG{n}{model}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}qwen3\PYGZhy{}vl:8b\PYGZhy{}instruct\PYGZsq{}}\PYG{p}{,} \PYG{n}{messages}\PYG{o}{=}\PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Why is the sky blue?\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{])}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{response}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}message\PYGZsq{}}\PYG{p}{][}\PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{])}
+\PYG{c+c1}{\PYGZsh{} or access fields directly from the response object}
+\PYG{c+c1}{\PYGZsh{} print(response.message.content)}
+
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+
+\PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Response tijd in seconden: }\PYG{l+s+si}{\PYGZpc{}.5f}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{t2} \PYG{o}{\PYGZhy{}} \PYG{n}{t1}\PYG{p}{))}
+\end{MintedVerbatim}

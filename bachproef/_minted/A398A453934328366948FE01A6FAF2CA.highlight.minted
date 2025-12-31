@@ -1,0 +1,167 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{requests}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{time}
+\PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{} Ollama API nodig voor tool use: https://github.com/ollama/ollama/blob/main/docs/api.md\PYGZsh{}chat\PYGZhy{}request\PYGZhy{}no\PYGZhy{}streaming\PYGZhy{}with\PYGZhy{}tools}
+
+\PYG{l+s+sd}{Request structure}
+\PYG{l+s+sd}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{l+s+sd}{curl http://localhost:11434/api/chat \PYGZhy{}d \PYGZsq{}\PYGZob{}}
+\PYG{l+s+sd}{    \PYGZdq{}model\PYGZdq{}: \PYGZdq{}llama3.2\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}messages\PYGZdq{}: [}
+\PYG{l+s+sd}{    \PYGZob{}}
+\PYG{l+s+sd}{        \PYGZdq{}role\PYGZdq{}: \PYGZdq{}user\PYGZdq{},}
+\PYG{l+s+sd}{        \PYGZdq{}content\PYGZdq{}: \PYGZdq{}what is the weather in tokyo?\PYGZdq{}}
+\PYG{l+s+sd}{    \PYGZcb{}}
+\PYG{l+s+sd}{    ],}
+\PYG{l+s+sd}{    \PYGZdq{}tools\PYGZdq{}: [}
+\PYG{l+s+sd}{    \PYGZob{}}
+\PYG{l+s+sd}{        \PYGZdq{}type\PYGZdq{}: \PYGZdq{}function\PYGZdq{},}
+\PYG{l+s+sd}{        \PYGZdq{}function\PYGZdq{}: \PYGZob{}}
+\PYG{l+s+sd}{            \PYGZdq{}name\PYGZdq{}: \PYGZdq{}get\PYGZus{}weather\PYGZdq{},}
+\PYG{l+s+sd}{            \PYGZdq{}description\PYGZdq{}: \PYGZdq{}Get the weather in a given city\PYGZdq{},}
+\PYG{l+s+sd}{            \PYGZdq{}parameters\PYGZdq{}: \PYGZob{}}
+\PYG{l+s+sd}{                \PYGZdq{}type\PYGZdq{}: \PYGZdq{}object\PYGZdq{},}
+\PYG{l+s+sd}{                \PYGZdq{}properties\PYGZdq{}: \PYGZob{}}
+\PYG{l+s+sd}{                    \PYGZdq{}city\PYGZdq{}: \PYGZob{}}
+\PYG{l+s+sd}{                        \PYGZdq{}type\PYGZdq{}: \PYGZdq{}string\PYGZdq{},}
+\PYG{l+s+sd}{                        \PYGZdq{}description\PYGZdq{}: \PYGZdq{}The city to get the weather for\PYGZdq{}}
+\PYG{l+s+sd}{                    \PYGZcb{}}
+\PYG{l+s+sd}{                \PYGZcb{},}
+\PYG{l+s+sd}{                \PYGZdq{}required\PYGZdq{}: [\PYGZdq{}city\PYGZdq{}]}
+\PYG{l+s+sd}{            \PYGZcb{}}
+\PYG{l+s+sd}{        \PYGZcb{}}
+\PYG{l+s+sd}{    \PYGZcb{}}
+\PYG{l+s+sd}{    ],}
+\PYG{l+s+sd}{    \PYGZdq{}stream\PYGZdq{}: false}
+\PYG{l+s+sd}{\PYGZcb{}\PYGZsq{}}
+\PYG{l+s+sd}{Response structure}
+\PYG{l+s+sd}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}}
+\PYG{l+s+sd}{\PYGZob{}}
+\PYG{l+s+sd}{    \PYGZdq{}model\PYGZdq{}: \PYGZdq{}llama3.2\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}created\PYGZus{}at\PYGZdq{}: \PYGZdq{}2025\PYGZhy{}07\PYGZhy{}07T20:32:53.844124Z\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}message\PYGZdq{}: \PYGZob{}}
+\PYG{l+s+sd}{        \PYGZdq{}role\PYGZdq{}: \PYGZdq{}assistant\PYGZdq{},}
+\PYG{l+s+sd}{        \PYGZdq{}content\PYGZdq{}: \PYGZdq{}\PYGZdq{},}
+\PYG{l+s+sd}{        \PYGZdq{}tool\PYGZus{}calls\PYGZdq{}: [}
+\PYG{l+s+sd}{        \PYGZob{}}
+\PYG{l+s+sd}{            \PYGZdq{}function\PYGZdq{}: \PYGZob{}}
+\PYG{l+s+sd}{                \PYGZdq{}name\PYGZdq{}: \PYGZdq{}get\PYGZus{}weather\PYGZdq{},}
+\PYG{l+s+sd}{                \PYGZdq{}arguments\PYGZdq{}: \PYGZob{}}
+\PYG{l+s+sd}{                    \PYGZdq{}city\PYGZdq{}: \PYGZdq{}Tokyo\PYGZdq{}}
+\PYG{l+s+sd}{                \PYGZcb{}}
+\PYG{l+s+sd}{            \PYGZcb{}}
+\PYG{l+s+sd}{        \PYGZcb{}}
+\PYG{l+s+sd}{        ]}
+\PYG{l+s+sd}{    \PYGZcb{},}
+\PYG{l+s+sd}{    \PYGZdq{}done\PYGZus{}reason\PYGZdq{}: \PYGZdq{}stop\PYGZdq{},}
+\PYG{l+s+sd}{    \PYGZdq{}done\PYGZdq{}: true,}
+\PYG{l+s+sd}{    \PYGZdq{}total\PYGZus{}duration\PYGZdq{}: 3244883583,}
+\PYG{l+s+sd}{    \PYGZdq{}load\PYGZus{}duration\PYGZdq{}: 2969184542,}
+\PYG{l+s+sd}{    \PYGZdq{}prompt\PYGZus{}eval\PYGZus{}count\PYGZdq{}: 169,}
+\PYG{l+s+sd}{    \PYGZdq{}prompt\PYGZus{}eval\PYGZus{}duration\PYGZdq{}: 141656333,}
+\PYG{l+s+sd}{    \PYGZdq{}eval\PYGZus{}count\PYGZdq{}: 18,}
+\PYG{l+s+sd}{    \PYGZdq{}eval\PYGZus{}duration\PYGZdq{}: 133293625}
+\PYG{l+s+sd}{\PYGZcb{}}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{QUESTION} \PYG{o}{=} \PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Why is the sky blue?\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{]}
+
+\PYG{n}{QUESTION\PYGZus{}TWO} \PYG{o}{=} \PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}could you list me 3 composers of classical music?\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{]}
+
+\PYG{n}{TOOL\PYGZus{}CALL\PYGZus{}QUESTION} \PYG{o}{=} \PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}what is the weather in tokyo?\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{]}
+
+\PYG{n}{TOOL\PYGZus{}CALL\PYGZus{}QUESTION\PYGZus{}TWO} \PYG{o}{=} \PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}what is the time in tokyo?\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{]}
+
+\PYG{n}{tools} \PYG{o}{=}  \PYG{p}{[}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}type\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}function\PYGZdq{}}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}function\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+        \PYG{l+s+s2}{\PYGZdq{}name\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}get\PYGZus{}weather\PYGZdq{}}\PYG{p}{,}
+        \PYG{l+s+s2}{\PYGZdq{}description\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}Get the weather in a given city\PYGZdq{}}\PYG{p}{,}
+        \PYG{l+s+s2}{\PYGZdq{}parameters\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+            \PYG{l+s+s2}{\PYGZdq{}type\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}object\PYGZdq{}}\PYG{p}{,}
+            \PYG{l+s+s2}{\PYGZdq{}properties\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+                \PYG{l+s+s2}{\PYGZdq{}city\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+                    \PYG{l+s+s2}{\PYGZdq{}type\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}string\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}description\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}The city to get the weather for\PYGZdq{}}
+                \PYG{p}{\PYGZcb{}}
+            \PYG{p}{\PYGZcb{},}
+            \PYG{l+s+s2}{\PYGZdq{}required\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}city\PYGZdq{}}\PYG{p}{]}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{},}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}type\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}function\PYGZdq{}}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}function\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+        \PYG{l+s+s2}{\PYGZdq{}name\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}get\PYGZus{}current\PYGZus{}time\PYGZdq{}}\PYG{p}{,}
+        \PYG{l+s+s2}{\PYGZdq{}description\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}Get the current local time in the specified city\PYGZdq{}}\PYG{p}{,}
+        \PYG{l+s+s2}{\PYGZdq{}parameters\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+            \PYG{l+s+s2}{\PYGZdq{}type\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}object\PYGZdq{}}\PYG{p}{,}
+            \PYG{l+s+s2}{\PYGZdq{}properties\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+                \PYG{l+s+s2}{\PYGZdq{}city\PYGZdq{}}\PYG{p}{:} \PYG{p}{\PYGZob{}}
+                    \PYG{l+s+s2}{\PYGZdq{}type\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}string\PYGZdq{}}\PYG{p}{,}
+                    \PYG{l+s+s2}{\PYGZdq{}description\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}The city to get the current time for\PYGZdq{}}
+                \PYG{p}{\PYGZcb{}}
+            \PYG{p}{\PYGZcb{},}
+            \PYG{l+s+s2}{\PYGZdq{}required\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}city\PYGZdq{}}\PYG{p}{]}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\PYG{p}{]}
+
+\PYG{n}{MODEL} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}qwen3\PYGZhy{}vl:8b\PYGZsq{}}
+
+\PYG{n}{json} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}model\PYGZdq{}}\PYG{p}{:} \PYG{n}{MODEL}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}messages\PYGZdq{}}\PYG{p}{:} \PYG{n}{TOOL\PYGZus{}CALL\PYGZus{}QUESTION\PYGZus{}TWO}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}tools\PYGZdq{}}\PYG{p}{:} \PYG{n}{tools}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}stream\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{,}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{response} \PYG{o}{=} \PYG{n}{requests}\PYG{o}{.}\PYG{n}{post}\PYG{p}{(}
+\PYG{l+s+s2}{\PYGZdq{}http://localhost:11434/api/chat\PYGZdq{}}\PYG{p}{,}
+\PYG{n}{json}\PYG{o}{=}\PYG{n}{json}
+\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} print(response.text) \PYGZsh{} (response.status\PYGZus{}code / response.headers / response.content / response.text / response.json())}
+
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{response}\PYG{o}{.}\PYG{n}{json}\PYG{p}{()}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{print(data.keys())}
+\PYG{l+s+sd}{dict\PYGZus{}keys([\PYGZsq{}model\PYGZsq{}, \PYGZsq{}created\PYGZus{}at\PYGZsq{}, \PYGZsq{}message\PYGZsq{}, \PYGZsq{}done\PYGZsq{}, \PYGZsq{}done\PYGZus{}reason\PYGZsq{}, \PYGZsq{}total\PYGZus{}duration\PYGZsq{}, \PYGZsq{}load\PYGZus{}duration\PYGZsq{}, \PYGZsq{}prompt\PYGZus{}eval\PYGZus{}count\PYGZsq{}, \PYGZsq{}prompt\PYGZus{}eval\PYGZus{}duration\PYGZsq{}, \PYGZsq{}eval\PYGZus{}count\PYGZsq{}, \PYGZsq{}eval\PYGZus{}duration\PYGZsq{}])}
+
+\PYG{l+s+sd}{note: response from the api/chat including a tools parameter is structured differently, it has \PYGZsq{}message\PYGZsq{} field instead of a \PYGZsq{}response\PYGZsq{} field}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{response\PYGZus{}msg} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}response\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{response\PYGZus{}toolcall} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} print(response\PYGZus{}msg if response\PYGZus{}msg != \PYGZdq{}\PYGZdq{} else response\PYGZus{}toolcall)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{response\PYGZus{}toolcall}\PYG{p}{)}
+
+\PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Response tijd in seconden: }\PYG{l+s+si}{\PYGZpc{}.5f}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{t2} \PYG{o}{\PYGZhy{}} \PYG{n}{t1}\PYG{p}{))}
+\end{MintedVerbatim}

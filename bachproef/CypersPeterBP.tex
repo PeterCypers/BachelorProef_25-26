@@ -30,6 +30,35 @@
 \usepackage{tikz}
 \usetikzlibrary{mindmap}
 \usepackage{metalogo}
+\usepackage{todonotes}
+%https://tex.stackexchange.com/questions/140369/using-dingbats-font-in-xelatex
+\usepackage{xcolor}
+\usepackage{pifont}
+\usepackage{fontspec}
+\usepackage{listings}
+
+% fix listing float behavior: forces code fragments to fit on 1 page
+\usepackage{caption}
+\usepackage{float}
+\usepackage{etoolbox}
+
+\makeatletter
+\renewenvironment{listing}
+    {\captionsetup{type=listing}\par\medskip}
+    {\par\medskip}
+\makeatother
+\usepackage{fvextra}
+\setminted{
+    breaklines=true,
+    breakanywhere=true,
+    fontsize=\small
+}
+\usepackage{tabularx}
+\usepackage{booktabs}
+% end fix listing behavior
+
+%voor links met \_ underscores (werkt niet?)
+\usepackage{hyperref}
 
 %% Formatting for minted environments.
 \setminted{%
@@ -56,11 +85,11 @@
 
 %%---------- Document metadata -------------------------------------------------
 % TODO: Replace this with your own information
-\author{Ernst Aarden}
-\supervisor{Dhr. F. Van Houte}
-\cosupervisor{Mevr. S. Beeckman}
-\title[Optionele ondertitel]%
-    {Titel van de bachelorproef}
+\author{Peter Cypers}
+\supervisor{Koen Mertens}
+\cosupervisor{Toon De Groote}
+\title[]%
+    {Onderzoek naar de inzet van een AI-agent ter ondersteuning van het ontwikkelen en testen van RESTful API's in een agile ontwikkelomgeving bij IT1}
 \academicyear{\advance\year by -1 \the\year--\advance\year by 1 \the\year}
 \examperiod{1}
 \degreesought{\IfLanguageName{dutch}{Professionele bachelor in de toegepaste informatica}{Bachelor of applied computer science}}
@@ -148,6 +177,14 @@
 %\input{...}
 %\input{...}
 %...
+
+\input{aienllms}
+
+\input{vergelijkendestudie}
+
+\input{mogelijkerisicos}
+
+\input{securityandprivacy}
 
 \input{conclusie}
 

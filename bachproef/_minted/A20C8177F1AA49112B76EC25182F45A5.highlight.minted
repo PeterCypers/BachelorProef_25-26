@@ -1,0 +1,38 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{* setup}
+\PYG{c+cm}{* \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{*}
+\PYG{c+cm}{* ollama model downloaden \PYGZam{} ollama programma installeren binnen de node omgeving}
+\PYG{c+cm}{*}
+\PYG{c+cm}{* bash:}
+\PYG{c+cm}{* ollama pull gemma3}
+\PYG{c+cm}{* npm i ollama}
+\PYG{c+cm}{*/}
+
+\PYG{c+cm}{/* js */}
+\PYG{k}{import}\PYG{+w}{ }\PYG{n+nx}{ollama}\PYG{+w}{ }\PYG{k+kr}{from}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}ollama\PYGZsq{}}
+
+\PYG{k+kd}{const}\PYG{+w}{ }\PYG{n+nx}{STARTTIME}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o+ow}{new}\PYG{+w}{ }\PYG{n+nb}{Date}\PYG{p}{().}\PYG{n+nx}{getTime}\PYG{p}{();}
+
+\PYG{k}{async}\PYG{+w}{ }\PYG{k+kd}{function}\PYG{+w}{ }\PYG{n+nx}{runDemo}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{c+cm}{/* codefragment from: https://docs.ollama.com/quickstart\PYGZsh{}javascript */}
+\PYG{+w}{    }\PYG{k+kd}{const}\PYG{+w}{ }\PYG{n+nx}{response}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{await}\PYG{+w}{ }\PYG{n+nx}{ollama}\PYG{p}{.}\PYG{n+nx}{chat}\PYG{p}{(\PYGZob{}}
+\PYG{+w}{        }\PYG{n+nx}{model}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}gemma3\PYGZsq{}}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n+nx}{messages}\PYG{o}{:}\PYG{+w}{ }\PYG{p}{[\PYGZob{}}\PYG{+w}{ }\PYG{n+nx}{role}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nx}{content}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}Why is the sky blue?\PYGZsq{}}\PYG{+w}{ }\PYG{p}{\PYGZcb{}],}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{})}
+\PYG{+w}{    }\PYG{n+nx}{console}\PYG{p}{.}\PYG{n+nx}{log}\PYG{p}{(}\PYG{n+nx}{response}\PYG{p}{.}\PYG{n+nx}{message}\PYG{p}{.}\PYG{n+nx}{content}\PYG{p}{)}
+\PYG{+w}{    }\PYG{c+cm}{/* end codefragment */}
+
+\PYG{+w}{    }\PYG{k+kd}{const}\PYG{+w}{ }\PYG{n+nx}{ENDTIME}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o+ow}{new}\PYG{+w}{ }\PYG{n+nb}{Date}\PYG{p}{().}\PYG{n+nx}{getTime}\PYG{p}{();}
+\PYG{+w}{    }\PYG{n+nx}{console}\PYG{p}{.}\PYG{n+nx}{log}\PYG{p}{(}\PYG{l+s+sb}{`\PYGZbs{}nResponse tijd in seconden: }\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{p}{(}\PYG{n+nx}{ENDTIME}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n+nx}{STARTTIME}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{l+m+mf}{1000}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+sb}{`}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n+nx}{runDemo}\PYG{p}{();}
+
+\PYG{c+cm}{/* demo opstarten:}
+\PYG{c+cm}{Bash:}
+\PYG{c+cm}{cd containing\PYGZhy{}directory}
+\PYG{c+cm}{node quickstart.js}
+\PYG{c+cm}{*/}
+\end{MintedVerbatim}

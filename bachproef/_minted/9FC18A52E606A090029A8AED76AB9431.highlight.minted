@@ -1,0 +1,78 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{g+gs}{**Short answer:**}
+The sky looks blue because molecules and tiny particles in Earth’s atmosphere scatter short‑wavelength (blue) light from the Sun much more efficiently than they scatter the longer‑wavelength (red, orange, yellow) colors. Our eyes receive a lot of that scattered blue light from every direction, so the whole dome overhead appears blue.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} The physics behind the color}
+
+| Step | What happens | Why it matters for color |
+|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|
+| 1. Sunlight reaches Earth | Sunlight is a mixture of all visible colors (roughly a black‑body spectrum at \PYGZti{}5,800 K). | The light contains roughly equal amounts of red, green, blue, etc. |
+| 2. Light enters the atmosphere | Photons encounter air molecules (N₂, O₂) and very small particles (dust, water droplets). | These scatter the photons away from the straight‑line path. |
+| 3. \PYG{g+gs}{**Rayleigh scattering**} dominates | For particles \PYG{g+gs}{**much smaller**} than the wavelength of light (≈ 0.1 µm vs. 0.4–0.7 µm), the scattering cross‑section follows \PYGZbs{}(\PYGZbs{}sigma \PYGZbs{}propto \PYGZbs{}lambda\PYGZca{}\PYGZob{}\PYGZhy{}4\PYGZcb{}\PYGZbs{}). | Short‑wavelength (blue, \PYGZti{}450 nm) light is scattered \PYG{g+gs}{**≈ 10 times**} more than red (\PYGZti{}650 nm). |
+| 4. Scattered light reaches our eyes | The scattered photons come to us from every part of the sky, not just the Sun’s direction. | Because blue photons are far more numerous after scattering, the sky’s overall hue is blue. |
+| 5. Direct sunlight stays relatively unscattered | Most of the Sun’s beam goes straight through the atmosphere; only a tiny fraction is removed. | The Sun itself appears yellowish/white because the scattering removes a bit more blue than red. |
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{}\PYGZsh{} Rayleigh’s \PYGZbs{}(\PYGZbs{}lambda\PYGZca{}\PYGZob{}\PYGZhy{}4\PYGZcb{}\PYGZbs{}) law (very basic)}
+
+\PYGZbs{}[
+I\PYG{g+ge}{\PYGZus{}\PYGZob{}\PYGZbs{}text\PYGZob{}scattered\PYGZcb{}\PYGZcb{}(\PYGZbs{}lambda) \PYGZbs{};=\PYGZbs{}; I\PYGZus{}}0(\PYGZbs{}lambda)\PYGZbs{},\PYGZbs{}frac\PYGZob{}2\PYGZbs{}pi\PYGZca{}5\PYGZcb{}\PYGZob{}3\PYGZcb{}\PYGZbs{},\PYGZbs{}frac\PYGZob{}(n\PYGZca{}2\PYGZhy{}1)\PYGZca{}2\PYGZcb{}\PYGZob{}N\PYGZca{}2\PYGZbs{}lambda\PYGZca{}4\PYGZcb{}\PYGZbs{},L
+\PYGZbs{}]
+
+\PYG{k}{*}\PYG{+w}{ }\PYGZbs{}(I\PYGZus{}0(\PYGZbs{}lambda)\PYGZbs{}) – incident intensity at wavelength \PYGZbs{}(\PYGZbs{}lambda\PYGZbs{})
+\PYG{k}{*}\PYG{+w}{ }\PYGZbs{}(n\PYGZbs{}) – refractive index of air
+\PYG{k}{*}\PYG{+w}{ }\PYGZbs{}(N\PYGZbs{}) – molecular density
+\PYG{k}{*}\PYG{+w}{ }\PYGZbs{}(L\PYGZbs{}) – path length through the scattering medium
+
+The \PYGZbs{}(\PYGZbs{}lambda\PYGZca{}\PYGZob{}\PYGZhy{}4\PYGZcb{}\PYGZbs{}) term makes the intensity drop off sharply with increasing wavelength, giving blue its advantage.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} Why isn’t the sky black?}
+
+If there were no atmosphere, we would see the blackness of space (no scattering). The atmosphere \PYG{g+ge}{*fills*} the line of sight with light that’s been redirected from the Sun. Even though each individual molecule scatters only a tiny fraction of the incident photons, the \PYG{g+gs}{**enormous number**} of molecules (≈ 2.5 × 10²⁵ per cubic meter at sea level) adds up to a noticeable glow.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} Variations in sky color}
+
+| Condition | What changes | Resulting color |
+|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}|
+| \PYG{g+gs}{**Sunrise / Sunset**} | Light travels through \PYG{g+gs}{**more atmosphere**} → longer path → more scattering of blue \PYGZam{} green → only the longest wavelengths (red–orange) survive. | Sky and Sun appear red/orange. |
+| \PYG{g+gs}{**High humidity / haze**} | Small water droplets (Mie scattering) are \PYG{g+gs}{**size‑comparable**} to visible wavelengths; scattering becomes less wavelength‑selective. | Sky looks whiter or milky. |
+| \PYG{g+gs}{**Air pollution (smog, dust)**} | Larger particles increase Mie scattering; sometimes preferentially scatter red light (e.g., after volcanic eruptions). | Sky can adopt pink, orange, or even brown tones. |
+| \PYG{g+gs}{**Polar regions**} | Low Sun angle + very clean, cold air can produce vivid indigo or violet hues due to even stronger scattering of short wavelengths. | Deep blue to violet skies. |
+| \PYG{g+gs}{**Night**} | Sun is below the horizon → no direct daylight to scatter → sky is black except for scattered moonlight and airglow. | Dark night sky. |
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} A quick “back‑of‑the‑envelope” estimate}
+
+Take a column of air 1 km thick at sea level. The probability that a given photon is scattered at least once in that column is roughly:
+
+\PYGZbs{}[
+P \PYGZbs{}approx 1 \PYGZhy{} e\PYGZca{}\PYGZob{}\PYGZhy{} \PYGZbs{}tau\PYGZcb{},\PYGZbs{}quad \PYGZbs{}tau = n\PYGZbs{},\PYGZbs{}sigma L
+\PYGZbs{}]
+
+\PYG{k}{*}\PYG{+w}{ }\PYGZbs{}(n \PYGZbs{}approx 2.5\PYGZbs{}times10\PYGZca{}\PYGZob{}25\PYGZcb{}\PYGZbs{},\PYGZbs{}text\PYGZob{}m\PYGZcb{}\PYGZca{}\PYGZob{}\PYGZhy{}3\PYGZcb{}\PYGZbs{}) (molecules)
+\PYG{k}{*}\PYG{+w}{ }\PYGZbs{}(\PYGZbs{}sigma\PYGZus{}\PYGZob{}\PYGZbs{}text\PYGZob{}blue\PYGZcb{}\PYGZcb{} \PYGZbs{}approx 5\PYGZbs{}times10\PYGZca{}\PYGZob{}\PYGZhy{}31\PYGZcb{}\PYGZbs{},\PYGZbs{}text\PYGZob{}m\PYGZcb{}\PYGZca{}2\PYGZbs{}) (for λ≈450 nm)
+\PYG{k}{*}\PYG{+w}{ }\PYGZbs{}(L = 1000\PYGZbs{} \PYGZbs{}text\PYGZob{}m\PYGZcb{}\PYGZbs{})
+
+\PYGZbs{}[
+\PYGZbs{}tau\PYGZus{}\PYGZob{}\PYGZbs{}text\PYGZob{}blue\PYGZcb{}\PYGZcb{} \PYGZbs{}approx (2.5\PYGZbs{}times10\PYGZca{}\PYGZob{}25\PYGZcb{})(5\PYGZbs{}times10\PYGZca{}\PYGZob{}\PYGZhy{}31\PYGZcb{})(10\PYGZca{}3) \PYGZbs{}approx 0.013
+\PYGZbs{}]
+
+So about \PYG{g+gs}{**1 \PYGZpc{}**} of blue photons are scattered in a 1 km slab. Over the whole atmosphere (≈ 10 km effective scattering height) the cumulative scattering reaches a few percent—enough to give the sky its characteristic brightness.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} TL;DR for a non‑technical audience}
+
+Sunlight contains all colors. When it passes through the air, the tiny gas molecules act like tiny prisms that preferentially bounce around the \PYG{g+gs}{**blue**} part of the light. Because that blue light is redirected toward us from every direction, the sky looks blue. At sunrise and sunset the light has to travel through \PYG{g+gs}{**even more**} air, so most of the blue gets scattered away before it reaches us, leaving the reds and oranges we see at those times.
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gs}{**Key take‑away:**} The sky is blue because \PYG{g+gs}{**Rayleigh scattering**} makes the atmosphere far more effective at redirecting short‑wavelength (blue) sunlight than longer‑wavelength (red) sunlight, and our eyes see that scattered blue light coming from all over the dome above us.
+Response tijd in seconden: 12.76668
+\end{MintedVerbatim}

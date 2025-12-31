@@ -1,0 +1,21 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{time}
+\PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} https://github.com/ollama/ollama\PYGZhy{}python?tab=readme\PYGZhy{}ov\PYGZhy{}file\PYGZsh{}async\PYGZhy{}client}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{asyncio}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{ollama}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{AsyncClient}
+
+\PYG{k}{async} \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{chat}\PYG{p}{():}
+\PYG{n}{message} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}role\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}user\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}content\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Why is the sky blue?\PYGZsq{}}\PYG{p}{\PYGZcb{}}
+\PYG{n}{response} \PYG{o}{=} \PYG{k}{await} \PYG{n}{AsyncClient}\PYG{p}{()}\PYG{o}{.}\PYG{n}{chat}\PYG{p}{(}\PYG{n}{model}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}gemma3\PYGZsq{}}\PYG{p}{,} \PYG{n}{messages}\PYG{o}{=}\PYG{p}{[}\PYG{n}{message}\PYG{p}{])}
+\PYG{c+c1}{\PYGZsh{} print(type(response))}
+\PYG{c+c1}{\PYGZsh{} print(dir(response))}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{response}\PYG{o}{.}\PYG{n}{message}\PYG{o}{.}\PYG{n}{content}\PYG{p}{)}
+\PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Response tijd in seconden: }\PYG{l+s+si}{\PYGZpc{}.5f}\PYG{l+s+s2}{ \PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{t2} \PYG{o}{\PYGZhy{}} \PYG{n}{t1}\PYG{p}{))}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}*********after async function call**********\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{run}\PYG{p}{(}\PYG{n}{chat}\PYG{p}{())}
+\end{MintedVerbatim}
