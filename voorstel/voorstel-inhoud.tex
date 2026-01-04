@@ -17,7 +17,7 @@
 
 In moderne softwareontwikkeling zijn APIs een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze APIs vereist echter veel repetitieve en technische handelingen zoals het schrijven van testcases, het valideren van responses en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Er is nood aan een intelligente assistent die deze taken kan ondersteunen of deels automatiseren. De vraag rijst of een AI agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, hierin een rol kan spelen.
 
-De \textbf{onderzoeksvraag} vanuit mijn stagebedrijf IT1 luidt als volgt: 
+De \textbf{onderzoeksvraag} vanuit IT1 luidt als volgt: 
 \begin{tcolorbox}[colback=yellow!30]
     \emph{Hoe kan een AI agent bijdragen aan het ondersteunen van het ontwikkel- en testproces van RESTful APIs binnen een agile softwareontwikkeltraject?} 
 \end{tcolorbox}
@@ -67,7 +67,7 @@ Rest is een architectuurstijl die staat voor \emph{Representative state transfer
 Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding2000}:
 \begin{enumerate}
     \item \textbf{Client-server} \\
-    Client-server architectuur. Seperation of concerns is het principe achter deze constraint. Het scheiden van user interface (client) en data storage (server) zorgt voor verbeterde portability en scalability. Zo kunnen de twee onafhankelijk van elkaar evolueren.
+    Client-server architectuur. Separation of concerns is het principe achter deze constraint. Het scheiden van user interface (client) en data storage (server) zorgt voor verbeterde portability en scalability. Zo kunnen de twee onafhankelijk van elkaar evolueren.
     \item \textbf{Stateless} \\
     Een extra constraint die aan de client-server constraint wordt toegevoegd, namelijk dat deze interactie stateless moet zijn. Ten eerste moet een request vanuit de client alle nodige informatie bevatten zodat de server die request kan begrijpen. Het kan niet dat een request gebruik moet maken van context (vb: info van die client) dat opgeslagen is op de server. Stateless in het kort: De client bevat alle nodige (session)state, server is stateless (client-stateless-server CSS-style).
     \item \textbf{Cache} \\
@@ -84,13 +84,13 @@ Wat volgt zijn de principes uitgelijnd in het werk van Roy \textcite{Fielding200
         Clients kunnen dynamisch navigeren met behulp van info verkregen in server responses. (zoals links naar verdere webpages)
     \end{enumerate}
     \item \textbf{Layered System} \\
-    We verbeteren de schaalbaarheid door van de API een gelaagd systeem te maken dat bestaat uit hiërarchisch lagen van componenten of services, elke component "ziet" niet verder dan de lagen waarmee die direct in contact is. Er kunnen gemakkelijk lagen toegevoegd of verwijderd worden en elke laag heeft zijn eigen verantwoordelijkheid, daardoor krijgen we een seperation of concerns. Dit maak ook de encapsulatie van legacy services mogelijk.
+    We verbeteren de schaalbaarheid door van de API een gelaagd systeem te maken dat bestaat uit hiërarchisch lagen van componenten of services, elke component "ziet" niet verder dan de lagen waarmee die direct in contact is. Er kunnen gemakkelijk lagen toegevoegd of verwijderd worden en elke laag heeft zijn eigen verantwoordelijkheid, daardoor krijgen we een separation of concerns. Dit maak ook de encapsulatie van verouderde(legacy) services mogelijk zodat de oude en nieuwe services naast elkaar in werking kunnen blijven.
     \item \textbf{code-on-demand (optioneel)} \\
     Het uitbreiden van client functionaliteiten door code of uitvoerbare scripts mee te sturen in server-responses.
 \end{enumerate}
 
 \subsubsection{RESTfulness}
-Wanneer een API aan alle verplichte constraints voldoet wordt het RESTful genoemd. Als het ontwerp van een API de REST constraints volgt maar in overtreding valt van minstens 1 verplicht constraint kan het hooguit "REST-like" genoemd worden, het niet toepassen van HATEOAS is een mogelijke oorzaak hiervan \autocite{Bush2020}.
+Wanneer een API aan alle verplichte constraints voldoet wordt het RESTful genoemd. Als het ontwerp van een API de meeste REST constraints volgt maar toch minstens 1 verplicht constraint schendt kan het hooguit "REST-like" genoemd worden, het niet toepassen van HATEOAS is een mogelijke oorzaak hiervan \autocite{Bush2020}.
 
 \subsection{Testen Van RESTful APIs}
 
@@ -138,7 +138,7 @@ Dit toont het belang aan van het volgen van de OAS bij het ontwerpen en testen v
 
 \subsection{AI Agents}
 
-Over de concepten van Artificiële Intelligentie (AI) en Large Language Models (LLMs) zal ik nu nog niet verder uitweiden. Eerst een toespitsing op Agents.
+Over de concepten van Artificiële Intelligentie (AI) en Large Language Models (LLMs) zal er nu nog niet verder worden uitweiden. Eerst een toespitsing op Agents.
 
 Toch even LLMs in het kort: Een gesimplificeerde omschrijving zou zijn dat een \textbf{LLM} een zeer sterke autocomplete machine is die een bepaalde hoeveelheid trainings-data verwerkt heeft om op een input te kunnen reageren gebruik makend van dat uitgebreide arsenaal aan informatie en tracht een zo nauwkeurig mogelijk antwoord als een puzzel samen te stellen en dan terug te sturen als response.
 
@@ -228,11 +228,21 @@ We kunnen zelf uitproberen hoeveel tokens er gebruikt worden bij een bepaalde pr
 \section{Methodologie}%
 \label{sec:methodologie}
 
-In de initiële fase zal ik een literatuurstudie doen om inzichten te verwerven over de problematiek omlijnd in de deelvragen \& hoofdonderzoeksvraag in de inleiding. Ik zal de huidige state of the art, alsook de richting waarin we naartoe kunnen evolueren verkennen. De evolutie betreffende de mogelijkheden voor AI-support bij het ontwikkelen en testen van RESTful APIs.
+\subsection{Marktonderzoek}
 
-In de volgende fase zal ik de stand van zaken onderzoeken wat betreft reeds beschikbare AI agents op de markt, experimenteren met lokale LLMs die beschikbaar zijn met Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}.
+In de initiële fase zal een marktonderzoek worden gedaan wat betreft reeds beschikbare AI agents en agent-creatie/integratie tools, er zal worden geëxperimenteerd met lokale LLMs die beschikbaar zijn met Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}. Deze zullen vergeleken worden met andere mogelijke integraties van LLMs.
 
-Voor het maken van mijn eigen AI agent zal ik in de daaropvolgende fase onderzoeken welke AI model ik zal gebruiken, de mogelijke security risico's en kosten die erbij komen kijken. Hier zal ik ook heel wat onderzoek doen onder andere over agentic design patronen, MCP \& RAG. Daarenboven zal ik ook onderzoeken in welke ta(a)l(en) en framework(s) ik de proof of concept zal uitwerken.
+\subsection{Integreren van een AI agent}
+
+Voor het maken van de POC AI agent wordt er in de daaropvolgende fase onderzocht welke AI modellen kunnen gebruikt worden, hoe deze geïntegreerd zullen worden in bestaande projecten, de mogelijke hardware restricties, security risico's en kosten die erbij komen kijken. Hier zullen passende agentic design patronen gekozen worden, onder anderen, tool gebruik en lokale context herkenning(vb: toevoegen van specifieke bestanden met boilerplate code aan de context) met behulp van MCP \& RAG. \\
+
+Daarenboven zal ook onderzocht worden in welke ta(a)l(en) en framework(s) de proof of concept zal uitgewerkt worden. \\
+
+Er wordt ook uitgezocht waar de AI agent zal kunnen aangesproken worden, of dit nu in een afzonderlijk bestaand interface zoals één die de gebruiker interacties toelaat in een browser omgeving, of als dit in de standaard-IDE van IT1(binnen de codebase) zal kunnen gebruikt worden als script of extensie.
+
+\subsection{Ondersteuning van de AI agent voor specifieke taken}
+
+Daarna wordt uitgezocht hoe de agent specifiek met het development en testen van APIs bij IT1 kan helpen, er zal getoetst worden wat specifiek bij de opdrachtgever tijdrovende en repetitieve taken zijn bij het API development proces. Hoe de agent zal geïntegreerd worden in reeds gebruikte test/documentatie technieken. Wat zijn de verschillende mogelijkheden dat de agent kan benutten voor het gebruiken en correct toepassen van de OpenAPI Specification(OAS). Hoe zal de AI agent kunnen helpen met het maken van testcases, mogelijks documentatie aanvullen of genereren. Er wordt onderzocht wat eventueel kan geautomatiseerd worden en hoe zal dit gebeuren.
 
 De POC AI agent zal het volgende kunnen:
 \begin{itemize}
@@ -245,18 +255,87 @@ De POC AI agent zal het volgende kunnen:
 In de volgende fase zullen deze functionaliteiten van de POC agent geïmplementeerd worden, er zal ook uitgezocht worden welke soort testen er kunnen worden gedaan en met welke tools de agent kan werken om die verschillende soorten testen te doen/ondersteunen. Van de relevante testmethoden \ref{sec:soorten_testen} zal er in de eerste plaats een focus zijn op unit testing, mogelijks uitbreiden naar integratie testing en
 afhankelijk van feedback mogelijks verder uitbreiden naar andere testmethodes.
 
-%todo : welke metingen? welke technieken gebruik ik om die metingen te maken?
-Uiteindelijk zal het correct werken van de verschillende functionaliteiten van de agent worden getoetst. Daarna zal
-de agent vergeleken worden met de in-house test/documentatie technieken. Mogelijke metrics: test-coverage, foutdetectie en performantie. Dit zal een mogelijke verbetering in efficiëntie van de API development / testing workflow kunnen aantonen.
+\subsection{Meten van succes}
+Uiteindelijk zal het correct werken van de verschillende functionaliteiten van de agent worden getoetst. Er zal een keuze gemaakt worden of er met methode A \& B of enkel methode A gewerkt wordt.
+
+\subsubsection{AI agent KPI's (A)}
+
+Het meten van success met KPI's. We kiezen bepaalde key performance indicators (KPI's) en meten hoe goed het prototype scoort op de gekozen indicatoren.
+
+Men werkt samen met de AI agent, gebruik makend van de in-house test/documentatie technieken, de agent biedt ondersteuning en/of automatiseert onderdelen van deze technieken. In het geval dat de agent niet gevraagd wordt om zelf tests te genereren kan de agent fouten detecteren en geeft suggesties voor verbeteringen. In dit geval kan de agent getoetst worden op foutdetectie, enkel KPI(2) in tabel \ref{tab:kpis}.
+
+Wanneer de agent wel gevraagd wordt om zelf tests en/of documentatie te genereren wordt deze getoetst aan alle KPIs met uitzondering van KPI(2), zie tabel \ref{tab:kpis}
+
+\subsubsection{Pre‑test / post‑test met controlegroep (B)}
+
+Er kan mogelijks ook gewerkt worden met een controle groep van een vooraf bepaalde aantal API endpoint tests die geschreven zijn zonder het gebruik van de AI agent en een interventie groep waarbij die zelfde tests met AI agent ondersteuning geschreven worden. Hierbij kan de snelheid van het schrijven van de tests, het aantal gemaakte fouten(of hallucinaties), test-coverage en de hoeveelheid zinvolle tests(misschien nog andere factoren) gemeten worden bij beide groepen.
+
 
 
 %---------- Verwachte resultaten ----------------------------------------------
 \section{Verwacht resultaat, conclusie}%
 \label{sec:verwachte_resultaten}
 
-Men verwacht dat de POC AI Agent zal kunnen aantonen of er een meetbare verbetering is in efficiëntie van werken door het automatiseren van repetitieve taken bij het ontwikkelen en testen van RESTful APIs. Dat er kan aangetoond worden dat die automatisaties tijdsbesparend zullen zijn. Ook dat er weinig fouten zullen gebeuren bij het genereren van testcases. Er wordt een hoge test-coverage verwacht. Ook binnen de verwachtingen valt dat de agent zich houdt aan bepaalde best-practices en API-specificaties.
+Men verwacht dat het prototype zal kunnen aantonen of er een meetbare verbetering is in efficiëntie door het automatiseren of ondersteunen van repetitieve taken bij het ontwikkelen en testen van RESTful APIs. Dat er kan aangetoond worden dat het werken met de AI agent tijdsbesparend is. Ook dat er weinig fouten zullen gebeuren bij het genereren van testcases. Er wordt een hoge test-coverage verwacht. Ook binnen de verwachtingen valt dat de agent zich houdt aan bepaalde best-practices en API-specificaties (OAS).
 
 Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan niet gebruiken van een AI Agent bij het werken aan APIs bij IT1 en ook wat inzicht bieden over de verschillende mogelijkheden binnen de wereld van agentic workflows.
+
+
+% [t] : top, so table comes first in final page (on the left) vs [htbp]
+\begin{sidewaystable}[htbp]
+    \centering
+    \footnotesize
+    \caption[Meetbare KPI's]{\label{tab:kpis}
+        Overzicht van de gebruikte KPI's, meet‑technieken en de bijbehorende
+        doelwaardes.}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{KPI} &
+        \textbf{Indicator} &
+        \textbf{Meet techniek} &
+        \textbf{Doelwaarde*} \\
+        \midrule
+        Foutdetectie(2) &
+        true‑positive / false‑positive &
+        agent output + manuele controle &
+        $\leq5\,\%$ fout‑tolerantie \\[2mm]
+        
+        Productiviteit &
+        tijd per gegenereerde test‑case &
+        timestamp vóór/na &
+        $\leq30\,\text{s}$ \\[2mm]
+        
+        Kwaliteit &
+        test‑coverage &
+        PHPUnit** / Pest** / in‑house testsuite‑coverage‑rapport &
+        $\geq80\,\%$ test‑coverage \\[2mm]
+        
+        Performantie &
+        CPU/GPU‑geheugen‑gebruik &
+        Windows‑performance‑tab &
+        $\leq60\,\%$ \\[2mm]
+        
+        Test‑Kwaliteit &
+        aantal zinvolle tests per endpoint &
+        vergelijking met standaard bij IT1 &
+        $\geq$ standaardaantal \\[2mm]
+        
+        Documentatie‑Kwaliteit &
+        gedetecteerde grammaticale fouten &
+        Code Spellchecker\footnote{\href{https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker}{https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker}} / MS Word &
+        $\leq2$ spelfouten per $100$ woorden \\[2mm]
+        
+        Kosten &
+        kosten per run &
+        token‑gebruik meten met tiktoken\footnote{\href{https://github.com/openai/tiktoken}{https://github.com/openai/tiktoken}} &
+        $\leq€0.10$ per test‑case \\
+        \bottomrule
+        \addlinespace[1mm]
+        \multicolumn{4}{l}{*~Nog niet 100\% concreet, voorbeeld doelwaarden.} \\[2mm]
+        \multicolumn{4}{l}{**~Er wordt bij IT1 met PHP + Laravel gewerkt; PHPUnit en Pest zijn geschikte test‑frameworks voor die code‑omgeving. \autocite{Laravel}} \\
+    \end{tabular}
+\end{sidewaystable}
+
 
 \onecolumn
 \section{Mindmap}%
@@ -271,14 +350,14 @@ Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan 
     {font=\small\bfseries},
     level 3 concept/.append style =
     {font=\small\bfseries},
-    BP/.style     = {concept, ball color=blue,
+    AI Agent/.style     = {concept, ball color=blue,
         font=\Huge\bfseries},
     Agents/.style = {concept, ball color=green!50!black},
     APIs/.style = {concept, ball color=blue!50!black},
     LLMs/.style = {concept, ball color=red!90!black},
     OpenAPI/.style = {concept, ball color=orange!90!black}
     ]
-    node [BP] {BP} [clockwise from=0]
+    node [AI Agent] {AI Agent} [clockwise from=0]
     child[concept color=green!50!black, nodes={Agents}] {
         node {Agents} [clockwise from=90]
         child { node {Types} }
@@ -294,17 +373,17 @@ Dit onderzoek zal helpen om een recommandatie te kunnen maken m.b.t. het al dan 
         node {LLMs} [clockwise from=210]
         child { node {Modellen} [clockwise from=300]
             child { node {X vs Y} }}
-        child { node {Prompts} [clockwise from=60]
-            child { node {Tokens} }}}
+        child { node {Prompts} [clockwise from=90]
+            child { node {Tokens} }}
+        child { node {Ollama} [clockwise from=330]}}
     child [concept color=orange, nodes={OpenAPI}] {
         node {OpenAPI} };
 \end{tikzpicture}
 
-Mindmap van Stefan Kottwitz: \href{https://www.packtpub.com/hardware-and-creative/latex-cookbook}{https://www.packtpub.com/hardware-and-creative/latex-cookbook}
+Hier zien we een uit gezoomd kijk op de verschillende aspecten binnen dit onderzoek. Code voor het genereren van de mindmap\footnote{\href{https://latex-cookbook.net/mindmap/}{https://latex-cookbook.net/mindmap/}} verkregen van: \autocite{Kottwitz2024}
 
-%\twocolumn
-%\newpage
-%\pagebreak
+%in/out comment for BP/voorstel
+\twocolumn
 
 
 
