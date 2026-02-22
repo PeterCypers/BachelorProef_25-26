@@ -4,7 +4,7 @@
 \chapter{\IfLanguageName{dutch}{Vergelijkende Studie}{Comparative Study}}%
 \label{ch:vergelijkende-studie}
 
-Er wordt gezocht naar de meest passende kandidaat die zal dienen als AI agent.
+Er wordt gezocht binnen het AI-landschap naar de meest passende kandidaat die zal dienen als AI agent.
 %todo: nog verder uitwerken
 
 \section{Ollama}%
@@ -113,6 +113,16 @@ gpt-oss:20b**           & 14  GB    &    Tools + Cloud + "thinking" \\
 *: De 'latest' van gemma3 is een 4b parameter model genaamd 'gemma3:4b'. Dit model zal gebruikt worden in de tests met gemma3, maar omdat deze bij installatie werd installeert met commando: \textit{ollama run gemma3:latest} is dit op Computer A de alias geworden van gemma3:4b.
 
 **: gpt-oss:20b werd initieel geinstalleerd op Computer A, maar kon niet gebruikt worden vanwege RAM-restricties en werd snel verwijdert om schijfruimte vrij te maken (ollama rm <modelnaam>).
+
+De standaard lokaties waar Ollama LLMs op een Windows machine bewaart zijn:
+
+\begin{itemize}
+    \item \textbf{Lokaal LLM}: C:\\Users\\peter\\.ollama\\models\\blobs
+    \item \textbf{Cloud LLM}: C:\\Users\\peter\\.ollama\\models\\manifests\\registry.ollama.ai\\library\\gpt-oss
+\end{itemize}
+
+In het geval van de Lokale LLM wordt een sha256 file (dat gigabytes groot kan zijn) bewaard, bij de cloud modellen worden die op LLM-naam > LLM-versie bewaard en dit zijn manifest files die zo ~1kb plaats innemen.
+Bij bovenstaand voorbeeld is het: gpt-oss(foldernaam) > 120b-cloud(filenaam)
 
 \subsection{Ollama LLM Kenmerken en Functionaliteiten}
 \label{ssec:ollamallmkenmerkenenfunctionaliteiten}
@@ -1274,5 +1284,29 @@ Bij de online modellen, welke te groot zijn om op Computer A te installeren is e
 Als er wordt gekozen voor Ollama om de Agent te maken, zou er bij de offline bruikbare LLMs een voorkeur zijn voor een combinatie van de methodes: async generator + tool gebruik. De redenen hiervoor zijn de snelle feedback van het direct afprinten van chunks tekst in de response stream en de mogelijkheid om tools op te roepen. Als een online methode wordt gekozen, dit ligt nog niet vast, maar de cloud-signin methode heeft een extra stap nodig om Computer A te verbinden met een Ollama account, de andere methode, verbinden met de Ollama cloud-api heeft een API sleutel nodig om de verbinding te autoriseren. Dit brengt een extra veiligheids- risico met zich mee, er moet veilig omgegaan worden met die API sleutel...
 
 Belangrijker dan de snelheids- testen zijn de bruikbare codefragmenten om eventueel gebruik van de maken als Ollama gekozen wordt om de AI-agent mee te bouwen. Er kunnen eventuele bijkomende factoren zijn die de keuze voor Ollama zullen beïnvloeden.
+
+\subsection{Naïve RAG met Ollama cli}
+\label{ssec:naiverag}
+% provide the section \& demo about bash-commands and piping file contents to the ollama cli input and talk about the possible downsides to this approach
+
+\section{LangChain}%
+\label{sec:langchain}
+%see which relevant code fragments, demo's etc I can add here
+
+\subsection{LCEL}
+%there are many more subsections that I can put here for langhcain -> look back at RAG course vics/labos/notes for inspiration
+
+\subsection{LlamaIndex}
+
+\subsection{Gradio Prototyping}
+
+\subsection{HuggingFace met Gradio voor Deployment van AI-projecten}
+
+\subsection{Pydantic AI}
+%als er tijd is om dit ook nog te onderzoeken
+
+
+
+
 
 

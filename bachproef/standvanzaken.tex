@@ -6,7 +6,7 @@
 % bijzonder aan wat de link is met het vorige en volgende hoofdstuk.
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
-
+\section{Tips:}
 Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
 
 Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
@@ -15,37 +15,84 @@ Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ na
 
 Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{grail.jpg}
-  \caption[Voorbeeld figuur.]{\label{fig:grail}Voorbeeld van invoegen van een figuur. Zorg altijd voor een uitgebreid bijschrift dat de figuur volledig beschrijft zonder in de tekst te moeten gaan zoeken. Vergeet ook je bronvermelding niet!}
+\section{AI \& LLMs}
+\label{sec:aienllms}
+% note: keep this chapter verry theoretical (besides the sci-fi bit)
+%intro
+
+%this is part of the intro, but something needs to come before it
+Een graaf met verzamelde data van posts op stackoverflow van gebruiker einpoklum deed recent de ronde op sociale media. Als we het aantal gebruikers kunnen afleiden uit het aantal posts op het platvorm dan ziet het een ergerlijke situatie uit, het gebruik van AI agents om te assisteren met het genereren van code en debuggen van errors zal zeker een beinvloedende factor zijn die bijdraagde tot de huidige staat van die website.
+
+Section on Stackoverflow being replaced with AI as coders are using LLMs more and more to help with code problems
+https://meta.stackoverflow.com/questions/437921/how-does-the-continued-decline-in-posts-since-may-25-influence-our-interpretati
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{stackoverflowposts.png}
+    \caption[Voorbeeld figuur.]{\label{fig:stackoverflowpostsdecline}Het aantal posts op StackOverflow vanaf de website opstart tot op heden.}
 \end{figure}
 
-\begin{listing}
-  \begin{minted}{python}
-    import pandas as pd
-    import seaborn as sns
+%todo: make sure to correctly reference figures (possible the ref needs to be in the figure explenation - see Research Methods)
 
-    penguins = sns.load_dataset('penguins')
-    sns.relplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
-  \end{minted}
-  \caption[Voorbeeld codefragment]{Voorbeeld van het invoegen van een codefragment.}
-\end{listing}
 
-\lipsum[7-20]
+\section{AI van Science-Fiction naar Werkelijkheid}
+\label{sec:aivanscience-fictionnaarwerkelijkheid}
+% add the bit I wrote earlier
 
-\begin{table}
-  \centering
-  \begin{tabular}{lcr}
-    \toprule
-    \textbf{Kolom 1} & \textbf{Kolom 2} & \textbf{Kolom 3} \\
-    $\alpha$         & $\beta$          & $\gamma$         \\
-    \midrule
-    A                & 10.230           & a                \\
-    B                & 45.678           & b                \\
-    C                & 99.987           & c                \\
-    \bottomrule
-  \end{tabular}
-  \caption[Voorbeeld tabel]{\label{tab:example}Voorbeeld van een tabel.}
-\end{table}
 
+\section{LLMs}
+%todo: in this chapter explaining LLMs, Tokens & Context window, parameters, Size, ETC
+
+%todo: check output of ollama show gemma3 -> explain things like 
+
+%todo: snelheid van llms gemeten in tokens/s https://www.reddit.com/r/LocalLLaMA/comments/1miggb2/what_hardware_to_run_gptoss120b/
+
+%todo: chapter about Tokens \& Pricing(can mention pricing, but pricing gets it's own chapter in Marktonderzoek) -expected in chapter to mention differences by provider and measure in per million tokens -> I have an image somewhere showing this for gpt or claude
+
+%todo: put in chapter about context window
+%https://www.ibm.com/think/topics/context-window ()in refs as Bergmann)
+Eerst even wat uitleg over de \textit{context window}. Volgens \todo{reference  Bergmann} kan dit gezien worden als het werkgeheugen van een LLM. Dit bepaalt hoe lang het gesprek kan lopen (meerdere prompts) en bepaalt ook externe resources de LLM tegelijk can verwerken (documenten, codefragmenten, afbeeldingen, etc.).
+Alles dat gebruikt werd bij een bepaalde sessie met een LLM komt in de context window terecht, alle voorgaande vragen(prompts) en gedeelde resources worden in rekening genomen wanneer de LLM een response terug geeft aan de gebruiker.
+
+
+%todo: intro in chapter: Tokens, same reference as context window: Bergmann
+Alle input wordt omgezet naar tokens die de LLM gebruikt om voorspellingen te maken die leiden tot het meest waardevolle antwoord. Wanneer de totale opgebouwde tokens de context-venster overschrijden dan moet de LLM samenvattingen beginnen maken ... \todo{schrijf verder, reference: Bergmann}
+
+%todo: ubiquitousness / of AI commercial popularity of AI / integration of AI in much software / focus on integration (windows sundar pachai: interview he says something about going all in on AI - ??% of new windows-code is AI or vibe coded -> find sources and references for sundar pachai's statements and the ??% vibecoded windows 11)
+
+%todo:
+Section on AI: \\
+******************************************** \\
+
+
+********************************************
+
+********************************************
+
+
+%todo: this segment should move to markt-onderzoek
+
+title(subject to change): NVidea, market disruptor
+
+Brief segment
+
+talk about how the company has become one of the world's most
+profitable as the rise of demand for AI-hardware (chips) rises, big
+tech is investing heavily in AI and the increasing strength of AI models
+require a lot of RAM and visual memory to work well, the company who has
+specialized most in the type of memory which is useful for AI (GPUs) is
+Nvidea, they're the global market leader, focus was gaming, now big tech
+companies have reserved a substantial share of the chip-production for use
+in their AI systems. Bad news for averyone else, individuals who want to
+build/buy a new pc, companies who need GPUs to produce their own hardware
+like gaming consoles (sony, etc)
+
+are they the world's most profitable corporation now? -> look into
+
+*******************************************
+
+\section{AI Agents}
+
+\subsection{Tool gebruik}

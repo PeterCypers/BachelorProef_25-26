@@ -1,0 +1,67 @@
+%%=============================================================================
+%% Marktonderzoek
+%%=============================================================================
+\chapter{\IfLanguageName{dutch}{Marktonderzoek}{Market Research}}%
+\label{ch:marktonderzoek}
+
+\begin{comment}
+    % write about popular technologies, all kinds of different AI/Agentic implementations (what types of AI-systems exist, API-keys, services)
+    % there can be a little overlap with Vergelijkende studie, like Gradio, it's an interesting tech that I will also use in Vergelijkende studie
+    % explain in depth those systems here, then use them also in Vergelijkende studie with possible reference back here(, but maybe not)
+    % what not to write here: The AI-systems that I have personally examined/explored/written code in, those go in Vergelijkende studie
+    % exception: if they're completely outside of the usefulness of my business-case eg.: ComfyUI
+    % Vergelijkende studie will contain the step-by-step evolution of systems that I explore and are candidates for my POC
+    %todo: consider -> there maybe too many subsections / sections, maybe just have paragraphs or lists instead
+\end{comment}
+
+\section{No-code web-dev platvormen}
+
+\section{Agent design platvormen}
+% laten toe om een custom agent te maken met verschillende mogelijkheden, vaak zonder code, een service die verschillende AI-providers beschikbaar stellen
+% voorbeelden:
+
+\section{No-code generatieve workflows}
+
+\subsubsection{Vertex AI}
+\subsubsection{ComfyUI}
+%ComfyUI, voorziet een grafische UI, gebruikt nodes, kan voor veel verschillende use-cases ingezet worden zoals foto-generatie, audiogeneratie en videogeneratie
+%gebruikt stablediffusion
+
+\subsection{Gradio}
+%een tool voor snelle prototyping van LLMs, zorgt dat je in zo goed als geen tijd je AI-workflows can uittesten op een localhost server, met
+%simpele syntax om snel elementen op de GUI view te (toveren)
+
+\subsection{HuggingFace}
+%een github like platvorm waar allerlei LLM-gedreven projecten beschikbaar zijn, dit platvorm is ook een AI-provider met zijn eigen API-key om
+%gemakkelijk verschillende modellen te gebruiken en zij spelen dan voor tussenpersoon om de kost van gebruik te regelen (beter verwoorden)
+\subsubsection{HuggingFace Spaces}
+% laat gebruikers toe om verschillende AI-gedreven projecten te deployen, HEEL gelijkaardig aan github pages, ze laten je toe je project te draaien op hun
+% platvorm, je houd je project-repo en je kan een HF-space gebruiken om je repo te behouden en dit wordt gaat dan ook live, met verschillende
+% caveats: dependencies(requirements.txt)/secrets(spaces-settings)/deployment(app.py) hebben elk hun eigen werkwijze
+
+\section{AI providers \& APIs}
+% groot aanbod, see notes & pricing -> meta/github/openai/anthropic/deepseek/etc etc
+
+\subsection{OpenAI Codex}
+%requires some investigating, lots of big developments recently, added a tab-link from ChatGPT.com leading to codex
+
+\section{IDE-geïntegreerde Agents}
+
+%1) Github copilot chat
+
+%2) IDE geintegreerde Agents met sterke context kennis (codebase awareness)(with strong RAG features making the agent aware of other files in the codebase)
+%claude-code & Cursor -> see dedicated notes on each
+
+\section{Pricing}
+%
+Titel mischien Prijs Vergelijking...
+%todo -> different pricing models, 2 big variants here, the github copilot \& ollama style free tier with monthly limits vs claude code and others using pay as you go based on input/output-token usage
+
+%todo: see pricing note bp-sem2 \& share links to each options pricing schemes
+
+\section{AI Agent Code taal}
+%todo: andere titel? AI agent integratie? -> welke soort integraties zijn er mogelijk? IDE?/ web-APP?/ Py script file?/ etc
+
+Welke programmeertalen zijn toegankelijkst om een AI agent te integreren in een IDE en/of in een web app? etc.
+
+De meeste code voorbeelden die beschikbaar worden gesteld in SDK's en bij Ollama zijn vooral in Python en JavaScript/TypeScript
