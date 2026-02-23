@@ -22,23 +22,25 @@
 
 \section{No-code generatieve workflows}
 
-\subsubsection{Vertex AI}
-\subsubsection{ComfyUI}
+\subsection{Vertex AI}
+\subsection{ComfyUI}
 %ComfyUI, voorziet een grafische UI, gebruikt nodes, kan voor veel verschillende use-cases ingezet worden zoals foto-generatie, audiogeneratie en videogeneratie
 %gebruikt stablediffusion
 
-\subsection{Gradio}
+\section{Gradio}
 %een tool voor snelle prototyping van LLMs, zorgt dat je in zo goed als geen tijd je AI-workflows can uittesten op een localhost server, met
 %simpele syntax om snel elementen op de GUI view te (toveren)
 
-\subsection{HuggingFace}
+\section{HuggingFace}
 %een github like platvorm waar allerlei LLM-gedreven projecten beschikbaar zijn, dit platvorm is ook een AI-provider met zijn eigen API-key om
 %gemakkelijk verschillende modellen te gebruiken en zij spelen dan voor tussenpersoon om de kost van gebruik te regelen (beter verwoorden)
-\subsubsection{HuggingFace Spaces}
+\subsection{HuggingFace Spaces}
 % laat gebruikers toe om verschillende AI-gedreven projecten te deployen, HEEL gelijkaardig aan github pages, ze laten je toe je project te draaien op hun
 % platvorm, je houd je project-repo en je kan een HF-space gebruiken om je repo te behouden en dit wordt gaat dan ook live, met verschillende
 % caveats: dependencies(requirements.txt)/secrets(spaces-settings)/deployment(app.py) hebben elk hun eigen werkwijze
 
+\section{Postman MCP(todo)}
+%todo
 \section{AI providers \& APIs}
 % groot aanbod, see notes & pricing -> meta/github/openai/anthropic/deepseek/etc etc
 
@@ -56,12 +58,35 @@
 %
 Titel mischien Prijs Vergelijking...
 %todo -> different pricing models, 2 big variants here, the github copilot \& ollama style free tier with monthly limits vs claude code and others using pay as you go based on input/output-token usage
+%J j
+Het draaien van LLMs is een service die zeker wel met een prijskaartje komt. Als gebruiker die het absoluut minimum nodig wil uitgeven moet je er bewust van zijn dat er voor deze case 2 specifieke varianten zijn van AI-services.
+
+\textbf{Volledig gratis gebruik:} Dit zien we bijvoorbeeld met Github Copilot Chat. Er is een maandelijkse toelage van code-completions en een aparte maandelijkse toelage van chats of agent interacties(dus met tool-gebruik erbij). Bij het aanspreken van de cloud-LLMs die Ollama ter beschikking stelt zien we een "Session use" en een "Weekly usage", het eerste reset op een tijdspanne van uren, het laatste is elke week gereset. Uit ondervinden heeft de Ollama service een veel hoger limiet van gratis gebruik tegenover Github Copilot Chat. Het is mogelijk om heel veel queries te doen op de cloud-LLMs van Ollama zonder een serieuze toename te ondervinden in gebruiks-limiet, na uitbundig gebruik is dit nog nooit de 5\% overschreden. Terwijl bij Github Copilot Chat al snel (ongeveer 20 tot 30 berichten) over de 10\% zit en er op een maandelijkse reset moet gewacht worden.
+Dit maakt het wel aantrekkelijker om als volledig gratis gebruiker met de sterkere cloud modellen bij Ollama te werken dan met Copilot Chat.
+%https://ollama.com/settings
+
+\textbf{Pay-as-you-go model:} %todo beschrijf deze model van betaling
+
+Als kleine team, startup en zeker enterprise niveau kan er zeker een subscriptie genomen worden op een van de verschillende AI services, de laagste tier van betaling is rond een competitief prijskaartje van €10
+
+Verschillende AI/Agent providers hebben wel een webpagina voor hun subscriptie prijzen:
+%todo: add different links to subscription pages
+
+\subsection{API keys}
+%fits best here
+Ook als men niet van plan is om geld uit te geven aan AI moet er toch een gebruikers account gemaakt worden en meestal ook een API-key gegenereerd. Dit is zodat de AI-provider het gebruik van de AI kan traceren per gebruiker en eventueel kosten aanrekenen of de kraan dicht-draaien wanneer bepaalde limieten van gebruik bereikt werden.
+
+Voor bepaalde AI-workflows kan het zeker gebeuren dat er meerdere API's aangesproken die elk het gebruik willen traceren en dus een reeks van API-keys tegelijk in gebruik zijn, elk met hun eigen verbonden service.
 
 %todo: see pricing note bp-sem2 \& share links to each options pricing schemes
 
 \section{AI Agent Code taal}
 %todo: andere titel? AI agent integratie? -> welke soort integraties zijn er mogelijk? IDE?/ web-APP?/ Py script file?/ etc
 
-Welke programmeertalen zijn toegankelijkst om een AI agent te integreren in een IDE en/of in een web app? etc.
+Welke programmeertalen zijn toegankelijkst om een AI agent mee te ontwikkelen?
 
-De meeste code voorbeelden die beschikbaar worden gesteld in SDK's en bij Ollama zijn vooral in Python en JavaScript/TypeScript
+De meeste code voorbeelden die beschikbaar worden gesteld in SDK's en bij Ollama zijn vooral in Python en TypeScript. 
+
+%verschillende LLM service providers en AI-build platvormen ... reminder, maybe add something to the existing text
+
+Overal waar men kijkt voor AI-integratie of Agent build tools vallen er 2 grote winnaars uit de boot: Python en Typescript. Hier zien we de meeste codevoorbeelden voor en in de eerste plaats is steeds Python te zien. Het feit dat dit zo ruim te vinden is laat vermoeden dat dit de taal bij uitstek is om in te zetten bij het werken met LLMs/machine learning/data analyse en het maken van AI-agents.

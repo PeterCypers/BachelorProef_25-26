@@ -17,6 +17,7 @@ Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je ve
 
 \section{AI \& LLMs}
 \label{sec:aienllms}
+%prominent note: de termen LLMs en AI gaan hierna door elkaar gebruikt worden, maar weet dat we het altijd zullen hebben over systemen die met drijfveer Large Language Modellen gebruiken, ook wanneer er over AI gesproken wordt
 % note: keep this chapter verry theoretical (besides the sci-fi bit)
 %intro
 
@@ -41,8 +42,13 @@ https://meta.stackoverflow.com/questions/437921/how-does-the-continued-decline-i
 \label{sec:aivanscience-fictionnaarwerkelijkheid}
 % add the bit I wrote earlier
 
+\subsection{Discriminative AI}
+
+\subsection{Generative AI}
+%refer to course1 -> all input text, so first transforming inputs via speechtotext, img to base64, natural language processing
 
 \section{LLMs}
+
 %todo: in this chapter explaining LLMs, Tokens & Context window, parameters, Size, ETC
 
 %todo: check output of ollama show gemma3 -> explain things like 
@@ -63,36 +69,41 @@ Alle input wordt omgezet naar tokens die de LLM gebruikt om voorspellingen te ma
 %todo: ubiquitousness / of AI commercial popularity of AI / integration of AI in much software / focus on integration (windows sundar pachai: interview he says something about going all in on AI - ??% of new windows-code is AI or vibe coded -> find sources and references for sundar pachai's statements and the ??% vibecoded windows 11)
 
 %todo:
-Section on AI: \\
-******************************************** \\
+
+Een prachtig visueel uitwerking van de interne werking van een LLM kan men hier bekijken: \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}
 
 
-********************************************
+\section{Multimodal AI}
 
-********************************************
-
-
-%todo: this segment should move to markt-onderzoek
-
-title(subject to change): NVidea, market disruptor
-
-Brief segment
-
-talk about how the company has become one of the world's most
-profitable as the rise of demand for AI-hardware (chips) rises, big
-tech is investing heavily in AI and the increasing strength of AI models
-require a lot of RAM and visual memory to work well, the company who has
-specialized most in the type of memory which is useful for AI (GPUs) is
-Nvidea, they're the global market leader, focus was gaming, now big tech
-companies have reserved a substantial share of the chip-production for use
-in their AI systems. Bad news for averyone else, individuals who want to
-build/buy a new pc, companies who need GPUs to produce their own hardware
-like gaming consoles (sony, etc)
-
-are they the world's most profitable corporation now? -> look into
-
-*******************************************
-
-\section{AI Agents}
+\section{Agentic AI}
 
 \subsection{Tool gebruik}
+
+\subsection{RAG}
+% large section... RAG(Retrieval Augmented Generation)
+% explain the different steps that make up RAG, at least 1 figure that shows the entire process
+%explain some various applications/use-cases for rag
+%forwards reference to vergel.-studie demo
+%subsubsection for each part of RAG, including Vector Databases
+
+% j J
+
+Een probleem dat bestaat bij AI is dat er een beperkt context is dat deze kan
+%todo: rewrite to NL
+Big Picture Thinking Problem (DRY/maintainability/existing functions/codebase-context understanding/focus on solving everything in the AI-output)
+AI agents have limited context understanding, one of the problems that can arise from the use of AI is that it doesn’t have big picture, project-wide scope of understanding, it doesn’t know that an interface exists to call somewhere else in the project. 
+
+It will always be a problem because AI will always have some limit to how much additional context it can be given when prompted, it may increase if models continue to get stronger, but there will always be some limit.
+
+There are areas where some progress has been made in solving this problem, like cursor and claude code which use …* to get project-wide context
+
+*: %todo: look into what they exactly did, it likely predates RAG
+%*RAG? -> todo: find out/look up, etc
+
+\subsection{ReACT Agent}
+
+\subsection{Multi-Agent Workflow}
+%forwards reference to vergel.-studie demo
+
+\subsection{Model Context Protocol(todo)}
+%postmanmcp
