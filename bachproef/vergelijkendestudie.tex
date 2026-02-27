@@ -257,7 +257,7 @@ Het downloaden van een LLM kan wat tijd in beslag nemen, dit zijn volledige LLMs
 
 Deze methode gebruikt ChatResponse van Ollama om met een gegeven vraag een antwoord te verkrijgen. Deze methode heeft een ongelukkige naam gekregen, er kan hiermee verbonden worden met een cloud LLM, maar de Ollama package moet geïnstalleerd zijn in python. De test wordt gedaan met een lokaal geïnstalleerde LLM.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-lokaal-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-lokaal-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{python}
@@ -349,7 +349,7 @@ In tegenstelling tot de lokale modellen wordt er bij de cloud varianten geen sch
     \caption[Ollama Cloud model manifest download]{\label{fig:cloud_manifest}De terminal output bij het downloaden van een Ollama cloud LLM.}
 \end{figure}
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-signin-test} \\
+De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-signin-test} hier zien we de input, code en output van de test. \\
 
 \begin{listing}
     \begin{minted}{python}
@@ -460,7 +460,8 @@ De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-signin-test} \\
 
 Deze methode vereist dat er bij de provider (Ollama) een account aangemaakt is en dat een API-key gegenereerd wordt. Dit zal gebruikt worden voor autorisatie van de gebruiker bij het verbinden met een bepaald cloud LLM en zal ook het gebruik ervan bijhouden, er is een gelimiteerd gebruik afhankelijk van betalingsplan, in dit geval gaat het om een gratis plan. Zie figuur \ref{fig:ollamacloudlimieten}. Het gebruik van een API-key of access token is een veelgebruikte manier om cloud-LLMs te gebruiken. %todo: give some examples of llms that a api-key or access token is used
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-api-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-api-test} hier zien we de input, code en output van de test.
+
 
 \begin{listing}
     \begin{minted}{python}
@@ -591,7 +592,7 @@ De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-api-test}
 
 Deze methode gebruikt ollama AsyncClient en zorgt ervoor dat de communicatie met een gekozen LLM geen blokkerende actie is, dus de code kan verder terwijl de chat in een zij-proces bezig is, we zien bij het uitvoeren van deze test dat "after async function call" in de output verschijnt voor dat een antwoord wordt getoond.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-asyncclient-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-asyncclient-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{python}
@@ -671,7 +672,7 @@ De test werd gedaan met de codefragment: \ref{lst:ollama-asyncclient-test}
 
 Net zoals bij \ref{sssec:ollamaasyncclient} wordt hier AsyncClient gebruikt, maar in plaats van de response van de LLM in één keer af te printen gaan we stukje per stukje de output weergeven, dus voor de gebruiker geeft dit de indruk dat de LLM aan het typen is. Op deze manier krijgt de gebruiker sneller feedback dan bij alles in één uitprint-methoden.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-async-generator-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-async-generator-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{python}
@@ -751,7 +752,7 @@ Bij het gebruiken van de CLI kan Ollama omgaan met een absoluut pad naar de afbe
 
 Het inladen van een afbeelding neemt altijd meer tijd dan wanneer enkel een text vraag gesteld wordt. Een base64 afbeelding is een zeer lange string van tekst dat allemaal verwerkt moet worden door de LLM. \\ %todo: see Tokens \& context window
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-img-async-generator-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-img-async-generator-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{python}
@@ -813,7 +814,7 @@ In deze methode wordt de Ollama API aangesproken met een multimodal model \todo{
 
 De structuur van response die terugkeert van de API is nogal omslachtig.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-localhost-api-img-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-localhost-api-img-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{python}
@@ -918,7 +919,7 @@ De test werd gedaan met de codefragment: \ref{lst:ollama-localhost-api-img-test}
 In dit voorbeeld hebben we als tools functies die aangeroepen kunnen worden wanneer de gebruikers invoer hints bevat dat de LLM overtuigt dat er een tool kan gebruikt worden om te helpen met het antwoorden van de gestelde vraag. De LLM zal deze tool(functie) aanbieden met de correcte parameter(s).
 
 Voor het gebruiken van tools hebben we ook de Ollama API nodig: zie \ref{sssec:ollamaapi}
-De test werd gedaan met de codefragment: \ref{lst:ollama-tools-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-tools-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{python}
@@ -1133,7 +1134,7 @@ Indien er een vraag gesteld werd waarbij een hulpfunctie kon opgeroepen worden, 
 
 Communiceren met LLMs gebruik makend van JavaScript. Bij de documentatie van Ollama vinden we dat er het meeste met python en JavaScript wordt gewerkt om de LLMs te gebruiken. Er zal nog een keuze gemaakt worden met welke taal de AI-agent zal werken bij het kiezen van Ollama.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-javascript-test}
+De test werd gedaan met de codefragment: \ref{lst:ollama-javascript-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{js}

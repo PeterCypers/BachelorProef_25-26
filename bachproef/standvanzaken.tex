@@ -21,18 +21,25 @@ Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je ve
 % note: keep this chapter verry theoretical (besides the sci-fi bit)
 %intro
 
+%todo: consider rewriteing, bewering zonder staving...
+Mensen grijpen steeds vaker naar AI-tools om hun werk te versnellen of verschillende soorten visuele media te produceren.
+Het aanbod van generatieve AI tools, geïntegreerde chatbots, AI-agents, codeer-assistenten, tekstbewerkingstools, noem maar op, deze lijst blijft zich steeds verder uit te breiden. Om Een niet exhaustieve reeks van voorbeelden op te noemen:
+genereren van: 
+tekst met ChatGPT/Google Gemini
+beelden met DALL-E/Midjourney
+video's met Synthesia
+code met Copilot/AlphaCode
+
 %this is part of the intro, but something needs to come before it
 Een graaf met verzamelde data van posts op stackoverflow van gebruiker einpoklum deed recent de ronde op sociale media. Als we het aantal gebruikers kunnen afleiden uit het aantal posts op het platvorm dan ziet het een ergerlijke situatie uit, het gebruik van AI agents om te assisteren met het genereren van code en debuggen van errors zal zeker een beinvloedende factor zijn die bijdraagde tot de huidige staat van die website.
 
 Section on Stackoverflow being replaced with AI as coders are using LLMs more and more to help with code problems
 https://meta.stackoverflow.com/questions/437921/how-does-the-continued-decline-in-posts-since-may-25-influence-our-interpretati
 
-
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{stackoverflowposts.png}
-    \caption[Voorbeeld figuur.]{\label{fig:stackoverflowpostsdecline}Het aantal posts op StackOverflow vanaf de website opstart tot op heden.}
+    \caption[Stackoverflow posts grafiek]{\label{fig:stackoverflowpostsdecline}Het aantal posts op StackOverflow vanaf de website opstart tot op heden.}
 \end{figure}
 
 %todo: make sure to correctly reference figures (possible the ref needs to be in the figure explenation - see Research Methods)
@@ -42,16 +49,95 @@ https://meta.stackoverflow.com/questions/437921/how-does-the-continued-decline-i
 \label{sec:aivanscience-fictionnaarwerkelijkheid}
 % add the bit I wrote earlier
 
+
+\section{AI}
+% At it's core AI can be described as: "The simulation of human intelligence by machines" -> find source
+%Learning from massive amounts of data(see also:scraping) through 'training'
+Het aanbod in AI tools en chatbots, AI-agents  zijn de laatste jaren 
+
+
 \subsection{Discriminative AI}
+Volgens \autocite{IBM2026} maakt deze soort AI een onderscheid tussen verschillende klassen van data, elke nieuwe datapunt wordt gelabeld met een klasse, wanneer een nieuw datapunt wordt toegevoegd zal het model proberen voorspellen aan welke kant van de "decision-boundary" het nieuwe datapunt valt. vb. foto van een Kat of een Hond. Achterliggend worden geavanceerde algoritmes gebruikt om:
+\begin{enumerate}
+    \item verschillen te bepalen
+    \item te classificeren
+    \item patronen te identificeren
+    \item conclusies te trekken
+\end{enumerate}
+
+Een goede use-case voor dit soort AI is het filteren van spam e-mails. Deze modellen zijn uitermate geschikt om te vragen: Is dit A, of is dit B.
+
+De modellen kunnen geen context begrijpen of nieuwe content genereren gebaseerd op hun training data.
 
 \subsection{Generative AI}
 %refer to course1 -> all input text, so first transforming inputs via speechtotext, img to base64, natural language processing
 
+Volgens \autocite{IBM2026} kunnen generatieve modellen de onderliggende distributie van de trainingsdata vastleggen en hiermee nieuwe datapunten genereren. Ze krijgen data als input in een bepaalde vorm onder anderen tekst, afbeelding of video en vormen dit om naar output data in dat hetzelfde kan zijn als de input, maar ook een andere vorm van data kan zijn.
+
+Generatieve AI kan ingezet worden om van tekst input een tekst output te genereren (text-to-text) of van een tekst input naar een audio output te gaan (text-to-speech).
+Zo zijn er verscheidene mogelijkheden om generatieve AI te gebruiken om met allerlei soorten input data een nieuwe output te laten genereren als bepaald type van data.
+
+Discriminative en Generative AI modellen worden gemaakt door deep learning technieken toe te passen. Deep learning is het trainen van artificiële neuraal netwerken(verzameling neuronen gemodelleerd op het menselijk brein) op ontzettend grote hoeveelheden data
+
+De creativiteit van AI generatie komt van: GANs (Generative Adversarial Networks) / VAEs (Variational Auto-encoders) / Transformers / Diffusion models. Deze hebben de evolutie van AI versneld en geleid tot het ontstaan van foundation modellen, deze zijn AI modellen met heel algemene toepassingsmogelijkheden. Deze kunnen aangepast worden om te dienen als tools voor specifieke use-cases. Een onderdeel van foundation modellen zijn LLM's (Large Language Models).
+
 \section{LLMs}
+
+In 2018 kwam OpenAI uit de proppen met een op Transformers gebaseerde LLM genaamd GPT 1 (Generative Pretrained Transformer 1). Hiervóór had Google al onderzoek gedaan naar de Transformers architectuur in \autocite{Vaswani2017}. \\
+OpenAI bouwt hierop verder met hun onderzoek waarin beschrijven staat hoe ze hebben kunnen overschakelen op unsupervised pre-training en daarna supervised fine-tuning wat de trainingsproces enorm optimaliseerde en het mogelijk maakte om heel grote modellen te trainen \autocite{Radford2018}. \\
+
+Tot op dat punt werden NLP modellen vooral getrained met supervised learning, een machine learning techniek, gebruikmakend van een grote hoeveelheid manueel gelabelde data wat ontzettend tijdrovend en duur was \autocite{Radford2018}. \\
+
+De online chat interface die we kennen als ChatGPT werd als commercieel product op de wereld losgelaten in november 2022:
+
+\begin{quote}
+    "We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests."
+    - \autocite{OpenAI2022}
+\end{quote}
+
+\begin{quote}
+    "ChatGPT is fine-tuned from a model in the GPT‑3.5 series, which finished training in early 2022."
+    - \autocite{OpenAI2022}
+\end{quote}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{OpenAI_ChatGPT_12-2022.png}
+    \caption[ChatGPT Interface december 2022]{\label{fig:earlychatgptview}Dit was de ChatGPT interface op 9-12-2022.}
+\end{figure}
+
+Het Trainingsmethode van ChatGPT ging als volgt:
+
+\begin{quote}
+"We trained this model using Reinforcement Learning from Human Feedback (RLHF), using the same methods as InstructGPT⁠, but with slight differences in the data collection setup. We trained an initial model using supervised fine-tuning: human AI trainers provided conversations in which they played both sides—the user and an AI assistant. We gave the trainers access to model-written suggestions to help them compose their responses. We mixed this new dialogue dataset with the InstructGPT dataset, which we transformed into a dialogue format.
+- \autocite{OpenAI2022}
+
+To create a reward model for reinforcement learning, we needed to collect comparison data, which consisted of two or more model responses ranked by quality. To collect this data, we took conversations that AI trainers had with the chatbot. We randomly selected a model-written message, sampled several alternative completions, and had AI trainers rank them. Using these reward models, we can fine-tune the model using Proximal Policy Optimization⁠. We performed several iterations of this process."
+- \autocite{OpenAI2022}
+\end{quote}
+
+Het is volgens OpenAI een iteratief proces waarbij ze van plan zijn om steeds betere modellen uit te rollen.
+
+Een prachtig visueel uitwerking van de interne werking van een LLM kan men hier bekijken: \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}
+Dit project van Brendan Bycroft visualiseert de structuur van bepaalde GPT-modellen bespreekt stap voor stap wat er in de verschillende lagen gebeurt. \\
+
+
+We delven niet te ver in details, maar het is zinvol om enkele kenmerken van LLMs te bespreken.
+
+
+%ch.1 video NLP
+
+
+%section Tokens:
+%https://platform.openai.com/tokenizer
+
 
 %todo: in this chapter explaining LLMs, Tokens & Context window, parameters, Size, ETC
 
 %todo: check output of ollama show gemma3 -> explain things like 
+
+%todo: explain difference bewteen AI and machine learning?
 
 %todo: snelheid van llms gemeten in tokens/s https://www.reddit.com/r/LocalLLaMA/comments/1miggb2/what_hardware_to_run_gptoss120b/
 
@@ -70,16 +156,29 @@ Alle input wordt omgezet naar tokens die de LLM gebruikt om voorspellingen te ma
 
 %todo:
 
-Een prachtig visueel uitwerking van de interne werking van een LLM kan men hier bekijken: \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}
+
+\subsection{Multimodal LLMs}
+
+Vanaf dit punt zullen de termen LLM en AI tussen elkaar uitgewisseld worden want als er wordt gesproken over het gebruik van één van beiden zal het altijd gaan over het inzetten van een Large Language Model met AI eerder als spreektaal.
+
+\section{Prompting}
+\subsection{Prompt Engineering}
+% prompting techniques guide ref: https://www.promptingguide.ai/techniques
+% THERE IS A DIFFERENCE BETWEEN THIS AND "SOORTEN PROMPTS" templates & other things vs zero/1shot/few-shot/COT/instruction tuning/ICL in context learning
+
+\subsection{In-context learning}
+%look more into what this is exactly
+
+\subsection{Prompt Templates}
 
 
-\section{Multimodal AI}
+
 
 \section{Agentic AI}
 
 \subsection{Tool gebruik}
 
-\subsection{RAG}
+\section{RAG}
 % large section... RAG(Retrieval Augmented Generation)
 % explain the different steps that make up RAG, at least 1 figure that shows the entire process
 %explain some various applications/use-cases for rag
@@ -87,9 +186,9 @@ Een prachtig visueel uitwerking van de interne werking van een LLM kan men hier 
 %subsubsection for each part of RAG, including Vector Databases
 
 % j J
-
+%intro:
 Een probleem dat bestaat bij AI is dat er een beperkt context is dat deze kan
-%todo: rewrite to NL
+%todo: rewrite to NL, dient als introductie
 Big Picture Thinking Problem (DRY/maintainability/existing functions/codebase-context understanding/focus on solving everything in the AI-output)
 AI agents have limited context understanding, one of the problems that can arise from the use of AI is that it doesn’t have big picture, project-wide scope of understanding, it doesn’t know that an interface exists to call somewhere else in the project. 
 
@@ -100,10 +199,15 @@ There are areas where some progress has been made in solving this problem, like 
 *: %todo: look into what they exactly did, it likely predates RAG
 %*RAG? -> todo: find out/look up, etc
 
-\subsection{ReACT Agent}
+RAG (Retrieval Augmented Generation) is ... %todo: + reference
+dit voorziet LLMs van extra context dat ze kunnen gebruiken om betere responses te genereren.
 
-\subsection{Multi-Agent Workflow}
+\subsection{Vector Databases}
+% FAISS and ChromaDB
+\section{ReACT Agent}
+
+\section{Multi-Agent Workflow}
 %forwards reference to vergel.-studie demo
 
-\subsection{Model Context Protocol(todo)}
+\section{Model Context Protocol(todo)}
 %postmanmcp
