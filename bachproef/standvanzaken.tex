@@ -21,25 +21,53 @@ Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je ve
 % note: keep this chapter verry theoretical (besides the sci-fi bit)
 %intro
 
-%todo: consider rewriteing, bewering zonder staving...
-Mensen grijpen steeds vaker naar AI-tools om hun werk te versnellen of verschillende soorten visuele media te produceren.
-Het aanbod van generatieve AI tools, geïntegreerde chatbots, AI-agents, codeer-assistenten, tekstbewerkingstools, noem maar op, deze lijst blijft zich steeds verder uit te breiden. Om Een niet exhaustieve reeks van voorbeelden op te noemen:
-genereren van: 
-tekst met ChatGPT/Google Gemini
-beelden met DALL-E/Midjourney
-video's met Synthesia
-code met Copilot/AlphaCode
 
-%this is part of the intro, but something needs to come before it
-Een graaf met verzamelde data van posts op stackoverflow van gebruiker einpoklum deed recent de ronde op sociale media. Als we het aantal gebruikers kunnen afleiden uit het aantal posts op het platvorm dan ziet het een ergerlijke situatie uit, het gebruik van AI agents om te assisteren met het genereren van code en debuggen van errors zal zeker een beinvloedende factor zijn die bijdraagde tot de huidige staat van die website.
+Het aanbod van generatieve AI tools, geïntegreerde chatbots, AI-agents, codeer-assistenten, tekstbewerkingstools, noem maar op, deze lijst blijft zich steeds verder uit te breiden. Men kan met AI verschillende soorten media produceren:
+Genereren van tekst met ChatGPT of Google Gemini, beelden met DALL-E of Midjourney, video's met Synthesia of Grok Imagine en code met Copilot of AlphaCode.
 
-Section on Stackoverflow being replaced with AI as coders are using LLMs more and more to help with code problems
-https://meta.stackoverflow.com/questions/437921/how-does-the-continued-decline-in-posts-since-may-25-influence-our-interpretati
+\subsubsection{Het Magisch Sterretje}
+We zien AI steeds meer in software geïntegreerd worden, AI is overal tegenwoordig, vaak zien we als teken van een AI integratie een knop met een aantal sterretjes wat de gebruiker signaleert dat hier achter de schermen AI in verwerkt zit.
+
+Om een aantal voorbeelden te bespreken kijken we eerst naar Adobe Acrobat, hier hebben we een AI assistent waar we vragen aan kunnen stellen in verband met het document waaraan we werken, alsook een samenvatting genereren, mogelijk nog andere tekstverwerkende features, in outlook vinden we een "Summarize" knop boven een open email waarmee een samenvatting kan gegenereerd worden, er is ook een geïntegreerde Copilot embedded assistent waar bepaalde vragen aan kan gesteld worden. Naast de chat input waar de gebruiker vragen kan sturen naar de bot zien we ook een aantal vooraf gedefinieerde suggesties, namelijk: "Summarize this email", "Summarize and reply to this email", "Suggest my next step". In Windows notepad (of kladblok) hebben we Windows Copilot die de inhoud van het document kan samenvatten of in een andere toon (vb. van formeel naar grappig) zetten. Wanneer we in de browser zoeken naar iets krijgen we vaak een AI knop te zien waar we in plaats van de standaard zoeken een AI kunnen inzetten om te zoeken en direct de resultaten ook nog eens uit te leggen aan de gebruiker, waar eventueel nog bijkomende vragen aan kunnen gesteld worden, Google AI mode of Google Gemini output dat bovenaan de normale zoek-output gegenereerd wordt. \\
+
+We hebben in WhatsApp onder het bedrijf Meta op het hoofdscherm al direct toegang tot een AI-chatbot: Meta AI die het model Llama 4 gebruikt, deze keer niet met sterretjes, maar een knop in de vorm van een meerkleurig donut. Meerkleurigheid is soms een alternatief voor de sterretjes, het moet vooral goed opvallen in de views lijkt wel het geval te zijn. Wanneer men een meerkleurig knop ziet op een website is dit vaak een teken dat hieronder een AI-systeem zit.
+
+\subsection{AI en Windows}
+%todo: source from Satya nadella https://news.microsoft.com/build-2025/
+Er is een sterke push van Microsoft om meer AI in Windows te laten inbouwen. De huidige CEO van Microsoft, Satya Nadella, heeft de voorbije jaren tijdens de jaarlijkse Microsoft Keynote conferenties verschillende presentaties gegeven over de mogelijkheden van AI gebruik binnen Windows:
+
+\begin{quote}
+    "...AI has become so central to how we code, and that's why
+    we're opensourcing copilot in VS-code..."
+    - \autocite{Microsoft2025}
+    
+    "...This is the next big step forward, which is a full coding agent built right into github, taking copilot from being a pair-programmer to a peer programmer, you can assign issues to copilot, bugfixes, new features, code maintenance, and it'll complete these tasks autonomously..."
+    - \autocite{Microsoft2025}
+\end{quote}
+
+Daarnaast binnen de Keynote van 2025 kwamen nog een aantal zaken aan bod: Azure AI foundary (in de cloud), Windows native MCP support.
+
+Ook Microsoft M365 Copilot kwam veel ter sprake, deze brengt chat, zoeken, notebooks, create en agents allemaal samen, hier kan men "enterprise-grade agents" maken \autocite{Microsoft2025}. Dit is nu geïntegreerd in Windows Office, de M365 Copilot interface heeft namelijk die van de standaard MS Office vervangen. Deze heeft ook een ingebouwde chatbot, men kan ook in de browser de M365 Copilot chatbot aanspreken. \\
+
+Nu binnen de MS Edge browser vinden we een Copilot knop waarmee we ook met een chatbot kunnen spreken en met context-kennis van de webpagina waarop we ons bevinden(wanneer dit is toegestaan in de privacy instellingen), dit is niet hetzelfde als M365 Copilot, dus we hebben hier een aantal verschillende versies:
+
+\begin{itemize}
+    \item \textbf{Microsoft M365 Copilot:} Geïntegreerd in Office en andere Windows-apps
+    \item \textbf{Microsoft Copilot:} Geïntegreerd in Edge browser en Windows notepad
+    \item  \textbf{Github Copilot Chat:} Een geïntegreerde chatbot en codeer-agent binnen Visual Studio Code(VSC). Microsoft is sinds 2018 ook eigenaar van Github.
+\end{itemize}
+
+Dit zijn maar een aantal van de AI integraties waar gebruikers mee in aanraking komen bij het dagelijks pc- en gsm-gebruik. Er is in een onderzoek gebleken dat men voor het oplossen van (academische)problemen evolueren naar het gebruik van AI in plaats van Google-zoeken, of zelfs nog meer een hybride van de twee, waar ze AI gebruiken, maar verifiëren met de klassieke zoekmachines \autocite{Sayeedi2025}.
+
+Een graaf met verzamelde data van posts binnen een bepaalde periode op Stack Overflow van gebruiker einpoklum \ref{fig:stackoverflowpostsdecline} deed recent de ronde op sociale media. Als we het aantal gebruikers kunnen afleiden uit het aantal posts op het platvorm dan kunnen we concluderen dat mensen deze steeds minder bezoeken als er een moeilijk op te lossen probleem zich voor doet in de code en eerder grijpt naar een AI-chatbot of codeer-agent(assistent). Of mogelijks een combinatie van de twee, de graaf toont alleszins een dalende trend in het gebruik van Stack Overflow aan.
+
+
+%https://meta.stackoverflow.com/questions/437921/how-does-the-continued-decline-in-posts-since-may-25-influence-our-interpretati
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{stackoverflowposts.png}
-    \caption[Stackoverflow posts grafiek]{\label{fig:stackoverflowpostsdecline}Het aantal posts op StackOverflow vanaf de website opstart tot op heden.}
+    \caption[Stackoverflow posts grafiek]{\label{fig:stackoverflowpostsdecline}Het aantal posts op StackOverflow vanaf de website opstart tot op heden \autocite{einpoklum2026}.}
 \end{figure}
 
 %todo: make sure to correctly reference figures (possible the ref needs to be in the figure explenation - see Research Methods)
@@ -79,7 +107,7 @@ Zo zijn er verscheidene mogelijkheden om generatieve AI te gebruiken om met alle
 
 Discriminative en Generative AI modellen worden gemaakt door deep learning technieken toe te passen. Deep learning is het trainen van artificiële neuraal netwerken(verzameling neuronen gemodelleerd op het menselijk brein) op ontzettend grote hoeveelheden data
 
-De creativiteit van AI generatie komt van: GANs (Generative Adversarial Networks) / VAEs (Variational Auto-encoders) / Transformers / Diffusion models. Deze hebben de evolutie van AI versneld en geleid tot het ontstaan van foundation modellen, deze zijn AI modellen met heel algemene toepassingsmogelijkheden. Deze kunnen aangepast worden om te dienen als tools voor specifieke use-cases. Een onderdeel van foundation modellen zijn LLM's (Large Language Models).
+De creativiteit van AI generatie komt van: GANs (Generative Adversarial Networks) / VAEs (Variational Auto-encoders) / Transformers / Diffusion models. Deze hebben de evolutie van AI versneld en geleid tot het ontstaan van foundation modellen, deze zijn AI modellen met heel algemene toepassingsmogelijkheden. Deze kunnen aangepast worden met fine-tuning om te dienen als tools voor specifieke use-cases. LLMs (Large Language Models) maken deel uit van foundation modellen \autocite{Bommasani2021}.
 
 \section{LLMs}
 
@@ -119,14 +147,19 @@ To create a reward model for reinforcement learning, we needed to collect compar
 
 Het is volgens OpenAI een iteratief proces waarbij ze van plan zijn om steeds betere modellen uit te rollen.
 
-Een prachtig visueel uitwerking van de interne werking van een LLM kan men hier bekijken: \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}
+Een gedetailleerd visueel uitwerking van de interne werking van een LLM kan men hier bekijken: \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}
 Dit project van Brendan Bycroft visualiseert de structuur van bepaalde GPT-modellen bespreekt stap voor stap wat er in de verschillende lagen gebeurt. \\
 
+LLMs zijn getrained op zeer grote datasets of ruwe data verzameld op webniveau \autocite{Bommasani2021}. Voor de mogelijke fouten dat LLMs kunnen maken zie: 
+%todo: reference forward to Risicos van AI
 
-We delven niet te ver in details, maar het is zinvol om enkele kenmerken van LLMs te bespreken.
-
+%We delven niet te ver in details,
+maar het is zinvol om enkele kenmerken van LLMs te bespreken.
+%todo: more kenmerken of LLMs
 
 %ch.1 video NLP
+
+%next word prediction
 
 
 %section Tokens:
