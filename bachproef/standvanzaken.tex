@@ -150,27 +150,102 @@ Het is volgens OpenAI een iteratief proces waarbij ze van plan zijn om steeds be
 Een gedetailleerd visueel uitwerking van de interne werking van een LLM kan men hier bekijken: \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}
 Dit project van Brendan Bycroft visualiseert de structuur van bepaalde GPT-modellen bespreekt stap voor stap wat er in de verschillende lagen gebeurt. \\
 
-LLMs zijn getrained op zeer grote datasets of ruwe data verzameld op webniveau \autocite{Bommasani2021}. Voor de mogelijke fouten dat LLMs kunnen maken zie: 
+LLMs zijn getrained op zeer grote datasets, grote hoeveelheden ongestructureerde data of ruwe data verzameld op webniveau \autocite{Bommasani2021}. Eens dat ze een aantal miljard parameters groot zijn kosten ze ook heel veel computer kracht om ze te hosten en inferentie op te doen waarvoor ze dus mogelijks meerdere GPU's nodig \autocite{IBM2026}. Voor de mogelijke fouten dat LLMs kunnen maken zie: 
 %todo: reference forward to Risicos van AI
 
 %We delven niet te ver in details,
 maar het is zinvol om enkele kenmerken van LLMs te bespreken.
 %todo: more kenmerken of LLMs
 
-%ch.1 video NLP
+\subsection{NLP}
+NLP (Natural Language Processing) is een onderdeel van computer wetenschap dat met behulp van machine learning het mogelijk maakt voor mensen om in mensentaal te communiceren met computers en is uitermate geschikt voor automatisatie van repetitieve taken zoals customer support, data entry en document verwerking \autocite{IBMb}. \\
 
-%next word prediction
+De bedoeling is om computers een manier te geven om mensentaal te kunnen verwerken. We starten met ongestructureerde tekst dat wordt omgezet in gestructureerde tekst, dat is NLU (Natural Language Understanding). Wanneer men van gestructureerde naar ongestructureerde tekst gaat heet dat NLG (Natural Language Generation). \\
+
+Waarvoor kan NLP allemaal ingezet worden? Een aantal voorbeelden: Samenvattingen maken; Vertalen; Sentiment analyse; Spam detectie; Geavanceerd zoeken.
+
+Chatbots en vertaalmachines moeten niet alleen woord betekenissen kunnen begrijpen, maar ook een bredere context zodat ook spreekwoorden en gezegden, onder anderen, duidelijk zijn in hun echte betekenis.
+
+Voor we LLMs hadden konden we klassieke NLP normalisatietechnieken inzetten zoals stemming en lemmatization. Stemming is een heuristisch aanpak om een woord te reduceren tot zijn essentie, bijvoorbeeld: rapporteren $\rightarrow$ rapport; lopen $\rightarrow$ lop; schrijft $\rightarrow$ schrijv. Deze afknottingen produceren niet altijd een correct Nederlandstalige woord, maar reduceert deze tot een basis vorm \autocite{Tan2024}.
+
+Deze technieken hebben verschillende algoritmes nodig afhankelijk van de taal en het is nog altijd mogelijk dat er fouten optreden wanneer 2 semantisch verschillende woorden gereduceerd worden tot dezelfde stem \autocite{IBMc}.
+
+Naast deze technieken hebben we ook POS (Part of Speech) tagging: Eenzelfde woord, wanneer die op verschillende plaatsen in een zin voorkomt kan tot een andere betekenis leiden, en NER (Named Entity Recognition) dat gebruikt kan worden om namen van organisaties en mensen te herkennen \autocite{IBM2026}. 
+
+Dit alles om de omzet van ongestructureerde tekst om te zetten in gestructureerde tekst dat computers gemakkelijker kunnen verwerken.
+
+\subsection{Tokenization}
+LLMs krijgen een prompt binnen als verzameling ongestructureerde tekst, om deze te converteren in gestructureerde tekst moet deze eerst ontleed worden in stukjes met behulp van een techniek dat Tokenization heet. Hieronder een voorbeeld met gebruik van OpenAI's tokenizer: \ref{fig:tokenization} (ingesteld op GPT-5.x \& O1/3)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{tokenization.png}
+    \caption[OpenAI Tokenizer]{\label{fig:tokenization}Een zin die opgesplitst is in tokens, gemaakt op \autocite{OpenAI}}
+\end{figure}
+
+In de figuur \ref{fig:tokenization} zien we dat de zin is opgesplitst in 8 stukjes (Tokens). Ze hebben elk ook een id gekregen, deze id's zijn deterministisch bepaald (met deze tokenizer zal 'De' altijd id: 1923 krijgen). Op dezelfde resource waar de tokens mee kunnen worden berekend vinden we een rule of thumb om een snelle berekening te maken als men wil weten hoeveel tokens er gebruikt worden tijdens interacties met LLMs, dat kan zinvol zijn wanneer we de kost van het gebruiken van LLMs bespreken \ref{sec:pricing}.
+
+\begin{quote}
+    "A helpful rule of thumb is that one token generally corresponds to ~4 characters of text for common English text. This translates to roughly ¾ of a word (so 100 tokens ~= 75 words)." \\
+    - \autocite{OpenAI}
+\end{quote}
 
 
-%section Tokens:
-%https://platform.openai.com/tokenizer
+Na tokenisatie wordt elke token(ID) gemapt naar een numerieke \textbf{vector} die de LLM in zijn embedding‑laag gebruikt om de woorden in een vectorruimte te representeren. Tokens met vergelijkbare betekenis komen hierbij contextspecifiek dicht bij elkaar te liggen, waardoor er clusters van tokens met gelijkaardige betekenis ontstaan \autocite{Hussain2024}.
+Er wordt soms gesproken van "high-dimensional vector space". De embedding laag is een van de lagen waaruit een LLM bestaat \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}. \\
+
+Dit is dus hoe LLMs de semantiek betekenis van verschillende woorden kunnen onderscheiden. Met behulp van vectoren, in een groot 2-dimensionale ruimte worden de id's van tokens gemapt, woorden met gelijkaardige betekenissen komen dicht bij elkaar terecht. De positie geeft aan dat andere woorden die dichtbij liggen gelijkaardige betekenissen hebben.
+
+\subsection{Parameters}
+Parameters van een LLM zijn het aantal treinbare, numerieke gewichten(parameters) van dat model inclusief de embedded vectoren, maar ook nog gewichten uit andere lagen van de LLM. De posities van de gewichten in de LLM kunnen een nieuwe positie innemen tijdens de trainingsfases van de LLM.
+
+Tijdens iteratieve trainingen worden de parameters(gewichten of weights) van de LLM telkens aangepast om de nauwkeurigheid te verhogen, vooral bij taken waarin het model specifiek wordt getraind. Verschillende LLMs kunnen gespecialiseerd zijn in bepaalde taken. \\
+
+Dit kan ook gezien worden als de grootte van het model, bijvoorbeeld gpt-oss:120b (120miljard parameter) is groter dan gpt-oss:20b. Die is ook niet gemakkelijk om lokaal te laten lopen, de gpt-oss:20b is nog haalbaar op  consumentenhardware. Het gebruiken van de grotere modellen, de compute wordt wat outsourced naar de big-tech bedrijven die deze modellen ook hosten op hun eigen hardware.
+
+
+\subsection{Andere LLM Eigenschappen}
+
+Wanneer we het Ollama \ref{sec:Ollama} commando "ollama show qwen3-vl:8b" ingeven in Windows cmd krijgen we volgende output te zien: \ref{fig:qwen3info}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{qwen3-vl_eigenschappen.png}
+    \caption[Ollama show LLM info]{\label{fig:qwen3info}De output toont info over een bepaald LLM, in dit geval qwen3-vl:8b.}
+\end{figure}
+
+Parameters werden reeds besproken, hier zien we ze iets meer precies als 8.8B(miljard). Het is zinvol om bepaalde eigenschappen kort te bespreken. Ook op de website\footnote{\href{https://ollama.com/library/qwen3-vl}{https://ollama.com/library/qwen3-vl}} vinden we nog extra info in verband met dit model (Size; Context; Input).
+%https://huggingface.co/docs/optimum/en/concept_guides/quantization
+Hier zetten we alles even op een rijtje:
+\begin{itemize}
+    \item \textbf{Architecture:} De stamnaam van dit model.
+    \item \textbf{Context length:} 262144 (Context = 256K op de website)
+    \item \textbf{Embedding length:} Elke embedded token is gemapt naar een vector van 4096 nummers.
+    \item \textbf{Quantization:} de quantization format, Zie: \ref{sssec:quantization}
+    \item \textbf{Capabilities:} Completion: voorspellen van het volgende woord, vision: kan uitleggen wat in een afbeelding te zien is, tools: kan met tools werken(wordt later besproken), thinking: kan een chain-of-thought output weergeven.
+    \item \textbf{Parameters}
+    \item \textbf{Temperature:} Een getal tussen 0 en 1, lagere temperatuur is meer deterministisch, hogere temperatuur laat meer creativiteit toe.
+    \item \textbf{top\_k:} Het aantal meest mogelijke uitkomsten dat zullen beoordeeld worden bij het antwoorden, uitkomsten zijn een aflopende rangschikking van toepasselijke responses voor een bepaald prompt.
+    \item \textbf{top\_p:} Confidence interval, enkel waarden binnen de grenzen van een 95\% confidence interval liggen worden inbegrepen in de output. (probability)
+    \item \textbf{Size:} Hoeveelheid schijfruimte dat dit model inneemt nadat dit gedownload is op het lokaal machine. (Size = 6.1GB)
+    \item \textbf{Input:} Soorten data dat dit model als input kan verwerken. (Input = Text, Image)
+\end{itemize}
+
+\subsubsection{Quantization}
+\label{sssec:quantization}
+
+\begin{quote}
+    "Quantization is a technique to reduce the computational and memory costs of running inference by representing the weights and activations with low-precision data types like 8-bit integer (int8) instead of the usual 32-bit floating point (float32)." - \autocite{HuggingFace}
+    
+    "Reducing the number of bits means the resulting model requires less memory storage, consumes less energy (in theory), and operations like matrix multiplication can be performed much faster with integer arithmetic. It also allows to run models on embedded devices, which sometimes only support integer data types." - \autocite{HuggingFace}
+\end{quote}
+
 
 
 %todo: in this chapter explaining LLMs, Tokens & Context window, parameters, Size, ETC
 
 %todo: check output of ollama show gemma3 -> explain things like 
 
-%todo: explain difference bewteen AI and machine learning?
 
 %todo: snelheid van llms gemeten in tokens/s https://www.reddit.com/r/LocalLLaMA/comments/1miggb2/what_hardware_to_run_gptoss120b/
 
@@ -189,8 +264,14 @@ Alle input wordt omgezet naar tokens die de LLM gebruikt om voorspellingen te ma
 
 %todo:
 
+\subsection{Soorten LLMs}
 
-\subsection{Multimodal LLMs}
+\subsubsection{Vision}
+
+\subsubsection{Mixture of Experts}
+%mixtral -> https://arxiv.org/abs/2401.04088
+
+\subsubsection{Multimodal LLMs}
 
 Vanaf dit punt zullen de termen LLM en AI tussen elkaar uitgewisseld worden want als er wordt gesproken over het gebruik van één van beiden zal het altijd gaan over het inzetten van een Large Language Model met AI eerder als spreektaal.
 
