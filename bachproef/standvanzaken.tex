@@ -197,6 +197,7 @@ Er wordt soms gesproken van "high-dimensional vector space". De embedding laag i
 Dit is dus hoe LLMs de semantiek betekenis van verschillende woorden kunnen onderscheiden. Met behulp van vectoren, in een groot 2-dimensionale ruimte worden de id's van tokens gemapt, woorden met gelijkaardige betekenissen komen dicht bij elkaar terecht. De positie geeft aan dat andere woorden die dichtbij liggen gelijkaardige betekenissen hebben.
 
 \subsection{Parameters}
+\label{ssec:parameters}
 Parameters van een LLM zijn het aantal treinbare, numerieke gewichten(parameters) van dat model inclusief de embedded vectoren, maar ook nog gewichten uit andere lagen van de LLM. De posities van de gewichten in de LLM kunnen een nieuwe positie innemen tijdens de trainingsfases van de LLM.
 
 Tijdens iteratieve trainingen worden de parameters(gewichten of weights) van de LLM telkens aangepast om de nauwkeurigheid te verhogen, vooral bij taken waarin het model specifiek wordt getraind. Verschillende LLMs kunnen gespecialiseerd zijn in bepaalde taken. \\
@@ -219,6 +220,7 @@ Parameters werden reeds besproken, hier zien we ze iets meer precies als 8.8B(mi
 Hier zetten we alles even op een rijtje:
 \begin{itemize}
     \item \textbf{Architecture:} De stamnaam van dit model.
+    \item \textbf{Parameters:} Zie \ref{ssec:parameters}
     \item \textbf{Context length:} 262144 (Context = 256K op de website)
     \item \textbf{Embedding length:} Elke embedded token is gemapt naar een vector van 4096 nummers.
     \item \textbf{Quantization:} de quantization format, Zie: \ref{sssec:quantization}
@@ -240,57 +242,109 @@ Hier zetten we alles even op een rijtje:
     "Reducing the number of bits means the resulting model requires less memory storage, consumes less energy (in theory), and operations like matrix multiplication can be performed much faster with integer arithmetic. It also allows to run models on embedded devices, which sometimes only support integer data types." - \autocite{HuggingFace}
 \end{quote}
 
+% j J
 
-
-%todo: in this chapter explaining LLMs, Tokens & Context window, parameters, Size, ETC
-
-%todo: check output of ollama show gemma3 -> explain things like 
+Door Quantization kunnen LLMs makkelijker op een lokaal machine worden gedownload en gebruikt. LLMs nemen een bepaald aantal gigabyte in beslag en hebben een bepaald hoeveelheid werkgeheugen nodig (RAM) om inferentie op te kunnen doen. Als er aan de vereisten voldaan zijn kunnen ze lokaal (offline) gebruikt worden met software dat ermee kan interageren, bijvoorbeeld Ollama.
 
 
 %todo: snelheid van llms gemeten in tokens/s https://www.reddit.com/r/LocalLLaMA/comments/1miggb2/what_hardware_to_run_gptoss120b/
 
 %todo: chapter about Tokens \& Pricing(can mention pricing, but pricing gets it's own chapter in Marktonderzoek) -expected in chapter to mention differences by provider and measure in per million tokens -> I have an image somewhere showing this for gpt or claude
 
-%todo: put in chapter about context window
-%https://www.ibm.com/think/topics/context-window ()in refs as Bergmann)
-Eerst even wat uitleg over de \textit{context window}. Volgens \todo{reference  Bergmann} kan dit gezien worden als het werkgeheugen van een LLM. Dit bepaalt hoe lang het gesprek kan lopen (meerdere prompts) en bepaalt ook externe resources de LLM tegelijk can verwerken (documenten, codefragmenten, afbeeldingen, etc.).
+\subsubsection{Context Venster}
+
+Even wat uitleg over de \textit{context window}. Volgens \textcite{Bergmann} kan dit gezien worden als het werkgeheugen van een LLM. Dit bepaalt hoe lang het gesprek kan lopen (meerdere prompts) en bepaalt ook externe resources de LLM tegelijk can verwerken (documenten, codefragmenten, afbeeldingen, etc.).
 Alles dat gebruikt werd bij een bepaalde sessie met een LLM komt in de context window terecht, alle voorgaande vragen(prompts) en gedeelde resources worden in rekening genomen wanneer de LLM een response terug geeft aan de gebruiker.
+\autocite{Bergmann} \\
 
+De context venster is de totale hoeveelheid input en output dat de LLM kan genereren. Modellen met een grotere context window kunnen meer tokens tegelijk verwerken. Bij chat sessies met een LLM-chatbot wordt een chat-geschiedenis opgebouwd, een verzameling van gebruiker-vragen en AI-antwoorden, bij elke nieuwe vraag van de gebruiker wordt deze geschiedenis mee gestuurd naar de LLM als context, dit is nodig om verder te bouwen op een moeilijk probleem of om de gebruiker toe te laten verder te bouwen op verleden vragen. \\
 
-%todo: intro in chapter: Tokens, same reference as context window: Bergmann
-Alle input wordt omgezet naar tokens die de LLM gebruikt om voorspellingen te maken die leiden tot het meest waardevolle antwoord. Wanneer de totale opgebouwde tokens de context-venster overschrijden dan moet de LLM samenvattingen beginnen maken ... \todo{schrijf verder, reference: Bergmann}
+Alle tekst input wordt omgezet naar tokens die de LLM gebruikt om voorspellingen te maken die leiden tot het meest waardevolle antwoord. Wanneer de totale opgebouwde tokens de context-venster overschrijden dan moet de LLM samenvattingen beginnen maken en een samengevatte context interpreteren. Over het algemeen zorgt een grotere context voor betere vermogen van een LLM om grotere hoeveelheden data te kunnen analyseren en met minder hallucinaties. Deze grotere modellen kosten dan weer meer om te laten draaien. De auteurs observeerden ook dat modellen het beste presteren wanneer relevante informatie zich aan het begin of aan het einde van de input context bevond. \autocite{Bergmann}.
 
-%todo: ubiquitousness / of AI commercial popularity of AI / integration of AI in much software / focus on integration (windows sundar pachai: interview he says something about going all in on AI - ??% of new windows-code is AI or vibe coded -> find sources and references for sundar pachai's statements and the ??% vibecoded windows 11)
-
-%todo:
+%todo: (windows sundar pachai: interview he says something about going all in on AI - ??% of new windows-code is AI or vibe coded -> find sources and references for sundar pachai's statements and the ??% vibecoded windows 11)
 
 \subsection{Soorten LLMs}
+Er zijn veel verschillende LLMs die lokaal of via de cloud gebruikt kunnen worden. Elk model heeft zijn eigen sterke en zwakke punten en is geschikt voor bepaalde toepassingen. \\
+
+In vele gevallen krijgen LLMs een chat interface waar er een heen-en-weer is van berichten, prompts van de gebruiker en antwoorden van de LLM.
 
 \subsubsection{Vision}
-
-\subsubsection{Mixture of Experts}
-%mixtral -> https://arxiv.org/abs/2401.04088
+Deze LLMs hebben beeldherkenning en kunnen gebruikt worden om foto's te analyseren. De Ollama beschikbare vision modellen zijn normaal gezien ook allemaal multimodal, men kan een prompt meesturen met de foto: "Wat staat er op deze foto?".
 
 \subsubsection{Multimodal LLMs}
+Dit zijn LLMs die verschillende vormen van data tegelijk als input kunnen verwerken, een combinatie van tekst, foto, video of audio.
+
+\subsubsection{Mixture of Experts}
+Vooral gekend van Mixtral 8x7B, deze model combineert verschillende experts om een betere output te genereren, het verslaat Llama 2 en GPT-3.5 op bepaalde benchmarks zoals wiskunde, meertaligheid en code-generatie, Ondanks zijn kleinere grootte(aantal parameters) \autocite{jiang2024}. \\
 
 Vanaf dit punt zullen de termen LLM en AI tussen elkaar uitgewisseld worden want als er wordt gesproken over het gebruik van één van beiden zal het altijd gaan over het inzetten van een Large Language Model met AI eerder als spreektaal.
 
-\section{Prompting}
-\subsection{Prompt Engineering}
+%\section{Prompting}
+\section{Prompt Engineering}
 % prompting techniques guide ref: https://www.promptingguide.ai/techniques
 % THERE IS A DIFFERENCE BETWEEN THIS AND "SOORTEN PROMPTS" templates & other things vs zero/1shot/few-shot/COT/instruction tuning/ICL in context learning
+% j J
+
+Prompten van LLMs is het sturen van nieuwe data naar een LLM om daar inferentie op te doen. Deze gebruikt zijn training data om patronen te herkennen, voorspellingen te maken met de nieuwe data en de correcte output te genereren.
+%todo : reference bergmann again, but add him to library with this: https://www.ibm.com/think/topics/ai-inference
+
+Prompt engineering is het optimaliseren van wat men als vraag, of prompt naar de LLM stuurt om deze beter te leiden tot een accuraat en coherent antwoord. \\
+
+Er zijn allerlei verschillende technieken, waarvan er een aantal zijn dat men instinctief toepast zonder het te weten. \\
 
 \subsection{In-context learning}
-%look more into what this is exactly
 
-\subsection{Prompt Templates}
+Dit fenomeen doet zich voor bij LLMs, ze hebben namelijk een sterkere capaciteit voor deductie wanneer in de prompt voorbeelden van mogelijke oplossingen mee worden gestuurd.
+
+Volgens de prompt engineering gids: \footnote{\href{https://www.promptingguide.ai/}{https://www.promptingguide.ai/}}
+
+\textbf{Zero Shot Prompting} is wanneer de gebruiker een vraag stelt aan een LLM zonder enige hints hoe de verwachte output zal moeten zijn. De LLM moet dan zelf met de context van de gekregen prompt en zijn training een aanvaardbaar antwoord als response terugsturen naar de gebruiker.
+
+\textbf{One Shot Prompting} is het soort dat men het meeste instinctief zal toepassen bij bevragingen aan LLMs. Dit is wanneer 1 duidelijk voorbeeld wordt gegeven van hoe de verwachte output eruit moet zien. Bijvoorbeeld: "Ik wil dat je een tabel genereert die er zo uit ziet" + een beschrijving van het tabel.
+
+\textbf{Few Shot Prompting} is wanneer men meerdere voorbeelden expliciet mee sturen samen met de vraag aan de LLM die ertoe dienen om deze te leiden tot een nauwkeuriger antwoord.
+
+\textbf{CoT(Chain of Thought) Prompting} is wanneer men een complexe probleem (A) opsplitst in een manier van redeneren, mogelijks in een vraag-antwoord formaat dat een voorbeeld biedt zodat de LLM hetzelfde denkpatroon kan volgen om tot een oplossing van probleem (B) kan leiden, dit alles wordt in éénzelfde prompt naar de LLM gestuurd.
 
 
+\subsection{Prompt Templates \& Rollen}
+% j J
+Wanneer men in code met LLMs werkt is het mogelijk om zelf de chat-geschiedenis aan te passen. Er kunnen vooraf bepaalde berichten van de AI komen of naar de AI toe gaan afhankelijk van de rol.
 
+Belangrijke regels die gelden voor alle interacties met de AI kunnen vooraf ingesteld worden om bijvoorbeeld de AI kortere antwoorden te laten genereren, of om te proberen in een bepaald format te antwoorden. Wanneer men zelf met de gebruiker input en AI output omgaat is het zinvol om deze altijd een rol mee te geven zodat wanneer de chatgeschiedenis geïnterpreteerd wordt door de AI deze weet wie wat heeft gezegd.
 
-\section{Agentic AI}
+\begin{listing}
+    \begin{minted}{python}
+       chatgeschiedenis = []
+       
+       # System prompt: bepaal het gedrag van de AI
+       chatgeschiedenis.append({
+           "role": "system",
+           "content": "Je bent een creatieve en meeslepende Dungeon Master in een Dungeons & Dragons-campagne. Beschrijf de wereld levendig, gebruik zintuiglijke details en geef spelers betekenisvolle keuzes."
+       })
+       
+       # Eerdere reactie van de assistant
+       chatgeschiedenis.append({
+           "role": "assistant",
+           "content": "Terwijl jullie het oude woud van Elmschaduw betreden, lijkt het alsof de bomen fluisteren in een vergeten taal. Een smal pad slingert zich tussen met mos bedekte ruïnes. In de verte hoor je het zachte geklater van water — of is het gefluister?"
+       })
+       
+       # Nieuwe vraag van de gebruiker
+       chatgeschiedenis.append({
+           "role": "user",
+           "content": "Wat weten we over de ruïnes die hier verscholen liggen?"
+       })
+    \end{minted}
+    \caption[Chatgeschiedenis met bepaalde rollen]{Voorbeeld van een expliciete invulling van chatgeschiedenis in verschillende rollen.}
+    \label{lst:dungeonsanddragonschatgeschiedenis}
+\end{listing}
 
-\subsection{Tool gebruik}
+In bovenstaande voorbeeld hebben we een spel waar een AI-chatbot ingezet wordt als Dungeons \& Dragons dungeon master. Het systeem directief dat mee wordt gegeven is een belangrijke regel dat de LLM altijd zal proberen volgen. De role: user geeft aan dat dit een bericht van de gebruiker is en de role: assistant maakt duidelijk dat dit een bericht is van de AI. Wanneer we verder gaan in het verhaal geven we bij elke nieuwe prompt naar de AI toe dit ganse geschiedenis en wanneer de gebruiker input gevraagd wordt zal dit aan de hand van een tekst invul veld waar we best ook de role: user invullen en als content: de gebruiker-input. \\
+
+Bij veel interacties met AI en vooral AI-chatbots gebeurt dit achter de schermen, er zijn rollen, voornamelijk: System, AI, User. System dat belangrijke regels meegeeft aan de AI, en de andere rollen die de interpretatie van de chatgeschiedenis verduidelijken.
+
+%todo: prompt templates
+
 
 \section{RAG}
 % large section... RAG(Retrieval Augmented Generation)
@@ -318,10 +372,25 @@ dit voorziet LLMs van extra context dat ze kunnen gebruiken om betere responses 
 
 \subsection{Vector Databases}
 % FAISS and ChromaDB
-\section{ReACT Agent}
+
+\section{Agentic AI}
+
+\subsection{Tool gebruik}
+
+\subsection{ReACT Agent}
 
 \section{Multi-Agent Workflow}
 %forwards reference to vergel.-studie demo
 
 \section{Model Context Protocol(todo)}
-%postmanmcp
+%postmanmcp  (and https://laravel.com/docs/12.x/boost mcp tab)
+
+\section{API development(todo)}
+% DEV en TEST, bestaande tools? Bottlenecks? Ik weet niet echt hoe dit te onderzoeken... naast wat ik tot nu toe al gevonden heb
+
+\section{API testen(todo)}
+% verdere onderzoek nodig
+\section{OAS \& OAD}
+
+
+

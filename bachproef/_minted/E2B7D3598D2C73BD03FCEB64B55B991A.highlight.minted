@@ -1,0 +1,21 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{chatgeschiedenis} \PYG{o}{=} \PYG{p}{[]}
+
+\PYG{c+c1}{\PYGZsh{} System prompt: bepaal het gedrag van de AI}
+\PYG{n}{chatgeschiedenis}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}role\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}system\PYGZdq{}}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}content\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}Je bent een creatieve en meeslepende Dungeon Master in een Dungeons \PYGZam{} Dragons\PYGZhy{}campagne. Beschrijf de wereld levendig, gebruik zintuiglijke details en geef spelers betekenisvolle keuzes.\PYGZdq{}}
+\PYG{p}{\PYGZcb{})}
+
+\PYG{c+c1}{\PYGZsh{} Eerdere reactie van de assistant}
+\PYG{n}{chatgeschiedenis}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}role\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}assistant\PYGZdq{}}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}content\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}Terwijl jullie het oude woud van Elmschaduw betreden, lijkt het alsof de bomen fluisteren in een vergeten taal. Een smal pad slingert zich tussen met mos bedekte ruïnes. In de verte hoor je het zachte geklater van water — of is het gefluister?\PYGZdq{}}
+\PYG{p}{\PYGZcb{})}
+
+\PYG{c+c1}{\PYGZsh{} Nieuwe vraag van de gebruiker}
+\PYG{n}{chatgeschiedenis}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}role\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}user\PYGZdq{}}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}content\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}Wat weten we over de ruïnes die hier verscholen liggen?\PYGZdq{}}
+\PYG{p}{\PYGZcb{})}
+\end{MintedVerbatim}
