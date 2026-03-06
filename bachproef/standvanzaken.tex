@@ -6,14 +6,17 @@
 % bijzonder aan wat de link is met het vorige en volgende hoofdstuk.
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
-\section{Tips:}
-Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
 
-Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
+\begin{comment}
+    Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
+    
+    Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
+    
+    \textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
+    
+    Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
+\end{comment}
 
-\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
-
-Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
 
 \section{AI \& LLMs}
 \label{sec:aienllms}
@@ -22,8 +25,10 @@ Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je ve
 %intro
 
 
-Het aanbod van generatieve AI tools, geïntegreerde chatbots, AI-agents, codeer-assistenten, tekstbewerkingstools, noem maar op, deze lijst blijft zich steeds verder uit te breiden. Men kan met AI verschillende soorten media produceren:
+Het aanbod van generatieve AI tools, geïntegreerde chatbots, AI-agents, codeer-assistenten, tekstbewerkingstools, noem maar op, deze lijst blijft zich steeds verder uitbreiden. Men kan met AI verschillende soorten media produceren:
 Genereren van tekst met ChatGPT of Google Gemini, beelden met DALL-E of Midjourney, video's met Synthesia of Grok Imagine en code met Copilot of AlphaCode.
+
+In dit hoofdstuk worden AI(Artificiele Intelligentie) en LLMs (Large Language Models) wat onder de loep genomen om een basis verstandhouding te hebben waarop er verder gebouwd wordt met prompting technieken, meegeven van context, tool gebruik en hoe dit allen gecombineerd kan worden tot een Agentic AI assistent te komen dat ingezet kan worden ter ondersteuning van API ontwikkeling.
 
 \subsubsection{Het Magisch Sterretje}
 We zien AI steeds meer in software geïntegreerd worden, AI is overal tegenwoordig, vaak zien we als teken van een AI integratie een knop met een aantal sterretjes wat de gebruiker signaleert dat hier achter de schermen AI in verwerkt zit.
@@ -73,16 +78,14 @@ Een graaf met verzamelde data van posts binnen een bepaalde periode op Stack Ove
 %todo: make sure to correctly reference figures (possible the ref needs to be in the figure explenation - see Research Methods)
 
 
-\section{AI van Science-Fiction naar Werkelijkheid}
-\label{sec:aivanscience-fictionnaarwerkelijkheid}
-% add the bit I wrote earlier
-
+%\section{AI van Science-Fiction naar Werkelijkheid}
+%\label{sec:aivanscience-fictionnaarwerkelijkheid}
+% has become my foreword(voorwoord)
 
 \section{AI}
 % At it's core AI can be described as: "The simulation of human intelligence by machines" -> find source
 %Learning from massive amounts of data(see also:scraping) through 'training'
-Het aanbod in AI tools en chatbots, AI-agents  zijn de laatste jaren 
-
+AI (Artificiële Intelligentie) vertrekt vanuit de veronderstelling dat elk aspect van leren of elk ander kenmerk van intelligentie in principe zo nauwkeurig beschreven kan worden, dat een machine het kan simuleren \autocite{McCarthy1955}.
 
 \subsection{Discriminative AI}
 Volgens \autocite{IBM2026} maakt deze soort AI een onderscheid tussen verschillende klassen van data, elke nieuwe datapunt wordt gelabeld met een klasse, wanneer een nieuw datapunt wordt toegevoegd zal het model proberen voorspellen aan welke kant van de "decision-boundary" het nieuwe datapunt valt. vb. foto van een Kat of een Hond. Achterliggend worden geavanceerde algoritmes gebruikt om:
@@ -100,12 +103,12 @@ De modellen kunnen geen context begrijpen of nieuwe content genereren gebaseerd 
 \subsection{Generative AI}
 %refer to course1 -> all input text, so first transforming inputs via speechtotext, img to base64, natural language processing
 
-Volgens \autocite{IBM2026} kunnen generatieve modellen de onderliggende distributie van de trainingsdata vastleggen en hiermee nieuwe datapunten genereren. Ze krijgen data als input in een bepaalde vorm onder anderen tekst, afbeelding of video en vormen dit om naar output data in dat hetzelfde kan zijn als de input, maar ook een andere vorm van data kan zijn.
+Volgens \autocite{IBM2026} kunnen generatieve modellen de onderliggende distributie van de trainingsdata vastleggen en hiermee nieuwe datapunten genereren. Ze krijgen data als input in een bepaalde vorm onder anderen tekst, afbeelding of video en vormen dit om naar output data in dat hetzelfde kan zijn als de input, maar ook een andere vorm van data kan zijn. \\
 
 Generatieve AI kan ingezet worden om van tekst input een tekst output te genereren (text-to-text) of van een tekst input naar een audio output te gaan (text-to-speech).
-Zo zijn er verscheidene mogelijkheden om generatieve AI te gebruiken om met allerlei soorten input data een nieuwe output te laten genereren als bepaald type van data.
+Zo zijn er verscheidene mogelijkheden om generatieve AI te gebruiken om met allerlei soorten input data een nieuwe output te laten genereren als bepaald type van data. \\
 
-Discriminative en Generative AI modellen worden gemaakt door deep learning technieken toe te passen. Deep learning is het trainen van artificiële neuraal netwerken(verzameling neuronen gemodelleerd op het menselijk brein) op ontzettend grote hoeveelheden data
+Discriminative en Generative AI modellen worden gemaakt door deep learning technieken toe te passen. Deep learning is het trainen van artificiële neuraal netwerken(verzameling neuronen gemodelleerd op het menselijk brein) op ontzettend grote hoeveelheden data. \\
 
 De creativiteit van AI generatie komt van: GANs (Generative Adversarial Networks) / VAEs (Variational Auto-encoders) / Transformers / Diffusion models. Deze hebben de evolutie van AI versneld en geleid tot het ontstaan van foundation modellen, deze zijn AI modellen met heel algemene toepassingsmogelijkheden. Deze kunnen aangepast worden met fine-tuning om te dienen als tools voor specifieke use-cases. LLMs (Large Language Models) maken deel uit van foundation modellen \autocite{Bommasani2021}.
 
@@ -296,20 +299,19 @@ Er zijn allerlei verschillende technieken, waarvan er een aantal zijn dat men in
 
 Dit fenomeen doet zich voor bij LLMs, ze hebben namelijk een sterkere capaciteit voor deductie wanneer in de prompt voorbeelden van mogelijke oplossingen mee worden gestuurd.
 
-Volgens de prompt engineering gids: \footnote{\href{https://www.promptingguide.ai/}{https://www.promptingguide.ai/}}
+Volgens de prompt engineering gids: \footnote{\href{https://www.promptingguide.ai/}{https://www.promptingguide.ai/}} \\
 
-\textbf{Zero Shot Prompting} is wanneer de gebruiker een vraag stelt aan een LLM zonder enige hints hoe de verwachte output zal moeten zijn. De LLM moet dan zelf met de context van de gekregen prompt en zijn training een aanvaardbaar antwoord als response terugsturen naar de gebruiker.
+\textbf{Zero Shot Prompting} is wanneer de gebruiker een vraag stelt aan een LLM zonder enige hints hoe de verwachte output zal moeten zijn. De LLM moet dan zelf met de context van de gekregen prompt en zijn training een aanvaardbaar antwoord als response terugsturen naar de gebruiker. \\
 
-\textbf{One Shot Prompting} is het soort dat men het meeste instinctief zal toepassen bij bevragingen aan LLMs. Dit is wanneer 1 duidelijk voorbeeld wordt gegeven van hoe de verwachte output eruit moet zien. Bijvoorbeeld: "Ik wil dat je een tabel genereert die er zo uit ziet" + een beschrijving van het tabel.
+\textbf{One Shot Prompting} is het soort dat men het meeste instinctief zal toepassen bij bevragingen aan LLMs. Dit is wanneer 1 duidelijk voorbeeld wordt gegeven van hoe de verwachte output eruit moet zien. Bijvoorbeeld: "Ik wil dat je een tabel genereert die er zo uit ziet" + een beschrijving van het tabel. \\
 
-\textbf{Few Shot Prompting} is wanneer men meerdere voorbeelden expliciet mee sturen samen met de vraag aan de LLM die ertoe dienen om deze te leiden tot een nauwkeuriger antwoord.
+\textbf{Few Shot Prompting} is wanneer men meerdere voorbeelden expliciet mee sturen samen met de vraag aan de LLM die ertoe dienen om deze te leiden tot een nauwkeuriger antwoord. \\
 
 \textbf{CoT(Chain of Thought) Prompting} is wanneer men een complexe probleem (A) opsplitst in een manier van redeneren, mogelijks in een vraag-antwoord formaat dat een voorbeeld biedt zodat de LLM hetzelfde denkpatroon kan volgen om tot een oplossing van probleem (B) kan leiden, dit alles wordt in éénzelfde prompt naar de LLM gestuurd.
 
-
 \subsection{Prompt Templates \& Rollen}
 % j J
-Wanneer men in code met LLMs werkt is het mogelijk om zelf de chat-geschiedenis aan te passen. Er kunnen vooraf bepaalde berichten van de AI komen of naar de AI toe gaan afhankelijk van de rol.
+Wanneer men in code met LLMs werkt is het mogelijk om zelf de chat-geschiedenis aan te passen. Er kunnen vooraf bepaalde berichten van de AI komen of naar de AI toe gaan afhankelijk van de rol. \\
 
 Belangrijke regels die gelden voor alle interacties met de AI kunnen vooraf ingesteld worden om bijvoorbeeld de AI kortere antwoorden te laten genereren, of om te proberen in een bepaald format te antwoorden. Wanneer men zelf met de gebruiker input en AI output omgaat is het zinvol om deze altijd een rol mee te geven zodat wanneer de chatgeschiedenis geïnterpreteerd wordt door de AI deze weet wie wat heeft gezegd.
 
