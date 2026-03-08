@@ -62,7 +62,7 @@ Nu binnen de MS Edge browser vinden we een Copilot knop waarmee we ook met een c
     \item  \textbf{Github Copilot Chat:} Een geïntegreerde chatbot en codeer-agent binnen Visual Studio Code(VSC). Microsoft is sinds 2018 ook eigenaar van Github.
 \end{itemize}
 
-Dit zijn maar een aantal van de AI integraties waar gebruikers mee in aanraking komen bij het dagelijks pc- en gsm-gebruik. Er is in een onderzoek gebleken dat men voor het oplossen van (academische)problemen evolueren naar het gebruik van AI in plaats van Google-zoeken, of zelfs nog meer een hybride van de twee, waar ze AI gebruiken, maar verifiëren met de klassieke zoekmachines \autocite{Sayeedi2025}.
+Dit zijn maar een aantal van de AI integraties waar gebruikers mee in aanraking komen bij het dagelijks pc- en gsm-gebruik. Er is in een onderzoek gebleken dat men voor het oplossen van (academische)problemen evolueren naar het gebruik van AI in plaats van Google-zoeken, of zelfs nog meer een hybride van de twee, waar ze AI gebruiken, maar verifiëren met de klassieke zoekmachines \autocite{Sayeedi2025}. \\
 
 Een graaf met verzamelde data van posts binnen een bepaalde periode op Stack Overflow van gebruiker einpoklum \ref{fig:stackoverflowpostsdecline} deed recent de ronde op sociale media. Als we het aantal gebruikers kunnen afleiden uit het aantal posts op het platvorm dan kunnen we concluderen dat mensen deze steeds minder bezoeken als er een moeilijk op te lossen probleem zich voor doet in de code en eerder grijpt naar een AI-chatbot of codeer-agent(assistent). Of mogelijks een combinatie van de twee, de graaf toont alleszins een dalende trend in het gebruik van Stack Overflow aan.
 
@@ -85,7 +85,43 @@ Een graaf met verzamelde data van posts binnen een bepaalde periode op Stack Ove
 \section{AI}
 % At it's core AI can be described as: "The simulation of human intelligence by machines" -> find source
 %Learning from massive amounts of data(see also:scraping) through 'training'
-AI (Artificiële Intelligentie) vertrekt vanuit de veronderstelling dat elk aspect van leren of elk ander kenmerk van intelligentie in principe zo nauwkeurig beschreven kan worden, dat een machine het kan simuleren \autocite{McCarthy1955}.
+AI (Artificiële Intelligentie) vertrekt vanuit de veronderstelling dat elk aspect van leren of elk ander kenmerk van intelligentie in principe zo nauwkeurig beschreven kan worden, dat een machine het kan simuleren \autocite{McCarthy1955}. \\
+
+In een Amerikaans TV programma uit de jaren 80' genaamd "The Computer Chronicles" was er een aflevering over AI die speelde in 1984. Tijdens deze aflevering: \autocite{ComputerChronicles1984} zien we hoe experts in AI onderzoek de technieken van die tijd bespraken en hoe voorspellende systemen konden ingezet worden om repetitieve taken te ondersteunen, op IBM computers en in de LISP programmeer taal, John McCarthy, die de term “artificiële intelligentie” introduceerde, ontwikkelde ook de programmeertaal Lisp, wat toen een taal was specifiek ontworpen om met AI systemen te werken, deze werd specifiek gemaakt om beter te kunnen werken met symbolen in plaats van nummers, deze focust op symbolische expressies en lijsten die kennis vertegenwoordigen. Zelfs in die tijd kwam het thema van vervanging van experts door AI-systemen ter sprake.
+
+\begin{quote}
+    "what's the point? why do we develop something like this kind of system? is it to replace the doctors in the diagnosis situation? What is the end result of this?"
+    - Stewart Cheifet \autocite{ComputerChronicles1984}
+\end{quote}
+
+Stelde 1 van de show-hosts, een vraag die tot op heden relevant blijft en waarop de expert antwoordde: \\
+
+Op de lange termijn zullen dit soort systemen in een brede waaier van toepassingen nuttig blijken. We hopen er de kennis van experts van wereldklasse in onder te brengen, zodat deze systemen kunnen helpen die kennis breder te verspreiden. (Nils Nilsson, onderzoeksdirecteur A.I. aan SRI International; vrij vertaald en samengevat)\autocite{ComputerChronicles1984} \\
+
+Een heel rationele en positieve uitkijk, het trainen van LLMs  zoals we die vandaag kennen gebeurt niet zoals gehoopt, er wordt niet direct gefilterd om enkel expertenkennis toe te laten.
+
+\begin{comment}
+    dit kwam ook ter sprake op de TV aflevering, maar brengt ons misschien te diep...
+    
+    physical symbol system hypothesis (PSSH)
+    Computer science as empirical inquiry: symbols and search
+    https://doi.org/10.1145/360018.360022
+    
+    
+    Vroege fundamenten van het onderzoek naar artificiële intelligentie worden vaak in verband gebracht met de physical symbol system hypothesis, geformuleerd door Allen Newell en Herbert A. Simon in hun werk Computer Science as Empirical Inquiry: Symbols and Search. Deze hypothese stelt dat systemen die symbolen kunnen manipuleren volgens formele regels over de noodzakelijke en voldoende middelen beschikken voor algemeen intelligent handelen. Vanuit dit perspectief richt artificiële intelligentie zich niet in de eerste plaats op numerieke berekeningen, maar op de representatie van kennis en het gebruik van symbolische inferentie om daarover te redeneren.
+\end{comment}
+
+\subsection{Machine Learning \& Backpropagation}
+
+Backpropagation beschreven in de paper "Learning representations by back-propagating errors \autocite{Rumelhart1986}.
+Backpropagation, is een techniek die toelaat om neurale netwerken met vele lagen efficiënt te trainen en was een belangrijke doorbraak op het gebied van machine learning, alle belangrijke vooruitgangen in AI sindsdien bouwen verder op deze kennis.
+
+\begin{quote}
+    "We describe a new learning procedure, back-propagation, for networks of neurone-like units. The procedure repeatedly adjusts the weights of the connections in the network so as to minimize a measure of the difference between the actual output vector of the net and the desired output vector. As a result of the weight adjustments, internal ‘hidden’ units which are not part of the input or output come to represent important features of the task domain, and the regularities in the task are captured by the interactions of these units. The ability to create useful new features distinguishes back-propagation from earlier, simpler methods such as the perceptron-convergence procedure \textsuperscript{1}."
+    - Abstract uit \autocite{Rumelhart1986}
+\end{quote}
+
+De fundamentele ideeën van machine learning zijn eigenlijk heel eenvoudig: neem een groot aantal kunstmatige neuronen en train ze op een specifieke taak door herhaaldelijk de gewichten aan te passen totdat het systeem de taak goed uitvoert. Met technieken zoals backpropagation en het toevoegen van steeds meer neuronen kunnen computers getraind worden om goed te worden in een breed scala aan taken en domeinen, waaronder spraakherkenning, beeldclassificatie, computer vision, eiwitstructuurvoorspelling, spelstrategieën, machinale vertaling, codegeneratie en objectdetectie. \\
 
 \subsection{Discriminative AI}
 Volgens \autocite{IBM2026} maakt deze soort AI een onderscheid tussen verschillende klassen van data, elke nieuwe datapunt wordt gelabeld met een klasse, wanneer een nieuw datapunt wordt toegevoegd zal het model proberen voorspellen aan welke kant van de "decision-boundary" het nieuwe datapunt valt. vb. foto van een Kat of een Hond. Achterliggend worden geavanceerde algoritmes gebruikt om:
@@ -142,7 +178,7 @@ Het Trainingsmethode van ChatGPT ging als volgt:
 
 \begin{quote}
 "We trained this model using Reinforcement Learning from Human Feedback (RLHF), using the same methods as InstructGPT⁠, but with slight differences in the data collection setup. We trained an initial model using supervised fine-tuning: human AI trainers provided conversations in which they played both sides—the user and an AI assistant. We gave the trainers access to model-written suggestions to help them compose their responses. We mixed this new dialogue dataset with the InstructGPT dataset, which we transformed into a dialogue format.
-- \autocite{OpenAI2022}
+- \autocite{OpenAI2022} \\
 
 To create a reward model for reinforcement learning, we needed to collect comparison data, which consisted of two or more model responses ranked by quality. To collect this data, we took conversations that AI trainers had with the chatbot. We randomly selected a model-written message, sampled several alternative completions, and had AI trainers rank them. Using these reward models, we can fine-tune the model using Proximal Policy Optimization⁠. We performed several iterations of this process."
 - \autocite{OpenAI2022}
@@ -167,13 +203,13 @@ De bedoeling is om computers een manier te geven om mensentaal te kunnen verwerk
 
 Waarvoor kan NLP allemaal ingezet worden? Een aantal voorbeelden: Samenvattingen maken; Vertalen; Sentiment analyse; Spam detectie; Geavanceerd zoeken.
 
-Chatbots en vertaalmachines moeten niet alleen woord betekenissen kunnen begrijpen, maar ook een bredere context zodat ook spreekwoorden en gezegden, onder anderen, duidelijk zijn in hun echte betekenis.
+Chatbots en vertaalmachines moeten niet alleen woord betekenissen kunnen begrijpen, maar ook een bredere context zodat ook spreekwoorden en gezegden, onder anderen, duidelijk zijn in hun echte betekenis. \\
 
-Voor we LLMs hadden konden we klassieke NLP normalisatietechnieken inzetten zoals stemming en lemmatization. Stemming is een heuristisch aanpak om een woord te reduceren tot zijn essentie, bijvoorbeeld: rapporteren $\rightarrow$ rapport; lopen $\rightarrow$ lop; schrijft $\rightarrow$ schrijv. Deze afknottingen produceren niet altijd een correct Nederlandstalige woord, maar reduceert deze tot een basis vorm \autocite{Tan2024}.
+Voor we LLMs hadden konden we klassieke NLP normalisatietechnieken inzetten zoals stemming en lemmatization. Stemming is een heuristisch aanpak om een woord te reduceren tot zijn essentie, bijvoorbeeld: rapporteren $\rightarrow$ rapport; lopen $\rightarrow$ lop; schrijft $\rightarrow$ schrijv. Deze afknottingen produceren niet altijd een correct Nederlandstalige woord, maar reduceert deze tot een basis vorm \autocite{Tan2024}. \\
 
 Deze technieken hebben verschillende algoritmes nodig afhankelijk van de taal en het is nog altijd mogelijk dat er fouten optreden wanneer 2 semantisch verschillende woorden gereduceerd worden tot dezelfde stem \autocite{IBMc}.
 
-Naast deze technieken hebben we ook POS (Part of Speech) tagging: Eenzelfde woord, wanneer die op verschillende plaatsen in een zin voorkomt kan tot een andere betekenis leiden, en NER (Named Entity Recognition) dat gebruikt kan worden om namen van organisaties en mensen te herkennen \autocite{IBM2026}. 
+Naast deze technieken hebben we ook POS (Part of Speech) tagging: Eenzelfde woord, wanneer die op verschillende plaatsen in een zin voorkomt kan tot een andere betekenis leiden, en NER (Named Entity Recognition) dat gebruikt kan worden om namen van organisaties en mensen te herkennen \autocite{IBM2026}. \\
 
 Dit alles om de omzet van ongestructureerde tekst om te zetten in gestructureerde tekst dat computers gemakkelijker kunnen verwerken.
 
