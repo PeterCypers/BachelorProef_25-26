@@ -20,7 +20,7 @@
     is uitgekomen in 2019 en is gelimiteerd in kennis tot informatie
     voor zijn uiteindelijke lancering op de markt.
     
-    Relevante kennis van LLMs
+    Relevante kennis van LLMs (...a model’s cut-off date... -> see RAG mod1-lab1 1.Background)
     --------------------------
     Stel dat men de laatste niewe ontwikkelingen wilt gebruiken in een
     bepaalde programmeer taal, dan is het minder zinvol om een oud
@@ -126,6 +126,42 @@ build/buy a new pc, companies who need GPUs to produce their own hardware
 like gaming consoles (sony, etc)
 
 are they the world's most profitable corporation now? -> look into
+
+
+\section{Overwegingen bij het maken van AI-gedreven projecten}
+% j J
+
+\subsection{Rate Limiting}
+
+Er moet een zekere overzicht en controle blijven op het gebruik van LLMs op de input en output token-gebruik, mogelijks moet men hier bepaalde limieten op zetten om de kosten voor het gebruik van de zekere service te beperken, of zeker niet de controle te verliezen. Net zoals code-efficiëntie (vb.: lussen binnen lussen) kan het voorvallen dat er gelijkaardige problemen zich voor doen bij het werken met LLMs. Hoe vaak wordt de context meegestuurd? Hoe veel tokens is dit telkens per prompt binnen een bepaalde sessie. Hebben de gebruikte tools/context gebruik en internet zoekfunctionaliteiten een heel groot aantal tokens nodig. De verscheidene kosten per input-/output token kunnen verschillen afhankelijk van de gekozen provider. Bij het gebruiken van LLMs in code is er een paramater, namelijk: "context\_window" waarmee er een limiet kan gezet worden op de hoeveelheid context dat er gebruikt wordt, zie onderstaande code fragment: \ref{lst:rate_limiting_code}.
+
+
+\begin{listing}
+    \begin{minted}{python}
+        agent = FunctionAgent(
+            tools=[multiply],
+            llm=Ollama(
+                model="qwen3-vl:8b-instruct",
+                request_timeout=360.0,
+                # Manually set the context window to limit memory usage
+                context_window=8000,
+            ),
+            system_prompt="You are a helpful assistant that can multiply two numbers.",
+        )
+    \end{minted}
+    \caption[Rate Limiting voor LLMs]{Zelf de maximum context aanpassen, in essentie rate-limiting van LLM-tokengebruik.}
+    \label{lst:rate_limiting_code}
+\end{listing}
+
+\subsection{MLOPS}
+% Coursera course 1, mod3, vid2: 5:30 -> operationalizing AI-powered applications MLOPS
+
+% Net zoals we DEVOPS kennen bestaat er ook MLOPS, het deployen en continu onderhouden van AI-gedreven applicaties
+
+\subsubsection{Benchmarking}
+% gebruikte modellen regelmatig vergelijken met andere modellen. sterktes en zwaktes van verschillende modellen voor de nodige use-case(s) waarvoor ze worden gebruikt aftoetsen. Mogelijks moeten gebruikte LLMs geupdate worden naar een nieuwere versie, of zal er overwogen worden om over te stappen op een andere LLM omdat deze voor de relevante benchmaarks hoger scoort dan de gebruikte LLM.
+
+
 
 
 \section{Self-Consistency}

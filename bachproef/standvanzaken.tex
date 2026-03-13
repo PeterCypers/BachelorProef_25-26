@@ -197,6 +197,7 @@ maar het is zinvol om enkele kenmerken van LLMs te bespreken.
 %todo: more kenmerken of LLMs
 
 \subsection{NLP}
+\label{ssec:nlp}
 NLP (Natural Language Processing) is een onderdeel van computer wetenschap dat met behulp van machine learning het mogelijk maakt voor mensen om in mensentaal te communiceren met computers en is uitermate geschikt voor automatisatie van repetitieve taken zoals customer support, data entry en document verwerking \autocite{IBMb}. \\
 
 De bedoeling is om computers een manier te geven om mensentaal te kunnen verwerken. We starten met ongestructureerde tekst dat wordt omgezet in gestructureerde tekst, dat is NLU (Natural Language Understanding). Wanneer men van gestructureerde naar ongestructureerde tekst gaat heet dat NLG (Natural Language Generation). \\
@@ -214,6 +215,7 @@ Naast deze technieken hebben we ook POS (Part of Speech) tagging: Eenzelfde woor
 Dit alles om de omzet van ongestructureerde tekst om te zetten in gestructureerde tekst dat computers gemakkelijker kunnen verwerken.
 
 \subsection{Tokenization}
+\label{ssec:tokenization}
 LLMs krijgen een prompt binnen als verzameling ongestructureerde tekst, om deze te converteren in gestructureerde tekst moet deze eerst ontleed worden in stukjes met behulp van een techniek dat Tokenization heet. Hieronder een voorbeeld met gebruik van OpenAI's tokenizer: \ref{fig:tokenization} (ingesteld op GPT-5.x \& O1/3)
 
 \begin{figure}[H]
@@ -385,6 +387,7 @@ Bij veel interacties met AI en vooral AI-chatbots gebeurt dit achter de schermen
 
 
 \section{RAG}
+\label{sec:rag}
 % large section... RAG(Retrieval Augmented Generation)
 % explain the different steps that make up RAG, at least 1 figure that shows the entire process
 %explain some various applications/use-cases for rag
@@ -393,42 +396,207 @@ Bij veel interacties met AI en vooral AI-chatbots gebeurt dit achter de schermen
 
 % j J
 %intro:
-Een probleem dat bestaat bij AI is dat er een beperkt context is dat deze kan
-%todo: rewrite to NL, dient als introductie
-Big Picture Thinking Problem (DRY/maintainability/existing functions/codebase-context understanding/focus on solving everything in the AI-output)
-AI agents have limited context understanding, one of the problems that can arise from the use of AI is that it doesn’t have big picture, project-wide scope of understanding, it doesn’t know that an interface exists to call somewhere else in the project. 
 
-It will always be a problem because AI will always have some limit to how much additional context it can be given when prompted, it may increase if models continue to get stronger, but there will always be some limit.
+Retrieval Augmented Generation of RAG is een AI techniek dat relevante (externe) informatie van diverse bronnen combineert met generatieve AI modellen om een nauwkeurig en goed onderbouwde antwoorden te geven. \\
 
-There are areas where some progress has been made in solving this problem, like cursor and claude code which use …* to get project-wide context
+Dit hoofdstuk steunt op observaties uit een cursus beschikbaar gesteld door  \autocite{IBM2026}.
 
-*: %todo: look into what they exactly did, it likely predates RAG
-%*RAG? -> todo: find out/look up, etc
+\subsection{Big picture thinking}
+\label{ssec:bigpicturethinking}
 
-RAG (Retrieval Augmented Generation) is ... %todo: + reference
-dit voorziet LLMs van extra context dat ze kunnen gebruiken om betere responses te genereren.
+Een probleem dat al bestaat sinds men het idee kreeg om AI als codeer assistent, peer- of pair-programmer in te zetten is dat deze beperkte kennis heeft van het probleem. Wanneer men de AI een vraag stelt over de code, wat deze ziet is maar een klein stukje van een immense grote puzzel. \\
+
+Een software code-base kan gerust honderden files en tienduizenden lijnen code bevatten \footnote{\href{https://laravel-news.com/measure-lines-of-code-and-php-features-used}{https://laravel-news.com/measure-lines-of-code-and-php-features-used}}. De codebase van operating systems zoals Windows XP, Linux en Android OS zijn bevatten miljoenen lijnen code. \\
+
+Als de gebruiker een online chatbot aanspreekt zoals ChatGPT en een stukje code meestuurt, kan de AI met dit code-fragment helpen en losstaand van de rest van de code-base interpreteren, verbeteringen en oplossingen aanbieden, maar heeft weinig weet van hoe dit stukje past in het geheel en welke design patronen, hulpfuncties en projectarchitectuur bestaan. \\
+
+Het is mogelijk om een AI complexe codeer problemen te laten oplossen, mits genoeg context meegegeven wordt om de volledige scope van het probleem te begrijpen en daar zinvolle antwoorden op te kunnen geven. Met behulp van CoT(chain of thaught) redeneringen zal de AI in meerdere stappen aan een uitwerking kunnen werken. \\
+
+Men kan een soort van brute-force methode gebruiken, namelijk uit meerdere file-inhouden de meest relevante stukken code kopieer en plakken binnen de prompt input van de AI chatbot om dit alles samen met een goed uitgewerkte vraag dat de AI aan het werk zet om aan dit probleem te werken. De geselecteerde context plus vraag uiteindelijk meesturen naar de AI, hierbij worden instinctief verschillende prompt-engineering technieken toegepast. Dit kan werken als de scope van het project heel klein blijft, hoe groter het project wordt, of hoe meer stukjes nodig zijn om het codeer probleem op te lossen, des te meer tijd en moeite het voor de gebruiker zal kosten om genoeg context mee te geven aan de AI om met dit probleem aan de slag te gaan. \\
+
+Dit is vaak ook nog maar de start van het zoeken naar een oplossing, de chatbot conversatie loopt verder, de code evolueert, het probleem wordt complexer met meerdere versies van code, de AI weet ook niet wat de gebruiker wel of niet aangepast heeft. Het is als een spel "Chinese Whispers" waar een rij van mensen een verhaal aan elkaar doorvertellen, de originele zin is vaak onherkenbaar gemuteerd wanneer we aan de laatste persoon vragen wat de boodschap was. Bij elke nieuwe prompt moet een interpretatie gebeuren van alle voorgaande berichten, de context-window kan maar een beperkte aantal tokens tegelijk interpreteren voordat er samenvattingen nodig zijn en dan kan het zijn dat de AI dingen 'vergeten is' of het verhaal verkeerd doorverteld. \\
+
+Interpretatie van code-base scoped context wordt verder besproken in: \ref{sec:idegeintegreerdeagents} \\
+
+Dit alles leidt ons tot \textbf{RAG}, languit \textbf{Retrieval Augmented Generation}. Een techniek waarbij externe kennis(data van buiten de LLM) aan een LLM wordt toegevoegd om deze een meer nauwkeurig en up-to-date antwoord te laten genereren. \\
+
+
+
+
+RAG heeft een of andere vorm van data-opslag nodig waaruit de informatie opgehaald wordt, mogelijks een online bron of een intern document, dat kan onder anderen een test-sjabloon, instructies of bedrijfsbeleid zijn. Machine learning technieken worden toegepast om met de prompt relevante informatie uit de data-bron te verzamelen om die combinatie van relevante informatie en gebruiker prompt door te geven aan de LLM als augmented(aangepaste) prompt om een nauwkeuriger en context-ondersteunde antwoord te verkrijgen. \\
+
+Bij een non-RAG systeem hebben we een Prompt $\rightarrow$ LLM $\rightarrow$ Response pipeline. bij RAG zijn er verschillende extra tussenstappen vooraleer men een response van het model ontvangt zie figuur: \ref{fig:ragpipeline}. \\
+
+Een aantal problemen dat met normale LLM gebruik kan voorkomen is dat er  informatie online wordt opgehaald van minder betrouwbare bronnen. Wanneer een LLM antwoorden genereert enkel op basis van zijn training data bestaat het gevaar dat deze data enkel tot en met de cut-off datum van het model gaat en dus mogelijk verouderd is. \todo{reference mogelijke risico's: model cutoff}. Een mogelijke oplossing voor dit probleem is het implementeren van een RAG-pipeline.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{rag_stappen.png}
+    \caption[Verschillende stappen van een RAG-pipeline]{\label{fig:ragpipeline}De verschillende stappen in een RAG-pipeline, verkregen van \autocite{IBM2026}.}
+\end{figure}
+
+% j J
+
+\begin{enumerate}
+    \item \textbf{Bronnen verzamelen:} Ophalen van relevante data, dit kan een groot en complex document zijn zoals een bedrijfsbeleid.
+    \item \textbf{Embedding van brondata:} Omzetten van de brondata in een vector-representatie met behulp van een embedding model. Mogelijks wordt dit eerst in stukken gechunked en elke chunk(text van een bepaalde lengte) wordt omgezet naar een vector-representatie, dit is een reeks van getallen met vaste lengte.
+    \item \textbf{Opslaan in een Vector store:} De naar vectoren geconverteerde brondata worden opgeslagen in een gespecialiseerde database die met vectoren om kan gaan. zie: \ref{ssec:vectordatabases}
+    \item \textbf{Prompt:} De gebruiker stelt een vraag aan de LLM. (Er is een alternatief verloop: Er moet geen data opgehaald worden. De vraag van de gebruiker moet duidelijk maken of er data moet opgehaald worden.)
+    \item \textbf{Prompt embedding:} De gebruiker prompt wordt ook in een vector-representatie omgezet met hetzelfde embedding model als datgene waarmee de brondata werd omgezet en bekomt een vector-representatie met dezelfde lengte als de brondata-chunks.
+    \item \textbf{Retrieval, ophalen van relevante data:} De embedded gebruiker prompt wordt meegegeven aan de retriever die in de vector store op zoek naar relevante brondata embeddings (vectoren) die matchen met de prompt embedding. De output van de retriever is terug de originele tekst.
+    \item \textbf{Augmented(aangepaste) prompt maken:} De opgehaalde tekst wordt gecombineerd met de originele gebruiker prompt om een aangepaste prompt te maken.
+    \item \textbf{LLM query:} Pas na aanpassing van de prompt wordt deze bij de LLM ingegeven. Dit alles probeert een oplossing te bieden voor het overtollige context input bij het prompten van de LLM, welke met de extra context nu ook een nauwkeurigere en context-ondersteund response kan teruggeven.
+\end{enumerate}
+
+Het embedden en opslaan als vectoren zijn machine learning technieken die toegepast worden voordat de LLM de aangepaste prompt krijgt. Embedding models zijn geen LLMs, ze gebruiken NLP technieken gespecialiseerd om semantieke betekenissen als nummers te vertegenwoordigen die als cluster in de buurt liggen van gelijkaardige betekenissen. dit werd eerder besproken in \ref{ssec:nlp}. \\
+
+
+\begin{listing}
+    \begin{minted}{python}
+    from langchain.document_loaders import TextLoader
+    from langchain.text_splitter import CharacterTextSplitter
+    from langchain.vectorstores import Chroma
+    from langchain.embeddings import HuggingFaceEmbeddings
+    from langchain.chains import RetrievalQA
+    from langchain.prompts import PromptTemplate
+    from langchain.chains import ConversationalRetrievalChain
+    from langchain.memory import ConversationBufferMemory
+    
+    # loading + chunking:
+    filename = 'companyPolicies.txt'
+    
+    loader = TextLoader(filename)
+    documents = loader.load()
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    texts = text_splitter.split_documents(documents)
+    print(len(texts))
+    
+    # embed + store
+    embeddings = HuggingFaceEmbeddings()
+    docsearch = Chroma.from_documents(texts, embeddings)  # store the embedding in docsearch using Chromadb
+    print('document ingested')
+    
+    # met prompt-template
+    prompt_template = """Use the information from the document to answer the question at the end. If you don't know the answer, just say that you don't know, definately do not try to make up an answer.
+    
+    {context}
+    
+    Question: {question}
+    """
+    
+    PROMPT = PromptTemplate(
+      template=prompt_template, input_variables=["context", "question"]
+    )
+    
+    chain_type_kwargs = {"prompt": PROMPT}
+    
+    # invoke
+    qa = RetrievalQA.from_chain_type(
+        llm=llama_3_llm, 
+        chain_type="stuff", 
+        retriever=docsearch.as_retriever(), 
+        chain_type_kwargs=chain_type_kwargs, 
+        return_source_documents=False)
+    
+    query = "Can I eat in company vehicles?"
+    qa.invoke(query)
+    
+    # output:
+    {'query': 'Can I eat in company vehicles?',
+            'result': "\nAnswer: The provided document does not contain information about eating in company vehicles. According to the available information, smoking is not permitted in company vehicles, and there is no mention of eating. Therefore, it can't be definitively answered whether eating is allowed or not in company vehicles based on the given document. It is recommended to refer to the specific company policy or contact the relevant department for clarification."}
+    \end{minted}
+    \caption[Dit is een voorbeeld van een Rag-pipeline in python code]{Een theoretisch voorbeeld van een RAG-pipeline in python van: \autocite{IBM2026}}
+    \label{lst:ragpipelinevoorbeeld}
+\end{listing}
+
+Bovenstaande code is mogelijks verouderd en kan zijn functie niet meer voldoen, maar is wel een goede representatie van de verschillende stappen van een RAG-pipeline. Waarvan we de onderdelen nu kort overlopen.
+
+De LangChain framework wordt gebruikt om met de LLM aan de slag te gaan. Eerst wordt een document ingeladen en dit wordt aan een chunker(CharacterTextSplitter) meegegeven om in gelijkmatige stukken te verdelen: 'chunk\_size'. Men kan op verschillende manieren tekst in stukken kappen, in dit geval wordt de tekst opgesplitst in stukjes van duizend karakters(letters, spaties, tekens) lang met een overlap van 0, dit wil zeggen dat er geen extra aangrenzende context mee wordt opgenomen. Het kan zinvol zijn om toch een bepaald aantal overlap in te stellen zodat een deel van de tekst context voor en na de gevonden tekst meegenomen wordt, dit zijn parameters die kunnen aangepast worden om de resultaten te vergelijken en vinden wat het beste werkt. Nu is onze brondata in stukken geknipt, klaar voor de volgende stap in de ketting. \\
+
+Er wordt een embedding model van HuggingFace gebruikt, dit platvorm wordt later nog besproken. De tekst-stukjes worden samen met een embedding model meegegeven aan de vector-store, in dit geval heeft LangChain een package dat toelaat een chroma database te gebruiken om de vectoren op te slaan. De embedding model verandert de tekst in vector-representaties(met behulp van tokenization, zie: \ref{ssec:tokenization}) om op te slaan in de chroma vector-store. De bijhorende tekst wordt ook mee opgeslagen in de database \\
+
+Bij LangChain kan de invoke methode aangeroepen worden om een keten van acties in gang te zetten. In dit geval wordt een QA, question and answer AI implementatie aangeroepen met een bepaald LLM en de vector-store gecast als een retriever, de andere parameters hebben met de werking van LangChain te maken, deze zijn ook wat verouderd. Chain\_type: stuff combineert alle gekregen documenten als één context, ze worden bij elkaar gepropt: stuffed. De chain\_type\_kwargs heeft de prompt-template mee gekregen, bij LangChain zal wanneer de invoke op de keten aangeroepen wordt de meegekregen gebruiker vraag hier in de prompt-template ingevuld worden als deel van LCEL, dit wordt later besproken. \\
+
+Uit de output: 'result', wat het antwoord van de LLM is, kan afgeleid worden dat de document doorzocht werd, maar er geen info gevonden werd betreffende het eten in bedrijfs-voertuigen. Dit is één van vele mogelijke methodologieën om een RAG pipeline te gebruiken, maar dezelfde stappen komen telkens terug: Inladen van bepaalde documenten die als kwalitatieve bron van informatie dienen, wanneer deze documenten te groot zijn, eerst in stukjes kappen, embedding van de brondata en prompt om snel te kunnen zoeken naar tekst dat lijkt op(of gelijkaardig is aan en dichtbij is in vector-space) de prompt, de niet relevante delen van de brondata wegfilteren zodat de relevante data samen met de originele prompt als input dient voor de LLM om nauwkeurige en op context-onderbouwde antwoorden naar de gebruiker terug te sturen.
+
 
 \subsection{Vector Databases}
+\label{ssec:vectordatabases}
 % FAISS and ChromaDB
+% (vb.: ChromaDB en FAISS: Facebook AI Similarity Search)
+% other concepts: (https://www.ibm.com/think/topics/vector-database)
+% HNSW / LSH / Similarity Search / ANN / Cosine similarity / Dot product / Euclidian distance
+
+Er bestaan verschillende vector databases zoals ChromaDB en FAIS(Facebook AI Similarity Search).
+
+Een voorbeeld van de data-shape dat opgeslagen zit in een vector database, met als voorbeeld ChromaDB. Naast embeddings zit hier dus nog heel wat info in, inclusief de originele tekst.
+
+\begin{listing}
+    \begin{minted}{json}
+        // Query result
+        {
+            "ids": [["doc_1", "doc_7"]],
+            "embeddings": [[[1, 2, 3, 4], [1, 2, 3, 4]]],
+            "documents": [["Chroma stores vectors.", "Embeddings power semantic search."]],
+            "metadatas": [[
+            {"source": "docs", "topic": "intro"},
+            {"source": "blog", "topic": "search"}
+            ]],
+            "distances": [[0.12, 0.21]],
+            "included": ["embeddings", "documents", "metadatas", "distances"]
+        }
+        // Get result
+        {
+            "ids": ["doc_1", "doc_7"],
+            "embeddings": [[1, 2, 3, 4], [1, 2, 3, 4]],
+            "documents": ["Chroma stores vectors.", "Embeddings power semantic search."],
+            "metadatas": [
+            {"source": "docs", "topic": "intro"},
+            {"source": "blog", "topic": "search"}
+            ],
+            "included": ["documents", "metadatas"]
+        }
+    \end{minted}
+    \caption[Resultaat van een query op vector-store ChromaDB]{Voorbeeld resultaat van een query op ChromaDB, uit de chroma documentatie: \footnote{\href{https://docs.trychroma.com/docs/querying-collections/query-and-get}{https://docs.trychroma.com/docs/querying-collections/query-and-get}}}
+    \label{lst:chromadbqueryresult}
+\end{listing}
+
+%https://docs.trychroma.com/docs/querying-collections/query-and-get
+Vector Databases zijn een belangrijk onderdeel van het RAG-proces, maar zullen verder niet meer in detail besproken worden, zie \ref{ssec:nlp} en \ref{sec:rag}. \\
+
+Dit hoofdstuk ging in detail in op de low-level werking van RAG. Er bestaan echter technologieën die abstractie bieden bovenop de complexiteit van de interne werking van dit proces. In het code fragment kwam LangChain al even aan bod.
+LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan. LlamaIndex is een framework die bepaalde delen van het RAG proces vereenvoudigen, maar op sommige vlakken minder controle biedt dan bij LangChain. Deze worden later in detail besproken.
+
+
 
 \section{Agentic AI}
 
 \subsection{Tool gebruik}
 
+% tool gebruik is gelijkaardig aan RAG in het opzicht dat de LLM uit de vraag zal opmaken of een tool wel of niet nodig is. Bij verschillende online AI-chatbots en ook IDE-geintegreerde agents kan men zelf bepaalde tools kiezen
+% needs some more thinking... VSC-agents and ChatGPT and Ollama internet search, mainly VSC-github copilot chat, link to Ollama tool use code
+
+% may remove this segment (or super-short explenation):
 \subsection{ReACT Agent}
 
 \section{Multi-Agent Workflow}
 %forwards reference to vergel.-studie demo
 
+% may remove this segment (or super-short explenation):
 \section{Model Context Protocol(todo)}
 %postmanmcp  (and https://laravel.com/docs/12.x/boost mcp tab)
 
+% move API dev to OAS section as a sidenote
 \section{API development(todo)}
 % DEV en TEST, bestaande tools? Bottlenecks? Ik weet niet echt hoe dit te onderzoeken... naast wat ik tot nu toe al gevonden heb
 
+% move API testing to OAS section as a sidenote, but motivated by source to try making a RAG-agent
 \section{API testen(todo)}
 % verdere onderzoek nodig
 \section{OAS \& OAD}
 
+% mention that for DEV and testing of API's the OAS/OAD are crucial components, we have postman, postman MCP, swagger and that based on my investigations into test-technieken ->ref (see voorstel) I have decided that a useful use for AI-agents could be interpreting and retrieving information from these documents or the codebase using RAG and will build my AI-agent to have these large document-parsing or multidocument understanding capabilities
+%todo: possibly add a link to this in methodologie, -> op basis van mijn bevindingen uit ->ref  test-technieken (see voorstel) heb ik besloten om een AI-agent te maken die documenten ken doornemen
 
 

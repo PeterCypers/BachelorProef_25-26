@@ -63,11 +63,23 @@ Een handige resource om up-to-date informatie over all verschillende LLMs en ook
 %requires some investigating, lots of big developments recently, added a tab-link from ChatGPT.com leading to codex
 
 \section{IDE-geïntegreerde Agents}
-
+\label{sec:idegeintegreerdeagents}
 %1) Github copilot chat
 
 %2) IDE geintegreerde Agents met sterke context kennis (codebase awareness)(with strong RAG features making the agent aware of other files in the codebase)
 %claude-code & Cursor -> see dedicated notes on each
+
+% Interpretatie van code-base scoped context wordt hier verder besproken (referenced to here from RAG)
+
+\begin{comment}
+    %It will always be a problem because AI will always have some limit to how much additional context it can be given when prompted, it may increase if models continue to get stronger, but there will always be some limit.
+    
+    %There are areas where some progress has been made in solving this problem, like cursor and claude code which use …* to get project-wide context
+    *: %todo: look into what they exactly did, it likely predates RAG
+\end{comment}
+
+
+
 
 \section{Windows M365 Copilot}
 % een AI-assistent die samenhangt aan windows, Word, Excel, PowerPoint en Teams -> onderzoek zijn agent-builder, waar we vroeger Office hadden vinden we nu M365 Copilot
@@ -109,6 +121,7 @@ Voor bepaalde AI-workflows kan het zeker gebeuren dat er meerdere API's aangespr
 
 \section{AI Agent Code taal}
 %todo: andere titel? AI agent integratie? -> welke soort integraties zijn er mogelijk? IDE?/ web-APP?/ Py script file?/ etc
+% chromaDB/ Ollama / langchain etc -> add to the list, of technologies that suggest using Py and Js as languages to work with LLMs
 
 Welke programmeertalen zijn toegankelijkst om een AI agent mee te ontwikkelen?
 

@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{agent} \PYG{o}{=} \PYG{n}{FunctionAgent}\PYG{p}{(}
+    \PYG{n}{tools}\PYG{o}{=}\PYG{p}{[}\PYG{n}{multiply}\PYG{p}{],}
+    \PYG{n}{llm}\PYG{o}{=}\PYG{n}{Ollama}\PYG{p}{(}
+        \PYG{n}{model}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}qwen3\PYGZhy{}vl:8b\PYGZhy{}instruct\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{request\PYGZus{}timeout}\PYG{o}{=}\PYG{l+m+mf}{360.0}\PYG{p}{,}
+        \PYG{c+c1}{\PYGZsh{} Manually set the context window to limit memory usage}
+        \PYG{n}{context\PYGZus{}window}\PYG{o}{=}\PYG{l+m+mi}{8000}\PYG{p}{,}
+    \PYG{p}{),}
+    \PYG{n}{system\PYGZus{}prompt}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}You are a helpful assistant that can multiply two numbers.\PYGZdq{}}\PYG{p}{,}
+\PYG{p}{)}
+\end{MintedVerbatim}
