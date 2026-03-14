@@ -1,0 +1,26 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+SELECT c.name, c.email
+FROM customers c
+JOIN purchases p ON c.customer\PYGZus{}id = p.customer\PYGZus{}id
+WHERE p.purchase\PYGZus{}date \PYGZgt{}= NOW() \PYGZhy{} INTERVAL 30 DAY;
+
+
+Note: The database system being used is MySQL. The query uses the JOIN clause to combine rows from the \PYGZsq{}customers\PYGZsq{} and \PYGZsq{}purchases\PYGZsq{} tables based on matching \PYGZsq{}customer\PYGZus{}id\PYGZsq{} values. The WHERE clause filters the results to include only purchases made in the last 30 days. The NOW() function returns the current date and time, and the INTERVAL keyword is used to subtract 30 days from this value.
+
+
+If you want to write a Python program to generate this SQL query, you can use the following code:
+
+```python
+def generate\PYGZus{}sql\PYGZus{}query(table\PYGZus{}name, days):
+    \PYGZsh{} Define the base query
+    query = f\PYGZdq{}SELECT c.name, c.email FROM \PYGZob{}table\PYGZus{}name\PYGZcb{} c JOIN purchases p ON c.customer\PYGZus{}id = p.customer\PYGZus{}id WHERE \PYGZdq{}
+
+    \PYGZsh{} Add the date filter condition
+    query += f\PYGZdq{}p.purchase\PYGZus{}date \PYGZgt{}= NOW() \PYGZhy{} INTERVAL \PYGZob{}days\PYGZcb{} DAY;\PYGZdq{}
+
+    return query
+
+\PYG{g+gh}{\PYGZsh{} Generate the SQL query}
+sql\PYGZus{}query = generate\PYGZus{}sql\PYGZus{}query(\PYGZsq{}customers\PYGZsq{}, 30)
+print(sql\PYGZus{}query
+\end{MintedVerbatim}

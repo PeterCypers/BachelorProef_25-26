@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{CLAUDE\PYGZus{}API\PYGZus{}KEY} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}sk\PYGZhy{}ant\PYGZhy{}api03\PYGZhy{}8P67...\PYGZdq{}}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{get\PYGZus{}claude\PYGZus{}key}\PYG{p}{():}
+  \PYG{k}{return} \PYG{n}{CLAUDE\PYGZus{}API\PYGZus{}KEY}
+\end{MintedVerbatim}

@@ -397,7 +397,7 @@ Bij veel interacties met AI en vooral AI-chatbots gebeurt dit achter de schermen
 % j J
 %intro:
 
-Retrieval Augmented Generation of RAG is een AI techniek dat relevante (externe) informatie van diverse bronnen combineert met generatieve AI modellen om een nauwkeurig en goed onderbouwde antwoorden te geven. \\
+Retrieval Augmented Generation of RAG is een machine leaarning techniek dat relevante (externe) informatie van diverse bronnen combineert met generatieve AI modellen om een nauwkeurig en goed onderbouwde antwoorden te geven. \\
 
 Dit hoofdstuk steunt op observaties uit een cursus beschikbaar gesteld door  \autocite{IBM2026}.
 
@@ -419,9 +419,6 @@ Dit is vaak ook nog maar de start van het zoeken naar een oplossing, de chatbot 
 Interpretatie van code-base scoped context wordt verder besproken in: \ref{sec:idegeintegreerdeagents} \\
 
 Dit alles leidt ons tot \textbf{RAG}, languit \textbf{Retrieval Augmented Generation}. Een techniek waarbij externe kennis(data van buiten de LLM) aan een LLM wordt toegevoegd om deze een meer nauwkeurig en up-to-date antwoord te laten genereren. \\
-
-
-
 
 RAG heeft een of andere vorm van data-opslag nodig waaruit de informatie opgehaald wordt, mogelijks een online bron of een intern document, dat kan onder anderen een test-sjabloon, instructies of bedrijfsbeleid zijn. Machine learning technieken worden toegepast om met de prompt relevante informatie uit de data-bron te verzamelen om die combinatie van relevante informatie en gebruiker prompt door te geven aan de LLM als augmented(aangepaste) prompt om een nauwkeuriger en context-ondersteunde antwoord te verkrijgen. \\
 
@@ -512,14 +509,19 @@ Het embedden en opslaan als vectoren zijn machine learning technieken die toegep
 
 Bovenstaande code is mogelijks verouderd en kan zijn functie niet meer voldoen, maar is wel een goede representatie van de verschillende stappen van een RAG-pipeline. Waarvan we de onderdelen nu kort overlopen.
 
-De LangChain framework wordt gebruikt om met de LLM aan de slag te gaan. Eerst wordt een document ingeladen en dit wordt aan een chunker(CharacterTextSplitter) meegegeven om in gelijkmatige stukken te verdelen: 'chunk\_size'. Men kan op verschillende manieren tekst in stukken kappen, in dit geval wordt de tekst opgesplitst in stukjes van duizend karakters(letters, spaties, tekens) lang met een overlap van 0, dit wil zeggen dat er geen extra aangrenzende context mee wordt opgenomen. Het kan zinvol zijn om toch een bepaald aantal overlap in te stellen zodat een deel van de tekst context voor en na de gevonden tekst meegenomen wordt, dit zijn parameters die kunnen aangepast worden om de resultaten te vergelijken en vinden wat het beste werkt. Nu is onze brondata in stukken geknipt, klaar voor de volgende stap in de ketting. \\
+De LangChain framework wordt gebruikt om met de LLM aan de slag te gaan. Eerst wordt een \textbf{document ingeladen} en dit wordt aan een chunker(CharacterTextSplitter) meegegeven om in gelijkmatige stukken te verdelen: 'chunk\_size'. Men kan op verschillende manieren tekst \textbf{in stukken kappen}, in dit geval wordt de tekst opgesplitst in stukjes van duizend karakters(letters, spaties, tekens) lang met een overlap van 0, dit wil zeggen dat er geen extra aangrenzende context mee wordt opgenomen. Het kan zinvol zijn om toch een bepaald aantal overlap in te stellen zodat een deel van de tekst context voor en na de gevonden tekst meegenomen wordt, dit zijn parameters die kunnen aangepast worden om de resultaten te vergelijken en vinden wat het beste werkt. Nu is onze brondata in stukken geknipt, klaar voor de volgende stap in de ketting. \\
 
-Er wordt een embedding model van HuggingFace gebruikt, dit platvorm wordt later nog besproken. De tekst-stukjes worden samen met een embedding model meegegeven aan de vector-store, in dit geval heeft LangChain een package dat toelaat een chroma database te gebruiken om de vectoren op te slaan. De embedding model verandert de tekst in vector-representaties(met behulp van tokenization, zie: \ref{ssec:tokenization}) om op te slaan in de chroma vector-store. De bijhorende tekst wordt ook mee opgeslagen in de database \\
+Er wordt een \textbf{embedding model} van HuggingFace gebruikt, dit platvorm wordt later nog besproken. De tekst-stukjes worden samen met een embedding model meegegeven aan de \textbf{vector-store}, in dit geval heeft LangChain een package dat toelaat een chroma database te gebruiken om de vectoren op te slaan. De embedding model verandert de tekst in vector-representaties(met behulp van tokenization, zie: \ref{ssec:tokenization}) om op te slaan in de chroma vector-store. De bijhorende tekst wordt ook mee opgeslagen in de database \\
 
-Bij LangChain kan de invoke methode aangeroepen worden om een keten van acties in gang te zetten. In dit geval wordt een QA, question and answer AI implementatie aangeroepen met een bepaald LLM en de vector-store gecast als een retriever, de andere parameters hebben met de werking van LangChain te maken, deze zijn ook wat verouderd. Chain\_type: stuff combineert alle gekregen documenten als één context, ze worden bij elkaar gepropt: stuffed. De chain\_type\_kwargs heeft de prompt-template mee gekregen, bij LangChain zal wanneer de invoke op de keten aangeroepen wordt de meegekregen gebruiker vraag hier in de prompt-template ingevuld worden als deel van LCEL, dit wordt later besproken. \\
+Bij LangChain kan de invoke methode aangeroepen worden om een keten van acties in gang te zetten. In dit geval wordt een QA, question and answer AI implementatie aangeroepen met een bepaald LLM en de vector-store gecast als een \textbf{retriever}, de andere parameters hebben met de werking van LangChain te maken, deze zijn ook wat verouderd. Chain\_type: stuff combineert alle gekregen documenten als één context, ze worden bij elkaar gepropt: stuffed. De chain\_type\_kwargs heeft de prompt-template mee gekregen, bij LangChain zal wanneer de invoke op de keten aangeroepen wordt de meegekregen gebruiker vraag hier in de \textbf{prompt}-template ingevuld worden als deel van LCEL, dit wordt later besproken. \\
 
-Uit de output: 'result', wat het antwoord van de LLM is, kan afgeleid worden dat de document doorzocht werd, maar er geen info gevonden werd betreffende het eten in bedrijfs-voertuigen. Dit is één van vele mogelijke methodologieën om een RAG pipeline te gebruiken, maar dezelfde stappen komen telkens terug: Inladen van bepaalde documenten die als kwalitatieve bron van informatie dienen, wanneer deze documenten te groot zijn, eerst in stukjes kappen, embedding van de brondata en prompt om snel te kunnen zoeken naar tekst dat lijkt op(of gelijkaardig is aan en dichtbij is in vector-space) de prompt, de niet relevante delen van de brondata wegfilteren zodat de relevante data samen met de originele prompt als input dient voor de LLM om nauwkeurige en op context-onderbouwde antwoorden naar de gebruiker terug te sturen.
+Uit de \textbf{LLM response}: 'result', wat het antwoord van de LLM is, kan afgeleid worden dat de document doorzocht werd, maar er geen info gevonden werd betreffende het eten in bedrijfs-voertuigen. Dit is één van vele mogelijke methodologieën om een RAG pipeline te gebruiken, maar dezelfde stappen komen telkens terug: Inladen van bepaalde documenten die als kwalitatieve bron van informatie dienen, wanneer deze documenten te groot zijn, eerst in stukjes kappen, embedding van de brondata en prompt om snel te kunnen zoeken naar tekst dat lijkt op(of gelijkaardig is aan en dichtbij is in vector-space) de prompt, de niet relevante delen van de brondata wegfilteren zodat de relevante data samen met de originele prompt als input dient voor de LLM om nauwkeurige en op context-onderbouwde antwoorden naar de gebruiker terug te sturen. \\
 
+In sommige gevallen kan men ook een parameter top\_k instellen, het maximum aantal opgehaalde relevante context. Dit zijn de k-aantal opgeslagen items waarvan de vectoren het dichtst bij de prompt-vector liggen. \\
+
+Men kan gebruik maken van een BERT(bi-directional encoder representation from a transformer) of GPT (generative pretrained transformer) als embedding model. Er wordt 'token embedding' en 'vector averaging' toegepast om zo de essentiele betekenis vast te leggen van de prompt en de verschillende opgeslagen tekst-chunks.
+
+% for more info- see bp-shared google-doc... It's english and difficult to translate, but also goes into a lot more detail, maybe too much
 
 \subsection{Vector Databases}
 \label{ssec:vectordatabases}
@@ -569,7 +571,7 @@ Dit hoofdstuk ging in detail in op de low-level werking van RAG. Er bestaan echt
 LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan. LlamaIndex is een framework die bepaalde delen van het RAG proces vereenvoudigen, maar op sommige vlakken minder controle biedt dan bij LangChain. Deze worden later in detail besproken.
 
 
-
+% keep this section brief (look at that nice article in the chrome-tabs group)
 \section{Agentic AI}
 
 \subsection{Tool gebruik}
@@ -594,9 +596,14 @@ LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan.
 % move API testing to OAS section as a sidenote, but motivated by source to try making a RAG-agent
 \section{API testen(todo)}
 % verdere onderzoek nodig
-\section{OAS \& OAD}
 
+\section{API development en testing}
+% mogelijks ondersteund door RAG
+
+\subsection{OAS \& OAD}
+\label{ssec:oasandoad}
 % mention that for DEV and testing of API's the OAS/OAD are crucial components, we have postman, postman MCP, swagger and that based on my investigations into test-technieken ->ref (see voorstel) I have decided that a useful use for AI-agents could be interpreting and retrieving information from these documents or the codebase using RAG and will build my AI-agent to have these large document-parsing or multidocument understanding capabilities
 %todo: possibly add a link to this in methodologie, -> op basis van mijn bevindingen uit ->ref  test-technieken (see voorstel) heb ik besloten om een AI-agent te maken die documenten ken doornemen
+
 
 

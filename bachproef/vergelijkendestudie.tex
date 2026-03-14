@@ -606,18 +606,147 @@ Belangrijker dan de snelheids- testen zijn de bruikbare codefragmenten om eventu
 \label{ssec:naiverag}
 % provide the section \& demo about bash-commands and piping file contents to the ollama cli input and talk about the possible downsides to this approach
 
+\section{Omgaan met API Keys \& Secrets}
+\label{sec:omgaanmetapikeysensecrets}
+Tot nu toe werd nogal kort door de bocht gegaan met de API-sleutels. In echte projecten is het de bedoeling dat mensen niet zomaar aan een API-sleutels kunnen. Er kan best zorgvuldig mee omgesprongen worden om te vermijden dat derden toegang krijgen tot je sleutels, deze zijn al kort besproken, zie \ref{ssec:apikeys}. Als deze sleutels openbaar worden gemaakt kan iemand anders de service gebruiken zonder dat je het weet. Door de account info te controleren en verdacht gebruik vast te stellen kan men concluderen dat er een API-sleutel gelekt is. Gelukkig zijn deze gemakkelijk om aan te maken en kan er op elk moment bij twijfel een nieuw sleutel gebruikt worden. \\
+
+In het kort: Men zorg best dat API-keys nooit op code repositories terecht komen door ze te bewaren in een .env file of een andere locatie dat in de .gitignore file zit en dus niet mee op de (mogelijk) publiek beschikbare repository terecht komt.
+
+De oplossing dat gebruikt werd in de komende demo's en code-fragmenten is het bewaren van de sleutels in een folder dat in de .gitignore zit en in de python demo's wordt die sleutel met een functie binnen gehaald.
+
+Buiten een project heeft men soms geen .env file en zijn er maar losse files en folders, om in python zelf een functie vanuit een andere file te importeren moet een python file eerst als module gezien worden door je IDE. Dit kan verwezenlijkt worden door een leeg \_\_init\_\_.py file aan te maken in de folder die python files bevat waaruit functies geëxporteerd moeten worden. Nu kunnen alle functies in de folder met die init file geïmporteerd worden in de python demo's. \\
+
+\textdownarrow Keys \\
+\textrightarrow \_\_init\_\_.py \\
+\textrightarrow openai\_key.py \\
+\textrightarrow anthropic\_key.py \\
+\textrightarrow ollama\_key.py \\
+demo.py \\
+
+Bovenstaande mappenstructuur kan men gebruiken om een import te doen van API-keys naar demo.py
+
+anthropic\_key.py inhoud: \\
+\begin{minted}{python}
+    CLAUDE_API_KEY = "sk-ant-api03-8P67..."
+    
+    def get_claude_key():
+      return CLAUDE_API_KEY
+\end{minted}
+
+Bovenstaande code is de inhoud van één API-key export-file. Dankzij de init file kunnen de get\_key functies bij demo.py geïmporteerd worden.
+Bij het werken met LLMs worden API-keys ingesteld in de environment variabelen, mits er geen project bestaat met .env file kan dit gebeuren door de 'os' te importeren en daar in te stellen met volgende code:
+
+\begin{minted}{python}
+    ######### Set-API-Env-Variable ##############
+    from keys.anthropic_key import get_claude_key
+    ANTHROPIC_KEY = get_claude_key()
+    
+    import os
+    os.environ["ANTHROPIC_API_KEY"] = ANTHROPIC_KEY
+    #############################################
+\end{minted}
+
 \section{LangChain}%
 \label{sec:langchain}
 %see which relevant code fragments, demo's etc I can add here
 %RAG course delves into this
 
-"LangChain is an open source orchestration framework for the development of applications using large language models (LLMs)" volgens \autocite{Bergmanna}
+%course1mod1vid 14 1:12 and ss 09
 
-\subsection{LCEL}
+"LangChain is an open source orchestration framework for the development of applications using large language models (LLMs)." volgens \autocite{Bergmanna} \\
+
+Deze framework dient ervoor om het werken met LLMs te vergemakkelijken, dit maakt het mogelijk om met prompt templates te werken en een duidelijk visueel flow van data met LCEL. Ook wanneer er RAG-technieken toegepast worden geeft LangChain heel veel controle over elke stap van dit proces. \\
+
+Voor een lange uitwerking, low level, met LangChain zie deze code: \ref{lst:langchaineerstecodevoorbeeld} 
+
+\subsection{LCEL \& Low-Level LangChain}
 %there are many more subsections that I can put here for langhcain -> look back at RAG course vics/labos/notes for inspiration
 
-\subsection{LangGraph}
-%gaat waarchijnlijk geen tijd voor zijn
+% j
+
+LCEL staat voor LangChain Expression Language. Dit is een manier binnen LangChain om verschillende onderdelen van een AI-workflow met elkaar te verbinden. Hierbij wordt de pipe-operator | gebruikt om componenten zoals prompt templates, LLMs en output-parsers aan elkaar te koppelen.
+
+(Sommige delen van de code zijn ondertussen verouderd.)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{LCEL_QA.png}
+    \caption[Vraag en antwoord AI agent met LangChain]{\label{fig:lcelqalangchainagent}Vraag en antwoord AI agent met LangChain en LCEL, \autocite{IBM2026}}
+\end{figure}
+
+\textbf{Output:} The inner planets—Mercury, Venus, Earth, and Mars—are rocky and solid. \\
+
+
+Omschrijving van de code: qa\_chain erft van de Runnable klasse en men kan de methode invoke aanroepen, de meegegeven parameters worden in de format\_prompt ingevuld en alle delen van de ketting worden ook met invoke() aangeroepen en krijgen de output van de vorige stap mee als argument. Elk deel van de ketting is gescheiden met pipe(|) teken, op de LCEL manier dus.
+
+% j
+Vervolgens kijken we naar een meer complexe uitwerking van een agent die toegang heeft tot tools.
+
+%todo: keep an eye on the positioning of the following 2 images until the end
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{LangChain_Agent_Tool_Use_1.png}
+    \caption[Complexe LangChain agent met tools]{\label{fig:lceltooluselangchainagent}AI agent met LangChain en tools, \autocite{IBM2026}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{LangChain_Agent_Tool_Use_2.png}
+    \caption[Complexe LangChain agent met tools]{\label{fig:lceltooluselangchainagent2}AI agent met LangChain en tools deel 2, \autocite{IBM2026}}
+\end{figure}
+
+\textbf{Output:}
+
+\begin{minted}{markdown}
+    ===== Testing: What is 25 + 63? =====
+    
+    
+    > Entering new AgentExecutor chain...
+    Thought: I need to calculate the sum of 25 and 63
+    Action: calculator
+    Final Answer: 88;1m88
+    ```
+    
+    > Finished chain.
+    
+    FINAL ANSWER: 88
+    ```
+    
+    ===== Testing: Can you convert 'hello world' to uppercase? =====
+    
+    
+    > Entering new AgentExecutor chain...
+    Thought: I need to convert 'hello world' to uppercase
+    Action: format_text
+    Action: se: hello world HELLO WORL
+    Action:  not a valid tool, try one of [calculator, format_text].
+    Action:  not a valid tool, try one of [calculator, format_text].
+    Final Answer: HELLO WORLD. one of [calculator, format_text].
+    ...
+    
+    > Finished chain.
+    
+    FINAL ANSWER: Langchain Is Awesome.
+    Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+\end{minted}
+
+Omschrijving van de code: De 'Tool' import wordt niet gebruikt, dit heeft een iets meer ingewikkelde implementatie dan de gebruikte @tool annotaties. We zien het begin van hoger level agents en workflows verschijnen, de eerste wordt als variabele 'agent' gedefinieerd, we roepen een functie aan die een LLM, lijst van tools en een prompt mee krijgt. De prompt template wordt nog altijd gebruikt. De agent wordt gewrapped met een agent\_executor waarop de LCEL-invoke methode kan aangeroepen worden. Nogmaals is het belangrijk met tools om duidelijkheid te scheppen hoe ze best kunnen gebruikt worden, binnen de twee tool functies is een beknopte python documentatie geschreven dat de tool uitlegt, dit wordt door de agent gekoppeld aan de prompt van de gebruiker om te bepalen welke tool(s) wel of niet nodig zijn. Door veranderingen in het LangChain framework is deze code niet meer bruikbaar met de nieuwere versies van LangChain.
+
+\subsection{Agent-gebaseerde \& High-Level LangChain}
+
+De LangChain ecosysteem is ondertussen ge-shift, weg van LCEL composities naar een hoger niveau van abstractie om met LLMs om te gaan, namelijk in de richting van workflows, agents en agent-middleware. \\
+
+In september 2025 heeft LangChain de LangChain en LangGraph frameworks grotendeels herschreven en geüpdatet van versie 0.3 naar 1.0 \autocite{Lim2025}.
+
+
+%todo: move to somewhere that it fits better
+\subsubsection{Snel Evoluerende AI Wereld}
+Net als het iteratief proces van steeds sterkere LLMs die op de wereld gelanceerd worden zijn de technologieën rond AI constant in flux. Bij het onderzoeken naar verschillende mogelijkheden voor het ontwikkelen van de AI-agent zijn de gebruikte technologieën gelijk ook aan het evolueren en aan het veranderen, de tempo is hoog en wanneer men voor een bepaald technologie heeft gekozen kan men deze best goed in de gaten houden en ontdekken welke nieuwe features allemaal beschikbaar worden. Ook regelmatig een vergelijking maken met andere opties op de markt.
+
+%todo: is this still part of langchain chapter? or do I have to turn above subsubsect into a textbf?... fill in 2-3 of my relevant 
+
+\subsection{LangGraph(todo)}
+%gaat mischien geen tijd voor zijn
 
 \section{LlamaIndex}
 %RAG course delves into this

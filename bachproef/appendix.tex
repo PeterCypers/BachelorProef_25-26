@@ -11,7 +11,7 @@
 % I should move each test for each subchapter in Ollama -> code + 'vraag'+'output' + output here (references are already set to work after move and semantically correct)
 %=============================================================================
 
-\subsection{Ollama Lokaal (offline) resultaten}
+\section{Ollama Lokaal (offline) resultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -82,7 +82,7 @@
     Response tijd in seconden: 84.42009
 \end{minted}
 
-\subsection{Ollama Cloud-Signin (online) resultaten}
+\section{Ollama Cloud-Signin (online) resultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -188,7 +188,7 @@
     Response tijd in seconden: 6.93436 
 \end{minted}
 
-\subsection{Ollama Cloud-API (online) resultaten}
+\section{Ollama Cloud-API (online) resultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -315,7 +315,7 @@
     Response tijd in seconden: 12.76668
 \end{minted}
 
-\subsection{Ollama AsyncClient (offline) resultaten}
+\section{Ollama AsyncClient (offline) resultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -391,7 +391,7 @@
     Response tijd in seconden: 67.68256
 \end{minted}
 
-\subsection{Ollama Async Generator (offline) resultaten}
+\section{Ollama Async Generator (offline) resultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -465,7 +465,7 @@
     Response tijd in seconden: 69.89036
 \end{minted}
 
-\subsection{Ollama Img Async Generator (offline) resultaten}
+\section{Ollama Img Async Generator (offline) resultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -521,7 +521,7 @@
     Response tijd in seconden: 86.98152
 \end{minted}
 
-\subsection{Ollama Localhost-API Img (offline) resultaten}
+\section{Ollama Localhost-API Img (offline) resultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -621,11 +621,11 @@
     Response tijd in seconden: 73.27115
 \end{minted}
 
-\subsubsection{Ollama + Tools (offline) resultaten}
+\section{Ollama + Tools (offline) resultaten}
 
 Zie: \ref{sssec:ollamaplustools}
 
-\subsubsection{Ollama + JavaScript (offline) resultaten}
+\section{Ollama + JavaScript (offline) resultaten}
 
 \begin{listing}
     \begin{minted}{js}
@@ -720,3 +720,132 @@ Zie: \ref{sssec:ollamaplustools}
     
     Response tijd in seconden: 60.498
 \end{minted}
+
+\section{LangChain}
+
+\subsection{LangChain Eerste Code Voorbeeld}
+
+\begin{listing}
+    \begin{minted}{python}
+        from langchain_ibm import WatsonxLLM
+        
+        model_id = "meta-llama/llama-3-405b-instruct"
+        
+        parameters = {
+            GenParams.MAX_NEW_TOKENS: 256,  # this controls the maximum number of tokens in the generated output
+            GenParams.TEMPERATURE: 0.5, # this randomness or creativity of the model's responses
+        }
+        
+        url = "https://us-south.ml.cloud.ibm.com"
+        project_id = "skills-network"
+        
+        llm = WatsonxLLM(
+            model_id=model_id,
+            url=url,
+            project_id=project_id,
+            params=parameters
+        )
+        
+        template = """Tell me a {adjective} joke about {content}.
+        """
+        prompt = PromptTemplate.from_template(template)
+        # type(prompt) -> langchain_core.prompts.prompt.PromptTemplate
+        
+        prompt.format(adjective="funny", content="chickens")
+        # -> 'Tell me a funny joke about chickens.\n'
+        
+        from langchain_core.runnables import RunnableLambda
+        
+        # Define a function to ensure proper formatting
+        def format_prompt(variables):
+            return prompt.format(**variables)
+        
+        # Create the chain with explicit formatting
+        joke_chain = (
+            RunnableLambda(format_prompt)
+            | llm 
+            | StrOutputParser()
+        )
+        
+        # Run the chain
+        response = joke_chain.invoke({"adjective": "funny", "content": "chickens"})
+        print(response)
+        '''
+        output:
+        Why did the chicken go to the doctor?
+        Because it had fowl breath!
+        I hope that one made you cluck with laughter!
+        '''
+        
+        response = joke_chain.invoke({"adjective": "sad", "content": "fish"})
+        print(response)
+        '''
+        output:
+        Why did the fish go to the party?
+        Because he heard it was a "reel" good time, but he got hooked on the idea of having friends and ended up feeling crabby when nobody showed up. 🐟😔
+        I hope that made a splash of sadness in your heart! 💦😢
+        '''
+    \end{minted}
+    \caption[Eerste voorbeeld van code met LangChain]{Een eerste code voorbeeld van LangChain, \autocite{IBM2026}}
+    \label{lst:langchaineerstecodevoorbeeld}
+\end{listing}
+
+Dit codefragment gebruikt ook een LLM van IBM, zij hebben een eigen custom LLM-wrapper ontwikkeld met IBM-Granite.
+
+\subsection{LangChain Verschillende use case code voorbeelden}
+
+\subsubsection{Code Generatie:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{LCEL_code-generation.png}
+    \caption[Code generatie AI agent met LangChain]{\label{fig:lcelcodegenlangchainagent}Code generatie AI agent met LangChain en LCEL, \autocite{IBM2026}}
+\end{figure}
+\underline{Output:} \\
+
+\begin{minted}{markdown}
+    SELECT c.name, c.email 
+    FROM customers c 
+    JOIN purchases p ON c.customer_id = p.customer_id 
+    WHERE p.purchase_date >= NOW() - INTERVAL 30 DAY;
+    
+    
+    Note: The database system being used is MySQL. The query uses the JOIN clause to combine rows from the 'customers' and 'purchases' tables based on matching 'customer_id' values. The WHERE clause filters the results to include only purchases made in the last 30 days. The NOW() function returns the current date and time, and the INTERVAL keyword is used to subtract 30 days from this value. 
+    
+    
+    If you want to write a Python program to generate this SQL query, you can use the following code:
+    
+    ```python
+    def generate_sql_query(table_name, days):
+        # Define the base query
+        query = f"SELECT c.name, c.email FROM {table_name} c JOIN purchases p ON c.customer_id = p.customer_id WHERE "
+        
+        # Add the date filter condition
+        query += f"p.purchase_date >= NOW() - INTERVAL {days} DAY;"
+        
+        return query
+    
+    # Generate the SQL query
+    sql_query = generate_sql_query('customers', 30)
+    print(sql_query
+\end{minted}
+
+\subsubsection{Tekst Samenvatting:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{LCEL_tekst-samenvatting.png}
+    \caption[tekst samenvatting AI agent met LangChain]{\label{fig:lceltextsummarylangchainagent}Tekst samenvatting AI agent met LangChain en LCEL, \autocite{IBM2026}}
+\end{figure}
+\underline{Output:} \\
+The rapid advancement of technology in the 21st century has transformed various industries, including healthcare, education, and transportation, through innovations like AI, machine learning, and the Internet of Things.
+
+
+\subsubsection{Tekst Classificatie:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{LCEL_tekst-classificatie.png}
+    \caption[tekst samenvatting AI agent met LangChain]{\label{fig:lceltextclassificationlangchainagent}Tekst classificatie AI agent met LangChain en LCEL, \autocite{IBM2026}}
+\end{figure}
+\underline{Output:} \\
+Music \\
+Reasoning Skill: \\
+The reasoning skill for this question is Emotion Recognition And Sentiment Analysis. The sentence expresses a positive sentiment towards the concert, using words like "exhilarating" and "outstanding". The correct classification into the Music category requires recognizing the emotional tone of the sentence and understanding that it is describing a musical event. This involves analyzing the language used and identifying the sentiment expressed, which is a key aspect of Emotion Recognition And Sentiment Analysis.

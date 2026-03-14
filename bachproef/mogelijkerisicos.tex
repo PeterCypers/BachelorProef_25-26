@@ -169,3 +169,25 @@ Er moet een zekere overzicht en controle blijven op het gebruik van LLMs op de i
 % chatGPT giving 2 different responses and asking which one the user prefers
 % look more into -> it's a way to keep the AI honest, it's a self-check, I think a self-check can be built into the AI somehow
 
+%lab1 from course1 mod1
+\begin{comment}
+    [**Self-consistency**](https://www.promptingguide.ai/techniques/consistency) is an advanced technique in which the model generates multiple independent solutions or answers to the same problem, then evaluates these different approaches to determine the most consistent or reliable result. This method enhances accuracy by leveraging the model's ability to approach problems from different angles and identify the most robust solution through comparison and verification.
+    
+    This example demonstrates the self-consistency technique by reasoning through multiple calculations for a single problem. The problem posed is: “When I was 6, my sister was half my age. Now I am 70, what age is my sister?”
+    
+    The prompt instructs, “Provide three independent calculations and explanations, then determine the most consistent result.” This encourages the model to engage in critical thinking and consistency checking, both of which are vital for complex decision-making processes.
+    
+    params = {
+        "max_new_tokens": 512,
+    }
+    
+    prompt = """When I was 6, my sister was half of my age. Now I am 70, what age is my sister?
+    
+    Provide three independent calculations and explanations, then determine the most consistent result.
+    
+    """
+    response = llm_model(prompt, params)
+    print(f"prompt: {prompt}\n")
+    print(f"response : {response}\n")
+\end{comment}
+

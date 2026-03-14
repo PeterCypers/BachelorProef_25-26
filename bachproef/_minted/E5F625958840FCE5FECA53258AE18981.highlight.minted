@@ -1,0 +1,60 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{langchain\PYGZus{}ibm}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{WatsonxLLM}
+
+\PYG{n}{model\PYGZus{}id} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}meta\PYGZhy{}llama/llama\PYGZhy{}3\PYGZhy{}405b\PYGZhy{}instruct\PYGZdq{}}
+
+\PYG{n}{parameters} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+    \PYG{n}{GenParams}\PYG{o}{.}\PYG{n}{MAX\PYGZus{}NEW\PYGZus{}TOKENS}\PYG{p}{:} \PYG{l+m+mi}{256}\PYG{p}{,}  \PYG{c+c1}{\PYGZsh{} this controls the maximum number of tokens in the generated output}
+    \PYG{n}{GenParams}\PYG{o}{.}\PYG{n}{TEMPERATURE}\PYG{p}{:} \PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{c+c1}{\PYGZsh{} this randomness or creativity of the model\PYGZsq{}s responses}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{url} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}https://us\PYGZhy{}south.ml.cloud.ibm.com\PYGZdq{}}
+\PYG{n}{project\PYGZus{}id} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}skills\PYGZhy{}network\PYGZdq{}}
+
+\PYG{n}{llm} \PYG{o}{=} \PYG{n}{WatsonxLLM}\PYG{p}{(}
+    \PYG{n}{model\PYGZus{}id}\PYG{o}{=}\PYG{n}{model\PYGZus{}id}\PYG{p}{,}
+    \PYG{n}{url}\PYG{o}{=}\PYG{n}{url}\PYG{p}{,}
+    \PYG{n}{project\PYGZus{}id}\PYG{o}{=}\PYG{n}{project\PYGZus{}id}\PYG{p}{,}
+    \PYG{n}{params}\PYG{o}{=}\PYG{n}{parameters}
+\PYG{p}{)}
+
+\PYG{n}{template} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Tell me a }\PYG{l+s+si}{\PYGZob{}adjective\PYGZcb{}}\PYG{l+s+s2}{ joke about }\PYG{l+s+si}{\PYGZob{}content\PYGZcb{}}\PYG{l+s+s2}{.}
+\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{n}{prompt} \PYG{o}{=} \PYG{n}{PromptTemplate}\PYG{o}{.}\PYG{n}{from\PYGZus{}template}\PYG{p}{(}\PYG{n}{template}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} type(prompt) \PYGZhy{}\PYGZgt{} langchain\PYGZus{}core.prompts.prompt.PromptTemplate}
+
+\PYG{n}{prompt}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{adjective}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}funny\PYGZdq{}}\PYG{p}{,} \PYG{n}{content}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}chickens\PYGZdq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZgt{} \PYGZsq{}Tell me a funny joke about chickens.\PYGZbs{}n\PYGZsq{}}
+
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{langchain\PYGZus{}core.runnables}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{RunnableLambda}
+
+\PYG{c+c1}{\PYGZsh{} Define a function to ensure proper formatting}
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{format\PYGZus{}prompt}\PYG{p}{(}\PYG{n}{variables}\PYG{p}{):}
+    \PYG{k}{return} \PYG{n}{prompt}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{o}{**}\PYG{n}{variables}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Create the chain with explicit formatting}
+\PYG{n}{joke\PYGZus{}chain} \PYG{o}{=} \PYG{p}{(}
+    \PYG{n}{RunnableLambda}\PYG{p}{(}\PYG{n}{format\PYGZus{}prompt}\PYG{p}{)}
+    \PYG{o}{|} \PYG{n}{llm}
+    \PYG{o}{|} \PYG{n}{StrOutputParser}\PYG{p}{()}
+\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Run the chain}
+\PYG{n}{response} \PYG{o}{=} \PYG{n}{joke\PYGZus{}chain}\PYG{o}{.}\PYG{n}{invoke}\PYG{p}{(\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}adjective\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}funny\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}content\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}chickens\PYGZdq{}}\PYG{p}{\PYGZcb{})}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{response}\PYG{p}{)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{output:}
+\PYG{l+s+sd}{Why did the chicken go to the doctor?}
+\PYG{l+s+sd}{Because it had fowl breath!}
+\PYG{l+s+sd}{I hope that one made you cluck with laughter!}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{response} \PYG{o}{=} \PYG{n}{joke\PYGZus{}chain}\PYG{o}{.}\PYG{n}{invoke}\PYG{p}{(\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}adjective\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}sad\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}content\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}fish\PYGZdq{}}\PYG{p}{\PYGZcb{})}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{response}\PYG{p}{)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{output:}
+\PYG{l+s+sd}{Why did the fish go to the party?}
+\PYG{l+s+sd}{Because he heard it was a \PYGZdq{}reel\PYGZdq{} good time, but he got hooked on the idea of having friends and ended up feeling crabby when nobody showed up. 🐟😔}
+\PYG{l+s+sd}{I hope that made a splash of sadness in your heart! 💦😢}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{MintedVerbatim}
