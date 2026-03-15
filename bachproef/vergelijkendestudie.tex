@@ -745,6 +745,125 @@ Net als het iteratief proces van steeds sterkere LLMs die op de wereld gelanceer
 
 %todo: is this still part of langchain chapter? or do I have to turn above subsubsect into a textbf?... fill in 2-3 of my relevant 
 
+\subsubsection{LangChain Quickstart}
+\label{sssec:langchainquickstart}
+% j
+Om publiek beschikbare LLMs te kunnen gebruiken, via de API, moet men vaak eerst een account maken bij die bepaalde provider en een API-key aanmaken, dit wordt gebruikt om de gebruik van deze service en de kosten bij te houden. Voor volgende demo is er een account by Anthropic gemaakt en een waarde van €5 geïnvesteerd om een minimaal functionaliteit te kunnen uittesten. Deze demo is eveneens in python gedaan, eerst werden de nodige dependencies geïnstalleerd: "pip install -U langchain"; "pip install -U langchain-openai"; "pip install -U langchain-anthropic". \\
+
+Het is opvallend dat bepaalde technologieën samenwerken met AI-providers die hun eigen package hebben binnen dat ecosysteem. De demo legt ook uit dat de gebruiker best een Claude(Anthropic) account aanmaakt en een API-key verkrijgt om verder te gaan met de quickstart demo. \\
+
+Hieronder een foto van de demo-code: \ref{fig:langchainquickstartagent}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_quickstart.png}
+    \caption[LangChain quickstart agent]{\label{fig:langchainquickstartagent}Quickstart basic agent uit de LangChain documentatie}
+\end{figure}
+
+Uitleg bij de code: Dit is ineens al een high-level implementatie waarbij er meer complexe interne werking van de agent verborgen is (of weg geabstraheerd is). Nu is er een 'create\_agent' functie die een groot aantal parameters mee kan krijgen, maar waarvoor bij een minimale werking maar een klein aantal expliciet nodig zijn. We zien de LLM, een lijst van tools en een systeem prompt. \\
+
+Er is een functie(of tool) beschikbaar dat 'get\_weather' noemt met interne uitleg zodat de agent weet wanneer het relevant is om deze te gebruiken, een parameter 'city' dat kan ingevuld worden. Het feit dat de interne uitleg en parameter 'city' noemen gaan een groot invloed hebben voor de LLM om te kiezen wanneer er een gebruikers-prompt wordt ingegeven waarin de naam van een stad voorkomt. Het is soms een taak bij het ontwerpen van een AI-agent om ervoor te zorgen dat deze tools gebruikt wanneer dat nodig is. We herkennen de invoke() functie met argumenten die duidelijk maken dat dit een bericht van de gebruiker is (en niet een systeem- of AI-bericht), er is prompt templating maar in dit geval zal de agent slim genoeg moeten zijn om de stad uit het bericht te halen en zelf in te vullen in de voorziene tool. \\
+
+Bij de eerste run van de demo zal het falen. Er is namelijk iets belangrijk dat ontbreekt in deze code: Authorisatie. Er is altijd een manier nodig om bij een AI-API aanroep de API-call te kunnen linken aan een gebruiker en de bijhorende kosten te traceren. \\
+
+Nadat er een eerste run gedaan werd in python hebben we in de visual studio code IDE een python terminal open staan met onderstaande foutboodschap: \\
+\begin{quote}
+    raise TypeError(
+    TypeError: "Could not resolve authentication method. Expected either api\_key or auth\_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+    During task with name 'model' and id '03fff926-bd48-6a0f-f8eb-88f369f72ee5'
+\end{quote}
+
+Validatie van API-keys gebeurt normaal in de environment. Dit is al ietwat besproken, voor deze demo gaan we een beetje anders te werk en volgen de quick-start gids waarbij de sleutel in de terminal environment wordt opgeslagen: \\
+\textit{\$env:ANTHROPIC\_API\_KEY="sk-ant-api03-8P67..."} \\
+
+Deze API-key is bijna 100 tekens lang maar is ingekort om geheim te houden. Wanneer deze zo in de terminal environment opgeslagen wordt zal dat enkel tijdelijk beschikbaar blijven, namelijk wanneer de terminal wordt afgesloten zal die variabele weg zijn. Men kan controleren dat deze opgeslagen is met:\\ \textit{echo \$env:ANTHROPIC\_API\_KEY} \\
+
+Nu kan de demo succesvol runnen, we hebben een account, zitten niet aan de AI (token-)gebruikslimiet van onze gekozen provider, gebruiken een API-key voor autorisatie en de code bevat geen fouten. Nu is er bij de output niets te zien omdat de quickstart-gids dat niet voorzien heeft in de code. Agent.invoke() is namelijk een functie met return-waarde.  \\
+
+\subsubsection{API-Key Variabelen}
+
+Dit is misschien iets terzijde, maar het is vaak het geval dat wanneer men niet in de constructie of argumenten van de AI-agent of LLM een field ziet zoals 'headers'; 'api\_key'; 'auth\_token'; 'credentials' of iets gelijkaardig de Agent of LLM zelf achterliggend bij aanroep in de environment gaat zoeken naar een zeer expliciet genaamde variabele om de autorisatie af te handelen, bij Claude(Anthropic) is dit: \textit{ANTHROPIC\_API\_KEY}
+
+\subsubsection{Agent output parsing}
+
+De agent.invoke() functie retourneert een dictionary (python dict) dat ontzettend veel bijkomstige informatie(of metadata) bevat, waarvan men in de eerste plaats geïnteresseerd is in wat de (user-, AI-, system-)berichten waren. De structuur van deze response is een lijst van key-value-paren waarvan de values genest kunnen zijn en ook verzamelingen of lijsten kunnen zijn. Heel gelijkaardig aan een JSON. Met de 'HumanMessage' en 'AIMessage' klassen kan er een onderscheid worden gemaakt tussen de gebruiker en AI berichten. In volgend codevoorbeeld wordt de quickstart code aangepast om de gebruiker-prompt en AI-response af te beelden in de terminal. Vorige methode van omgaan met secrets wordt trouwens opnieuw toegepast \ref{sec:omgaanmetapikeysensecrets}. Hieronder, de codefragment: \ref{fig:langchainagentoutputparsing} \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_adapting_output.png}
+    \caption[LangChain quickstart agent output parsing]{\label{fig:langchainagentoutputparsing}Omgaan met de output van quickstart-agent}
+\end{figure}
+
+\textbf{Output:} \\
+Prompt: ['what is the weather in sf'] \\
+
+The weather in San Francisco is sunny! \\
+
+Uitleg bij de code: Bij deze codefragment wordt de agent.invoke() returnwaaarde opgeslagen, de Human en AI delen worden geëxtraheerd en in de output weergegeven, van de AI berichten werd enkel de laatste bericht weergegeven. Wat opvalt is dat de LLM weet dat 'sf' staat voor San Francisco. Mogelijks is er een sterkere voorspelling van amerikaanse steden dan elders in de wereld bijgebleven bij de LLM. De bedrijven die met LLMs bezig zijn zitten ook grotendeels in Amerika. \\
+
+Terzijde werd even een korte test gedaan bij de input van ChatGPT. Op 'what is the weather in sf' herkende GPT-5.3 de stad San Francisco, bij de vraag 'wat is het weer in SN?' keert dit als response terug: "Als je met 'SN' het land Senegal bedoelt (vaak wordt dat als landcode gebruikt), dan is het weer...". (Eigenlijk werd met SN een 2-delig stadsnaam Sint-Niklaas bedoelt.)
+Mogelijks is er een sterkere 'named entity recognition' bij Amerikaanse stadsnamen/staten en hun afkortingen dan elders in de wereld. \\
+
+Het is vooral de kunst om met API-calls naar AI services en de structuur van terugkerende responses correct te kunnen interpreteren en verwerken dat bepaalde uitdagingen met zich mee brengt. Wat zijn de verschillende parameters, hoe kunnen ze gebruikt worden en zal de API veranderen wanneer de provider een nieuwe versie van zijn product uitrolt en hoe meer APIs of dependencies men heeft, hoe gevoeliger de gebruikte AI-agent of LLM integratie zal zijn. In dit geval hebben we LangChain en Anthropic, waarvan LangChain al een serieuze evolutie gezien heeft.
+
+\subsubsection{LangChain Tokengebruik}
+
+LangChain heeft ook een manier om token gebruik te meten.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_token_usage.png}
+    \caption[LangChain token gebruik]{\label{fig:langchainagentokengebruik}Tokengebruik controleren in LangChain}
+\end{figure}
+
+\textbf{Output:} \\
+
+{'input\_tokens': 9, 'output\_tokens': 12, 'total\_tokens': 21, 'input\_token\_details': {'cache\_read': 0, 'cache\_creation': 0, 'ephemeral\_5m\_input\_tokens': 0, 'ephemeral\_1h\_input\_tokens': 0}}
+
+\begin{comment}
+    {'input\_tokens': 9, 'output\_tokens': 12, 'total\_tokens': 21, 'input\_token\_details': {'cache\_read': 0, 'cache\_creation': 0, 'ephemeral\_5m\_input\_tokens': 0, 'ephemeral\_1h\_input\_tokens': 0}}
+\end{comment}
+\subsubsection{LangChain Real World Agent}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_realworld_agent_1.png}
+    \caption[LangChain Real World Agent deel 1]{\label{fig:langchainrealworldagentpt1}Real World Agent code voorbeeld uit de documentatie, deel 1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_realworld_agent_2.png}
+    \caption[LangChain Real World Agent deel 2]{\label{fig:langchainrealworldagentpt2}Real World Agent code voorbeeld uit de documentatie, deel 2}
+\end{figure}
+
+\textbf{Output:} \\
+
+ResponseFormat(punny\_response="Well, it looks like you're in for some ray-lly good weather! It's always sunny in Florida, so you can bask in the sunshine and have a bright day ahead! I guess you could say the forecast is absolutely sun-sational! ☀️", weather\_conditions="It's always sunny in Florida!")
+ResponseFormat(punny\_response="You're very welcome! I'm just here to help you weather any storm of questions! Have a sun-derful day! 🌞", weather\_conditions=None) \\
+
+Uitleg bij de code: Er werden ook verschillende zonnige emoji's gebruikt in de response van de LLM. Hier worden heel wat verschillende mogelijke technieken in gezet om met de AI-agent bepaalde doelen te bereiken, deze code verzamelt een reeks van stappen in de quickstart-guide onder het segment: 'Build a real-world agent', iets meer complex dan de basic agent uit \ref{sssec:langchainquickstart}. \\
+
+\begin{enumerate}
+    \item \textbf{Systeem prompt:} Best heel duidelijk en specifiek
+    \item \textbf{Tools:} Tools laten interactie toe met externe systemen door zelf gedefinieerde functies aan te roepen, ze kunnen omgaan met context en agent-memory.
+    \item \textbf{LLM configuratie:} De parameters kunnen aangepast worden afhankelijk van de use-case. Parameters kunnen verschillen afhankelijk van provider en LLM. Hier herkennen we temperature dat neutraal ingesteld is tussen creatief en deterministisch, max\_token gebruik voor rate-limiting en de naam van de LLM.
+    \item \textbf{Response formatting:} Gebruik van dataclass annotatie, een andere manier om met output om te gaan dan outputparser
+    \item \textbf{Memory:} Er bestaan functies om met de chatgeschiedenis en de sessie kennis van een LLM om te gaan, deze zullen verder nog onderzocht worden.
+    \item \textbf{Create and Run:} De agent wordt aangemaakt en de invoke() functie wordt aangeroepen, met heel wat extra functionaliteiten deze keer. Gebruikerspecifieke context, tools, response formatting en memory.
+\end{enumerate}
+
+Agent-implementaties kunnen heel specifiek ingesteld worden naar gelang de use-case en zijn enorm modulair en aanpasbaar. Het instellen van een Agent kan wel wat complexiteit met zich meebrengen, zeker als men in dit voorbeeld ziet dat de 'model' variabele heel wat parameters kan hebben, specifiek aan de provider en gekozen LLM, iets verder is de 'agent' variabele te zien, daar wordt de LLM (gewrapped in 'model') meegegeven aan een functie dat daar een AI-agent van maakt, ook met een talrijk aantal instelbare parameters. \\
+
+(De ToolRuntime klasse bevat: state; tool\_call\_id; config; context; store; stream\_writer. Dit geeft toolfuncties toegang tot deze functionaliteiten.) 
+
+\subsubsection{LangChain en RAG(verouderde implementatie)}
+
+Ook werden Document-Loaders en Retrievers kort onderzocht, zie: \ref{ssec:langchaindocumentloadersandretrievers} \\
+
+Dan werd er besloten om even verder te gaan met het onderzoeken van andere technologieën.
+
+% j
 \subsection{LangGraph(todo)}
 %gaat mischien geen tijd voor zijn
 

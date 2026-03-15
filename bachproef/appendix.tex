@@ -849,3 +849,84 @@ The rapid advancement of technology in the 21st century has transformed various 
 Music \\
 Reasoning Skill: \\
 The reasoning skill for this question is Emotion Recognition And Sentiment Analysis. The sentence expresses a positive sentiment towards the concert, using words like "exhilarating" and "outstanding". The correct classification into the Music category requires recognizing the emotional tone of the sentence and understanding that it is describing a musical event. This involves analyzing the language used and identifying the sentiment expressed, which is a key aspect of Emotion Recognition And Sentiment Analysis.
+
+\subsection{LangChain Document-Loaders \& Retrievers}
+\label{ssec:langchaindocumentloadersandretrievers}
+
+In volgend demo's is een poging ondernomen om met het ophalen van documenten te werken met LangChain.
+
+\subsubsection{Document-Loaders}
+% langchain_document_loaders.png
+
+Er wordt een initiele poging gedaan om de Open Api Specification (OAS) als document in te laden en met een langchain\_community package dat toelaat informatie vanop een website op te halen. De structuur van deze ingeladen document wordt vervolgens onder de loep genomen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_document_loaders.png}
+    \caption[LangChain Document-Loaders]{\label{fig:langchaindocumentloaders}LangChain Document-Loaders}
+\end{figure}
+
+%todo: nog wat uitleg geven over wat er verwacht was, wat mis ging, wat de code doet(zie welke delen van de code interessant ziyn om uit te leggen)
+
+\begin{comment}
+    \textbf{Output:} \\
+    \begin{verbatim}
+    C:\Users\peter\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+    warnings.warn(
+    {'source': 'https://swagger.io/specification/', 'title': '\r\n\tOpenAPI Specification - Version 3.1.0 | Swagger\r\n', 'description': 'The OpenAPI Specification defines a standard interface to RESTful APIs which allows both humans and computers to understand service capabilities without access to source code, documentation, or network traffic inspection.', 'language': 'No language found.'}
+    
+    
+    
+    
+    
+    
+    OpenAPI Specification - Version 3.1.0 | Swagger
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    Products
+    \end{verbatim}
+\end{comment}
+
+\subsubsection{Retrievers}
+%langchain_retrievers.png
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_retrievers.png}
+    \caption[LangChain Retrievers]{\label{fig:langchainretrievers}LangChain Retrievers}
+\end{figure}
+
+%todo: nog wat uitleg geven over wat er verwacht was, wat mis ging, wat de code doet(zie welke delen van de code interessant ziyn om uit te leggen)
