@@ -868,60 +868,45 @@ Er wordt een initiele poging gedaan om de Open Api Specification (OAS) als docum
 
 %todo: nog wat uitleg geven over wat er verwacht was, wat mis ging, wat de code doet(zie welke delen van de code interessant ziyn om uit te leggen)
 
-\begin{comment}
-    \textbf{Output:} \\
-    \begin{verbatim}
-    C:\Users\peter\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'swagger.io'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-    warnings.warn(
-    {'source': 'https://swagger.io/specification/', 'title': '\r\n\tOpenAPI Specification - Version 3.1.0 | Swagger\r\n', 'description': 'The OpenAPI Specification defines a standard interface to RESTful APIs which allows both humans and computers to understand service capabilities without access to source code, documentation, or network traffic inspection.', 'language': 'No language found.'}
-    
-    
-    
-    
-    
-    
-    OpenAPI Specification - Version 3.1.0 | Swagger
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    Products
-    \end{verbatim}
-\end{comment}
+Dit was een initiële test om te zien of het lukte om een document van het internet in te laden, gebruikmakend van langchain\_community.document\_loaders. Langchain community is iets wat nog buiten langchain\_core staat en als extensie van langchain kan gezien worden. In dit codefragment wordt de API-key niet gebruikt, het is enkel een korte test om te zien hoe de binnengehaald document eruit ziet, er waren een aantal warnings over het vriendelijk omgaan met API-calls. Er wordt verwacht dat de caller zich kenbaar maakt. De metadata en eerste 100 tekens worden uitgeprint in de terminal. Wat in de codefragment in comment staat aan het einde van de file zijn alle fields binnen het eerste docs object. Een document object bevat dus heel wat methodes en attributen. (In volgend output werden ~50tal lege lijnen verwijdert)
+
+
+\textbf{Output:} \\
+\begin{verbatim}
+C:\Users\peter\AppData\Local\Programs\Python\Python312\Lib\site-packages
+\urllib3\connectionpool.py:1097: InsecureRequestWarning: 
+Unverified HTTPS request is being made to host 'swagger.io'. 
+Adding certificate verification is strongly advised. See:
+https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+warnings.warn(
+{'source': 'https://swagger.io/specification/', 'title': '\r\n\tOpenAPI 
+Specification - Version 3.1.0 | Swagger\r\n',
+'description': 'The OpenAPI Specification defines a 
+standard interface to RESTful APIs which allows both humans and 
+computers to understand service capabilities without access to source code,
+documentation, or network traffic inspection.', 'language': 'No language found.'}
+
+
+
+
+OpenAPI Specification - Version 3.1.0 | Swagger
+
+
+
+
+
+
+
+Products
+\end{verbatim}
+
+Dit werkte nog redelijk goed, maar er is gekozen eerst verder te gaan naar het onderzoeken van een volgende technologie.
+
 
 \subsubsection{Retrievers}
 %langchain_retrievers.png
+
+Hier zien we een mogelijke uitwerking van retrievers, gelijkaardig aan RAG in het opzicht dat er uit een opslag van data gezocht wordt naar context relevant aan de query, maar hier is het niet ophalen van relevante data uit eigen bronnen, maar bepaalde bronnen op het internet. Deze demo maakt ook nog gebruik van LCEL (LangChain expression language). Maar zoals in de comment-blokken al laat doorschijnen werkten deze demo's niet, er zijn 2 verschillende retrievers van info, WikipediaRetriever en AmazonKendraRetriever. Voor beide waren er credentials nodig die men niet perse wou vrijmaken om deze demo uit te werken. Er gaat namelijk echt geld ter verspilling bij het gebruiken van LLM-API-calls. Er werden wel OPENAI\_API\_KEY en LANGSMITH\_API\_KEY in de environment ingeladen om alsnog te proberen. LangSmith is ook nog verbonden aan LangChain. Voorlopig zijn er geen plannen om dit verder te onderzoeken.
 
 \begin{figure}[H]
     \centering
@@ -929,4 +914,4 @@ Er wordt een initiele poging gedaan om de Open Api Specification (OAS) als docum
     \caption[LangChain Retrievers]{\label{fig:langchainretrievers}LangChain Retrievers}
 \end{figure}
 
-%todo: nog wat uitleg geven over wat er verwacht was, wat mis ging, wat de code doet(zie welke delen van de code interessant ziyn om uit te leggen)
+

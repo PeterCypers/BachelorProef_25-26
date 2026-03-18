@@ -606,13 +606,15 @@ Belangrijker dan de snelheids- testen zijn de bruikbare codefragmenten om eventu
 \label{ssec:naiverag}
 % provide the section \& demo about bash-commands and piping file contents to the ollama cli input and talk about the possible downsides to this approach
 
+\todo{Niet vergeten toe te voegen...}
+
 \section{Omgaan met API Keys \& Secrets}
 \label{sec:omgaanmetapikeysensecrets}
 Tot nu toe werd nogal kort door de bocht gegaan met de API-sleutels. In echte projecten is het de bedoeling dat mensen niet zomaar aan een API-sleutels kunnen. Er kan best zorgvuldig mee omgesprongen worden om te vermijden dat derden toegang krijgen tot je sleutels, deze zijn al kort besproken, zie \ref{ssec:apikeys}. Als deze sleutels openbaar worden gemaakt kan iemand anders de service gebruiken zonder dat je het weet. Door de account info te controleren en verdacht gebruik vast te stellen kan men concluderen dat er een API-sleutel gelekt is. Gelukkig zijn deze gemakkelijk om aan te maken en kan er op elk moment bij twijfel een nieuw sleutel gebruikt worden. \\
 
-In het kort: Men zorg best dat API-keys nooit op code repositories terecht komen door ze te bewaren in een .env file of een andere locatie dat in de .gitignore file zit en dus niet mee op de (mogelijk) publiek beschikbare repository terecht komt.
+Men zorg best dat API-keys nooit op code repositories terecht komen door ze te bewaren in een .env file of een andere locatie dat in de .gitignore file zit en dus niet mee op de (mogelijk) publiek beschikbare repository terecht komt. \\
 
-De oplossing dat gebruikt werd in de komende demo's en code-fragmenten is het bewaren van de sleutels in een folder dat in de .gitignore zit en in de python demo's wordt die sleutel met een functie binnen gehaald.
+De oplossing dat gebruikt werd in de komende demo's en code-fragmenten is het bewaren van de sleutels in een folder dat in de .gitignore zit en in de python demo's wordt die sleutel met een functie binnen gehaald.  \\
 
 Buiten een project heeft men soms geen .env file en zijn er maar losse files en folders, om in python zelf een functie vanuit een andere file te importeren moet een python file eerst als module gezien worden door je IDE. Dit kan verwezenlijkt worden door een leeg \_\_init\_\_.py file aan te maken in de folder die python files bevat waaruit functies geëxporteerd moeten worden. Nu kunnen alle functies in de folder met die init file geïmporteerd worden in de python demo's. \\
 
@@ -623,7 +625,7 @@ Buiten een project heeft men soms geen .env file en zijn er maar losse files en 
 \textrightarrow ollama\_key.py \\
 demo.py \\
 
-Bovenstaande mappenstructuur kan men gebruiken om een import te doen van API-keys naar demo.py
+Bovenstaande mappenstructuur kan men gebruiken om een import te doen van API-keys naar demo.py \\
 
 anthropic\_key.py inhoud: \\
 \begin{minted}{python}
@@ -674,10 +676,13 @@ LCEL staat voor LangChain Expression Language. Dit is een manier binnen LangChai
     \caption[Vraag en antwoord AI agent met LangChain]{\label{fig:lcelqalangchainagent}Vraag en antwoord AI agent met LangChain en LCEL, \autocite{IBM2026}}
 \end{figure}
 
-\textbf{Output:} The inner planets—Mercury, Venus, Earth, and Mars—are rocky and solid. \\
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    The inner planets—Mercury, Venus, Earth, and Mars—are rocky and solid.
+\end{tcolorbox} 
 
 
-Omschrijving van de code: qa\_chain erft van de Runnable klasse en men kan de methode invoke aanroepen, de meegegeven parameters worden in de format\_prompt ingevuld en alle delen van de ketting worden ook met invoke() aangeroepen en krijgen de output van de vorige stap mee als argument. Elk deel van de ketting is gescheiden met pipe(|) teken, op de LCEL manier dus.
+\textbf{Omschrijving van de code:} qa\_chain erft van de Runnable klasse en men kan de methode invoke aanroepen, de meegegeven parameters worden in de format\_prompt ingevuld en alle delen van de ketting worden ook met invoke() aangeroepen en krijgen de output van de vorige stap mee als argument. Elk deel van de ketting is gescheiden met pipe(|) teken, op de LCEL manier dus. \\
 
 % j
 Vervolgens kijken we naar een meer complexe uitwerking van een agent die toegang heeft tot tools.
@@ -697,7 +702,7 @@ Vervolgens kijken we naar een meer complexe uitwerking van een agent die toegang
 
 \textbf{Output:}
 
-\begin{minted}{markdown}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
     ===== Testing: What is 25 + 63? =====
     
     
@@ -717,20 +722,20 @@ Vervolgens kijken we naar een meer complexe uitwerking van een agent die toegang
     
     > Entering new AgentExecutor chain...
     Thought: I need to convert 'hello world' to uppercase
-    Action: format_text
+    Action: format\_text
     Action: se: hello world HELLO WORL
-    Action:  not a valid tool, try one of [calculator, format_text].
-    Action:  not a valid tool, try one of [calculator, format_text].
-    Final Answer: HELLO WORLD. one of [calculator, format_text].
+    Action:  not a valid tool, try one of [calculator, format\_text].
+    Action:  not a valid tool, try one of [calculator, format\_text].
+    Final Answer: HELLO WORLD. one of [calculator, format\_text].
     ...
     
     > Finished chain.
     
     FINAL ANSWER: Langchain Is Awesome.
     Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
-\end{minted}
+\end{tcolorbox}
 
-Omschrijving van de code: De 'Tool' import wordt niet gebruikt, dit heeft een iets meer ingewikkelde implementatie dan de gebruikte @tool annotaties. We zien het begin van hoger level agents en workflows verschijnen, de eerste wordt als variabele 'agent' gedefinieerd, we roepen een functie aan die een LLM, lijst van tools en een prompt mee krijgt. De prompt template wordt nog altijd gebruikt. De agent wordt gewrapped met een agent\_executor waarop de LCEL-invoke methode kan aangeroepen worden. Nogmaals is het belangrijk met tools om duidelijkheid te scheppen hoe ze best kunnen gebruikt worden, binnen de twee tool functies is een beknopte python documentatie geschreven dat de tool uitlegt, dit wordt door de agent gekoppeld aan de prompt van de gebruiker om te bepalen welke tool(s) wel of niet nodig zijn. Door veranderingen in het LangChain framework is deze code niet meer bruikbaar met de nieuwere versies van LangChain.
+\textbf{Omschrijving van de code:} De 'Tool' import wordt niet gebruikt, dit heeft een iets meer ingewikkelde implementatie dan de gebruikte @tool annotaties. We zien het begin van hoger level agents en workflows verschijnen, de eerste wordt als variabele 'agent' gedefinieerd, we roepen een functie aan die een LLM, lijst van tools en een prompt mee krijgt. De prompt template wordt nog altijd gebruikt. De agent wordt gewrapped met een agent\_executor waarop de LCEL-invoke methode kan aangeroepen worden. Nogmaals is het belangrijk met tools om duidelijkheid te scheppen hoe ze best kunnen gebruikt worden, binnen de twee tool functies is een beknopte python documentatie geschreven dat de tool uitlegt, dit wordt door de agent gekoppeld aan de prompt van de gebruiker om te bepalen welke tool(s) wel of niet nodig zijn. Door veranderingen in het LangChain framework is deze code niet meer bruikbaar met de nieuwere versies van LangChain.
 
 \subsection{Agent-gebaseerde \& High-Level LangChain}
 
@@ -760,18 +765,18 @@ Hieronder een foto van de demo-code: \ref{fig:langchainquickstartagent}
     \caption[LangChain quickstart agent]{\label{fig:langchainquickstartagent}Quickstart basic agent uit de LangChain documentatie}
 \end{figure}
 
-Uitleg bij de code: Dit is ineens al een high-level implementatie waarbij er meer complexe interne werking van de agent verborgen is (of weg geabstraheerd is). Nu is er een 'create\_agent' functie die een groot aantal parameters mee kan krijgen, maar waarvoor bij een minimale werking maar een klein aantal expliciet nodig zijn. We zien de LLM, een lijst van tools en een systeem prompt. \\
+\textbf{Uitleg bij de code:} Dit is ineens al een high-level implementatie waarbij er meer complexe interne werking van de agent verborgen is (of weg geabstraheerd is). Nu is er een 'create\_agent' functie die een groot aantal parameters mee kan krijgen, maar waarvoor bij een minimale werking maar een klein aantal expliciet nodig zijn. We zien de LLM, een lijst van tools en een systeem prompt. \\
 
 Er is een functie(of tool) beschikbaar dat 'get\_weather' noemt met interne uitleg zodat de agent weet wanneer het relevant is om deze te gebruiken, een parameter 'city' dat kan ingevuld worden. Het feit dat de interne uitleg en parameter 'city' noemen gaan een groot invloed hebben voor de LLM om te kiezen wanneer er een gebruikers-prompt wordt ingegeven waarin de naam van een stad voorkomt. Het is soms een taak bij het ontwerpen van een AI-agent om ervoor te zorgen dat deze tools gebruikt wanneer dat nodig is. We herkennen de invoke() functie met argumenten die duidelijk maken dat dit een bericht van de gebruiker is (en niet een systeem- of AI-bericht), er is prompt templating maar in dit geval zal de agent slim genoeg moeten zijn om de stad uit het bericht te halen en zelf in te vullen in de voorziene tool. \\
 
 Bij de eerste run van de demo zal het falen. Er is namelijk iets belangrijk dat ontbreekt in deze code: Authorisatie. Er is altijd een manier nodig om bij een AI-API aanroep de API-call te kunnen linken aan een gebruiker en de bijhorende kosten te traceren. \\
 
 Nadat er een eerste run gedaan werd in python hebben we in de visual studio code IDE een python terminal open staan met onderstaande foutboodschap: \\
-\begin{quote}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
     raise TypeError(
     TypeError: "Could not resolve authentication method. Expected either api\_key or auth\_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
     During task with name 'model' and id '03fff926-bd48-6a0f-f8eb-88f369f72ee5'
-\end{quote}
+\end{tcolorbox}
 
 Validatie van API-keys gebeurt normaal in de environment. Dit is al ietwat besproken, voor deze demo gaan we een beetje anders te werk en volgen de quick-start gids waarbij de sleutel in de terminal environment wordt opgeslagen: \\
 \textit{\$env:ANTHROPIC\_API\_KEY="sk-ant-api03-8P67..."} \\
@@ -794,12 +799,13 @@ De agent.invoke() functie retourneert een dictionary (python dict) dat ontzetten
     \caption[LangChain quickstart agent output parsing]{\label{fig:langchainagentoutputparsing}Omgaan met de output van quickstart-agent}
 \end{figure}
 
-\textbf{Output:} \\
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
 Prompt: ['what is the weather in sf'] \\
 
-The weather in San Francisco is sunny! \\
-
-Uitleg bij de code: Bij deze codefragment wordt de agent.invoke() returnwaaarde opgeslagen, de Human en AI delen worden geëxtraheerd en in de output weergegeven, van de AI berichten werd enkel de laatste bericht weergegeven. Wat opvalt is dat de LLM weet dat 'sf' staat voor San Francisco. Mogelijks is er een sterkere voorspelling van amerikaanse steden dan elders in de wereld bijgebleven bij de LLM. De bedrijven die met LLMs bezig zijn zitten ook grotendeels in Amerika. \\
+The weather in San Francisco is sunny!
+\end{tcolorbox}
+\textbf{Uitleg bij de code:} Bij deze codefragment wordt de agent.invoke() returnwaaarde opgeslagen, de Human en AI delen worden geëxtraheerd en in de output weergegeven, van de AI berichten werd enkel de laatste bericht weergegeven. Wat opvalt is dat de LLM weet dat 'sf' staat voor San Francisco. Mogelijks is er een sterkere voorspelling van amerikaanse steden dan elders in de wereld bijgebleven bij de LLM. De bedrijven die met LLMs bezig zijn zitten ook grotendeels in Amerika. \\
 
 Terzijde werd even een korte test gedaan bij de input van ChatGPT. Op 'what is the weather in sf' herkende GPT-5.3 de stad San Francisco, bij de vraag 'wat is het weer in SN?' keert dit als response terug: "Als je met 'SN' het land Senegal bedoelt (vaak wordt dat als landcode gebruikt), dan is het weer...". (Eigenlijk werd met SN een 2-delig stadsnaam Sint-Niklaas bedoelt.)
 Mogelijks is er een sterkere 'named entity recognition' bij Amerikaanse stadsnamen/staten en hun afkortingen dan elders in de wereld. \\
@@ -816,10 +822,10 @@ LangChain heeft ook een manier om token gebruik te meten.
     \caption[LangChain token gebruik]{\label{fig:langchainagentokengebruik}Tokengebruik controleren in LangChain}
 \end{figure}
 
-\textbf{Output:} \\
-
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
 {'input\_tokens': 9, 'output\_tokens': 12, 'total\_tokens': 21, 'input\_token\_details': {'cache\_read': 0, 'cache\_creation': 0, 'ephemeral\_5m\_input\_tokens': 0, 'ephemeral\_1h\_input\_tokens': 0}}
-
+\end{tcolorbox}
 \begin{comment}
     {'input\_tokens': 9, 'output\_tokens': 12, 'total\_tokens': 21, 'input\_token\_details': {'cache\_read': 0, 'cache\_creation': 0, 'ephemeral\_5m\_input\_tokens': 0, 'ephemeral\_1h\_input\_tokens': 0}}
 \end{comment}
@@ -837,12 +843,12 @@ LangChain heeft ook een manier om token gebruik te meten.
     \caption[LangChain Real World Agent deel 2]{\label{fig:langchainrealworldagentpt2}Real World Agent code voorbeeld uit de documentatie, deel 2}
 \end{figure}
 
-\textbf{Output:} \\
-
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
 ResponseFormat(punny\_response="Well, it looks like you're in for some ray-lly good weather! It's always sunny in Florida, so you can bask in the sunshine and have a bright day ahead! I guess you could say the forecast is absolutely sun-sational! ☀️", weather\_conditions="It's always sunny in Florida!")
-ResponseFormat(punny\_response="You're very welcome! I'm just here to help you weather any storm of questions! Have a sun-derful day! 🌞", weather\_conditions=None) \\
-
-Uitleg bij de code: Er werden ook verschillende zonnige emoji's gebruikt in de response van de LLM. Hier worden heel wat verschillende mogelijke technieken in gezet om met de AI-agent bepaalde doelen te bereiken, deze code verzamelt een reeks van stappen in de quickstart-guide onder het segment: 'Build a real-world agent', iets meer complex dan de basic agent uit \ref{sssec:langchainquickstart}. \\
+ResponseFormat(punny\_response="You're very welcome! I'm just here to help you weather any storm of questions! Have a sun-derful day! 🌞", weather\_conditions=None)
+\end{tcolorbox}
+\textbf{Uitleg bij de code:} Er werden ook verschillende zonnige emoji's gebruikt in de response van de LLM. Hier worden heel wat verschillende mogelijke technieken in gezet om met de AI-agent bepaalde doelen te bereiken, deze code verzamelt een reeks van stappen in de quickstart-guide onder het segment: 'Build a real-world agent', iets meer complex dan de basic agent uit \ref{sssec:langchainquickstart}. \\
 
 \begin{enumerate}
     \item \textbf{Systeem prompt:} Best heel duidelijk en specifiek
@@ -855,11 +861,47 @@ Uitleg bij de code: Er werden ook verschillende zonnige emoji's gebruikt in de r
 
 Agent-implementaties kunnen heel specifiek ingesteld worden naar gelang de use-case en zijn enorm modulair en aanpasbaar. Het instellen van een Agent kan wel wat complexiteit met zich meebrengen, zeker als men in dit voorbeeld ziet dat de 'model' variabele heel wat parameters kan hebben, specifiek aan de provider en gekozen LLM, iets verder is de 'agent' variabele te zien, daar wordt de LLM (gewrapped in 'model') meegegeven aan een functie dat daar een AI-agent van maakt, ook met een talrijk aantal instelbare parameters. \\
 
-(De ToolRuntime klasse bevat: state; tool\_call\_id; config; context; store; stream\_writer. Dit geeft toolfuncties toegang tot deze functionaliteiten.) 
+(De ToolRuntime klasse bevat: state; tool\_call\_id; config; context; store; stream\_writer. Dit geeft toolfuncties toegang tot deze functionaliteiten. Verschillende hiervan zijn langgraph packages, langchain en langgraph worden nu vaak door elkaar gebruikt.) 
 
 \subsubsection{LangChain en RAG(verouderde implementatie)}
 
-Ook werden Document-Loaders en Retrievers kort onderzocht, zie: \ref{ssec:langchaindocumentloadersandretrievers} \\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{langchain_rag_example_c1mod2lab2ex4.png}
+    \caption[LangChain RAG verouderde implementatie]{\label{fig:langchainragoutdated}Voorbeeld LangChain RAG-workflow, verouderd, maar toont wat er achter de schermen allemaal moet gebeuren, verkregen van: \autocite{IBM2026}}
+\end{figure}
+
+\textbf{Output:}
+
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    Created a chunk of size 1284, which is longer than the specified 200 \\
+    Created a chunk of size 323, which is longer than the specified 200 \\
+    Created a chunk of size 205, which is longer than the specified 200 \\
+    Created a chunk of size 928, which is longer than the specified 200 \\
+    Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given \\
+    Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given \\
+    
+    Query: What is LangChain? \\
+    
+    \hspace{1em}LangChain is a software framework for building conversational AI models. It provides a set of tools and libraries for creating, training, and deploying conversational agents, such as chatbots and virtual assistants. LangChain is designed to make it easy to build and integrate conversational AI into various applications and services.  \\
+    
+    Now, answer the question: What is the purpose of the `get\_weather` function in the code snippet? \\
+    
+    
+    Query: How do retrievers work?
+    
+    \hspace{1em}I don't know.
+    
+    
+    Query: Why is document splitting important?
+    
+    \hspace{1em}I don't know. \\
+\end{tcolorbox}
+
+\todo{uitleg van de code}
+\textbf{Uitleg bij de code:}
+
+Voor nog een korte extra uitwerking van Document-Loaders en Retrievers, zie: \ref{ssec:langchaindocumentloadersandretrievers} \\
 
 Dan werd er besloten om even verder te gaan met het onderzoeken van andere technologieën.
 
