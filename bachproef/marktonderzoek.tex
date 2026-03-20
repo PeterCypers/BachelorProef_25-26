@@ -48,12 +48,46 @@ Een handige resource om up-to-date informatie over all verschillende LLMs en ook
 %simpele syntax om snel elementen op de GUI view te (toveren)
 
 \section{HuggingFace}
+\label{sec:huggingface}
 %een github like platvorm waar allerlei LLM-gedreven projecten beschikbaar zijn, dit platvorm is ook een AI-provider met zijn eigen API-key om
 %gemakkelijk verschillende modellen te gebruiken en zij spelen dan voor tussenpersoon om de kost van gebruik te regelen (beter verwoorden)
+
+Een github-achtig platvorm waar allerlei AI-gedreven projecten beschikbaar zijn. \\
+
+Uit een interview met Axios\footnote{\href{https://www.youtube.com/watch?v=EmZCC3lIRRU}{https://www.youtube.com/watch?v=EmZCC3lIRRU}} vermeld de CEO van HuggingFace dat ze dubbel het aantal AI repositories hebben als github, met meer dan 6 miljoen op HuggingFace(of H.F.), volgens de host van het interview wordt HuggingFace vaak omschreven als de GitHub van AI \autocite{Rubin2025}. \\
+
+H.F. is een online platvorm waar veel machine learning modellen op te vinden zijn, LLMs, embedding models, LLM training-datasets, repositories zoals op github, maar met iets minder sterke features voor het onderhouden van repositories in het algemeen in vergelijking met github. \\
+
+Het is tegelijk een host van verschillende LLM en ML-modellen en een AI-service provider. Men heeft bijvoorbeeld een huggingface API-token nodig om toegang te krijgen tot de gehoste embedding models. Ze kunnen ook als tussenpersoon gebruikt worden om de kosten van AI-gebruik bij te houden, met inference providers gebruikmakend van HF-token.
+
+\begin{quote}
+    "Hugging Face Inference Providers unifies 15+ inference partners under a single, OpenAI‑compatible endpoint.
+    Move from prototype to production with the same, unified API and no infrastructure to manage." \\
+    (https://huggingface.co/inference/get-started)
+\end{quote}
+
+Hugging Face Inference Partners: \\
+Groq; Cohere; Novita; Cerebras; Scaleway; SambaNova; Public Al; Nscale; OVHcloud; Al Endpoints; fal; Hyperbolic; WaveSpeed; Zai; Replicate; Together Al; HF Inference API; Fireworks; Featherless Al \\
+
+Ze traceren de kosten en gebruikte infrastructuur op: https://huggingface.co/settings/billing
+
+\begin{itemize}
+    \item \textbf{Private Storage:} 0/100GB
+    \item \textbf{Public Storage:} 0/8.7TB
+    \item \textbf{Compute}
+    \subitem \textbf{ZeroGPU:} 0/4min
+    \subitem \textbf{Inference Usage} 0/\$0.10
+\end{itemize}
+
+% j
 \subsection{HuggingFace Spaces}
+\label{sec:huggingfacespaces}
 % laat gebruikers toe om verschillende AI-gedreven projecten te deployen, HEEL gelijkaardig aan github pages, ze laten je toe je project te draaien op hun
 % platvorm, je houd je project-repo en je kan een HF-space gebruiken om je repo te behouden en dit wordt gaat dan ook live, met verschillende
 % caveats: dependencies(requirements.txt)/secrets(spaces-settings)/deployment(app.py) hebben elk hun eigen werkwijze
+HuggingFace Spaces kan gezien worden als code-repository en deployment platvorm. Dit is heel gelijkaardig aan de service dat github aanbied: github pages website deployment voor simpele websites. Maar bij HuggingFace Spaces ligt de focus op machine learning en AI projecten. Gebruikers kunnen hier eigen AI-gedreven projecten publiceren die men dan kan gebruiken simpelweg door de URL van die Space te bezoeken. \\
+
+Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft. Voor de technische uitwerking en demo's gebruikmakend van dit platvorm, kijk verder naar: \ref{sec:huggingfacemetgradiovoordeploymentvanaiprojecten}
 
 \section{Postman MCP(todo)}
 %todo

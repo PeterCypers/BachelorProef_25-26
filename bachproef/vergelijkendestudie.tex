@@ -898,8 +898,28 @@ Agent-implementaties kunnen heel specifiek ingesteld worden naar gelang de use-c
     \hspace{1em}I don't know. \\
 \end{tcolorbox}
 
-\todo{uitleg van de code}
-\textbf{Uitleg bij de code:}
+\textbf{Uitleg bij de code:} We zien een uitgebreid voorbeeld van een RAG proces. Het begint bij het ophalen van brondata met een \textbf{document-loader} of web-loader dat met de load() functie een lijst van documenten retourneert, een \textbf{tekst splitter} om de tekst op te splitsen in een opgegeven aantal karakters met een overlap dat extra karakters toevoegt aan het begin en einde om zo beter te bepalen in wat de omliggende context is, de tekst wordt gesplitst op newlines in chunks, een verzameling kleinere documenten. \\
+
+Een \textbf{embedding model} wordt geconfigureerd om de documenten(chunks) in een vector-store te indexeren, in dit geval chroma DB, dit krijgt de documenten en het embedding model mee en is een \textbf{vectorstore} object \\
+
+De vectorstore wordt geconverteerd naar een \textbf{retriever} met de methode as\_retriever(), er wordt een retrievalQA object gemaakt als wrapper voor een bepaald \textbf{LLM}, dit is een vraag en antwoord ketting waar de methode \textbf{invoke()} op aangeroepen kan worden. Dit is een onvolledige uitwerking van de code, de search\_documents functie wordt namelijk nergens aangeroepen, het is wel interessant om de output met invoke te zien.\\
+
+
+Ter info, is volgende code een meer uitgebreid gebruik van de retriever waarbij de search\_documents methode aangeroepen wordt, hiervan werd de output niet getest. Er kan afgeleid worden wat er in de output zou verschijnen. Elke query zal afgeprint worden, het aantal opgehaalde documenten relevant aan de query(prompt), voor elk opgehaald document de eerste 150 karakters en de bron uit de metadata. \\
+
+Aanvullende Code:
+
+\begin{minted}{python}
+    for query in test_queries:
+        print(f"\nQuery: {query}")
+        results = search_documents(query)
+        
+        # Print the results
+        print(f"Found {len(results)} relevant documents:")
+        for i, doc in enumerate(results):
+            print(f"\nResult {i+1}: {doc.page_content[:150]}...")
+            print(f"Source: {doc.metadata.get('source', 'Unknown')}")
+\end{minted}
 
 Voor nog een korte extra uitwerking van Document-Loaders en Retrievers, zie: \ref{ssec:langchaindocumentloadersandretrievers} \\
 
@@ -914,8 +934,78 @@ Dan werd er besloten om even verder te gaan met het onderzoeken van andere techn
 
 \section{Gradio Prototyping}
 % see gradio workspace, also see course 2: RAG
+Gradio is een open source python library om snel een gebruiksvriendelijke web-gebaseerde user-interfaces op te zetten. Dit maakt een verbinding op een localhost poort en de connectie kan ook gedeeld worden. Ideaal om een prototype op te zetten en te delen. Het kan goed om met machine learning modellen en rekenkundige tools. Dit kan geinstalleerd worden met \textit{pip install gradio}.
+
+% Gradio_inputs.png
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Gradio_inputs.png}
+    \caption[Gradio UI prototyping]{\label{fig:gradioinputsvoorbeeld}Een Uitgebreid voorbeeld van Gradio UI in code.}
+\end{figure}
+
+\textbf{Uitleg van de code:} Deze is heel beknopt en gebruiksvriendelijk, men instantieert met de Interface() constructor een gelijknamig object waarop de launch() methode kan aangeroepen worden. Vervolgens ontleden we dit object:
+\begin{itemize}
+    \item \textbf{fn:} De functie dat men kan meegeven aan de Gratio interface. Een belangrijk onderdeel, dit zorgt ervoor dat we onze eigen code-implementaties kunnen gebruiken, deze zijn mogelijks ook heel complex in uitwerking, deze functie kan als toegangspunt dienen voor een complexe en genest systeem, dit is het belangrijkste onderdeel van deze Interface object en heeft interacties met alle volgende attributen.
+    \item \textbf{inputs:} Dit voorziet allerlei verschillende soorten typische web-interface invoer van verschillende soorten data, zelfs files zijn mogelijk. Dit is een verzameling van Gradio objecten dat kan omgaan met de ingevoerde data. Deze worden uiteindelijk meegegeven aan de functie als argumenten. We zien 6 verschillende Gradio input types, dus onze functie zal 6 argumenten meekrijgen en het is aan ons de keuze hoe deze data zal verwerkt worden, in dit geval is het een eenvoudige uitwerking, maar de functie zou ook een LLM kunnen gebruiken. Er wordt een return-waarde verwacht.
+    \item \textbf{outputs:} Hier kan men de return-waarde van de functie verwerken, er worden evenveel output componenten verwacht als aantal returnwaarden van de functie, wanneer men met LLMs werkt is het normaal om tekst of markdown als type output te gebruiken.
+    \item \textbf{examples:} Er kan een lijst van voorbeelden klaargezet worden, wanneer de gebruiker deze aanklikt zullen de inputvelden hiermee opgevuld worden, het is dus ook de bedoeling dat het type data overeen komt met de verwachte input data types.
+\end{itemize}
+
+Tenslotte, \textbf{Launch !} Onze demo wordt gelanceerd, hier zijn alle gebruikte argumenten optioneel, dit zijn ook default-waarden. Interessant wel is dat laatste, 'share', wanneer men dit op True zet kan de demo gedeeld worden met derden (er wordt een URL gegenereerd dat gedeeld kan worden). Zo lang men de localhost server laat draaien kan iedereen met de link ook het gedeeld demo laten uitvoeren. Dit wordt afgehandeld via de Gradio servers en alle bewerkingen gebeuren op eigen machine, dus iedereen die de demo laat draaien zullen afhankelijk zijn van de machine waarop de demo gehost wordt. Dit zal na 1 week automatisch verbroken worden door Gradio om hun resources te besparen. Om de launch functie manueel te onderbreken kan men in de actieve terminal \textit{ctrl + c} doen. De User Interface is hier te zien:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{gradio_interface_output.png}
+    \caption[Gradio UI web-view]{\label{fig:gradiouserinterface}Een Uitgebreid voorbeeld van Gradio UI web-view met gekozen voorbeeld en gegenereerde output na het klikken op 'Submit'.}
+\end{figure}
+% j
 
 \section{HuggingFace met Gradio voor Deployment van AI-projecten}
+\label{sec:huggingfacemetgradiovoordeploymentvanaiprojecten}
+Voor een omschrijving van HuggingFace zie: \ref{sec:huggingface} En voor H.F.-Spaces zie: \ref{sec:huggingfacespaces}
+%dependencies(requirements.txt)/secrets(spaces-settings)/deployment(app.py) hebben elk hun eigen werkwijze
+
+Men kan op HuggingFace Spaces eigen AI-projecten uitrollen. Ze werken nauw samen met Gradio en hebben integraties die ervoor zorgen dat men bij het maken van een nieuwe Space verschillende Gradio templates kunnen kiezen bij initiatie. \\
+
+Bij deze onderzoek werden verschillende AI-projecten ontworpen en uitgerold\footnote{\href{https://huggingface.co/PeterCypers}{https://huggingface.co/PeterCypers}} op HF-spaces, waaronder: 'Image Classification'; 'Multi Agent Research'; 'Tavily Web Search'; 'Chatbot Vision'; 'File Search'; 'Peter GPT'
+
+
+%\footnote{\href{https://ollama.com/download}{https://ollama.com/download}}
+Image Classification gebruikt een pretrained model om een zelf gekozen afbeelding te proberen classificeren en uit 1000 mogelijke klassen de top-n meest gepaste klassen te kiezen. Tavily Web Search gebruikt de gelijknamige service met API-key om de internet te doorzoeken naar antwoorden op een meegegeven prompt. Chatbot Vision laat de gebruiker toe om te kiezen tussen een vraag- en antwoord bot of een AI die de inhoud van foto's kan begrijpen en omschrijven(deze werkt enkel offline omdat bepaalde web-interacties fout lopen). Multi Agent Research is een agent-workflow dat uit 3 agents bestaat en 3 verschillende stappen doorloopt: Opzoeken van informatie door de research\_agent, de write\_agent schrijft een raport over de verzamelde info en uiteindelijk zal de review\_agent een beoordeling maken over het geschreven werk. Dit wordt in de documentatie\footnote{\href{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}} van LlamaIndex ook goed omschreven. \\
+%https://developers.llamaindex.ai/python/examples/agent/agent_workflow_multi/
+
+% https://huggingface.co/PeterCypers
+
+Van deze projecten nemen we er nu 2 hier even onder de loep. \\
+
+\subsection{Peter's GPT}
+%todo explain my project and show the code plus maybe the view, discuss the code in great detail
+
+\subsection{File Search}
+%todo explain my project and show the code plus maybe the view, discuss the code in great detail
+
+\subsection{Offline vs Deployed}
+
+Kan ook wel als dev. vs prod. omschreven worden. Er moeten enkele kleine aanpassingen gemaakt worden om een lokaal(offline) werkend demo online uit te rollen op HF-spaces.
+
+\textbf{API-keys:} Bij de offline werkende demo's werden de API-keys geïmporteerd uit een aparte folder en in de os-environment als variabele opgeslagen, bij online projecten moet men voor een bepaalde space naar de settings > variables and secrets > secrets de API-sleutel opslaan met als sleutel de exact verwachte naam, vb.: "OLLAMA\_API\_KEY" of "TAVILY\_API\_KEY" en waarde is de waarde van de API-key(zonder ""), deze worden dan opgeslagen in de environment van die space. Wanneer het nodig is om deze expliciet in de code te gebruiken kan men binnen het online project deze code toevoegen:
+
+\begin{minted}{python}
+    import os
+    
+    TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+\end{minted}
+
+\textbf{Installaties:} Om bepaalde code te gebruiken werd regelmatig een pip install gedaan in combinatie met een import. Dit moet nu anders gebeuren, op de repository moet er nu een .txt file zijn genaamd 'requirements.txt'. Hier in staan alle packages(dependencies) die nodig zijn om het project te laten lopen. Wanneer hier bijvoorbeeld ollama in staat zal binnen die online omgeving \textit{pip install ollama} gebeuren. Zo voegt men gescheiden met een enter, of \verb|\n| de nodige packages aan de file toe die geïnstalleerd moeten worden. \\
+
+\textbf{Deployment trigger:} Dit is redelijk gemakkelijk te voorzien, zoals 'index' vaak verwacht wordt als naam voor de root van een project wordt op HF-spaces 'app' verwacht, dus bij aanmaak of wijziging van de app.py file zal een build + deploy getriggerd worden van die space. \\
+
+Het moet vermeld worden dat koppelen van VSC met HF-space voor versiecontrole en commit + push niet zomaar werkte, maar men kan makkelijk de project files uploaden op de space en alsnog kan de build + deployment worden getriggerd. \\
+
+
+
+% j
 
 \section{Pydantic AI}
 %als er tijd is om dit ook nog te onderzoeken

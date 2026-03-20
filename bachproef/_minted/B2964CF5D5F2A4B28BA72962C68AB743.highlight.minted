@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{os}
+
+\PYG{n}{TAVILY\PYGZus{}API\PYGZus{}KEY} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{getenv}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}TAVILY\PYGZus{}API\PYGZus{}KEY\PYGZdq{}}\PYG{p}{)}
+\end{MintedVerbatim}
