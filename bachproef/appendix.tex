@@ -800,8 +800,8 @@ Dit codefragment gebruikt ook een LLM van IBM, zij hebben een eigen custom LLM-w
     \includegraphics[width=1.0\textwidth]{LCEL_code-generation.png}
     \caption[Code generatie AI agent met LangChain]{\label{fig:lcelcodegenlangchainagent}Code generatie AI agent met LangChain en LCEL, \autocite{IBM2026}}
 \end{figure}
-\underline{Output:} \\
 
+\textbf{Output:}
 \begin{minted}{markdown}
     SELECT c.name, c.email 
     FROM customers c 
@@ -835,9 +835,11 @@ Dit codefragment gebruikt ook een LLM van IBM, zij hebben een eigen custom LLM-w
     \includegraphics[width=1.0\textwidth]{LCEL_tekst-samenvatting.png}
     \caption[tekst samenvatting AI agent met LangChain]{\label{fig:lceltextsummarylangchainagent}Tekst samenvatting AI agent met LangChain en LCEL, \autocite{IBM2026}}
 \end{figure}
-\underline{Output:} \\
-The rapid advancement of technology in the 21st century has transformed various industries, including healthcare, education, and transportation, through innovations like AI, machine learning, and the Internet of Things.
 
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+The rapid advancement of technology in the 21st century has transformed various industries, including healthcare, education, and transportation, through innovations like AI, machine learning, and the Internet of Things.
+\end{tcolorbox}
 
 \subsubsection{Tekst Classificatie:}
 \begin{figure}[H]
@@ -845,10 +847,13 @@ The rapid advancement of technology in the 21st century has transformed various 
     \includegraphics[width=1.0\textwidth]{LCEL_tekst-classificatie.png}
     \caption[tekst samenvatting AI agent met LangChain]{\label{fig:lceltextclassificationlangchainagent}Tekst classificatie AI agent met LangChain en LCEL, \autocite{IBM2026}}
 \end{figure}
-\underline{Output:} \\
+
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
 Music \\
 Reasoning Skill: \\
 The reasoning skill for this question is Emotion Recognition And Sentiment Analysis. The sentence expresses a positive sentiment towards the concert, using words like "exhilarating" and "outstanding". The correct classification into the Music category requires recognizing the emotional tone of the sentence and understanding that it is describing a musical event. This involves analyzing the language used and identifying the sentiment expressed, which is a key aspect of Emotion Recognition And Sentiment Analysis.
+\end{tcolorbox}
 
 \subsection{LangChain Document-Loaders \& Retrievers}
 \label{ssec:langchaindocumentloadersandretrievers}
@@ -866,25 +871,28 @@ Er wordt een initiele poging gedaan om de Open Api Specification (OAS) als docum
     \caption[LangChain Document-Loaders]{\label{fig:langchaindocumentloaders}LangChain Document-Loaders}
 \end{figure}
 
-%todo: nog wat uitleg geven over wat er verwacht was, wat mis ging, wat de code doet(zie welke delen van de code interessant ziyn om uit te leggen)
-
-Dit was een initiële test om te zien of het lukte om een document van het internet in te laden, gebruikmakend van langchain\_community.document\_loaders. Langchain community is iets wat nog buiten langchain\_core staat en als extensie van langchain kan gezien worden. In dit codefragment wordt de API-key niet gebruikt, het is enkel een korte test om te zien hoe de binnengehaald document eruit ziet, er waren een aantal warnings over het vriendelijk omgaan met API-calls. Er wordt verwacht dat de caller zich kenbaar maakt. De metadata en eerste 100 tekens worden uitgeprint in de terminal. Wat in de codefragment in comment staat aan het einde van de file zijn alle fields binnen het eerste docs object. Een document object bevat dus heel wat methodes en attributen. (In volgend output werden ~50tal lege lijnen verwijdert)
+Dit was een initiële test om te zien of het lukte om een document van het internet in te laden, gebruikmakend van langchain\_community.document\_loaders. Langchain community is iets wat nog buiten langchain\_core staat en als extensie van langchain kan gezien worden. In dit codefragment wordt de API-key niet gebruikt, het is enkel een korte test om te zien hoe de binnengehaald document eruit ziet, er waren een aantal warnings over het vriendelijk omgaan met API-calls. Er wordt verwacht dat de caller zich kenbaar maakt. De metadata en eerste 100 tekens worden uitgeprint in de terminal. Wat in de codefragment in comment staat aan het einde van de file zijn alle fields binnen het eerste docs object. Een document object bevat dus heel wat methodes en attributen. (In volgend output werden ~50tal lege lijnen verwijderd) \\
 
 
-\textbf{Output:} \\
-\begin{verbatim}
-C:\Users\peter\AppData\Local\Programs\Python\Python312\Lib\site-packages
-\urllib3\connectionpool.py:1097: InsecureRequestWarning: 
-Unverified HTTPS request is being made to host 'swagger.io'. 
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    \begin{verbatim}
+C:\Users\peter\AppData\Local\Programs\Python\Python312\Lib\
+site-packages\urllib3\connectionpool.py:1097: 
+InsecureRequestWarning: Unverified HTTPS request is being made to
+host 'swagger.io'. 
 Adding certificate verification is strongly advised. See:
-https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-
+warnings
 warnings.warn(
-{'source': 'https://swagger.io/specification/', 'title': '\r\n\tOpenAPI 
+{'source': 'https://swagger.io/specification/', 
+'title': '\r\n\tOpenAPI 
 Specification - Version 3.1.0 | Swagger\r\n',
 'description': 'The OpenAPI Specification defines a 
 standard interface to RESTful APIs which allows both humans and 
-computers to understand service capabilities without access to source code,
-documentation, or network traffic inspection.', 'language': 'No language found.'}
+computers to understand service capabilities without 
+access to source code, documentation, or network 
+traffic inspection.', 'language': 'No language found.'}
 
 
 
@@ -898,7 +906,8 @@ OpenAPI Specification - Version 3.1.0 | Swagger
 
 
 Products
-\end{verbatim}
+    \end{verbatim}
+\end{tcolorbox}
 
 Dit werkte nog redelijk goed, maar er is gekozen eerst verder te gaan naar het onderzoeken van een volgende technologie.
 

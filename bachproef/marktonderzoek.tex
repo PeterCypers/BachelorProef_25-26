@@ -17,10 +17,52 @@
 
 \section{Info over verschillende AI modellen}
 
-Een handige resource om up-to-date informatie over all verschillende LLMs en ook vergeleken met elkaar volgens bepaalde benchmarks:
-%https://artificialanalysis.ai/
+Een handige resource om up-to-date en geaggregeerde informatie te verkrijgen over de verschillende LLMs op de markt en om deze ook te vergelijken met elkaar volgens een extensief reeks benchmarks vinden we op de website: 'artificialanalysis.ai'\footnote{\href{https://artificialanalysis.ai/}{https://artificialanalysis.ai/}}. Zie figuur \ref{fig:artificialanalysishistory}.
 
-%add an image
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{artif_analys_int_6_dec_25.png}
+    \caption[De AI race sinds 2022]{\label{fig:artificialanalysishistory}De AI posities op 6 december 2025, verkregen van: 'artificialanalysis.ai'}
+\end{figure}
+
+Wanneer we vandaag(21-03-2026) de site nog eens bekeken vonden er de volgende verschuivingen plaats, de top 4 posities zijn nu: \\
+
+\begin{enumerate}
+    \item Gemini 3.1 Pro Preview
+    \item GPT-5.4 (xhigh)
+    \item Claude Opus 4.6 (max)
+    \item Claude Sonet 4.6 (max)
+\end{enumerate} 
+
+Met Kimi k2.5 op de 10de plaats en Deepseek V3.2 helemaal naar 13de plaats afgezakt. Bepaalde LLMs zijn ook een versie omhoog gegaan. \\
+
+\begin{comment}
+    % ik had nog een foto dat de evolutie toont waar we nu zitten, frontier models, maara ik mag niet teveel foto's meer gebruiken...
+    images: 
+    % artif_analys_int_6_dec_25.png
+    % artif_analys_int_21_3_26.png
+    % artificial-analysis-int-speed-price-21-3-26.png
+    % Frontier_LM_Int_6-12-25 .png
+    %
+\end{comment}
+% j
+
+Het blijft een wedstrijd, vooral tussen de verschillende Amerikaanse big-tech bedrijven en China om de meest performante LLMs beschikbaar te stellen. \\
+
+%this fits in discussie? half and half, what's here is fine, we can be more critical in the discussion, mainly about the Nvidea and OpenAI:
+Er is nog geen groot AI-bedrijf dat op instorten staat, maar het loopt wat chaotisch bij sommigen. OpenAI zou in 2025 zo'n 8 miljard dollar hebben verbrand, oplopend tot 40 miljard in 2028, met winstgevendheid pas verwacht in 2030 \autocite{Ferreira2026}. \\
+
+Ze steunen hard op geld van investeerders, ze hadden wel een 'first mover advantage', maar er is veel concurrentie en geen groot verschil in kwaliteit of instapgrens tussen de andere verschillende AI-technologieën, het kan dus nog alle kanten op gaan. \\
+
+Google staat in een sterke positie op dit moment, ze hebben veel geld, datacenters en hun eigen chips(Tensor Processing Units) waardoor ze niet afhankelijk zijn aan chip-producenten zoals Nvidea:
+
+\begin{quote}
+    "In the final weeks of 2025, Google has not just recovered; it has leapfrogged the competition with a vengeance born of humiliation. The launch of Gemini 3, trained entirely on the company's custom TPU infrastructure, marks the end of the "Nvidia Tax" era for Mountain View. Unlike the hallucinations of Bard, Gemini 3 has arrived as what many independent benchmarks call the world's best AI model, turning heads with reasoning capabilities that surpass even the most advanced GPT iterations."
+    - \autocite{Gupta2025}
+\end{quote}
+
+% j 
+Zo lang men oppast voor vendor lock-in en het nieuws volgt, regelmatig eigen gebruikte AI-technologieën beoordeelt en vergelijkt, dus waakzaam blijft, zal men nooit voor verrassingen komen te staan. De wereld van AI verandert voortdurend.
 
 \subsection{Github Marketplace Models}
 % hier is het mogelyk om modellen in een sandbox omgeving uit te testen met verschillende settings -> look into what can all be done here (sem2/bp/sdk)
@@ -43,9 +85,10 @@ Een handige resource om up-to-date informatie over all verschillende LLMs en ook
 %ComfyUI, voorziet een grafische UI, gebruikt nodes, kan voor veel verschillende use-cases ingezet worden zoals foto-generatie, audiogeneratie en videogeneratie
 %gebruikt stablediffusion
 
-\section{Gradio}
+%\section{Gradio}
 %een tool voor snelle prototyping van LLMs, zorgt dat je in zo goed als geen tijd je AI-workflows can uittesten op een localhost server, met
 %simpele syntax om snel elementen op de GUI view te (toveren)
+%is explained in detail in vergelykende studie, couldn't find enough to talk about here..
 
 \section{HuggingFace}
 \label{sec:huggingface}
@@ -93,6 +136,9 @@ Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft.
 %todo
 \section{AI providers \& APIs}
 % groot aanbod, see notes & pricing -> meta/github/openai/anthropic/deepseek/etc etc
+%talk about the API keys I have, talk about how AI-companies provide APIs to which you can connect using their models to run inference on their haardware (datacenters) at certain kost/mil tokens
+% mention that you normally need to create a user account and can see your usage statistics on that account near: billing or usage
+% mention the token is often set in the .env and it's used for authorisation whenever you try to run a model on one of the APIs
 
 \subsection{OpenAI Codex}
 %requires some investigating, lots of big developments recently, added a tab-link from ChatGPT.com leading to codex
@@ -113,7 +159,8 @@ Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft.
     *: %todo: look into what they exactly did, it likely predates RAG
 \end{comment}
 
-
+%todo: also mention Ollama was able to work with github copilot at some point
+%graphic name: bp Ollama selectable models in VSC (just in case).png
 
 
 \section{Windows M365 Copilot}
