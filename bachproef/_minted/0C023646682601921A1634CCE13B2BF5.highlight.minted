@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{llama\PYGZus{}index.core}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Document}
+
+\PYG{n}{mydocument} \PYG{o}{=} \PYG{n}{Document}\PYG{p}{(}\PYG{n}{text}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Hello LlamaIndex\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{mydocument}\PYG{o}{.}\PYG{n}{dict}\PYG{p}{())}
+\end{MintedVerbatim}

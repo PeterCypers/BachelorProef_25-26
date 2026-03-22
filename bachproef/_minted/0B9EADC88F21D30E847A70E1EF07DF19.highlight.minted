@@ -1,0 +1,58 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+2026\PYGZhy{}03\PYGZhy{}22 17:32:03,761 \PYGZhy{} INFO \PYGZhy{} Load pretrained SentenceTransformer: BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5
+2026\PYGZhy{}03\PYGZhy{}22 17:33:24,531 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/modules.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:24,551 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/modules.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:24,714 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/config\PYGZus{}sentence\PYGZus{}transformers.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:24,764 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config\PYGZus{}sentence\PYGZus{}transformers.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:24,883 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/config\PYGZus{}sentence\PYGZus{}transformers.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:24,908 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config\PYGZus{}sentence\PYGZus{}transformers.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,023 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/README.md \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,055 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/README.md \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,198 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/modules.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,214 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/modules.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,353 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/sentence\PYGZus{}bert\PYGZus{}config.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,373 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/sentence\PYGZus{}bert\PYGZus{}config.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,525 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/adapter\PYGZus{}config.json \PYGZdq{}HTTP/1.1 404 Not Found\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,661 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/config.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:25,686 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+Loading weights: 100\PYGZpc{}|█████████████████████| 199/199 [00:00\PYGZlt{}00:00, 1028.66it/s, Materializing param=pooler.dense.weight]
+BertModel LOAD REPORT from: BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5
+Key                     | Status     |  |
+\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}+\PYGZhy{}\PYGZhy{}+\PYGZhy{}
+embeddings.position\PYGZus{}ids | UNEXPECTED |  |
+
+Notes:
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }UNEXPECTED    :can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026\PYGZhy{}03\PYGZhy{}22 17:33:26,399 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/config.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:26,415 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:26,534 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/tokenizer\PYGZus{}config.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:26,568 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/tokenizer\PYGZus{}config.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:26,749 \PYGZhy{} INFO \PYGZhy{} HTTP Request: GET https://huggingface.co/api/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/tree/main/additional\PYGZus{}chat\PYGZus{}templates?recursive=false\PYGZam{}expand=false \PYGZdq{}HTTP/1.1 404 Not Found\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:26,874 \PYGZhy{} INFO \PYGZhy{} HTTP Request: GET https://huggingface.co/api/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/tree/main?recursive=true\PYGZam{}expand=false \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:27,211 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/resolve/main/1\PYGZus{}Pooling/config.json \PYGZdq{}HTTP/1.1 307 Temporary Redirect\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:27,239 \PYGZhy{} INFO \PYGZhy{} HTTP Request: HEAD https://huggingface.co/api/resolve\PYGZhy{}cache/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/1\PYGZus{}Pooling\PYGZpc{}2Fconfig.json \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:27,386 \PYGZhy{} INFO \PYGZhy{} HTTP Request: GET https://huggingface.co/api/models/BAAI/bge\PYGZhy{}base\PYGZhy{}en\PYGZhy{}v1.5 \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:33:27,419 \PYGZhy{} INFO \PYGZhy{} 1 prompt is loaded, with the key: query
+2026\PYGZhy{}03\PYGZhy{}22 17:34:22,798 \PYGZhy{} INFO \PYGZhy{} HTTP Request: POST http://localhost:11434/api/show \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:34:24,121 \PYGZhy{} INFO \PYGZhy{} HTTP Request: POST http://localhost:11434/api/chat \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:34:28,331 \PYGZhy{} INFO \PYGZhy{} HTTP Request: POST http://localhost:11434/api/chat \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+2026\PYGZhy{}03\PYGZhy{}22 17:34:28,945 \PYGZhy{} INFO \PYGZhy{} HTTP Request: POST http://localhost:11434/api/chat \PYGZdq{}HTTP/1.1 200 OK\PYGZdq{}
+Hieronder het gedeelte dat in de documenten over \PYG{g+gs}{**onderzoeksvragen**} staat:
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+\PYG{g+gs}{**Hoofdvraag**}
+Hoe kan een AI‑agent bijdragen aan het ondersteunen van het ontwikkel‑ en testproces van REST‑ful APIs binnen een agile softwareontwikkeltraject?
+
+\PYG{g+gs}{**Deelvragen**}
+\PYG{k}{1.} Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van REST‑ful APIs?
+\PYG{k}{2.} Welke taken binnen dit proces zijn het meest repetitief of foutgevoelig?
+\PYG{k}{3.} Welke bestaande tools en frameworks worden momenteel gebruikt voor API‑testing en \PYGZhy{}documentatie?
+\PYG{k}{4.} Welke AI‑technieken (bijvoorbeeld LLM’s, NLP, code‑generatie) zijn geschikt om deze taken te ondersteunen?
+\PYG{k}{5.} Hoe kan een AI‑agent geïntegreerd worden in een bestaande ontwikkel‑workflow?
+\PYG{k}{6.} Wat zijn de beperkingen en risico’s van het inzetten van een AI‑agent in dit domein?
+
+\PYGZhy{}\PYGZhy{}\PYGZhy{}
+
+Dit is het complete onderdeel over onderzoeksvragen uit de beschikbare documenten.
+\end{MintedVerbatim}

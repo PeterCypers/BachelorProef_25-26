@@ -1,0 +1,52 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+Parsing nodes: 100\PYGZpc{}|██████████████████████████████████████████████████████████████████████| 1/1 [00:02\PYGZlt{}00:00,  2.35s/it]
+\PYGZbs{}\PYGZsh{} OpenAPI Specification
+
+\PYGZbs{}\PYGZsh{}\PYGZbs{}\PYGZsh{} Version 3.2.0
+
+The key words \PYGZdq{}MUST\PYGZdq{}, \PYGZdq{}MUST NOT\PYGZdq{}, \PYGZdq{}REQUIRED\PYGZdq{}, \PYGZdq{}SHALL\PYGZdq{}, \PYGZdq{}SHALL NOT\PYGZdq{}, \PYGZdq{}SHOULD\PYGZdq{}, \PYGZdq{}SHOULD NOT\PYGZdq{}, \PYGZdq{}RECOMMENDED\PYGZdq{}, \PYGZdq{}NOT RECOMMENDED\PYGZdq{}, \PYGZdq{}MAY\PYGZdq{}, and \PYGZdq{}OPTIONAL\PYGZdq{} in this document are to be interpreted as described in [\PYG{n+nt}{BCP 14}](\PYG{n+na}{https://tools.ietf.org/html/bcp14}) [\PYG{n+nt}{RFC2119}](\PYG{n+na}{https://tools.ietf.org/html/rfc2119}) [\PYG{n+nt}{RFC8174}](\PYG{n+na}{https://tools.ietf.org/html/rfc8174}) when, and only when, they appear in all capitals, as shown here.
+
+This document is licensed under [\PYG{n+nt}{The Apache License, Version 2.0}](\PYG{n+na}{https://www.apache.org/licenses/LICENSE\PYGZhy{}2.0.html}).
+
+\PYGZbs{}\PYGZsh{}\PYGZbs{}\PYGZsh{} Introduction
+
+The OpenAPI Specification (OAS) defines a standard, language\PYGZhy{}agnostic interface to HTTP APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service by [\PYG{n+nt}{parsing and serializing}](\PYG{n+na}{\PYGZbs{}\PYGZsh{}parsing\PYGZhy{}and\PYGZhy{}serializing}) HTTP messages to and from a [\PYG{n+nt}{data model}](\PYG{n+na}{\PYGZbs{}\PYGZsh{}data\PYGZhy{}types}) with a minimal amount of implementation logic.
+
+An [\PYG{n+nt}{OpenAPI Description}](\PYG{n+na}{\PYGZbs{}\PYGZsh{}openapi\PYGZhy{}description\PYGZhy{}structure}) (OAD) can then be used by documentation generation tools to display the API, code generation tools to generate servers and clients in various programming languages, testing tools, and many other use cases.
+
+For examples of OpenAPI usage and additional documentation, please visit [[?OpenAPI\PYGZhy{}Learn]].
+
+For extension registries and other specifications published by the OpenAPI Initiative, as well as the authoritative rendering of this specification, please visit [\PYG{n+nt}{spec.openapis.org}](\PYG{n+na}{https://spec.openapis.org/}).
+
+\PYGZbs{}\PYGZsh{}\PYGZbs{}\PYGZsh{}\PYGZbs{}\PYGZsh{} Versions and Deprecation
+
+The OpenAPI Specification is versioned using a \PYG{l+s+sb}{`major`}.\PYG{l+s+sb}{`minor`}.\PYG{l+s+sb}{`patch`} versioning scheme. The \PYG{l+s+sb}{`major`}.\PYG{l+s+sb}{`minor`} portion of the version string (for example \PYG{l+s+sb}{`3.1`}) SHALL designate the OAS feature set. \PYGZbs{}\PYGZus{}\PYG{l+s+sb}{`.patch`}\PYGZbs{}\PYGZus{} versions address errors in, or provide clarifications to, this document, not the feature set. Tooling which supports OAS 3.1 SHOULD be compatible with all OAS 3.1.\PYGZbs{}verb|\PYGZbs{}*| versions. The patch version SHOULD NOT be considered by tooling, making no distinction between \PYG{l+s+sb}{`3.1.0`} and \PYG{l+s+sb}{`3.1.1`} for example.
+
+Certain fields or features may be marked \PYG{g+gs}{**Deprecated**}.
+These fields and features remain part of the specification and can be used like any other field or feature.
+However, OpenAPI Description authors should use newer fields and features documented to replace the deprecated ones whenever possible.
+
+At this time, such elements are expected to remain part of the OAS until the next major version, although a future minor version of this specification may define a policy for later removal of deprecated elements.
+
+Occasionally, non\PYGZhy{}backwards compatible changes may be made in \PYG{l+s+sb}{`minor`} versions of the OAS where impact is believed to be low relative to the benefit provided.
+
+\PYGZbs{}\PYGZsh{}\PYGZbs{}\PYGZsh{}\PYGZbs{}\PYGZsh{} Undefined and Implementation\PYGZhy{}Defined Behavior
+
+This specification deems certain situations to have either \PYGZbs{}\PYGZus{}undefined\PYGZbs{}\PYGZus{} or \PYGZbs{}\PYGZus{}implementation\PYGZhy{}defined\PYGZbs{}\PYGZus{} behavior.
+
+Behavior described as \PYGZbs{}\PYGZus{}undefined\PYGZbs{}\PYGZus{} is likely, at least in some circumstances, to result in outcomes that contradict the specification.
+This description is used when detecting the contradiction is impossible or impractical.
+Implementations MAY support undefined scenarios for historical reasons, including ambiguous text in prior versions of the specification.
+This support might produce correct outcomes in many cases, but relying on it is NOT RECOMMENDED as there is no guarantee that it will work across all tools or with future specification versions, even if those versions are otherwise strictly compatible with this one.
+
+Behavior described as \PYGZbs{}\PYGZus{}implementation\PYGZhy{}defined\PYGZbs{}\PYGZus{} allows implementations to choose which of several different\PYGZhy{}but\PYGZhy{}compliant approaches to a requirement to implement.
+This documents ambiguous requirements that API description authors are RECOMMENDED to avoid in order to maximize interoperability.
+Unlike undefined behavior, it is safe to rely on implementation\PYGZhy{}defined behavior if \PYGZbs{}\PYGZus{}and only if\PYGZbs{}\PYGZus{} it can be guaranteed that all relevant tools support the same behavior.
+
+\PYGZbs{}\PYGZsh{}\PYGZbs{}\PYGZsh{} Format
+
+An OpenAPI document that conforms to the OpenAPI Specification is itself a JSON object, which may be represented either in [[RFC8259|JSON]] or [[YAML|YAML]] format.
+Examples in this specification will be shown in YAML for brevity.
+
+All field names in the specification are \PYG{g+gs}{**case\PYGZhy{}sensitive**}.
+\end{MintedVerbatim}

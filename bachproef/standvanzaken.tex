@@ -440,7 +440,7 @@ Een aantal problemen dat met normale LLM gebruik kan voorkomen is dat er  inform
     \item \textbf{Embedding van brondata:} Omzetten van de brondata in een vector-representatie met behulp van een embedding model. Mogelijks wordt dit eerst in stukken gechunked en elke chunk(text van een bepaalde lengte) wordt omgezet naar een vector-representatie, dit is een reeks van getallen met vaste lengte.
     \item \textbf{Opslaan in een Vector store:} De naar vectoren geconverteerde brondata worden opgeslagen in een gespecialiseerde database die met vectoren om kan gaan. zie: \ref{ssec:vectordatabases}
     \item \textbf{Prompt:} De gebruiker stelt een vraag aan de LLM. (Er is een alternatief verloop: Er moet geen data opgehaald worden. De vraag van de gebruiker moet duidelijk maken of er data moet opgehaald worden.)
-    \item \textbf{Prompt embedding:} De gebruiker prompt wordt ook in een vector-representatie omgezet met hetzelfde embedding model als datgene waarmee de brondata werd omgezet en bekomt een vector-representatie met dezelfde lengte als de brondata-chunks.
+    \item \textbf{Prompt embedding:} De gebruiker prompt wordt ook in een vector-representatie omgezet met hetzelfde embedding model als datgene waarmee de brondata werd omgezet(dit is belangrijk! als men gelijkaardig data wil vinden in de brondata) en bekomt een vector-representatie met dezelfde lengte als de brondata-chunks.
     \item \textbf{Retrieval, ophalen van relevante data:} De embedded gebruiker prompt wordt meegegeven aan de retriever die in de vector store op zoek naar relevante brondata embeddings (vectoren) die matchen met de prompt embedding. De output van de retriever is terug de originele tekst.
     \item \textbf{Augmented(aangepaste) prompt maken:} De opgehaalde tekst wordt gecombineerd met de originele gebruiker prompt om een aangepaste prompt te maken.
     \item \textbf{LLM query:} Pas na aanpassing van de prompt wordt deze bij de LLM ingegeven. Dit alles probeert een oplossing te bieden voor het overtollige context input bij het prompten van de LLM, welke met de extra context nu ook een nauwkeurigere en context-ondersteund response kan teruggeven.
@@ -564,13 +564,17 @@ Een voorbeeld van de data-shape dat opgeslagen zit in een vector database, met a
     \label{lst:chromadbqueryresult}
 \end{listing}
 
+Het indexeren en embedden van de brondata, gebeurt in de reeds besproken voorbeeldcode wel tijdens het lopen van de demo, dit proces kan wat tijd in beslag nemen, als men regelmatig een bron van onveranderlijke data moet doorzoeken kan deze ook in een meer permanente opslag vector database worden opgeslagen en daar kan men sneller op zoeken omdat de embedding stap van de brondata overgeslagen kan worden, hier is momenteel nog geen code voorbeeld van. \\
+%todo: followup, do we have an example of a fixed vector database with permanently stored embeddings?
+
 %https://docs.trychroma.com/docs/querying-collections/query-and-get
-Vector Databases zijn een belangrijk onderdeel van het RAG-proces, maar zullen verder niet meer in detail besproken worden, zie \ref{ssec:nlp} en \ref{sec:rag}. \\
+Vector Databases zijn een belangrijk onderdeel van het RAG-proces. Vervolgens bestaan er nog een aantal concepten die met vector databases te maken hebben: HNSW / LSH / Similarity Search / ANN / Cosine similarity / Dot product / Euclidian distance.
+Maar deze lopen wat buiten scope voor dit onderzoek en zullen verder niet meer in detail besproken worden, bepaalde concepten die reeds besproken werden, zie voorgaande secties: \ref{ssec:nlp} en \ref{sec:rag}. \\
 
 Dit hoofdstuk ging in detail in op de low-level werking van RAG. Er bestaan echter technologieën die abstractie bieden bovenop de complexiteit van de interne werking van dit proces. In het code fragment kwam LangChain al even aan bod.
 LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan. LlamaIndex is een framework die bepaalde delen van het RAG proces vereenvoudigen, maar op sommige vlakken minder controle biedt dan bij LangChain. Deze worden later in detail besproken.
 
-
+% j
 % keep this section brief (look at that nice article in the chrome-tabs group)
 \section{Agentic AI}
 
@@ -584,6 +588,7 @@ LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan.
 
 \section{Multi-Agent Workflow}
 %forwards reference to vergel.-studie demo
+% Hier zal een demo getoond worden gebruikemakend van LlamaIndex, zie ref-llamaindex voor info over die framework, hier zullen we kort uitleggen wat deen multi-agent workflow inhoud, toolgebruik, agent-autonomie van beslissingen ameken (handoff), API calls, agentworkflow(kan ook met 1 agent), maar maakt mogeliyk een reeks agents in te stellen -> zie llamaindex workspace file 92, dit is een voorbeeld dat veel tokens kost om te draaien, research -> write -> review, interne werking staat uit comment, de normale uitvoer staat in comment, dit staat ook online op huggingface spaces maar werkt minder goed in die online omgeving als hier als py file op de lokale machine, tavily web-search tool with it's own api
 
 % may remove this segment (or super-short explenation):
 \section{Model Context Protocol(todo)}

@@ -1,0 +1,20 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{llama\PYGZus{}index.core}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Document}
+
+\PYG{n}{documents} \PYG{o}{=} \PYG{p}{[}
+    \PYG{n}{Document}\PYG{p}{(}\PYG{n}{text}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Hello LangChain\PYGZdq{}}\PYG{p}{),}
+    \PYG{n}{Document}\PYG{p}{(}\PYG{n}{text}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Hello LlamaIndex\PYGZdq{}}\PYG{p}{)}
+\PYG{p}{]}
+
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{llama\PYGZus{}index.core.node\PYGZus{}parser}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{SentenceSplitter}
+
+\PYG{n}{node\PYGZus{}parser} \PYG{o}{=} \PYG{n}{SentenceSplitter}\PYG{p}{(}\PYG{n}{chunk\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{1024}\PYG{p}{,} \PYG{n}{chunk\PYGZus{}overlap}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} BaseNode is similar to Document}
+\PYG{n}{nodes} \PYG{o}{=} \PYG{n}{node\PYGZus{}parser}\PYG{o}{.}\PYG{n}{get\PYGZus{}nodes\PYGZus{}from\PYGZus{}documents}\PYG{p}{(}
+    \PYG{n}{documents}\PYG{p}{,}
+    \PYG{n}{show\PYGZus{}progress}\PYG{o}{=}\PYG{k+kc}{True}
+\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZgt{} List[BaseNode] (similar to Document objects)}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n+nb}{dir}\PYG{p}{(}\PYG{n}{nodes}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))} \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZgt{} prints Class Methods and Fields}
+\end{MintedVerbatim}

@@ -934,6 +934,263 @@ Dan werd er besloten om even verder te gaan met het onderzoeken van andere techn
 \section{LlamaIndex}
 %RAG course delves into this
 
+%todo: demo 10 contains everything I want to discuss for now
+
+LlamaIndex\footnote{\href{https://www.llamaindex.ai/llamaindex}{https://www.llamaindex.ai/llamaindex}} is een framework voor het bouwen van contextbewuste AI-agents. Verder bespreken we een aantal features van LlamaIndex met een focus op RAG - functionaliteiten. \\
+
+Use cases voor RAG met LlamaIndex: 
+\begin{itemize}
+    \item Vraag-en-antwoord met behulp van RAG (Chatbots)
+    \item Documentbegrip
+    \item Gegevensextractie
+    \item Biedt ingebouwde documentladers en aanpasbare query-engines
+\end{itemize}
+
+LlamaIndex heeft een krachtige documentloader: SimpleDirectoryReader. Deze kan alle files uit een bepaald folder inladen, inclusief files uit geneste folders of files van een specifiek type, het kan onder anderen omgaan met volgende filetypes: tekst / pdf / markdown / csv / JSON / html / etc\footnote{\href{https://developers.llamaindex.ai/python/framework/module_guides/loading/simpledirectoryreader/\#supported-file-types}{https://developers.llamaindex.ai/python/framework/module\_guides/loading/simpledirectoryreader/\#supported-file-types}}. Nu is er wel een betere documentloader voor JSON\footnote{\href{https://llamahub.ai/l/readers/llama-index-readers-json}{https://llamahub.ai/l/readers/llama-index-readers-json}} files beschikbaar. \\
+
+
+%notes: chunk docs into nodes(also document class) / embed and store step / response synthesizer / query engine
+
+%classes: Document / Node / Index / Query_engine
+
+% use BERTs or GPTs for text embedding and prompt encoding / break prompts and documents into chunks / transform text into high dimensional vectors 
+
+% retrieval: match query using distance metrics, retrieves relevant document vectors
+
+% augmented query creation: retrieved content is combined with the users prompt
+% generation: model generation using the augmented prompt for more accurate/informed responses
+
+% 2 main components: retriever(find relevant data) + generator(produce NL responses)
+
+Het Document klasse bevat: Een unieke ID / Een embedding-placeholder / Een metadata-dict / Een relaties-dict / De brontekst van het document \\
+
+LlamaIndex Document klasse:
+\begin{listing}
+    \begin{minted}{python}
+        from llama_index.core import Document
+        
+        mydocument = Document(text="Hello LlamaIndex")
+        print(mydocument.dict())
+    \end{minted}
+    \caption[LlamaIndex Document klasse]{LlamaIndex Document klasse.}
+    \label{lst:llamaindexdocumentklasse}
+\end{listing}
+
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    {'id\_': '841db349-5e70-4180-b2fa-867677b32e21', 'embedding': None, 'metadata': {}, 'excluded\_embed\_metadata\_keys': [], 'excluded\_llm\_metadata\_keys': [], 'relationships': {}, 'metadata\_template': '{key}: {value}', 'metadata\_separator': '\verb|\n|', 'text\_resource': {'embeddings': None, 'text': 'Hello LlamaIndex', 'path': None, 'url': None, 'mimetype': None}, 'image\_resource': None, 'audio\_resource': None, 'video\_resource': None, 'text\_template': '{metadata\_str}\verb|\n\n|{content}', 'class\_name': 'Document', 'text': 'Hello LlamaIndex'}
+\end{tcolorbox}
+
+De BaseNode klasse van LlamaIndex is een Node, vergelijkbaar met het Document klasse, dit zijn in stukken gekapte delen van de originele documenten. We kunnen ook de methoden en attributen van deze klasse te weten komen met onderstaand codevoorbeeld: \ref{lst:llamaindexbasenodeklasse} door het python dir() methode op te roepen bij de eerste node in de lijst. Merk op dat het een klasse is dat veel methoden en attributen bevat.
+
+% j J
+
+\begin{listing}
+    \begin{minted}{python}
+        from llama_index.core import Document
+        
+        documents = [
+            Document(text="Hello LangChain"),
+            Document(text="Hello LlamaIndex")
+        ]
+        
+        from llama_index.core.node_parser import SentenceSplitter
+        
+        node_parser = SentenceSplitter(chunk_size=1024, chunk_overlap=20)
+        
+        # BaseNode is similar to Document
+        nodes = node_parser.get_nodes_from_documents(
+            documents,
+            show_progress=True
+        ) # -> List[BaseNode] (similar to Document objects)
+        
+        print(dir(nodes[0])) # -> prints Class Methods and Fields
+    \end{minted}
+    \caption[LlamaIndex BaseNode klasse]{LlamaIndex BaseNode klasse.}
+    \label{lst:llamaindexbasenodeklasse}
+\end{listing}
+
+\textbf{Output:}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+Parsing nodes: 100%|█████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00, 188.78it/s]
+['\_\_abstractmethods\_\_', '\_\_annotations\_\_', '\_\_class\_\_', '\_\_class\_getitem\_\_', '\_\_class\_vars\_\_', '\_\_copy\_\_', '\_\_deepcopy\_\_', '\_\_delattr\_\_', '\_\_dict\_\_', '\_\_dir\_\_', '\_\_doc\_\_', '\_\_eq\_\_', '\_\_fields\_\_', '\_\_fields\_set\_\_', '\_\_format\_\_', '\_\_ge\_\_', '\_\_get\_pydantic\_core\_schema\_\_', '\_\_get\_pydantic\_json\_schema\_\_', '\_\_getattr\_\_', '\_\_getattribute\_\_', '\_\_getstate\_\_', '\_\_gt\_\_', '\_\_hash\_\_', '\_\_init\_\_', '\_\_init\_subclass\_\_', '\_\_iter\_\_', '\_\_le\_\_', '\_\_lt\_\_', '\_\_module\_\_', '\_\_ne\_\_', '\_\_new\_\_', '\_\_pretty\_\_', '\_\_private\_attributes\_\_', '\_\_pydantic\_complete\_\_', '\_\_pydantic\_computed\_fields\_\_', '\_\_pydantic\_core\_schema\_\_', '\_\_pydantic\_custom\_init\_\_', '\_\_pydantic\_decorators\_\_', '\_\_pydantic\_extra\_\_', '\_\_pydantic\_fields\_\_', '\_\_pydantic\_fields\_set\_\_', '\_\_pydantic\_generic\_metadata\_\_', '\_\_pydantic\_init\_subclass\_\_', '\_\_pydantic\_on\_complete\_\_', '\_\_pydantic\_parent\_namespace\_\_', '\_\_pydantic\_post\_init\_\_', '\_\_pydantic\_private\_\_', '\_\_pydantic\_root\_model\_\_', '\_\_pydantic\_serializer\_\_', '\_\_pydantic\_setattr\_handlers\_\_', '\_\_pydantic\_validator\_\_', '\_\_reduce\_\_', '\_\_reduce\_ex\_\_', '\_\_replace\_\_', '\_\_repr\_\_', '\_\_repr\_args\_\_', '\_\_repr\_name\_\_', '\_\_repr\_recursion\_\_', '\_\_repr\_str\_\_', '\_\_rich\_repr\_\_', '\_\_setattr\_\_', '\_\_setstate\_\_', '\_\_signature\_\_', '\_\_sizeof\_\_', '\_\_slots\_\_', '\_\_str\_\_', '\_\_subclasshook\_\_', '\_\_weakref\_\_', '\_abc\_impl', '\_calculate\_keys', '\_copy\_and\_set\_values', '\_get\_value', '\_iter', '\_setattr\_handler', 'as\_related\_node\_info', 'child\_nodes', 'class\_name', 'construct', 'copy', 'custom\_model\_dump', 'dict', 'embedding', 'end\_char\_idx', 'excluded\_embed\_metadata\_keys', 'excluded\_llm\_metadata\_keys', 'extra\_info', 'from\_dict', 'from\_json', 'from\_orm', 'get\_content', 'get\_embedding', 'get\_metadata\_str', 'get\_node\_info', 'get\_text', 'get\_type', 'hash', 'id\_', 'json', 'metadata', 'metadata\_separator', 'metadata\_seperator', 'metadata\_template', 'mimetype', 'model\_computed\_fields', 'model\_config', 'model\_construct', 'model\_copy', 'model\_dump', 'model\_dump\_json', 'model\_extra', 'model\_fields', 'model\_fields\_set', 'model\_json\_schema', 'model\_parametrized\_name', 'model\_post\_init', 'model\_rebuild', 'model\_validate', 'model\_validate\_json', 'model\_validate\_strings', 'next\_node', 'node\_id', 'node\_info', 'parent\_node', 'parse\_file', 'parse\_obj', 'parse\_raw', 'prev\_node', 'ref\_doc\_id', 'relationships', 'schema', 'schema\_json', 'set\_content', 'source\_node', 'start\_char\_idx', 'text', 'text\_template', 'to\_dict', 'to\_json', 'update\_forward\_refs', 'validate']
+\end{tcolorbox}
+
+% single_directory_largefile_qa.png
+
+\subsection{LlamaIndex RAG demo}
+
+Nu kunnen we al zonder de files in stukken te kappen RAG toepassen op semi-grote files, we hebben een folder dat 3 pdf bestanden bevat en er is een prompt voorbereid dat de LLM zal vragen om een relevant deel van de contextueel inhoud van deze files te bespreken. 
+
+\todo{consider and investigate: does chunking even matter if we use vector-embedding in a vector store?}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{single_directory_largefile_qa.png}
+    \caption[LlamaIndex RAG demo]{\label{fig:llamaindexragdemo}LlamaIndex vraag en antwoord bot met RAG, een demo.}
+\end{figure}
+
+% VectorStoreIndex handelt de embeddings + vector store
+% LlamaIndex' query engine handelt al het volgende achter de schemren af: prompt embedding, retrieval, prompt augmentation, LLM querying, and response generation. Dit vereenvoudigt de het RAG proces aanzienlijk
+
+\textbf{Uitleg bij de code:} Laden van de databronnen uit de opgegeven folder met SimpleDirectoryReader, nu bevat de variabele een lijst van Document objecten. De nodige API-keys worden in de environment bewaard. Settings is een soort globaal configuratie waar LLM en embedding model ingesteld worden. De llm wordt expliciet gebruikt door de agent en de embedding model wordt impliciet gebruikt door de VectorStoreIndex. \\
+
+Ter info: Wanneer men lijn 29 in-comment zou zetten, zal in de output een lange foutboodschap getoond worden inclusief dit betekenisvol bericht: \textit{Could not load OpenAI embedding model. If you intended to use OpenAI, please check your OPENAI\_API\_KEY.}. We halen zelf een embedding model en stellen deze in bij de Settings om dit te voorkomen. LlamaIndex gebruikt namelijk als default een OpenAI embedding model dat wel een werkend API-key nodig heeft om het gebruik/kosten bij te houden. \\
+
+We gebruiken opnieuw Ollama's API om te verbinden met een gpt-oss variant, dit wordt ook in de Settings ingesteld. Binnen de main functie gebruiken we een prompt dat een hint geeft dat we op zoek zijn naar een deel van dit onderzoek-document, deze zal bij het retrieval proces gematched worden met de relevante content uit de databron. \\
+
+De volgende 3 lijnen zijn een representatie van hoe LlamaIndex het RAG proces simplificeert. \\
+
+\begin{enumerate}
+    \item \textbf{SimpleDirectoryReader:} De variabele 'documents' wijst naar onze opgehaalde lijst van documenten die met SimpleDirectoryReader allen zijn ingeladen, klaar voor de volgende stap.
+    \item \textbf{VectorStoreIndex:} De variabele 'index' zijn de geïndexeerde documenten, VectorStoreIndex handelt gelijk de embedding en vector-store af. Hier kan trouwens ook een meer persistente vector-DB aan worden meegegeven, op dit moment wordt het enkel in-memory bijgehouden.
+    \item \textbf{query engine:} LlamaIndex' query engine handelt al het volgende achter de schemren af: prompt embedding, retrieval, prompt augmentation, LLM querying en response generation. Dit vereenvoudigt de het RAG proces aanzienlijk! Dit zet onze VectorStoreIndex om naar een query engine, het is ook mogelijk om deze naar een retriever om te zetten met \textit{index.as\_retriever()}.
+\end{enumerate}
+
+De functie search\_documents is een tool die de krachtige query\_engine kan aanspreken om de relevante documenten(of delen ervan) op te halen, dit geeft de augmented prompt terug aan de agent die hier nu een heel context-onderbouwd antwoord aan de gebruiker kan geven. De functie bevat ook interne documentatie-string dat de LLM signaleert dat dit een handige tool is om te gebruiken wanneer er gevraagd wordt om info uit een document te halen dit kan een sterke invloed hebben voor het al dan niet aanroepen van de functie. \\
+
+De agent wordt aangemaakt, deze is van het type AgentWorkFlow en kan trouwens meerdere agents bevatten, deze krijgt de zoek tool mee, de gebruikte LLM wordt ingesteld en een systeem prompt dat wellicht bekend voorkomt. De uiteindelijke response wordt gegenereerd als returnwaarde van de agent.run() methode, deze methode heeft veel meer mogelijke argumenten, onder anderen: user\_msg / chat\_history / memory / ctx / max\_iterations / early\_stopping\_method / start\_event. Deze worden voorlopig niet besproken. \\
+
+% j J
+
+\textbf{Output:}
+\begin{minted}{markdown}
+    2026-03-22 17:32:03,761 - INFO - Load pretrained SentenceTransformer: BAAI/bge-base-en-v1.5
+    2026-03-22 17:33:24,531 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:24,551 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/modules.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:24,714 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:24,764 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config_sentence_transformers.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:24,883 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:24,908 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config_sentence_transformers.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:25,023 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:25,055 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/README.md "HTTP/1.1 200 OK"
+    2026-03-22 17:33:25,198 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:25,214 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/modules.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:25,353 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:25,373 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/sentence_bert_config.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:25,525 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+    2026-03-22 17:33:25,661 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:25,686 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config.json "HTTP/1.1 200 OK"
+    Loading weights: 100%|█████████████████████| 199/199 [00:00<00:00, 1028.66it/s, Materializing param=pooler.dense.weight]
+    BertModel LOAD REPORT from: BAAI/bge-base-en-v1.5
+    Key                     | Status     |  |
+    ------------------------+------------+--+-
+    embeddings.position_ids | UNEXPECTED |  |
+    
+    Notes:
+    - UNEXPECTED    :can be ignored when loading from different task/architecture; not ok if you expect identical arch.      
+    2026-03-22 17:33:26,399 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:26,415 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/config.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:26,534 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:26,568 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/tokenizer_config.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:26,749 - INFO - HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-base-en-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+    2026-03-22 17:33:26,874 - INFO - HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-base-en-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+    2026-03-22 17:33:27,211 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+    2026-03-22 17:33:27,239 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-base-en-v1.5/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+    2026-03-22 17:33:27,386 - INFO - HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-base-en-v1.5 "HTTP/1.1 200 OK"
+    2026-03-22 17:33:27,419 - INFO - 1 prompt is loaded, with the key: query
+    2026-03-22 17:34:22,798 - INFO - HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+    2026-03-22 17:34:24,121 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+    2026-03-22 17:34:28,331 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+    2026-03-22 17:34:28,945 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+    Hieronder het gedeelte dat in de documenten over **onderzoeksvragen** staat:
+    
+    ---
+    
+    **Hoofdvraag**
+    Hoe kan een AI‑agent bijdragen aan het ondersteunen van het ontwikkel‑ en testproces van REST‑ful APIs binnen een agile softwareontwikkeltraject?
+    
+    **Deelvragen**
+    1. Wat zijn de huidige uitdagingen bij het ontwikkelen en testen van REST‑ful APIs?
+    2. Welke taken binnen dit proces zijn het meest repetitief of foutgevoelig?
+    3. Welke bestaande tools en frameworks worden momenteel gebruikt voor API‑testing en -documentatie?
+    4. Welke AI‑technieken (bijvoorbeeld LLM’s, NLP, code‑generatie) zijn geschikt om deze taken te ondersteunen?
+    5. Hoe kan een AI‑agent geïntegreerd worden in een bestaande ontwikkel‑workflow?
+    6. Wat zijn de beperkingen en risico’s van het inzetten van een AI‑agent in dit domein?
+    
+    ---
+    
+    Dit is het complete onderdeel over onderzoeksvragen uit de beschikbare documenten.
+\end{minted}
+
+\textbf{Uitleg bij de output:} De embedding model dat werd gebruikt is afkomstig van HuggingFace, dus er worden een heleboel API-requests gestuurd naar die service en het duurde wel bijna 3 minuten om een antwoord te verkrijgen. De agent heeft wel uit het correct pdf document de relevante info kunnen halen, er zijn 3 documenten in desbetreffend folder, waarvan één 11 blz. lang is, een ander 2 blz. en het document dat onderzocht werd is niets anders dan een kopij van dit huidig onderzoek, wel met 90 blz. De grote hoeveelheid aan dataverkeer heeft zo goed als geen impact gehad op de token-gebruik bij Ollama's APIs en er was ook geen verschuiving op HuggingFace waar te nemen. Het embeddings-proces was het zwaarste en tijdrovendste bij de uitvoering van deze demo.
+
+\subsection{Chunking van Groot document(OAS)}
+
+%todo: add the image here for OAS chunking
+In de vorige demo werden de documenten niet eerste in stukken gekapt maar het RAG proces werkte daar alsnog, hier wordt er getracht om eerst een groot document, de OpenAPI Specification (3.2.0), in stukken te kappen alvorens deze in de vector-store te steken. Het doel is nu enkel om het eerste opgeslagen Node uit te printen.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{chunking_oas.png}
+    \caption[OAS chunken en eerste deel uitprinten]{\label{fig:llamaindexoaschunking}LlamaIndex OAS chunking en Node-1 uitprinten.}
+\end{figure}
+
+\textbf{Output:}
+\begin{minted}{markdown}
+Parsing nodes: 100%|██████████████████████████████████████████████████████████████████████| 1/1 [00:02<00:00,  2.35s/it]
+\# OpenAPI Specification
+
+\#\# Version 3.2.0
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174) when, and only when, they appear in all capitals, as shown here.
+
+This document is licensed under [The Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).     
+
+\#\# Introduction
+
+The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to HTTP APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service by [parsing and serializing](\#parsing-and-serializing) HTTP messages to and from a [data model](\#data-types) with a minimal amount of implementation logic.
+
+An [OpenAPI Description](\#openapi-description-structure) (OAD) can then be used by documentation generation tools to display the API, code generation tools to generate servers and clients in various programming languages, testing tools, and many other use cases.
+
+For examples of OpenAPI usage and additional documentation, please visit [[?OpenAPI-Learn]].
+
+For extension registries and other specifications published by the OpenAPI Initiative, as well as the authoritative rendering of this specification, please visit [spec.openapis.org](https://spec.openapis.org/).
+
+\#\#\# Versions and Deprecation
+
+The OpenAPI Specification is versioned using a `major`.`minor`.`patch` versioning scheme. The `major`.`minor` portion of the version string (for example `3.1`) SHALL designate the OAS feature set. \_`.patch`\_ versions address errors in, or provide clarifications to, this document, not the feature set. Tooling which supports OAS 3.1 SHOULD be compatible with all OAS 3.1.\verb|\*| versions. The patch version SHOULD NOT be considered by tooling, making no distinction between `3.1.0` and `3.1.1` for example.
+
+Certain fields or features may be marked **Deprecated**.
+These fields and features remain part of the specification and can be used like any other field or feature.
+However, OpenAPI Description authors should use newer fields and features documented to replace the deprecated ones whenever possible.
+
+At this time, such elements are expected to remain part of the OAS until the next major version, although a future minor version of this specification may define a policy for later removal of deprecated elements.
+
+Occasionally, non-backwards compatible changes may be made in `minor` versions of the OAS where impact is believed to be low relative to the benefit provided.
+
+\#\#\# Undefined and Implementation-Defined Behavior
+
+This specification deems certain situations to have either \_undefined\_ or \_implementation-defined\_ behavior.
+
+Behavior described as \_undefined\_ is likely, at least in some circumstances, to result in outcomes that contradict the specification.
+This description is used when detecting the contradiction is impossible or impractical.
+Implementations MAY support undefined scenarios for historical reasons, including ambiguous text in prior versions of the specification.
+This support might produce correct outcomes in many cases, but relying on it is NOT RECOMMENDED as there is no guarantee that it will work across all tools or with future specification versions, even if those versions are otherwise strictly compatible with this one.
+
+Behavior described as \_implementation-defined\_ allows implementations to choose which of several different-but-compliant approaches to a requirement to implement.
+This documents ambiguous requirements that API description authors are RECOMMENDED to avoid in order to maximize interoperability.
+Unlike undefined behavior, it is safe to rely on implementation-defined behavior if \_and only if\_ it can be guaranteed that all relevant tools support the same behavior.
+
+\#\# Format
+
+An OpenAPI document that conforms to the OpenAPI Specification is itself a JSON object, which may be represented either in [[RFC8259|JSON]] or [[YAML|YAML]] format.
+Examples in this specification will be shown in YAML for brevity.
+
+All field names in the specification are **case-sensitive**.
+\end{minted}
+
+
+\subsection{LlamaIndex RAG \& OAS}
+%een vraag stellen over de OAS dat opgesplitst is met chunking gebruikmakend van RAG
+
+\todo{try to chunk OAS and also Query LLM about OAS -> demo 31, when ready the code-image can be used, combine techniques from demo 10 and demo 30}
+
+% j J
+
+\subsection{LlamaIndex vs LangChain}
+
 \section{Gradio Prototyping}
 % see gradio workspace, also see course 2: RAG
 Gradio is een open source python library om snel een gebruiksvriendelijke web-gebaseerde user-interfaces op te zetten. Dit maakt een verbinding op een localhost poort en de connectie kan ook gedeeld worden. Ideaal om een prototype op te zetten en te delen. Het kan goed om met machine learning modellen en rekenkundige tools. Dit kan geinstalleerd worden met \textit{pip install gradio}.
@@ -1074,6 +1331,7 @@ We zien hier \ref{fig:gradiofilesearchpdf} de output van het doorzoeken van file
 \end{figure}
 
 %todo: see what I did for the above, do same
+% note better documentloader exists for yayson: \footnote{\href{https://llamahub.ai/l/readers/llama-index-readers-json}{https://llamahub.ai/l/readers/llama-index-readers-json}}
 
 \begin{figure}[H]
     \centering
