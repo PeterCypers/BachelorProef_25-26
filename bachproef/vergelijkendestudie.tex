@@ -934,8 +934,6 @@ Dan werd er besloten om even verder te gaan met het onderzoeken van andere techn
 \section{LlamaIndex}
 %RAG course delves into this
 
-%todo: demo 10 contains everything I want to discuss for now
-
 LlamaIndex\footnote{\href{https://www.llamaindex.ai/llamaindex}{https://www.llamaindex.ai/llamaindex}} is een framework voor het bouwen van contextbewuste AI-agents. Verder bespreken we een aantal features van LlamaIndex met een focus op RAG - functionaliteiten. \\
 
 Use cases voor RAG met LlamaIndex: 
@@ -1117,7 +1115,6 @@ De agent wordt aangemaakt, deze is van het type AgentWorkFlow en kan trouwens me
 
 \subsection{Chunking van Groot document(OAS)}
 
-%todo: add the image here for OAS chunking
 In de vorige demo werden de documenten niet eerste in stukken gekapt maar het RAG proces werkte daar alsnog, hier wordt er getracht om eerst een groot document, de OpenAPI Specification (3.2.0), in stukken te kappen alvorens deze in de vector-store te steken. Het doel is nu enkel om het eerste opgeslagen Node uit te printen.
 
 
@@ -1190,6 +1187,13 @@ All field names in the specification are **case-sensitive**.
 % j J
 
 \subsection{LlamaIndex vs LangChain}
+
+LlamaIndex heeft krachtige, hoge level (wrapper-) klassen en simplificeert verschillende stappen in het RAG proces. \\
+
+LangChain daarentegen heeft als voordeel dat het granulair en flexibel (en customizable) is juist omdat er meer manuele setup vereist is.
+
+LangGraph, als natuurlijke opvolger van LangChain, kan mogelijk een nog betere oplossing bieden. Het wordt momenteel alleen onderzocht indien er voldoende tijd is, maar het verdient zeker vermelding als een veelbesproken framework.
+
 
 \section{Gradio Prototyping}
 % see gradio workspace, also see course 2: RAG
@@ -1270,8 +1274,6 @@ ollama \\
 
 
 \subsection{File Search}
-%todo explain my project and show the code plus maybe the view, discuss the code in great detail
-
 % file_search_code_1.png
 % file_search_code_2.png
 
@@ -1284,68 +1286,14 @@ Hier volgt een uitwerking van RAG op HuggingFace, de demo staat live op HuggingF
     \caption[Op HuggingFace uitgerolde RAG-implementatie]{\label{fig:gradiofilesearch}Eigen code implementatie van RAG op HF-Spaces, deel 1.}
 \end{figure}
 
-%todo: uitleg van de code, choose to either start explaining the first half here(opinion now: preferred), or explain both parts after the next screenshot
+%todo: is OS import needed?
+\textbf{Uitleg bij de code:} De os wordt geïmporteerd en later bij initialisatie van de LLM gebruikt om de API-key in te stellen. De imports gebeuren, daarna volgt het ophalen van de \textbf{brondata} en \textbf{inladen} als LlamaIndex Document klassen. Het wordt nu aangeraden om een specifieke JSON-loader\footnote{\href{https://llamahub.ai/l/readers/llama-index-readers-json}{https://llamahub.ai/l/readers/llama-index-readers-json}} te gebruiken, maar het lukt hier nog wel om met de SimpleDirectoryLoader met JSON files te werken. Zie mappenstructuur \ref{filestructurerandomfiles}. Uit deze files systeem worden alle documenten met bepaalde extentie ingeladen in de documents variabelen, essay is één enkele tekst bestand, deze RAG-pipeline werkte niet met de qwen3-vl maar wel met een gpt-oss-variant. \\
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{file_search_code_2.png}
-    \caption[Op HuggingFace uitgerolde RAG-implementatie]{\label{fig:gradiofilesearch2}Eigen code implementatie van RAG op HF-Spaces, deel 2.}
-\end{figure}
-
-
-%todo: explain the code fragment
-% file_search_specificfile.png
-% file_search_pdf.png
-% file_search_json.png
-
-Op de HF-Space repo staat volgend mappenstructuur:
-\begin{verbatim}   
-data/
-├── essay/
-│   └── essay.txt
-└── random files/
-    ├── pdf-1.pdf
-    ├── pdf-2.pdf
-    ├── pdf-3.pdf
-    ├── pdf-4.pdf
-    ├── pdf-5.pdf
-    ├── a.json
-    ├── b.json
-    ├── c.json
-    ├── d.json
-    └── e.json
-\end{verbatim}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{file_search_pdf.png}
-    \caption[HuggingFace RAG-implementatie pdf]{\label{fig:gradiofilesearchpdf}Output van de RAG-demo op pdf bestanden.}
-\end{figure}
-
-We zien hier \ref{fig:gradiofilesearchpdf} de output van het doorzoeken van files met extensie .pdf met de vraag: "who were the members of the team". Tussen de pdf-files is er één bestand waarin we erkenning van de team bij \autocite{IBM2026} aantreffen.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{file_search_json.png}
-    \caption[HuggingFace RAG-implementatie JSON]{\label{fig:gradiofilesearchjson}Output van de RAG-demo op JSON bestanden.}
-\end{figure}
-
-%todo: see what I did for the above, do same
-% note better documentloader exists for yayson: \footnote{\href{https://llamahub.ai/l/readers/llama-index-readers-json}{https://llamahub.ai/l/readers/llama-index-readers-json}}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{file_search_specificfile.png}
-    \caption[HuggingFace RAG-implementatie specifiek bestand]{\label{fig:gradiofilesearchspecificfile}Output van de RAG-demo op één specifiek tekst bestand.}
-\end{figure}
-
-%todo: see what I did for the above, do same
+De \textbf{HuggingFaceEmbeddings} worden gedownload en in de settings ingesteld, als men naar de logs kijkt op de live HF-space zal er heel wat output te zien zijn, de progress wordt hiervan uitgeprint. De LLM wordt ook in de settings ingesteld, belangrijk weer om de echte URL te gebruiken naar de Ollama API en niet de localhost poort. Nu bij het opslaan van de 'indices' dictionary waarvan de waarde één van 3 vector-stores is, dit zal ook een procedure opstarten, hier worden de \textbf{Documents geïndexeerd in de vectorstore}, in memory (RAM) op de HF-Space server, eerst zien we de HF-embedding model downloaden, daarna zijn er honderden lijnen output weggelaten en vervolgens het indexeren van de documenten in de vectorstore. Zie onderstaande output van de logs:
 
 % j J
 
-%note at startup of this space it will preload all the embedding models, there are 100's of lines of code showing the progress visible in the HF-space logs. The embedding happens when the space starts up, what specific part of the code does this?
-\begin{comment}
-    \verb|
+\begin{minted}{markdown}
     2026-03-21 17:19:39,483 - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-base-en-v1.5/resolve/main/model.safetensors "HTTP/1.1 302 Found"
     2026-03-21 17:19:39,537 - INFO - HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-base-en-v1.5/xet-read-token/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a "HTTP/1.1 200 OK"
     
@@ -1370,8 +1318,67 @@ We zien hier \ref{fig:gradiofilesearchpdf} de output van het doorzoeken van file
     Loading weights:  72%|███████▏  | 144/199 [00:00<00:00, 2107.52it/s, Materializing param=encoder.layer.8.intermediate.dense.bias]    
     Loading weights:  72%|███████▏  | 144/199 [00:00<00:00, 2105.62it/s, Materializing param=encoder.layer.8.intermediate.dense.bias]
     Loading weights:  73%|███████▎  | 145/199 [00:00<00:00, 2116.87it/s, Materializing param=encoder.layer.8.intermediate.dense.weight]
-    |
-\end{comment}
+\end{minted}
+
+Het is belangrijk dat bovenstaande code buiten de main methode staat dat telkens opnieuw zal aangeroepen worden bij een klik op de submit knop. Deze dure bewerkingen zullen dus eenmalig uitgevoerd worden. We gebruiken nog steeds geen eigen persistent vector-DB. Dat zou ook mogelijk moeten zijn.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{file_search_code_2.png}
+    \caption[Op HuggingFace uitgerolde RAG-implementatie]{\label{fig:gradiofilesearch2}Eigen code implementatie van RAG op HF-Spaces, deel 2.}
+\end{figure}
+
+\textbf{Uitleg bij de code:} Er is een hulpfunctie om de desbetreffend verzameling Documents uit de dictionary op te halen waarvoor er een relevante prompt klaar staat in de Gradio Interface examples. Dan volgt de main functie waarvan de code heel gelijkaardig is aan figuur: \ref{fig:llamaindexragdemo}. Met het verschil dat we nu kunnen kiezen welke soort files we willen doorzoeken. De bijhorende vectorstore index wordt opgehaald afhankelijk van het gekozen type document, deze wordt omgezet naar een \textbf{query engine} dat binnen de innerfunction (Tool) kan gequeried worden, dat is weer de Retrieval stap. De query embedding en ophalen van top-k meest relevante tekst-stukken, van de tool returnwaarde wordt een nieuwe Augmented prompt gemaakt bestaand uit de samengevatte documentstukken en originel gebruiker prompt. De \textbf{LLM} kan deze tool herkennen omdat deze meegegeven wordt met de AgentWorkflow en eerst zal de prompt aan door de tool verwerkt worden voordat de LLM dan met de response daarvan inferentie doet. Dus \textbf{2x}, eerste \textbf{inferentie} als de gebruiker een prompt aan de agent geeft, er wordt beslist of er genoeg kennis is om al te antwoorden of als de beschikbare tool(s) nodig zijn, de agent weet dat er een \textbf{'search\_documents' tool} beschikbaaar is dus als de gebruiker een vraag stelt om op zoek te gaan in de documenten zal deze tool een hoge kans hebben om gebruikt te worden. Er wordt beslist de tool in te zetten en met de returnwaarde hiervan wordt door de LLM nog eens inferentie op gedaan, nu gewapend met een specifiek prompt en een document samenvatting kan de LLM een context-onderbouwd antwoord terugsturen naar de gebruiker. \\
+
+% j J
+
+% file_search_specificfile.png
+% file_search_pdf.png
+% file_search_json.png
+
+Op de HF-Space repo staat volgend mappenstructuur:
+\begin{verbatim}   
+data/
+├── essay/
+│   └── essay.txt
+└── random files/
+    ├── pdf-1.pdf
+    ├── pdf-2.pdf
+    ├── pdf-3.pdf
+    ├── pdf-4.pdf
+    ├── pdf-5.pdf
+    ├── a.json
+    ├── b.json
+    ├── c.json
+    ├── d.json
+    └── e.json
+\end{verbatim}
+\label{filestructurerandomfiles}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{file_search_pdf.png}
+    \caption[HuggingFace RAG-implementatie pdf]{\label{fig:gradiofilesearchpdf}Output van de RAG-demo op pdf bestanden.}
+\end{figure}
+
+\textbf{Uitleg bij de output:} We zien hier \ref{fig:gradiofilesearchpdf} de output van het doorzoeken van files met extensie .pdf met de vraag: "who were the members of the team". Tussen de pdf-files is er één bestand waarin we erkenning van de team bij \autocite{IBM2026} aantreffen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{file_search_json.png}
+    \caption[HuggingFace RAG-implementatie JSON]{\label{fig:gradiofilesearchjson}Output van de RAG-demo op JSON bestanden.}
+\end{figure}
+
+\textbf{Uitleg bij de output:} Tussen de verschillende JSON bestanden was er één die paste bij de vraag dat werd gesteld. Dus het ophalen hiervan met DocumentLoader is mogelijk, maar mischien herwerken om de JSON loader te gebruiken als er gekozen wordt om verder te gaan met deze technologie.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{file_search_specificfile.png}
+    \caption[HuggingFace RAG-implementatie specifiek bestand]{\label{fig:gradiofilesearchspecificfile}Output van de RAG-demo op één specifiek tekst bestand.}
+\end{figure}
+
+\textbf{Uitleg bij de output:} Een samenvatting werd gemaakt van een bepaalde tekst bestand, een essay van Paul Graham \footnote{\href{https://paulgraham.com/articles.html}{https://paulgraham.com/articles.html}}.
 
 \subsection{Offline vs Deployed}
 
@@ -1397,6 +1404,8 @@ Het moet vermeld worden dat koppelen van VSC met HF-space voor versiecontrole en
 
 \section{Pydantic AI}
 %als er tijd is om dit ook nog te onderzoeken
+
+\section{n8n}
 
 \section{Crew AI}
 %als er tijd is
