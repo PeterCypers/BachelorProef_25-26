@@ -578,29 +578,168 @@ LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan.
 % keep this section brief (look at that nice article in the chrome-tabs group)
 \section{Agentic AI}
 
+Een door LLMs gestuurd systeem dat beslissingen kan maken, autonoom acties kan ondernemen, tools kan gebruiken, dit alles met minimale input van een menselijke gebruiker. \\
+
+Wat is het verschil met klassieke generatieve modellen? AI Agents hebben de capaciteiten om complexe doelen te bereiken met minimale supervisie en verschillen hierin met generatieve AI waarmee de gebruiker met een prompt nieuwe content kan genereren. Agents kunnen beslissingen maken (zoals het aanroepen van tools) afhankelijk van veranderende context, ze hebben dus hun eigen "agency" \autocite{IBMd}. \\
+% proactive(goal oriented and multi-step reasoning) vs reactive (a calculator does what it is told to do)
+
+AI agents zijn proactief en kunnen problemen in meerdere stappen aanpakken in tegenstelling tot een reactief calculerend machine die simpelweg gekregen opdrachten uitvoert. \\
+
+% Agentic AI describes a system or program that can independently execute tasks for a user or another system. It autonomously designs workflows, utilizes available tools, makes decisions, takes actions, solves complex problems, and interacts with external environments, extending its capabilities beyond the data used to train its machine learning (ML) models. src: Mod2-lab3
+
+\begin{quote}
+    "Agentic AI describes a system or program that can independently execute tasks for a user or another system. It autonomously designs workflows, utilizes available tools, makes decisions, takes actions, solves complex problems, and interacts with external environments, extending its capabilities beyond the data used to train its machine learning (ML) models." \\
+    - \autocite{IBM2026}
+\end{quote}
+
 \subsection{Tool gebruik}
+
+Het is algemeen geweten dat LLMs (Large \textbf{Language} Models) best om kunnen met mensentaal als input, dan kan er met NLP technieken, tokenization en prompt embedding gewerkt worden om een zinvol en relatief voorspelbaar output te generen. In de vroege dagen van de commercieel beschikbare chatbots zoals ChatGPT waren er grappige kinderziektes zoals\footnote{\href{https://community.openai.com/t/incorrect-count-of-r-characters-in-the-word-strawberry/829618}{https://community.openai.com/t/incorrect-count-of-r-characters-in-the-word-strawberry/829618}}: \\
+
+User prompt: \\
+\textit{"How many 'r' in 'strawberry'"}\\
+
+ChatGPT response:\\
+\textit{There are two 'r' characters in the word 'strawberry'.} \\
+
+Het (verkeerd) interpreteren van woord-delen was een soort token opsplitsings-probleem: \ref{fig:strawberrytokens}\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{strawberry_tokens.png}
+    \caption[GPT 3.0 tokenization van 'strawberry']{\label{fig:strawberrytokens}GPT 3.0 tokenization van 'strawberry' op https://platform.openai.com/tokenizer.}
+\end{figure}
+
+Men had voor dat probleem al een geniaal oplossing gevonden, namelijk aan ChatGPT vragen om een python programma te maken en deze te gebruiken om de hoeveelheid 'r'en in 'strawberry' te berekenen. Hiermee kon de LLM wel tot een correct antwoord komen. Dit kan beschouwd worden als een vroege voorbeeld van tool-gebruik. \\
+
+Nu is tool-gebruik zoals online informatie ophalen al sterk geïntegreerd bij de chatbots zoals ChatGPT, Claude, Gemini. Wanneer er up-to-date info of expliciete web-opzoekingen gevraagd worden zullen deze een achterliggend tool aanroepen dat de data ophaalt van specifieke online bronnen. Men kan echter zelf tools beschikbaar stellen zodat LLMs deze kunnen gebruiken, van uiteenlopende complexiteit, als simpel voorbeeld zou men een calculator-tool kunnen maken als een functie in een bepaald codeer taal en als beschikbaar tool instellen bij die LLM. Nu zal deze bij aanroep autonoom beslissen of het nodig is deze tool wel of niet te gebruiken om tot een juist antwoord te komen. Dit zijn voorbeelden van agentic gedrag. \\
+
+We zullen heel wat voorbeelden van tool gebruik zien in hoofdstuk \ref{ch:vergelijkende-studie}. 
 
 % tool gebruik is gelijkaardig aan RAG in het opzicht dat de LLM uit de vraag zal opmaken of een tool wel of niet nodig is. Bij verschillende online AI-chatbots en ook IDE-geintegreerde agents kan men zelf bepaalde tools kiezen
 % needs some more thinking... VSC-agents and ChatGPT and Ollama internet search, mainly VSC-github copilot chat, link to Ollama tool use code
 
+\subsection{Agentic Design patterns}
+
+Om complexe doelen te bereiken, vertrekken AI agents vanuit een aantal terugkerende ontwerppatronen met verschillende uitvoeringsprocessen. Vervolgens bespreken we kort een aantal hiervan volgens \autocite{Dilmegani2025}:
+
+\begin{enumerate}
+    \item \textbf{Reflection pattern:} Een iteratief proces waarbij de AI niet direct antwoord maar zijn eerst nadenkt over de kwaliteit van het antwoord, een beoordeling maakt en tracht een mogelijk verbeterde versie te genereren alvorens één uiteindelijk meer kwalitatieve antwoord naar de gebruiker te sturen.
+    \item \textbf{Tool use pattern:} Bij een gebruiker-prompt kan de LLM wanneer deze tools ter beschikking heeft kiezen om deze te gebruiken om te helpen met het genereren van een response. Het is mogelijk dat de LLM beslist beschikbare tools niet te gebruiken. Bepaalde frameworks laten toe in het ontwerp van AI-systemen om feedback naar de gebruiker toe te tonen wanneer tools aangeroepen worden, een voorbeeld met Claude.ai bij een vraag naar de recentste veranderingen van een bepaald technologie zien we de bijschrift: "Searching the web". Dit kan ook in de vorm van API-calls en met behulp van MCP, dit wordt besproken in sectie \ref{sec:mcpacpa2a}
+    \item \textbf{Planning pattern:} De AI kan een complexe taak opsplitsen in kleinere subtaken en deze sequentieel of in parallel uitvoeren om zo tot een antwoord te komen voor de complexe taak. Decompositie, een belangrijke vaardigheid bij software engineering.
+    \item \textbf{Multi-agent pattern:} Een systeem dat meerdere AI agents bevat, een workflow waar de agents met behulp van bepaalde protocollen (zoals A2A: \ref{sec:mcpacpa2a}) met elkaar communiceren en samenwerken om complexe taken te realiseren.
+\end{enumerate}
+
 % may remove this segment (or super-short explenation):
 \subsection{ReACT Agent}
 
-\section{Multi-Agent Workflow}
+
+\section{Protocol: MCP - ACP - A2A}
+\label{sec:mcpacpa2a}
+% ACP Joins Forces with A2A Under the Linux Foundation
+% https://github.com/orgs/i-am-bee/discussions/5
+% \autocite{Blair2025}
+%ACP is linked to IBM and BEE-AI and is donated to the linux foundation and integrated into A2A
+
+% https://framework.beeai.dev/integrations/a2a
+
+\subsection{MCP}
+% by Anthropic
+%postmanmcp  (and https://laravel.com/docs/12.x/boost mcp tab)
+
+% https://framework.beeai.dev/integrations/mcp
+% https://framework.beeai.dev/modules/tools#mcp
+
+% staat voor Model Context Protocol
+
+Model Context Protocol (MCP) is een open-source standaard om AI-applicaties met externe systemen te verbinden, ontworpen door Anthropic \autocite{AnthropicMCP2025}. \\
+
+Met behulp van MCP kan een host-applicatie gebruikmakend van AI-integraties een client-server relatie hebben tot bepaalde MCP-servers. Wanneer een gebruiker de host-applicatie gebruikt kan de AI bepalen dat er externe tools of resources nodig zijn en deze aanroepen gebruikmakend van MCP. Er zijn verschillende beschikbare MCP servers. Zoals github MCP: \ref{fig:githubmcp}
+
+%github_mcp.png
+%https://github.com/mcp
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{github_mcp.png}
+    \caption[Github MCP servers]{\label{fig:githubmcp}Github MCP servers op https://github.com/mcp.}
+\end{figure}
+
+Deze MCP servers, waarvan er op Github op het moment van schrijven 93 beschikbaar zijn maken het mogelijk om met AI-applicaties te verbinden met allerlei externe tools en functionaliteiten. Het kan als een soort service gezien worden waarvan het onderhoud dus ook een externe afhankelijkheid is. \\
+
+Anthropic schonk MCP aan The Linux Foundation om ervoor te zorgen dat dit een open, neutraal en community-gedreven standaard blijft \autocite{LinuxFoundation2025}.
+
+\subsection{AAIF}
+
+De Agentic AI Foundation(AAIF) werd mede-opgericht door het non-profit bedrijf The Linux Foundation en beheert nu, onder anderen, een reeks technologieën die te maken hebben met AI. The Linux Foundation is een overkoepelende organisatie die een neutrale omgeving biedt voor het onderhouden van de verschillende technologieën waarover ze waken \autocite{LinuxFoundation2025}. \\
+
+\begin{quote}
+    "The AAIF provides a neutral, open foundation to ensure agentic AI evolves transparently and collaboratively." \\
+    - \autocite{LinuxFoundation2025}
+\end{quote}
+
+Ze zorgen ervoor dat Anthropic's MCP en OpenAI's AGENTS.md open source blijven.
+
+\subsection{AGENT.md}
+
+Ontwikkeld door OpenAI, AGENT.md is een file dat in de root van een Github repository thuis hoort en bedoeld is om AI-agents die in contact komen met deze repositories te helpen sturen en instructies te geven over hoe ze met de repository moeten omgaan. \\
+% https://agents.md/
+
+Voorbeeld AGENT.md\footnote{\href{https://agents.md/}{https://agents.md/}} file:
+
+\begin{minted}{markdown}
+    # Sample AGENTS.md file
+    
+    ## Dev environment tips
+    - Use `pnpm dlx turbo run where <project_name>` to jump to a package instead of scanning with `ls`.
+    - Run `pnpm install --filter <project_name>` to add the package to your workspace so Vite, ESLint, and TypeScript can see it.
+    - Use `pnpm create vite@latest <project_name> -- --template react-ts` to spin up a new React + Vite package with TypeScript checks ready.
+    - Check the name field inside each package's package.json to confirm the right name—skip the top-level one.
+    
+    ## Testing instructions
+    - Find the CI plan in the .github/workflows folder.
+    - Run `pnpm turbo run test --filter <project_name>` to run every check defined for that package.
+    - From the package root you can just call `pnpm test`. The commit should pass all tests before you merge.
+    - To focus on one step, add the Vitest pattern: `pnpm vitest run -t "<test name>"`.
+    - Fix any test or type errors until the whole suite is green.
+    - After moving files or changing imports, run `pnpm lint --filter <project_name>` to be sure ESLint and TypeScript rules still pass.
+    - Add or update tests for the code you change, even if nobody asked.
+    
+    ## PR instructions
+    - Title format: [<project_name>] <Title>
+    - Always run `pnpm lint` and `pnpm test` before committing.
+\end{minted}
+
+Men heeft ondertussen een onderzoek gedaan om te bepalen of deze AGENT.md files behulpzaam zijn, waarvan de resultaten aantonen dat deze files echter maar een miniem effect hebben op de AI Agents die ze interpreteren \autocite{gloaguen2026}.
+
+
+\subsection{ACP \& A2A}
+
+In maart 2025 lanceerde IBM({\emojifont 👁} {\emojifont 🐝} M) de Agent Communication Protocol (ACP) dat ontwikkeld werd om de samenwerking van AI-agents te faciliteren binnen hun (ook zelf ontworpen) BeeAI platvorm \autocite{Blair2025}. Een maand later kwam \autocite{Google2025} op de proppen met A2A (Agent2Agent) protocol. Hierbij kondigden IBM aan dat ze hun ACP samensmelten met A2A en samen schenken aan The Linux Foundation \autocite{Blair2025}. Voor BeeAI wordt nu de A2A protocol verkozen en er bestaat een migratie gids dat men kan volgen voor de overzet van ACP naar A2A.
+
+\subsection{A2A}
+Het Agent2Agent protocol is nu een open standaard die gehanteerd wordt om de samenwerking tussen meerdere agents te coördineren. Net zoals bij MCP kan er een client-agent en server-agent relatie bestaan, waarbij een app, service of AI-agent requests kan sturen via een A2A compatibel HTTP-endpoint naar een remote agent(server-agent), wat inter-agent samenwerking mogelijk maakt \autocite{IBMe}.
+
+\section{Multi-Agent Frameworks \& Workflows}
 %forwards reference to vergel.-studie demo
 % Hier zal een demo getoond worden gebruikemakend van LlamaIndex, zie ref-llamaindex voor info over die framework, hier zullen we kort uitleggen wat deen multi-agent workflow inhoud, toolgebruik, agent-autonomie van beslissingen ameken (handoff), API calls, agentworkflow(kan ook met 1 agent), maar maakt mogeliyk een reeks agents in te stellen -> zie llamaindex workspace file 92, dit is een voorbeeld dat veel tokens kost om te draaien, research -> write -> review, interne werking staat uit comment, de normale uitvoer staat in comment, dit staat ook online op huggingface spaces maar werkt minder goed in die online omgeving als hier als py file op de lokale machine, tavily web-search tool with it's own api
 
 % may remove this segment (or super-short explenation):
-\section{Model Context Protocol(todo)}
-%postmanmcp  (and https://laravel.com/docs/12.x/boost mcp tab)
 
-% move API dev to OAS section as a sidenote
-%\section{API development(todo)}
-% DEV en TEST, bestaande tools? Bottlenecks? Ik weet niet echt hoe dit te onderzoeken... naast wat ik tot nu toe al gevonden heb
+% c8-module1-4(vid)
+% specialization is one advantage of multi-agent workflow(each agent is a specialist), parallel processing, multiple agents work at the same time, fault tolerance: 1 agent fails, another takes it's place, scalability, as complexity grows, more agents are added, modularity: easy to update or replace individual components.
 
-% move API testing to OAS section as a sidenote, but motivated by source to try making a RAG-agent
-%\section{API testen(todo)}
-% verdere onderzoek nodig
+% without frameworks it's very complex, you need to manage message passing protocols, state, coordination, error handling, monitoring/debugging
+
+% autonomous systems that think/plan/act
+
+% generator -> evaluator pipeline -> my research - write and review agents
+
+% so see my overall notes for ch.8-mod1 and possibly also link to my multi-agent workflow, however we'll see some of those anyway in vergel.-study at LangGraph, CrewAI and BeeAI
+
+\subsection{Multi-Agent Design Patterns}
+
+
 
 \section{API development en testing}
 % mogelijks ondersteund door RAG

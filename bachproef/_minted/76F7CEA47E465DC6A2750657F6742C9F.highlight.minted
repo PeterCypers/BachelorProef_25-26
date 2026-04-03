@@ -1,0 +1,22 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{g+gh}{\PYGZsh{} Sample AGENTS.md file}
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} Dev environment tips}
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Use \PYG{l+s+sb}{`pnpm dlx turbo run where \PYGZlt{}project\PYGZus{}name\PYGZgt{}`} to jump to a package instead of scanning with \PYG{l+s+sb}{`ls`}.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Run \PYG{l+s+sb}{`pnpm install \PYGZhy{}\PYGZhy{}filter \PYGZlt{}project\PYGZus{}name\PYGZgt{}`} to add the package to your workspace so Vite, ESLint, and TypeScript can see it.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Use \PYG{l+s+sb}{`pnpm create vite@latest \PYGZlt{}project\PYGZus{}name\PYGZgt{} \PYGZhy{}\PYGZhy{} \PYGZhy{}\PYGZhy{}template react\PYGZhy{}ts`} to spin up a new React + Vite package with TypeScript checks ready.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Check the name field inside each package\PYGZsq{}s package.json to confirm the right name—skip the top\PYGZhy{}level one.
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} Testing instructions}
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Find the CI plan in the .github/workflows folder.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Run \PYG{l+s+sb}{`pnpm turbo run test \PYGZhy{}\PYGZhy{}filter \PYGZlt{}project\PYGZus{}name\PYGZgt{}`} to run every check defined for that package.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }From the package root you can just call \PYG{l+s+sb}{`pnpm test`}. The commit should pass all tests before you merge.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }To focus on one step, add the Vitest pattern: \PYG{l+s+sb}{`pnpm vitest run \PYGZhy{}t \PYGZdq{}\PYGZlt{}test name\PYGZgt{}\PYGZdq{}`}.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Fix any test or type errors until the whole suite is green.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }After moving files or changing imports, run \PYG{l+s+sb}{`pnpm lint \PYGZhy{}\PYGZhy{}filter \PYGZlt{}project\PYGZus{}name\PYGZgt{}`} to be sure ESLint and TypeScript rules still pass.
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Add or update tests for the code you change, even if nobody asked.
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} PR instructions}
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Title format: [\PYGZlt{}project\PYGZus{}name\PYGZgt{}] \PYGZlt{}Title\PYGZgt{}
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }Always run \PYG{l+s+sb}{`pnpm lint`} and \PYG{l+s+sb}{`pnpm test`} before committing.
+\end{MintedVerbatim}

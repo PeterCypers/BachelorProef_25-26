@@ -4,6 +4,22 @@
 \chapter{\IfLanguageName{dutch}{Risico's van AI gebruik}{Risks of using AI}}%
 \label{ch:risicosvanaigebruik}
 
+% -> zoek nl - titel
+\section{Evolving AI Field}
+
+De wereld van AI-technologie is razendsnel aan het veranderen en is constant in flux. Wanneer men zelf code wil integreren in projecten/producten zal er rekening moeten gehouden met het feit dat de implementatie regelmatig zal aangepast moeten worden, de verschillende bestaande frameworks zijn regelmatig aan het evolueren. \\
+
+De bestaande methodes veranderen, de API aanroepen eveneens. Het is een snel veranderende industrie. %todo: beter word?  and find more examples or stories
+
+LangChain werd volledig hernieuw, nieuwe integraties en collaboraties springen voort. Ollama was nog in versie 0.13 toen dit onderzoek begon, de 0.15 update heeft grote veranderingen meegebracht op vlak van integratie van andere technologieën, op het moment van schrijven zitten ze aan 0.18 en telkens brengen deze updates meer opties en integraties met zich mee. \\
+
+Als men vast hangt aan de technieken van maanden geleden zal men de verbeterde kwaliteit van leven en gebruiksvriendelijkheid, sterke nieuwe integraties en nog veel andere mogelijkheden missen. \\
+
+Wanneer bedrijven willen werken met custom AI-integraties kunnen ze best ervan bewust blijven dat er mensen zullen moeten ingezet worden op deze infrastructuur te onderhouden. 
+
+%todo: consider to keep this, or improve/source
+%Het is mischien iets minder het geval wanneer men bepaalde technologieen gebruikt in plaats van deze zelf te implementeren. De onderhoud is out-sourced.
+
 \begin{comment}
     DREIGINGEN INHERENT IN LLMs
     LLMs als een snapshot in de tijd:
@@ -86,6 +102,13 @@
     - Het verzamelen van gebruikers-data (gevoelige gegevens/bedrijfsgegevens/bedr.-code)
 \end{comment}
 
+\section{Security \& Privacy}
+%https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/
+% \autocite{Rogriguez2026}
+
+\subsection{Trust but verify}
+% don't just accept AI-output, always check if it's correct
+
 \section{Hallucinaties}
 Wanneer een chatbot antwoord vol overtuiging en dit lijkt op het eerste zicht plausibel maar blijkt toch geen bron van waarheid te hebben, dit noemt met hallucineren. 
 %re-write this section with better sources -> data quality
@@ -127,6 +150,16 @@ like gaming consoles (sony, etc)
 
 are they the world's most profitable corporation now? -> look into
 
+\subsection{Attention}
+% attention is all you need
+
+% recente doorbraak:
+% https://youtu.be/2IfAVV7ewO0?si=9X9LSEyMvZNiyZmk
+% https://arxiv.org/abs/2603.15031
+% Attention Residuals
+
+% TODO: read and see if it sounds good
+Hoe langer de context wordt, hoe meer kans op hallucinaties, het Kimi-AI team maakte hier recent nog een doorbraak in verbeteringen van model architectuur om dit probleem te helpen oplossen. Met de paper: \autocite{Kimi2026} gebruiken ze 'attention residuals' en maken grote vooruitgang om het probleem rond hallucinaties op te lossen. 
 
 \section{Overwegingen bij het maken van AI-gedreven projecten}
 % j J
@@ -161,7 +194,7 @@ Er moet een zekere overzicht en controle blijven op het gebruik van LLMs op de i
 \subsubsection{Benchmarking}
 % gebruikte modellen regelmatig vergelijken met andere modellen. sterktes en zwaktes van verschillende modellen voor de nodige use-case(s) waarvoor ze worden gebruikt aftoetsen. Mogelijks moeten gebruikte LLMs geupdate worden naar een nieuwere versie, of zal er overwogen worden om over te stappen op een andere LLM omdat deze voor de relevante benchmaarks hoger scoort dan de gebruikte LLM.
 
-
+\section{Human in the loop}
 
 
 \section{Self-Consistency}

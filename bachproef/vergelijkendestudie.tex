@@ -847,8 +847,8 @@ LangChain heeft ook een manier om token gebruik te meten.
 
 \textbf{Output:}
 \begin{tcolorbox}[colback=gray!20, colframe=gray!80]
-ResponseFormat(punny\_response="Well, it looks like you're in for some ray-lly good weather! It's always sunny in Florida, so you can bask in the sunshine and have a bright day ahead! I guess you could say the forecast is absolutely sun-sational! ☀️", weather\_conditions="It's always sunny in Florida!")
-ResponseFormat(punny\_response="You're very welcome! I'm just here to help you weather any storm of questions! Have a sun-derful day! 🌞", weather\_conditions=None)
+ResponseFormat(punny\_response="Well, it looks like you're in for some ray-lly good weather! It's always sunny in Florida, so you can bask in the sunshine and have a bright day ahead! I guess you could say the forecast is absolutely sun-sational! {\emojifont ☀️}", weather\_conditions="It's always sunny in Florida!")
+ResponseFormat(punny\_response="You're very welcome! I'm just here to help you weather any storm of questions! Have a sun-derful day! {\emojifont 🌞}", weather\_conditions=None)
 \end{tcolorbox}
 \textbf{Uitleg bij de code:} Er werden ook verschillende zonnige emoji's gebruikt in de response van de LLM. Hier worden heel wat verschillende mogelijke technieken in gezet om met de AI-agent bepaalde doelen te bereiken, deze code verzamelt een reeks van stappen in de quickstart-guide onder het segment: 'Build a real-world agent', iets meer complex dan de basic agent uit \ref{sssec:langchainquickstart}. \\
 
@@ -1018,9 +1018,7 @@ Parsing nodes: 100%|████████████████████
 
 \subsection{LlamaIndex RAG demo}
 
-Nu kunnen we al zonder de files in stukken te kappen RAG toepassen op semi-grote files, we hebben een folder dat 3 pdf bestanden bevat en er is een prompt voorbereid dat de LLM zal vragen om een relevant deel van de contextueel inhoud van deze files te bespreken. 
-
-\todo{consider and investigate: does chunking even matter if we use vector-embedding in a vector store?}
+Nu kunnen we al RAG technieken toepassen op een reeks van files, we hebben een folder dat 3 pdf bestanden bevat en er is een prompt voorbereid dat de LLM zal vragen om een relevant deel van de contextueel inhoud van deze files te bespreken. 
 
 \begin{figure}[H]
     \centering
@@ -1041,7 +1039,7 @@ De volgende 3 lijnen zijn een representatie van hoe LlamaIndex het RAG proces si
 
 \begin{enumerate}
     \item \textbf{SimpleDirectoryReader:} De variabele 'documents' wijst naar onze opgehaalde lijst van documenten die met SimpleDirectoryReader allen zijn ingeladen, klaar voor de volgende stap.
-    \item \textbf{VectorStoreIndex:} De variabele 'index' zijn de geïndexeerde documenten, VectorStoreIndex handelt gelijk de embedding en vector-store af. Hier kan trouwens ook een meer persistente vector-DB aan worden meegegeven, op dit moment wordt het enkel in-memory bijgehouden.
+    \item \textbf{VectorStoreIndex:} De variabele 'index' zijn de geïndexeerde documenten, VectorStoreIndex handelt gelijk de document-chunking, embedding en vector-store af. De methode .from\_documents() krijgt een lijst van Document objecten mee en heeft ook een transformations parameter waaraan men een ingestion pipeline kan meegeven, dat kan TextSplitters en NodeParsers bevatten voor meer controle over hoe de documenten worden geïndexeerd. Hier kan trouwens ook een meer persistente vector-DB aan worden meegegeven, op dit moment wordt het enkel in-memory bijgehouden.
     \item \textbf{query engine:} LlamaIndex' query engine handelt al het volgende achter de schemren af: prompt embedding, retrieval, prompt augmentation, LLM querying en response generation. Dit vereenvoudigt de het RAG proces aanzienlijk! Dit zet onze VectorStoreIndex om naar een query engine, het is ook mogelijk om deze naar een retriever om te zetten met \textit{index.as\_retriever()}.
 \end{enumerate}
 
@@ -1113,9 +1111,11 @@ De agent wordt aangemaakt, deze is van het type AgentWorkFlow en kan trouwens me
 
 \textbf{Uitleg bij de output:} De embedding model dat werd gebruikt is afkomstig van HuggingFace, dus er worden een heleboel API-requests gestuurd naar die service en het duurde wel bijna 3 minuten om een antwoord te verkrijgen. De agent heeft wel uit het correct pdf document de relevante info kunnen halen, er zijn 3 documenten in desbetreffend folder, waarvan één 11 blz. lang is, een ander 2 blz. en het document dat onderzocht werd is niets anders dan een kopij van dit huidig onderzoek, wel met 90 blz. De grote hoeveelheid aan dataverkeer heeft zo goed als geen impact gehad op de token-gebruik bij Ollama's APIs en er was ook geen verschuiving op HuggingFace waar te nemen. Het embeddings-proces was het zwaarste en tijdrovendste bij de uitvoering van deze demo.
 
-\subsection{Chunking van Groot document(OAS)}
+\subsection{Custom Chunking van Groot document(OAS)}
 
-In de vorige demo werden de documenten niet eerste in stukken gekapt maar het RAG proces werkte daar alsnog, hier wordt er getracht om eerst een groot document, de OpenAPI Specification (3.2.0), in stukken te kappen alvorens deze in de vector-store te steken. Het doel is nu enkel om het eerste opgeslagen Node uit te printen.
+In de vorige demo werden de documenten op een standaard manier door de VectorStoreIndex in stukjes gekapt om in de RAG-pipeline te verwerken, hier wordt er getracht om op een zelf bepaalde manier een groot document, de OpenAPI Specification (3.2.0), in stukken te kappen alvorens deze in de vector-store te steken. Het doel is nu enkel om het eerste opgeslagen Node uit te printen. \\
+
+Vervolgens een kort voorbeeld waar zelf wordt bepaald hoe de documenten in stukken gekapt worden. Dit maakt gebruik van een losstaand SentenceSplitter maar dit kan ook in een ingestionpipeline gebruikt worden \footnote{\href{https://developers.llamaindex.ai/python/framework/module_guides/loading/ingestion_pipeline/transformations/}{https://developers.llamaindex.ai/python/framework/module\_guides/loading/ingestion\_pipeline/transformations/}}
 
 
 \begin{figure}[H]
@@ -1235,7 +1235,7 @@ Bij deze onderzoek werden verschillende AI-projecten ontworpen en uitgerold\foot
 
 
 %\footnote{\href{https://ollama.com/download}{https://ollama.com/download}}
-Image Classification gebruikt een pretrained model om een zelf gekozen afbeelding te proberen classificeren en uit 1000 mogelijke klassen de top-n meest gepaste klassen te kiezen. Tavily Web Search gebruikt de gelijknamige service met API-key om de internet te doorzoeken naar antwoorden op een meegegeven prompt. Chatbot Vision laat de gebruiker toe om te kiezen tussen een vraag- en antwoord bot of een AI die de inhoud van foto's kan begrijpen en omschrijven(deze werkt enkel offline omdat bepaalde web-interacties fout lopen). Multi Agent Research is een agent-workflow dat uit 3 agents bestaat en 3 verschillende stappen doorloopt: Opzoeken van informatie door de research\_agent, de write\_agent schrijft een raport over de verzamelde info en uiteindelijk zal de review\_agent een beoordeling maken over het geschreven werk. Dit wordt in de documentatie\footnote{\href{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}} van LlamaIndex ook goed omschreven. \\
+Image Classification gebruikt een pretrained model(resnet18) om een gebruiker gekozen afbeelding te proberen classificeren uit 1000 mogelijke klassen(de voorwerpen waarop dit model op voorhand was getrained om te herkennen) de top-n meest gepaste klassen te kiezen. Tavily Web Search gebruikt de gelijknamige service met API-key om de internet te doorzoeken naar antwoorden op een meegegeven prompt. Chatbot Vision laat de gebruiker toe om te kiezen tussen een vraag- en antwoord bot of een AI die de inhoud van foto's kan begrijpen en omschrijven(deze werkt enkel offline omdat bepaalde dynamische Gradio web-interacties fout lopen). Multi Agent Research is een agent-workflow dat uit 3 agents bestaat en 3 verschillende stappen doorloopt: Opzoeken van informatie door de research\_agent, de write\_agent schrijft een raport over de verzamelde info en uiteindelijk zal de review\_agent een beoordeling maken over het geschreven werk. Dit wordt in de documentatie\footnote{\href{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}} van LlamaIndex ook goed omschreven. \\
 %https://developers.llamaindex.ai/python/examples/agent/agent_workflow_multi/
 
 % https://huggingface.co/PeterCypers
@@ -1399,16 +1399,34 @@ Kan ook wel als dev. vs prod. omschreven worden. Er moeten enkele kleine aanpass
 Het moet vermeld worden dat koppelen van VSC met HF-space voor versiecontrole en commit + push niet zomaar werkte, maar men kan makkelijk de project files uploaden op de space en alsnog kan de build + deployment worden getriggerd. \\
 
 
+\section{LangGraph}
+% j DAG: directed acyclic graphs (DAGs) -> 8mod1note
+% langgraph vs LangChain -> LangChain is een sequentieel workflow, LangGraph laat paralelle workflows toe met meerdere agent-workers
 
-% j
+
+\section{Crew AI}
+%als er tijd is
+
+% gebruikt decorator pattern, alles met @CrewBase, of @agent, m2-vid2.6:30
+
+% structured output with pydantic schemas -> consistent data outputs good for handoff to other agents
+
+
+\section{BeeAI}
+% recent course mod3, also bee-AI folder in mod3
+
+% structured output with pydantic schemas -> consistent data outputs good for handoff to other agents
 
 \section{Pydantic AI}
 %als er tijd is om dit ook nog te onderzoeken
 
 \section{n8n}
 
-\section{Crew AI}
-%als er tijd is
+
+\section{Vergelijking Conclusies}
+% many different frameworks all kind of boil down to: provide a wrapper for an LLM, using bespoke design LLM-agent management systems 
+
+% most of them contain the same kind of things, prompt-template or agent rol, tools, LLM, some form of context-management, methods for interacting with other agents, instructions on how to act, what to do and how to return the data
 
 
 
