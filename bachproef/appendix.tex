@@ -923,4 +923,32 @@ Hier zien we een mogelijke uitwerking van retrievers, gelijkaardig aan RAG in he
     \caption[LangChain Retrievers]{\label{fig:langchainretrievers}LangChain Retrievers}
 \end{figure}
 
+\section{LlamaIndex}
+
+\subsection{Multi-Agent Workflow met LlamaIndex}
+\label{ssec:multiagentworkflowmetllamaindex}
+% Hier zal een demo getoond worden gebruikemakend van LlamaIndex, zie ref-llamaindex voor info over die framework, hier zullen we kort uitleggen wat deen multi-agent workflow inhoud, toolgebruik, agent-autonomie van beslissingen ameken (handoff), API calls, agentworkflow(kan ook met 1 agent), maar maakt mogeliyk een reeks agents in te stellen -> zie llamaindex workspace file 92, dit is een voorbeeld dat veel tokens kost om te draaien, research -> write -> review, interne werking staat uit comment, de normale uitvoer staat in comment, dit staat ook online op huggingface spaces maar werkt minder goed in die online omgeving als hier als py file op de lokale machine, tavily web-search tool with it's own api
+
+% dit is ook een voorbeeld van: generator -> evaluator pipeline -> my research - write and review agents
+\todo{write an intro and explain code for this segment}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{llamaindex_multi_handoff_01.png}
+    \caption[LlamaIndex multi-agent workflow deel 1]{\label{fig:llamaindexmultiagentworkflow1}LlamaIndex multi-agent workflow deel 1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{llamaindex_multi_handoff_02.png}
+    \caption[LlamaIndex multi-agent workflow deel 2]{\label{fig:llamaindexmultiagentworkflow2}LlamaIndex multi-agent workflow deel 2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{llamaindex_multi_handoff_03.png}
+    \caption[LlamaIndex multi-agent workflow deel 3]{\label{fig:llamaindexmultiagentworkflow3}LlamaIndex multi-agent workflow deel 3}
+\end{figure}
+
+\textbf{Uitleg bij de code:} %todo ... explain section by section, but keep it all after all code fragments (here) maybe break it up into logical paragraphs
 

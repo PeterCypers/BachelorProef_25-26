@@ -633,6 +633,7 @@ Om complexe doelen te bereiken, vertrekken AI agents vanuit een aantal terugkere
 % may remove this segment (or super-short explenation):
 \subsection{ReACT Agent}
 
+\todo{Where did I put the info about this thing?}
 
 \section{Protocol: MCP - ACP - A2A}
 \label{sec:mcpacpa2a}
@@ -642,6 +643,7 @@ Om complexe doelen te bereiken, vertrekken AI agents vanuit een aantal terugkere
 %ACP is linked to IBM and BEE-AI and is donated to the linux foundation and integrated into A2A
 
 % https://framework.beeai.dev/integrations/a2a
+In dit segment bespreken we kort een aantal protocollen die ontworpen werden om de communicatie tussen AI-agents op een gestandaardiseerde manier te laten verlopen.
 
 \subsection{MCP}
 % by Anthropic
@@ -678,11 +680,10 @@ De Agentic AI Foundation(AAIF) werd mede-opgericht door het non-profit bedrijf T
     - \autocite{LinuxFoundation2025}
 \end{quote}
 
-Ze zorgen ervoor dat Anthropic's MCP en OpenAI's AGENTS.md open source blijven.
+Ze zorgen ervoor dat, onder anderen, Anthropic's MCP en OpenAI's AGENTS.md open source blijven.
 
 \subsection{AGENT.md}
-
-Ontwikkeld door OpenAI, AGENT.md is een file dat in de root van een Github repository thuis hoort en bedoeld is om AI-agents die in contact komen met deze repositories te helpen sturen en instructies te geven over hoe ze met de repository moeten omgaan. \\
+Dit nemen we er even tussen, ontwikkeld door OpenAI, AGENT.md is een file dat in de root van een Github repository thuis hoort en bedoeld is om AI-agents die in contact komen met deze repositories te helpen sturen en instructies te geven over hoe ze met de repository moeten omgaan. \\
 % https://agents.md/
 
 Voorbeeld AGENT.md\footnote{\href{https://agents.md/}{https://agents.md/}} file:
@@ -710,22 +711,24 @@ Voorbeeld AGENT.md\footnote{\href{https://agents.md/}{https://agents.md/}} file:
     - Always run `pnpm lint` and `pnpm test` before committing.
 \end{minted}
 
-Men heeft ondertussen een onderzoek gedaan om te bepalen of deze AGENT.md files behulpzaam zijn, waarvan de resultaten aantonen dat deze files echter maar een miniem effect hebben op de AI Agents die ze interpreteren \autocite{gloaguen2026}.
+Men heeft ondertussen een onderzoek gedaan om te bepalen of deze AGENT.md files behulpzaam zijn, waarvan de resultaten aantonen dat deze files echter maar een miniem effect hebben op de AI Agents die ze interpreteren \autocite{gloaguen2026}. \\
 
+Nu keren we terug het pad op van de verschillende protocollen.
 
 \subsection{ACP \& A2A}
 
-In maart 2025 lanceerde IBM({\emojifont 👁} {\emojifont 🐝} M) de Agent Communication Protocol (ACP) dat ontwikkeld werd om de samenwerking van AI-agents te faciliteren binnen hun (ook zelf ontworpen) BeeAI platvorm \autocite{Blair2025}. Een maand later kwam \autocite{Google2025} op de proppen met A2A (Agent2Agent) protocol. Hierbij kondigden IBM aan dat ze hun ACP samensmelten met A2A en samen schenken aan The Linux Foundation \autocite{Blair2025}. Voor BeeAI wordt nu de A2A protocol verkozen en er bestaat een migratie gids dat men kan volgen voor de overzet van ACP naar A2A.
+In maart 2025 lanceerde IBM({\emojifont 👁} {\emojifont 🐝} M) de Agent Communication Protocol (ACP) dat ontwikkeld werd om de samenwerking van AI-agents te faciliteren binnen hun (ook zelf ontworpen) BeeAI platvorm \autocite{Blair2025}. Een maand later kwamen Google Cloud software ingenieurs op de proppen met A2A (Agent2Agent) protocol \autocite{Google2025}. Kort hierna kondigden IBM aan dat ze hun ACP samensmelten met A2A en samen schenken aan The Linux Foundation \autocite{Blair2025}. Voor BeeAI wordt nu de A2A protocol verkozen en er bestaat een migratie gids dat men kan volgen voor de overzet van ACP naar A2A.
 
 \subsection{A2A}
 Het Agent2Agent protocol is nu een open standaard die gehanteerd wordt om de samenwerking tussen meerdere agents te coördineren. Net zoals bij MCP kan er een client-agent en server-agent relatie bestaan, waarbij een app, service of AI-agent requests kan sturen via een A2A compatibel HTTP-endpoint naar een remote agent(server-agent), wat inter-agent samenwerking mogelijk maakt \autocite{IBMe}.
 
-\section{Multi-Agent Frameworks \& Workflows}
-%forwards reference to vergel.-studie demo
-% Hier zal een demo getoond worden gebruikemakend van LlamaIndex, zie ref-llamaindex voor info over die framework, hier zullen we kort uitleggen wat deen multi-agent workflow inhoud, toolgebruik, agent-autonomie van beslissingen ameken (handoff), API calls, agentworkflow(kan ook met 1 agent), maar maakt mogeliyk een reeks agents in te stellen -> zie llamaindex workspace file 92, dit is een voorbeeld dat veel tokens kost om te draaien, research -> write -> review, interne werking staat uit comment, de normale uitvoer staat in comment, dit staat ook online op huggingface spaces maar werkt minder goed in die online omgeving als hier als py file op de lokale machine, tavily web-search tool with it's own api
+\section{Multi-Agent Systems(MAS) \& Frameworks}
 
-% may remove this segment (or super-short explenation):
+Om meer complexe taken te verwezenlijken kunnen deze opgesplitst worden in deeltaken die elk uitbesteed worden aan hun eigen AI-agent. Wanneer men meerdere AI-agents laat samenwerken spreken we van een multi-agent systeem, er bestaan verschillende frameworks die hiervoor kunnen gebruikt worden, waarvan sommige een evolutie van single-agent frameworks zijn, bijvoorbeeld LangChain $\rightarrow$ LangGraph. In een multi-agent systeem kan elke AI-agent een specialist zijn voor een bepaalde taak en over eigen gespecialiseerde tools beschikken. Multi-agent systemen kunnen complexe taken afhandelen zonder dat er nog extra menselijke input nodig is.\\
 
+Zonder framework is samenwerking met meerdere AI-agents een complex gegeven, er moeten protocols bestaan voor communicatie tussen agents, state moet worden beheerd, error handling en monitoring/debugging voorzien, multi-agent frameworks zijn systemen waarin meerdere autonome agenten denken, plannen en handelen om samen een doel te bereiken \autocite{IBM2026}.
+
+\subsection{Multi-Agent Design Patterns}
 % c8-module1-4(vid)
 % specialization is one advantage of multi-agent workflow(each agent is a specialist), parallel processing, multiple agents work at the same time, fault tolerance: 1 agent fails, another takes it's place, scalability, as complexity grows, more agents are added, modularity: easy to update or replace individual components.
 
@@ -735,11 +738,144 @@ Het Agent2Agent protocol is nu een open standaard die gehanteerd wordt om de sam
 
 % generator -> evaluator pipeline -> my research - write and review agents
 
+Volgens \textcite{IBM2026} zijn de volgende design patronen uitermate geschikt om te gebruiken met LangGraph:
+
+\subsubsection{Sequential Pattern}
+De output van één LLM wordt de input van het volgende LLM in de ketting, ook wel prompt chaining genoemd. Taken worden in een vast verloop achter elkaar uitgevoerd door een reeks van gespecialiseerde AI-agents.
+
+\subsubsection{Routing Pattern}
+Een routing agent kist de juiste AI-agent voor een specifieke taak afhankelijk van de query.
+
+\subsubsection{Parallelization Pattern}
+Meerdere AI-agents kunnen tegelijkertijd aan het werk gezet worden zoals asynchrone code, de output van allen wordt vervolgens in een extra stap samengesteld en gecombineerd.
+
+\subsubsection{Orchestrator Pattern}
+Complexe taken worden eerst opgesplitst in deeltaken die worden verdeeld onder worker AI-agents door een orchestrator agent, deze houdt gedeelde state bij, de worker-agents hebben elk hun eigen state dat ze kunnen vergelijken met de orchestrator state en in parallel taken uitvoeren, als laatste stap wordt alle output van de worker-agents samen gebracht in een synthese stap. \\
+
+Orchestrator pattern met LangGraph kan er zo uitzien: \ref{fig:orchestratorpattern} \\
+
+%orchestrator_pattern.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{orchestrator_recreation.png}
+    \caption[Orchestrator pattern met LangGraph van IBM]{\label{fig:orchestratorpattern}Orchestrator pattern met LangGraph van \autocite{IBM2026}.}
+\end{figure}
+
+\subsubsection{Evaluator-Optimizer Pattern}
+
+Ook wel Reflection pattern genoemd, er is een generator-agent waarvan de output wordt geëvalueerd door een evaluator-agent en deze kan beslissen of dit voldoet aan vooropgestelde criteria, als dit niet het geval is zal de evaluator-output terug naar de generator-agent gestuurd worden als input samen met voorstellen voor verbetering, zo bestaat er een feedback lus die uiteindelijk enkel verder zal gaan wanneer de output van de generator-agent door de evaluator-agent goedgekeurd wordt. Vervolgens kan men een maximum aantal iteraties instellen zodat dit proces niet eindeloos doorgaat. \\
+
+Een mogelijk uitwerking binnen een LangGraph workflow, de pseudocode van de evaluator-node:
+
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    IF iterations < max\_iterations AND result == "ACCEPTED":\\
+    \verb|    |RETURN "ACCEPTED" $\rightarrow$ END
+    
+    IF iterations < max\_iterations:\\
+    \verb|    |RETURN "REJECTED + FEEDBACK" $\rightarrow$ Generator
+    
+    IF iterations >= max\_iterations:\\
+    \verb|    |RETURN "REJECTED" $\rightarrow$ END 
+\end{tcolorbox}
+
+\textbf{Uitleg bij de code:} Zo lang de maximum aantal iteraties nog niet is bereikt, evalueer de kwaliteit van output van de generator-agent, als het in orde is, bezorg deze aan de eind-node, keer anders terug naar de generator-agent(node) met feedback voor een volgende poging.
+
 % so see my overall notes for ch.8-mod1 and possibly also link to my multi-agent workflow, however we'll see some of those anyway in vergel.-study at LangGraph, CrewAI and BeeAI
 
-\subsection{Multi-Agent Design Patterns}
+\begin{comment}
+    directly out of course: generieke notities
+    c1 vid1: 
+    design patterns: sequential, routing, parallelization
+    in langgraph: orchestration and evaluation workflows
+    
+    agent workflows with crewAI
+    structured output with pydantic
+    YAML and crewbase for configuration and integration
+    crewai plus custom tools
+    crewai: comparing agents with tools to tasks with tools
+    -----------
+    vid2:
+    what are agents?: (already handled in intro)
+    autonomous - decisions/actions - accomplish goals - proactive problem solvers - navigate complex environments
+    agents can call tools, API's even other agents, goal oriented behavior
+    
+    key benefits of multi-agent system: parallel processing - specialization - fault tolerance - scalability - modularity
+    
+    human in the loop
+    
+    pydantic AI kan gebruikt worden om ervoor te zorgen dat output van een bepaald vorm is, en vast hangt aan types, goed voor API's,
+    en gestructureerde data
+    -------- vid 5
+    each framework has tradeoffs in terms of flexibility / verbosity and debugging
+\end{comment}
 
+\subsection{LlamaIndex' Multi-Agent Workflow}
+ 
+Een code-voorbeeld van een Multi-Agent workflow gebruikmakend van het LlamaIndex framework wordt kort besproken in de appendix: \ref{ssec:multiagentworkflowmetllamaindex}
 
+\begin{comment}
+    
+\end{comment}
+
+\subsection{LangGraph Framework}
+
+Dit is een lower-level framework dan de volgende multi-agent frameworks, dit in tegenstelling tot high-level, wat in de wereld van code betekent dat men zelf meer controle heeft maar meer code moet schrijven en bepaalde functionaliteiten zelf moet definiëren in tegenstelling tot hoger level code wat meer doet achter de schermen, in dit opzicht is het gelijkaardig aan LangChain. \\
+
+LangGraph gebruikt directed acyclical graphs (DAGs). Maakt deel uit van het LangChain ecosysteem, geeft men meer 'fine-grained' controle, betere debugging, geavanceerde memory en error recovery maar heeft wel meer langdradige code \autocite{IBM2026}. \\
+
+LLMs zijn nodes of knopen in een gerichte graaf en bogen zijn mogelijke beslissingen waarbij afhankelijk van de node-uitwerking een pad wordt gekozen naar een volgende knoop, dus routing volgens een bepaald logica, er kan ook beslist worden om terug te keren naar de voorgaande stap afhankelijk van de evaluatie na een node-uitwerking. LangGraph is sterk voor het automatiseren van meerdelige processen met een vast verloop.
+
+\begin{comment}
+    control workflows using a 'gerichte graaf' with nodes and edges
+    the nodes are tasks, the edges decide what happens next
+    like langchain, more finegrained control over complex workflows
+    the person who creates the graph can decide how success/failure 
+    is handled
+    best used for: multi-step processes, document workflows and decision trees
+    
+    meer complex, maar geeft de developer meer controle, goed voor gestructureerde workflows en error recovery
+    
+    --- vid5
+    LangGraph (uses directed acyclic graphs (DAGs)
+    lower-level, good for complex structured apps, part of langchain ecosystem, fine-grained control, better debugging, advanced memory, error recovery
+    
+    
+\end{comment}
+
+\subsection{CrewAI Framework}
+
+Dit framework simuleert een team van AI-agents die elk een eigen rol/doel hebben en elk toegang krijgen tot gespecialiseerde tools die helpen bij hun rol.
+
+\begin{comment}
+    simulates multi-agent colaboration
+    defines agents with distinct roles and tasks
+    they can accomplish complex goals
+    makes it easy for agents to collaborate
+    structured input -> output
+    
+    ---------vid5:
+    + Role based team simulations
+    + colaborative task execution (structured colab: write -> review)
+    - limited flexibility and difficulty in debugging
+    
+    
+\end{comment}
+\subsubsection{Crew Agent}
+Agents in een crew hebben als parameters elk een rol, doel, backstory, LLM en tools. Dit zijn instanties van Agent objecten.
+\subsubsection{Task}
+Een task is een wrapper rond agents in de crew, deze hebben als parameters een omschrijving, agent en verwachte output.  Dit zijn instanties van Task objecten
+\subsubsection{Crew}
+We simuleren een crew van AI-agents die met elkaar samenwerken, elk met hun eigen persona, een crew omsluit een lijst van agents, een lijst van taken en een proces. Dit zijn instanties van Crew objecten.
+
+\subsection{BeeAI Framework}
+
+\begin{comment}
+    
+\end{comment}
+
+\subsubsection{AutoGen Framework}
+
+Een framework past ook binnen het plaatje van multi-agent frameworks past, wordt nu even vermeldt, maar zal niet verder onderzocht worden binnen deze studie.
 
 \section{API development en testing}
 % mogelijks ondersteund door RAG
