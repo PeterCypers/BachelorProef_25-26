@@ -26,20 +26,19 @@
 
 
 Het aanbod van generatieve AI tools, geïntegreerde chatbots, AI-agents, codeer-assistenten, tekstbewerkingstools, noem maar op, deze lijst blijft zich steeds verder uitbreiden. Men kan met AI verschillende soorten media produceren:
-Genereren van tekst met ChatGPT of Google Gemini, beelden met DALL-E of Midjourney, video's met Synthesia of Grok Imagine en code met Copilot of AlphaCode.
+Genereren van tekst met ChatGPT of Google Gemini, beelden met DALL-E of Midjourney, video's met Synthesia of Grok Imagine en code met Copilot of AlphaCode. \\
 
 In dit hoofdstuk worden AI(Artificiele Intelligentie) en LLMs (Large Language Models) wat onder de loep genomen om een basis verstandhouding te hebben waarop er verder gebouwd wordt met prompting technieken, meegeven van context, tool gebruik en hoe dit allen gecombineerd kan worden tot een Agentic AI assistent te komen dat ingezet kan worden ter ondersteuning van API ontwikkeling.
 
 \subsubsection{Het Magisch Sterretje}
-We zien AI steeds meer in software geïntegreerd worden, AI is overal tegenwoordig, vaak zien we als teken van een AI integratie een knop met een aantal sterretjes wat de gebruiker signaleert dat hier achter de schermen AI in verwerkt zit.
+We zien AI steeds meer in software geïntegreerd worden, AI is overal tegenwoordig, vaak zien we als teken van een AI integratie een knop met een aantal sterretjes wat de gebruiker signaleert dat hier achter de schermen AI in verwerkt zit. \\
 
 Om een aantal voorbeelden te bespreken kijken we eerst naar Adobe Acrobat, hier hebben we een AI assistent waar we vragen aan kunnen stellen in verband met het document waaraan we werken, alsook een samenvatting genereren, mogelijk nog andere tekstverwerkende features, in outlook vinden we een "Summarize" knop boven een open email waarmee een samenvatting kan gegenereerd worden, er is ook een geïntegreerde Copilot embedded assistent waar bepaalde vragen aan kan gesteld worden. Naast de chat input waar de gebruiker vragen kan sturen naar de bot zien we ook een aantal vooraf gedefinieerde suggesties, namelijk: "Summarize this email", "Summarize and reply to this email", "Suggest my next step". In Windows notepad (of kladblok) hebben we Windows Copilot die de inhoud van het document kan samenvatten of in een andere toon (vb. van formeel naar grappig) zetten. Wanneer we in de browser zoeken naar iets krijgen we vaak een AI knop te zien waar we in plaats van de standaard zoeken een AI kunnen inzetten om te zoeken en direct de resultaten ook nog eens uit te leggen aan de gebruiker, waar eventueel nog bijkomende vragen aan kunnen gesteld worden, Google AI mode of Google Gemini output dat bovenaan de normale zoek-output gegenereerd wordt. \\
 
 We hebben in WhatsApp onder het bedrijf Meta op het hoofdscherm al direct toegang tot een AI-chatbot: Meta AI die het model Llama 4 gebruikt, deze keer niet met sterretjes, maar een knop in de vorm van een meerkleurig donut. Meerkleurigheid is soms een alternatief voor de sterretjes, het moet vooral goed opvallen in de views lijkt wel het geval te zijn. Wanneer men een meerkleurig knop ziet op een website is dit vaak een teken dat hieronder een AI-systeem zit.
 
 \subsection{AI en Windows}
-%todo: source from Satya nadella https://news.microsoft.com/build-2025/
-Er is een sterke push van Microsoft om meer AI in Windows te laten inbouwen. De huidige CEO van Microsoft, Satya Nadella, heeft de voorbije jaren tijdens de jaarlijkse Microsoft Keynote conferenties verschillende presentaties gegeven over de mogelijkheden van AI gebruik binnen Windows:
+Er is een sterke push van Microsoft om meer AI in Windows te laten inbouwen \autocite{Microsoft2025}. De huidige CEO van Microsoft, Satya Nadella, heeft de voorbije jaren tijdens de jaarlijkse Microsoft Keynote conferenties verschillende presentaties gegeven over de mogelijkheden van AI gebruik binnen Windows:
 
 \begin{quote}
     "...AI has become so central to how we code, and that's why
@@ -50,7 +49,7 @@ Er is een sterke push van Microsoft om meer AI in Windows te laten inbouwen. De 
     - \autocite{Microsoft2025}
 \end{quote}
 
-Daarnaast binnen de Keynote van 2025 kwamen nog een aantal zaken aan bod: Azure AI foundary (in de cloud), Windows native MCP support.
+Daarnaast binnen de Keynote van 2025 kwamen nog een aantal zaken aan bod: Azure AI foundary (in de cloud), Windows native MCP support. \\
 
 Ook Microsoft M365 Copilot kwam veel ter sprake, deze brengt chat, zoeken, notebooks, create en agents allemaal samen, hier kan men "enterprise-grade agents" maken \autocite{Microsoft2025}. Dit is nu geïntegreerd in Windows Office, de M365 Copilot interface heeft namelijk die van de standaard MS Office vervangen. Deze heeft ook een ingebouwde chatbot, men kan ook in de browser de M365 Copilot chatbot aanspreken. \\
 
@@ -132,7 +131,7 @@ Volgens \autocite{IBM2026} maakt deze soort AI een onderscheid tussen verschille
     \item conclusies te trekken
 \end{enumerate}
 
-Een goede use-case voor dit soort AI is het filteren van spam e-mails. Deze modellen zijn uitermate geschikt om te vragen: Is dit A, of is dit B.
+Een goede use-case voor dit soort AI is het filteren van spam e-mails. Deze modellen zijn uitermate geschikt om te vragen: Is dit A, of is dit B. \\
 
 De modellen kunnen geen context begrijpen of nieuwe content genereren gebaseerd op hun training data.
 
@@ -184,17 +183,14 @@ To create a reward model for reinforcement learning, we needed to collect compar
 - \autocite{OpenAI2022}
 \end{quote}
 
-Het is volgens OpenAI een iteratief proces waarbij ze van plan zijn om steeds betere modellen uit te rollen.
+Het is volgens OpenAI een iteratief proces waarbij ze van plan zijn om steeds betere modellen uit te rollen. \\
 
 Een gedetailleerd visueel uitwerking van de interne werking van een LLM kan men hier bekijken: \footnote{\href{https://bbycroft.net/llm}{https://bbycroft.net/llm}}
 Dit project van Brendan Bycroft visualiseert de structuur van bepaalde GPT-modellen bespreekt stap voor stap wat er in de verschillende lagen gebeurt. \\
 
-LLMs zijn getrained op zeer grote datasets, grote hoeveelheden ongestructureerde data of ruwe data verzameld op webniveau \autocite{Bommasani2021}. Eens dat ze een aantal miljard parameters groot zijn kosten ze ook heel veel computer kracht om ze te hosten en inferentie op te doen waarvoor ze dus mogelijks meerdere GPU's nodig \autocite{IBM2026}. Voor de mogelijke fouten dat LLMs kunnen maken zie: 
-%todo: reference forward to Risicos van AI
+LLMs zijn getrained op zeer grote datasets, grote hoeveelheden ongestructureerde data of ruwe data verzameld op webniveau \autocite{Bommasani2021}. Eens dat ze een aantal miljard parameters groot zijn kosten ze ook heel veel computer kracht om ze te hosten en inferentie op te doen waarvoor ze dus mogelijks meerdere GPU's nodig \autocite{IBM2026}. Mogelijke risico's bij het gebruiken van AI worden verder besproken in hoofdstuk \ref{ch:risicosvanaigebruik}. \\
 
-%We delven niet te ver in details,
-maar het is zinvol om enkele kenmerken van LLMs te bespreken.
-%todo: more kenmerken of LLMs
+Nu gaan we verder met het bespreken van enkele kenmerken van LLMs.
 
 \subsection{NLP}
 \label{ssec:nlp}
@@ -202,13 +198,13 @@ NLP (Natural Language Processing) is een onderdeel van computer wetenschap dat m
 
 De bedoeling is om computers een manier te geven om mensentaal te kunnen verwerken. We starten met ongestructureerde tekst dat wordt omgezet in gestructureerde tekst, dat is NLU (Natural Language Understanding). Wanneer men van gestructureerde naar ongestructureerde tekst gaat heet dat NLG (Natural Language Generation). \\
 
-Waarvoor kan NLP allemaal ingezet worden? Een aantal voorbeelden: Samenvattingen maken; Vertalen; Sentiment analyse; Spam detectie; Geavanceerd zoeken.
+Waarvoor kan NLP allemaal ingezet worden? Een aantal voorbeelden: Samenvattingen maken; Vertalen; Sentiment analyse; Spam detectie; Geavanceerd zoeken. \\
 
 Chatbots en vertaalmachines moeten niet alleen woord betekenissen kunnen begrijpen, maar ook een bredere context zodat ook spreekwoorden en gezegden, onder anderen, duidelijk zijn in hun echte betekenis. \\
 
 Voor we LLMs hadden konden we klassieke NLP normalisatietechnieken inzetten zoals stemming en lemmatization. Stemming is een heuristisch aanpak om een woord te reduceren tot zijn essentie, bijvoorbeeld: rapporteren $\rightarrow$ rapport; lopen $\rightarrow$ lop; schrijft $\rightarrow$ schrijv. Deze afknottingen produceren niet altijd een correct Nederlandstalige woord, maar reduceert deze tot een basis vorm \autocite{Tan2024}. \\
 
-Deze technieken hebben verschillende algoritmes nodig afhankelijk van de taal en het is nog altijd mogelijk dat er fouten optreden wanneer 2 semantisch verschillende woorden gereduceerd worden tot dezelfde stem \autocite{IBMc}.
+Deze technieken hebben verschillende algoritmes nodig afhankelijk van de taal en het is nog altijd mogelijk dat er fouten optreden wanneer 2 semantisch verschillende woorden gereduceerd worden tot dezelfde stem \autocite{IBMc}. \\
 
 Naast deze technieken hebben we ook POS (Part of Speech) tagging: Eenzelfde woord, wanneer die op verschillende plaatsen in een zin voorkomt kan tot een andere betekenis leiden, en NER (Named Entity Recognition) dat gebruikt kan worden om namen van organisaties en mensen te herkennen \autocite{IBM2026}. \\
 
@@ -216,7 +212,7 @@ Dit alles om de omzet van ongestructureerde tekst om te zetten in gestructureerd
 
 \subsection{Tokenization}
 \label{ssec:tokenization}
-LLMs krijgen een prompt binnen als verzameling ongestructureerde tekst, om deze te converteren in gestructureerde tekst moet deze eerst ontleed worden in stukjes met behulp van een techniek dat Tokenization heet. Hieronder een voorbeeld met gebruik van OpenAI's tokenizer: \ref{fig:tokenization} (ingesteld op GPT-5.x \& O1/3)
+LLMs krijgen een prompt binnen als verzameling ongestructureerde tekst, om deze te converteren in gestructureerde tekst moet deze eerst ontleed worden in stukjes met behulp van een techniek dat Tokenization heet. Hieronder een voorbeeld met gebruik van OpenAI's tokenizer: \ref{fig:tokenization} (ingesteld op model: "GPT-5.x \& O1/3")
 
 \begin{figure}[H]
     \centering
@@ -239,7 +235,7 @@ Dit is dus hoe LLMs de semantiek betekenis van verschillende woorden kunnen onde
 
 \subsection{Parameters}
 \label{ssec:parameters}
-Parameters van een LLM zijn het aantal treinbare, numerieke gewichten(parameters) van dat model inclusief de embedded vectoren, maar ook nog gewichten uit andere lagen van de LLM. De posities van de gewichten in de LLM kunnen een nieuwe positie innemen tijdens de trainingsfases van de LLM.
+Parameters van een LLM zijn het aantal treinbare, numerieke gewichten(parameters) van dat model inclusief de embedded vectoren, maar ook nog gewichten uit andere lagen van de LLM. De posities van de gewichten in de LLM kunnen een nieuwe positie innemen tijdens de trainingsfases van de LLM. \\
 
 Tijdens iteratieve trainingen worden de parameters(gewichten of weights) van de LLM telkens aangepast om de nauwkeurigheid te verhogen, vooral bij taken waarin het model specifiek wordt getraind. Verschillende LLMs kunnen gespecialiseerd zijn in bepaalde taken. \\
 
@@ -247,7 +243,7 @@ Dit kan ook gezien worden als de grootte van het model, bijvoorbeeld gpt-oss:120
 
 
 \subsection{Andere LLM Eigenschappen}
-
+\label{ssec:anderellmeigenschappen}
 Wanneer we het Ollama \ref{sec:Ollama} commando "ollama show qwen3-vl:8b" ingeven in Windows cmd krijgen we volgende output te zien: \ref{fig:qwen3info}
 
 \begin{figure}[H]
@@ -265,7 +261,7 @@ Hier zetten we alles even op een rijtje:
     \item \textbf{Context length:} 262144 (Context = 256K op de website)
     \item \textbf{Embedding length:} Elke embedded token is gemapt naar een vector van 4096 nummers.
     \item \textbf{Quantization:} de quantization format, Zie: \ref{sssec:quantization}
-    \item \textbf{Capabilities:} Completion: voorspellen van het volgende woord, vision: kan uitleggen wat in een afbeelding te zien is, tools: kan met tools werken(wordt later besproken), thinking: kan een chain-of-thought output weergeven.
+    \item \textbf{Capabilities:} Completion: voorspellen van het volgende woord, vision: kan uitleggen wat in een afbeelding te zien is, tools: kan met tools werken(zie sectie: \ref{ssec:toolgebruik}), thinking: kan een chain-of-thought output weergeven.
     \item \textbf{Parameters}
     \item \textbf{Temperature:} Een getal tussen 0 en 1, lagere temperatuur is meer deterministisch, hogere temperatuur laat meer creativiteit toe.
     \item \textbf{top\_k:} Het aantal meest mogelijke uitkomsten dat zullen beoordeeld worden bij het antwoorden, uitkomsten zijn een aflopende rangschikking van toepasselijke responses voor een bepaald prompt.
@@ -285,12 +281,12 @@ Hier zetten we alles even op een rijtje:
 
 % j J
 
-Door Quantization kunnen LLMs makkelijker op een lokaal machine worden gedownload en gebruikt. LLMs nemen een bepaald aantal gigabyte in beslag en hebben een bepaald hoeveelheid werkgeheugen nodig (RAM) om inferentie op te kunnen doen. Als er aan de vereisten voldaan zijn kunnen ze lokaal (offline) gebruikt worden met software dat ermee kan interageren, bijvoorbeeld Ollama.
+Door Quantization kunnen LLMs makkelijker op een lokaal machine worden gedownload en gebruikt. LLMs nemen een bepaald aantal gigabyte in beslag en hebben een bepaald hoeveelheid werkgeheugen nodig (RAM) om inferentie op te kunnen doen. Als er aan de vereisten voldaan zijn kunnen ze lokaal (offline) gebruikt worden met software dat ermee kan interageren, bijvoorbeeld Ollama als AI-provider heeft een groot aanbod aan LLMs die men kan downloaden voor offline gebruik en laten ook gebruik van zelf gehoste modellen toe via hun API. Quantization is wel wat vergelijkbaar met compressie.
 
 
-%todo: snelheid van llms gemeten in tokens/s https://www.reddit.com/r/LocalLLaMA/comments/1miggb2/what_hardware_to_run_gptoss120b/
+%snelheid van llms gemeten in tokens/s https://www.reddit.com/r/LocalLLaMA/comments/1miggb2/what_hardware_to_run_gptoss120b/
 
-%todo: chapter about Tokens \& Pricing(can mention pricing, but pricing gets it's own chapter in Marktonderzoek) -expected in chapter to mention differences by provider and measure in per million tokens -> I have an image somewhere showing this for gpt or claude
+%chapter about Tokens \& Pricing(can mention pricing, but pricing gets it's own chapter in Marktonderzoek) -expected in chapter to mention differences by provider and measure in per million tokens -> I have an image somewhere showing this for gpt or claude (former-todo)
 
 \subsubsection{Context Venster}
 
@@ -326,8 +322,7 @@ Vanaf dit punt zullen de termen LLM en AI tussen elkaar uitgewisseld worden want
 % THERE IS A DIFFERENCE BETWEEN THIS AND "SOORTEN PROMPTS" templates & other things vs zero/1shot/few-shot/COT/instruction tuning/ICL in context learning
 % j J
 
-Prompten van LLMs is het sturen van nieuwe data naar een LLM om daar inferentie op te doen. Deze gebruikt zijn training data om patronen te herkennen, voorspellingen te maken met de nieuwe data en de correcte output te genereren.
-%todo : reference bergmann again, but add him to library with this: https://www.ibm.com/think/topics/ai-inference
+Prompten van LLMs is het sturen van nieuwe data naar een LLM om daar inferentie op te doen \autocite{Bergmannb}. Deze gebruikt zijn training data om patronen te herkennen, voorspellingen te maken met de nieuwe data en de correcte output te genereren. \\
 
 Prompt engineering is het optimaliseren van wat men als vraag, of prompt naar de LLM stuurt om deze beter te leiden tot een accuraat en coherent antwoord. \\
 
@@ -335,7 +330,7 @@ Er zijn allerlei verschillende technieken, waarvan er een aantal zijn dat men in
 
 \subsection{In-context learning}
 
-Dit fenomeen doet zich voor bij LLMs, ze hebben namelijk een sterkere capaciteit voor deductie wanneer in de prompt voorbeelden van mogelijke oplossingen mee worden gestuurd.
+Dit fenomeen doet zich voor bij LLMs, ze hebben namelijk een sterkere capaciteit voor deductie wanneer in de prompt voorbeelden van mogelijke oplossingen mee worden gestuurd. \\
 
 Volgens de prompt engineering gids: \footnote{\href{https://www.promptingguide.ai/}{https://www.promptingguide.ai/}} \\
 
@@ -382,9 +377,6 @@ Belangrijke regels die gelden voor alle interacties met de AI kunnen vooraf inge
 In bovenstaande voorbeeld hebben we een spel waar een AI-chatbot ingezet wordt als Dungeons \& Dragons dungeon master. Het systeem directief dat mee wordt gegeven is een belangrijke regel dat de LLM altijd zal proberen volgen. De role: user geeft aan dat dit een bericht van de gebruiker is en de role: assistant maakt duidelijk dat dit een bericht is van de AI. Wanneer we verder gaan in het verhaal geven we bij elke nieuwe prompt naar de AI toe dit ganse geschiedenis en wanneer de gebruiker input gevraagd wordt zal dit aan de hand van een tekst invul veld waar we best ook de role: user invullen en als content: de gebruiker-input. \\
 
 Bij veel interacties met AI en vooral AI-chatbots gebeurt dit achter de schermen, er zijn rollen, voornamelijk: System, AI, User. System dat belangrijke regels meegeeft aan de AI, en de andere rollen die de interpretatie van de chatgeschiedenis verduidelijken.
-
-%todo: prompt templates
-
 
 \section{RAG}
 \label{sec:rag}
@@ -507,13 +499,13 @@ Het embedden en opslaan als vectoren zijn machine learning technieken die toegep
     \label{lst:ragpipelinevoorbeeld}
 \end{listing}
 
-Bovenstaande code is mogelijks verouderd en kan zijn functie niet meer voldoen, maar is wel een goede representatie van de verschillende stappen van een RAG-pipeline. Waarvan we de onderdelen nu kort overlopen.
+Bovenstaande code is mogelijks verouderd en kan zijn functie niet meer voldoen, maar is wel een goede representatie van de verschillende stappen van een RAG-pipeline. Waarvan we de onderdelen nu kort overlopen. \\
 
 De LangChain framework wordt gebruikt om met de LLM aan de slag te gaan. Eerst wordt een \textbf{document ingeladen} en dit wordt aan een chunker(CharacterTextSplitter) meegegeven om in gelijkmatige stukken te verdelen: 'chunk\_size'. Men kan op verschillende manieren tekst \textbf{in stukken kappen}, in dit geval wordt de tekst opgesplitst in stukjes van duizend karakters(letters, spaties, tekens) lang met een overlap van 0, dit wil zeggen dat er geen extra aangrenzende context mee wordt opgenomen. Het kan zinvol zijn om toch een bepaald aantal overlap in te stellen zodat een deel van de tekst context voor en na de gevonden tekst meegenomen wordt, dit zijn parameters die kunnen aangepast worden om de resultaten te vergelijken en vinden wat het beste werkt. Nu is onze brondata in stukken geknipt, klaar voor de volgende stap in de ketting. \\
 
-Er wordt een \textbf{embedding model} van HuggingFace gebruikt, dit platvorm wordt later nog besproken. De tekst-stukjes worden samen met een embedding model meegegeven aan de \textbf{vector-store}, in dit geval heeft LangChain een package dat toelaat een chroma database te gebruiken om de vectoren op te slaan. De embedding model verandert de tekst in vector-representaties(met behulp van tokenization, zie: \ref{ssec:tokenization}) om op te slaan in de chroma vector-store. De bijhorende tekst wordt ook mee opgeslagen in de database \\
+Er wordt een \textbf{embedding model} van HuggingFace gebruikt, dit platvorm wordt later nog besproken (zie sectie: \ref{sec:huggingface}). De tekst-stukjes worden samen met een embedding model meegegeven aan de \textbf{vector-store}, in dit geval heeft LangChain een package dat toelaat een chroma database te gebruiken om de vectoren op te slaan. De embedding model verandert de tekst in vector-representaties(met behulp van tokenization, zie: \ref{ssec:tokenization}) om op te slaan in de chroma vector-store. De bijhorende tekst wordt ook mee opgeslagen in de database \\
 
-Bij LangChain kan de invoke methode aangeroepen worden om een keten van acties in gang te zetten. In dit geval wordt een QA, question and answer AI implementatie aangeroepen met een bepaald LLM en de vector-store gecast als een \textbf{retriever}, de andere parameters hebben met de werking van LangChain te maken, deze zijn ook wat verouderd. Chain\_type: stuff combineert alle gekregen documenten als één context, ze worden bij elkaar gepropt: stuffed. De chain\_type\_kwargs heeft de prompt-template mee gekregen, bij LangChain zal wanneer de invoke op de keten aangeroepen wordt de meegekregen gebruiker vraag hier in de \textbf{prompt}-template ingevuld worden als deel van LCEL, dit wordt later besproken. \\
+Bij LangChain kan de invoke methode aangeroepen worden om een keten van acties in gang te zetten. In dit geval wordt een QA, question and answer AI implementatie aangeroepen met een bepaald LLM en de vector-store gecast als een \textbf{retriever}, de andere parameters hebben met de werking van LangChain te maken, deze zijn ook wat verouderd. Chain\_type: stuff combineert alle gekregen documenten als één context, ze worden bij elkaar gepropt: stuffed. De chain\_type\_kwargs heeft de prompt-template mee gekregen, bij LangChain zal wanneer de invoke op de keten aangeroepen wordt de meegekregen gebruiker vraag hier in de \textbf{prompt}-template ingevuld worden als deel van LCEL, dit wordt besproken in sectie: \ref{ssec:lcelandlowlevellangchain}. \\
 
 Uit de \textbf{LLM response}: 'result', wat het antwoord van de LLM is, kan afgeleid worden dat de document doorzocht werd, maar er geen info gevonden werd betreffende het eten in bedrijfs-voertuigen. Dit is één van vele mogelijke methodologieën om een RAG pipeline te gebruiken, maar dezelfde stappen komen telkens terug: Inladen van bepaalde documenten die als kwalitatieve bron van informatie dienen, wanneer deze documenten te groot zijn, eerst in stukjes kappen, embedding van de brondata en prompt om snel te kunnen zoeken naar tekst dat lijkt op(of gelijkaardig is aan en dichtbij is in vector-space) de prompt, de niet relevante delen van de brondata wegfilteren zodat de relevante data samen met de originele prompt als input dient voor de LLM om nauwkeurige en op context-onderbouwde antwoorden naar de gebruiker terug te sturen. \\
 
@@ -564,15 +556,15 @@ Een voorbeeld van de data-shape dat opgeslagen zit in een vector database, met a
     \label{lst:chromadbqueryresult}
 \end{listing}
 
-Het indexeren en embedden van de brondata, gebeurt in de reeds besproken voorbeeldcode wel tijdens het lopen van de demo, dit proces kan wat tijd in beslag nemen, als men regelmatig een bron van onveranderlijke data moet doorzoeken kan deze ook in een meer permanente opslag vector database worden opgeslagen en daar kan men sneller op zoeken omdat de embedding stap van de brondata overgeslagen kan worden, hier is momenteel nog geen code voorbeeld van. \\
-%todo: followup, do we have an example of a fixed vector database with permanently stored embeddings?
+Het indexeren en embedden van de brondata, gebeurt in de reeds besproken voorbeeldcode wel tijdens het lopen van de demo, dit proces kan wat tijd in beslag nemen, als men regelmatig een bron van onveranderlijke data moet doorzoeken kan deze ook in een meer permanente opslag vector database worden opgeslagen en daar kan men sneller op zoeken omdat de embedding stap van de brondata overgeslagen kan worden, \todo{forward reference to the demo in verg.st where I have a code example using LlamaIndex} \\
+%todo: followup, do we have an example of a fixed vector database with permanently stored embeddings? -> yes
 
 %https://docs.trychroma.com/docs/querying-collections/query-and-get
 Vector Databases zijn een belangrijk onderdeel van het RAG-proces. Vervolgens bestaan er nog een aantal concepten die met vector databases te maken hebben: HNSW / LSH / Similarity Search / ANN / Cosine similarity / Dot product / Euclidian distance.
 Maar deze lopen wat buiten scope voor dit onderzoek en zullen verder niet meer in detail besproken worden, bepaalde concepten die reeds besproken werden, zie voorgaande secties: \ref{ssec:nlp} en \ref{sec:rag}. \\
 
 Dit hoofdstuk ging in detail in op de low-level werking van RAG. Er bestaan echter technologieën die abstractie bieden bovenop de complexiteit van de interne werking van dit proces. In het code fragment kwam LangChain al even aan bod.
-LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan. LlamaIndex is een framework die bepaalde delen van het RAG proces vereenvoudigen, maar op sommige vlakken minder controle biedt dan bij LangChain. Deze worden later in detail besproken.
+LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan. LlamaIndex is een framework die bepaalde delen van het RAG proces vereenvoudigen, maar op sommige vlakken minder controle biedt dan bij LangChain. Deze worden binnen hoofdstuk \ref{ch:vergelijkende-studie} in detail besproken.
 
 % j
 % keep this section brief (look at that nice article in the chrome-tabs group)
@@ -593,7 +585,7 @@ AI agents zijn proactief en kunnen problemen in meerdere stappen aanpakken in te
 \end{quote}
 
 \subsection{Tool gebruik}
-
+\label{ssec:toolgebruik}
 Het is algemeen geweten dat LLMs (Large \textbf{Language} Models) best om kunnen met mensentaal als input, dan kan er met NLP technieken, tokenization en prompt embedding gewerkt worden om een zinvol en relatief voorspelbaar output te generen. In de vroege dagen van de commercieel beschikbare chatbots zoals ChatGPT waren er grappige kinderziektes zoals\footnote{\href{https://community.openai.com/t/incorrect-count-of-r-characters-in-the-word-strawberry/829618}{https://community.openai.com/t/incorrect-count-of-r-characters-in-the-word-strawberry/829618}}: \\
 
 User prompt: \\
@@ -729,6 +721,7 @@ Om meer complexe taken te verwezenlijken kunnen deze opgesplitst worden in deelt
 Zonder framework is samenwerking met meerdere AI-agents een complex gegeven, er moeten protocols bestaan voor communicatie tussen agents, state moet worden beheerd, error handling en monitoring/debugging voorzien, multi-agent frameworks zijn systemen waarin meerdere autonome agenten denken, plannen en handelen om samen een doel te bereiken \autocite{IBM2026}.
 
 \subsection{Multi-Agent Design Patterns}
+\label{ssec:multiagentdesignpatterns}
 % c8-module1-4(vid)
 % specialization is one advantage of multi-agent workflow(each agent is a specialist), parallel processing, multiple agents work at the same time, fault tolerance: 1 agent fails, another takes it's place, scalability, as complexity grows, more agents are added, modularity: easy to update or replace individual components.
 
@@ -813,12 +806,8 @@ Een mogelijk uitwerking binnen een LangGraph workflow, de pseudocode van de eval
  
 Een code-voorbeeld van een Multi-Agent workflow gebruikmakend van het LlamaIndex framework wordt kort besproken in de appendix: \ref{ssec:multiagentworkflowmetllamaindex}
 
-\begin{comment}
-    
-\end{comment}
-
 \subsection{LangGraph Framework}
-
+\label{ssec:langgraphframework}
 Dit is een lower-level framework dan de volgende multi-agent frameworks, dit in tegenstelling tot high-level, wat in de wereld van code betekent dat men zelf meer controle heeft maar meer code moet schrijven en bepaalde functionaliteiten zelf moet definiëren in tegenstelling tot hoger level code wat meer doet achter de schermen, in dit opzicht is het gelijkaardig aan LangChain. \\
 
 LangGraph gebruikt directed acyclical graphs (DAGs). Maakt deel uit van het LangChain ecosysteem, geeft men meer 'fine-grained' controle, betere debugging, geavanceerde memory en error recovery maar heeft wel meer langdradige code \autocite{IBM2026}. \\
@@ -843,7 +832,7 @@ LLMs zijn nodes of knopen in een gerichte graaf en bogen zijn mogelijke beslissi
 \end{comment}
 
 \subsection{CrewAI Framework}
-
+\label{ssec:crewaiframework}
 Dit framework simuleert een team van AI-agents die elk een eigen rol/doel hebben en elk toegang krijgen tot gespecialiseerde tools die helpen bij hun rol.
 
 \begin{comment}
@@ -867,15 +856,13 @@ Een task is een wrapper rond agents in de crew, deze hebben als parameters een o
 \subsubsection{Crew}
 We simuleren een crew van AI-agents die met elkaar samenwerken, elk met hun eigen persona, een crew omsluit een lijst van agents, een lijst van taken en een proces. Dit zijn instanties van Crew objecten.
 
-\subsection{BeeAI Framework}
+\subsubsection{Agent-/Task-Centric}
+Wanneer er tools gebruikt worden kan men deze aan de agent geven, dit is een agent-centric aanpak, of ze kunnen aan de task worden gegeven, dat is een task-centric aanpak. CrewAI wordt verder besproken in sectie: \ref{sec:crewai}
 
-\begin{comment}
-    
-\end{comment}
+\subsection{Andere Multi-Agent Frameworks}
+Deze passen ook binnen het plaatje van multi-agent frameworks, worden hier even opgelijst ter info, maar worden verder niet besproken binnen dit hoofdstuk. \\
 
-\subsubsection{AutoGen Framework}
-
-Een framework past ook binnen het plaatje van multi-agent frameworks past, wordt nu even vermeldt, maar zal niet verder onderzocht worden binnen deze studie.
+\textbf{AutoGen} \& \textbf{BeeAI} \& \textbf{Pydantic AI}
 
 \section{API development en testing}
 % mogelijks ondersteund door RAG

@@ -608,6 +608,9 @@ Belangrijker dan de snelheids- testen zijn de bruikbare codefragmenten om eventu
 
 \todo{Niet vergeten toe te voegen...}
 
+%zelfs claude.ai online chatbot gebruikt een bash commando in plaats van RAG, als eenvoudig interpretaties nodig zijn van een document
+%claude_ai_grep_no_rag.png
+
 \section{Omgaan met API Keys \& Secrets}
 \label{sec:omgaanmetapikeysensecrets}
 Tot nu toe werd nogal kort door de bocht gegaan met de API-sleutels. In echte projecten is het de bedoeling dat mensen niet zomaar aan een API-sleutels kunnen. Er kan best zorgvuldig mee omgesprongen worden om te vermijden dat derden toegang krijgen tot je sleutels, deze zijn al kort besproken, zie \ref{ssec:apikeys}. Als deze sleutels openbaar worden gemaakt kan iemand anders de service gebruiken zonder dat je het weet. Door de account info te controleren en verdacht gebruik vast te stellen kan men concluderen dat er een API-sleutel gelekt is. Gelukkig zijn deze gemakkelijk om aan te maken en kan er op elk moment bij twijfel een nieuw sleutel gebruikt worden. \\
@@ -664,6 +667,7 @@ Deze framework dient ervoor om het werken met LLMs te vergemakkelijken, dit maak
 Voor een lange uitwerking, low level, met LangChain zie deze code: \ref{lst:langchaineerstecodevoorbeeld} 
 
 \subsection{LCEL \& Low-Level LangChain}
+\label{ssec:lcelandlowlevellangchain}
 %there are many more subsections that I can put here for langhcain -> look back at RAG course vics/labos/notes for inspiration
 
 % j
@@ -745,12 +749,8 @@ De LangChain ecosysteem is ondertussen ge-shift, weg van LCEL composities naar e
 
 In september 2025 heeft LangChain de LangChain en LangGraph frameworks grotendeels herschreven en geüpdatet van versie 0.3 naar 1.0 \autocite{Lim2025}.
 
-
-%todo: move to somewhere that it fits better
 \subsubsection{Snel Evoluerende AI Wereld}
 Net als het iteratief proces van steeds sterkere LLMs die op de wereld gelanceerd worden zijn de technologieën rond AI constant in flux. Bij het onderzoeken naar verschillende mogelijkheden voor het ontwikkelen van de AI-agent zijn de gebruikte technologieën gelijk ook aan het evolueren en aan het veranderen, de tempo is hoog en wanneer men voor een bepaald technologie heeft gekozen kan men deze best goed in de gaten houden en ontdekken welke nieuwe features allemaal beschikbaar worden. Ook regelmatig een vergelijking maken met andere opties op de markt.
-
-%todo: is this still part of langchain chapter? or do I have to turn above subsubsect into a textbf?... fill in 2-3 of my relevant 
 
 \subsubsection{LangChain Quickstart}
 \label{sssec:langchainquickstart}
@@ -906,7 +906,6 @@ Een \textbf{embedding model} wordt geconfigureerd om de documenten(chunks) in ee
 
 De vectorstore wordt geconverteerd naar een \textbf{retriever} met de methode as\_retriever(), er wordt een retrievalQA object gemaakt als wrapper voor een bepaald \textbf{LLM}, dit is een vraag en antwoord ketting waar de methode \textbf{invoke()} op aangeroepen kan worden. Dit is een onvolledige uitwerking van de code, de search\_documents functie wordt namelijk nergens aangeroepen, het is wel interessant om de output met invoke te zien.\\
 
-
 Ter info, is volgende code een meer uitgebreid gebruik van de retriever waarbij de search\_documents methode aangeroepen wordt, hiervan werd de output niet getest. Er kan afgeleid worden wat er in de output zou verschijnen. Elke query zal afgeprint worden, het aantal opgehaalde documenten relevant aan de query(prompt), voor elk opgehaald document de eerste 150 karakters en de bron uit de metadata. \\
 
 Aanvullende Code:
@@ -928,10 +927,13 @@ Voor nog een korte extra uitwerking van Document-Loaders en Retrievers, zie: \re
 Dan werd er besloten om even verder te gaan met het onderzoeken van andere technologieën.
 
 % j
-\subsection{LangGraph(todo)}
+\subsection{LangGraph}
+\label{ssec:langgraph}
 %gaat mischien geen tijd voor zijn
+Een evolutie en extensie van LangChain, delen hetzelfde ecosysteem en kunnen samen gebruikt worden, dit werd kort besproken in secties: \ref{ssec:multiagentdesignpatterns} \& \ref{ssec:langgraphframework}
 
 \section{LlamaIndex}
+\label{sec:llamaindex}
 %RAG course delves into this
 
 LlamaIndex\footnote{\href{https://www.llamaindex.ai/llamaindex}{https://www.llamaindex.ai/llamaindex}} is een framework voor het bouwen van contextbewuste AI-agents. Verder bespreken we een aantal features van LlamaIndex met een focus op RAG - functionaliteiten. \\
@@ -1399,31 +1401,205 @@ Kan ook wel als dev. vs prod. omschreven worden. Er moeten enkele kleine aanpass
 Het moet vermeld worden dat koppelen van VSC met HF-space voor versiecontrole en commit + push niet zomaar werkte, maar men kan makkelijk de project files uploaden op de space en alsnog kan de build + deployment worden getriggerd. \\
 
 
-\section{LangGraph}
+%\section{LangGraph} % already exists as a subsect. referencing back to where it was covered in standvanzaken
 % j DAG: directed acyclic graphs (DAGs) -> 8mod1note
 % langgraph vs LangChain -> LangChain is een sequentieel workflow, LangGraph laat paralelle workflows toe met meerdere agent-workers
 
 
 \section{Crew AI}
+\label{sec:crewai}
 %als er tijd is
+
+CrewAI werd eerder besproken in sectie:  \ref{ssec:crewaiframework}. Nu wordt de code even bekeken.
 
 % gebruikt decorator pattern, alles met @CrewBase, of @agent, m2-vid2.6:30
 
 % structured output with pydantic schemas -> consistent data outputs good for handoff to other agents
 
+Het is ook mogelijk om gestructureerde objecten als LLM antwoorden te voorzien gebruikmakend van Pydantic Models, 
 
-\section{BeeAI}
-% recent course mod3, also bee-AI folder in mod3
+\begin{comment}
+    %\section{BeeAI} % scrapped due to time-concerns
+    % recent course mod3, also bee-AI folder in mod3
+    
+    % structured output with pydantic schemas -> consistent data outputs good for handoff to other agents
+\end{comment}
 
-% structured output with pydantic schemas -> consistent data outputs good for handoff to other agents
+\subsection{CrewAI Basic Demo}
+\label{ssec:crewaibasicdemo}
+
+%crew_basic_offline_demo.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{crew_basic_offline_demo.png}
+    \caption[CrewAI basic offline demo]{\label{fig:crewaibasicdemo}CrewAI Offline Research Demo code.}
+\end{figure}
+
+\textbf{Uitleg bij de code:} We zien de basis bouwblokken van CrewAI, een genest structuur: Crew([Task,...], [Agent(LLM),...]). \\
+
+We gebruiken hier een lokaal LLM, llama3.1, en roepen de localhost poort van Ollama aan om deze te laten werken, geen API-key nodig want we hoeven geen online-API aan te roepen. \\
+
+We zien agents met een rol, doel en backstory, toch wel een serieuze identiteit voor een AI-agent, iets wat CrewAI ietwat onderscheidt van andere frameworks. De 2 agents gebruiken hetzelfde LLM, dit is belangrijk in multi-agent workflows, men wil zo weinig mogelijk frictie in de communicatie en verstaanbaarheid van de onderling samenwerkende agents. In multi-agent workflows is de output van agent 1 de input van agent 2 wanneer ze sequentieel werken. \\
+
+De Tasks hebben elk een agent, een verwachtte output en een omschrijving dat ook wel een prompt template mag genoemd worden, dit zal de variabele input invullen in de rest van zijn template. \\
+
+De Crew wordt samengesteld, een lijst van agents en bijhorende taken, her proces is sequentieel, verbose, true. Trouwens ook bij de agents, dus we krijgen veel feedback over hoe ze te werk zullen gaan zoals tool aanroepen en het goed verlopen van de taken, mogelijke fouten of mislukte taken. Dit is toch wel redelijk wat output, het is wel beter om enkel de Crew op verbose te laten en de Agents verbose=False te zetten. Tenzij debugging nodig is. \\
+
+Run de Crew! met de kickoff() functie, het uiteindelijke result variabele zal opgevuld worden met de output van de laatst-lopende agent, we verwachten een afgewerkt rapport. Omdat verbose overal aan staat zal er echter eerst nog veel output komen. CrewAI heeft een interessant vorm van verbose output, ze hebben er een degelijk design van gemaakt, dit gaan we nu bekijken: \\
+
+\textbf{Output:}
+%crew_output_1.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{crew_output_1.png}
+    \caption[CrewAI basic offline demo output 1]{\label{fig:crewaiofflineoutput1}CrewAI Offline Research Demo Output 1.}
+\end{figure}
+\textbf{Output 1 uitleg:} We krijgen een kleurrijk tafereel te zien waar de workflow stap voor stap afgebeeld is, dit begint met de Crew waarvan de ID ook beschikbaar is, we volgen de Tasks en Agents sequentieel. Een deel van de output werd hier weggelaten, dit bevatte de rest van het onderzoekwerk van onze "Senior Research Analyst", er zal redelijk wat dubbele output zijn dankzij de agent-verbosity. Deze afbeelding stopt net bij het eerste paragraaf van de eerste agent. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{crew_output_2.png}
+    \caption[CrewAI basic offline demo output 2]{\label{fig:crewaiofflineoutput2}CrewAI Offline Research Demo Output 2.}
+\end{figure}
+\textbf{Output 2 uitleg:} Deze afbeelding start bij het einde van de eerste agent output, wat volgt is het opstarten van de volgende taak met bijhorende agent. De output net na deze afbeelding werd weggelaten en bevat het werk van de writer-agent dat een beknopte samenvatting maakte van het werk van zijn voorganger. Een heel belangrijke opmerking bij de output dat we hier te zien krijgen is namelijk een design-fout in de code. We hebben namelijk een onderzoek gedaan dat geen enkel up-to-date informatie bevatte. Onze agents hebben enkel hun trainingsdata gebruikt om tot een antwoord te komen, dit is te herkennen aan de jaartallen van de gebruikte referenties, we zien niets na een bepaalde datum, namelijk de \textbf{model "cutoff date"}. Dit is het laatste moment dat deze LLM nog op nieuwe data werd getraind. Volgens info over dit model op Github \footnote{\href{https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md}{https://github.com/meta-llama/llama-models/blob/main/models/llama3\_1/MODEL\_CARD.md}} was dit december 2023. Dit is ook één van de gevaren bij het gebruiken van LLMs, ze hebben geen kennis van zaken die na dit moment in de tijd gebeurd zijn in de wereld, dus onze onderzoek is niet zo recent als ze zou kunnen zijn.
+%crew_output_trace.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{crew_output_trace.png}
+    \caption[CrewAI output trace]{\label{fig:outputtrace}CrewAI Output Trace.}
+\end{figure}
+\textbf{Output trace uitleg:} Iets wat CrewAI ook beschikbaar stelt zijn bijhorende data traces gekoppeld aan alles wat de Crew gedaan heeft, dit maakt het mogelijk om fouten na de feiten op te sporen, om te zien wat er mogelijks misliep, men kan ook data in verband met token-gebruik in deze metadata trace terugvinden. Wanneer we in de .env(\ref{sssec:dotenv}) dit specifiek key op True instellen zal een URL beschikbaar zijn in de verbose Crew output verschijnen, dat linkt naar de service van CrewAI waar deze trace bijgehouden wordt.
+
+\subsection{CrewAI Online-Research Demo}
+\label{ssec:crewaionlineresearchdemo}
+
+In deze demo wordt voor de verandering eens met een andere LLM gewerkt dan gewoonlijk, er werd gekozen om een LLM van Nvidia uit te proberen, de \textbf{nemotron-3-super:cloud}. Toevallig maken ze de vergelijking met een veelgebruikt model uit de demo's van voorgaande hoofdstukken: \textbf{gpt-oss:120b} in de volgende grafiek\footnote{\href{https://ollama.com/library/nemotron-3-super}{https://ollama.com/library/nemotron-3-super}}: \ref{fig:nemovsgpt}\\
+
+Nemotron-3-super is een LLM die getraind is om 20 talen te kunnen verstaan, is een MoE(Mixture of Experts) dat initieel inferentie kan doen met 12b parameters en in de verzameling van interne experts een route kan volgen om de rest van de nodige context efficiënt te benutten met een totaal aan 120b parameters en een context-venster van 256k tokens. De performantie is over heel de lijn van tentoongestelde benchmarks iets beter dan gpt-oss:120b, bij lange contexten en coderen is er een serieus verbetering, bij throughput hangt dit van het model af, één van de 2 getoetste nemotrons doet het geweldig, de andere is maar de helft zo sterk als gpt-oss:120b. Onder deze barchart is er nog heel wat meer info te vinden. Op Ollama kan men heel wat specificaties te weten komen over de verschillende modellen die ze aanbieden.
+
+% nu werd er ook gebruikgemaakt van een ander model, eentje die 20 talen verstaat van Nvidia, een Mixture of Experts model, dus het kan heel efficient inference doen op 12B parameters en deze wordt geroute naar interne experts met een totaal aan 120B parameters waardoor het op bepaalde benchmarks hoger scoort dan gelijkaardige grote modellen zoals gpt-oss:120B-cloud
+
+%nemo_vs_gtp.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{nemo_vs_gtp.png}
+    \caption[Nemotron vs GPT vs Qwen]{\label{fig:nemovsgpt}De Nemotron modellen vergeleken met GPT en Qwen op ollama.com/library/nemotron-3-super.}
+\end{figure}
+
+Vervolgens bekijken we de code uitwerking waarbij er online gezocht wordt naar recente en up-to-date informatie voor ons onderzoek naar AI in de zorg-sector. Eerst moeten we weer via een web-zoek-API zoals Tavily toegang krijgen tot online zoeken. CrewAI stelt SerperDevTool beschikbaar via crewai\_tools een google-search API-tool. Hiervoor moest een gratis account aangemaakt worden om beschikking te krijgen over een API-key, zoals eerder besproken worden deze gebruikt om gebruiksdata en limieten en kosten bij te houden per gebruiker. \\
+
+%crew_internet_research_demo.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{crew_internet_research_demo.png}
+    \caption[CrewAI online-research demo]{\label{fig:crewaionlineresearchdemo}CrewAI online-research demo code.}
+\end{figure}
+
+\textbf{Uitleg bij de code:} De .env file inhoud(zie \ref{sssec:dotenv}) wordt in de actieve python environement ingesteld zodat deze code toegang heeft tot de nodige variabelen, de LLM is deze keer nemotron-3-super:cloud, api\_key variabele wordt achterliggend ingesteld met de ingeladen waarde uit de .env. De provider moet hier zeker ook mee worden gegeven anders probeert de LLM naar de default OpenAI te grijpen wat fouten veroorzaakt. Nog eens een framework dat OpenAI als default instelt wanneer men de parameter niet zelf invult. We beschikken over een SerperDevTool dat web-zoeken mogelijk maakt. We volgen in deze demo een agent-centric aanpak, deze mogen de toolgebruik bepalen, het is ook mogelijk in CrewAI om de Tasks te laten beschikken over de tool verzameling("task-centric approach"). In deze demo staat verbose op niveau van agents op false, de eerste agent heeft toegang tot de internet-zoek tool en voor de rest is er anders niets verschillend met de vorige demo. Natuurlijk loopt deze demo veel sneller dan toen we met een lokaal model werkten, en we verwachten iets meer up-to-date informatie uit onze onderzoek maar nemotron is wel een heel recent model met een cutoff date van februari 2026\footnote{\href{https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16}{https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16}}, 2 maand geleden op het moment van schrijven. Terwijl de vorige demo minuten duurden had deze workflow minder dan een half minuut nodig af te ronden. \\
+%when talking about the py funct. to load .env reference next subsubsect
+% is it agent or task-centric? who has the tools?
+\textbf{Output:}
+
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+\begin{minted}[linenos=false]{markdown}
+    The healthcare artificial intelligence market is rapidly expanding, projected to grow from $26.6 billion in 2024 to $187.7 billion, reflecting strong investment and adoption. Healthcare organizations are increasingly integrating generative AI to improve operations and stakeholder engagement, with many moving toward full-scale deployment. There has been a significant surge in specialized AI tools, as 22% of healthcare organizations now use domain-specific applications—a sevenfold increase from 2024. AI is also advancing personalized medicine through growing applications in genomics, while driving improvements in diagnostics—such as detecting fractures—and streamlining operations like ambulance dispatch and administrative workflows. Additionally, AI is accelerating drug discovery and development across the pharmaceutical sector by enhancing biomedical research efficiency.
+\end{minted}
+\end{tcolorbox}
+
+\subsubsection{.env}
+\label{sssec:dotenv}
+
+Nu werken we met een .env file voor de CrewAI Online-Research Demo, zie hierboven: \ref{ssec:crewaionlineresearchdemo}, het is nog steeds een demo zonder echt project filestructuur, maar met de python functie load\_dotenv() kan alles wat in die file staat in de lokale environment ingeladen worden, belangrijk blijven de sleutel namen, API-keys verwachten een exacte naam. De gebruikte .env file \ref{fig:dotenvfile} met afgekapte sleutels zodat de lezer er niet mee vandoor kan gaan en een extra sleutel op true, deze past de uitwerking van de demo aan zodat een trace beschikbaar is met nuttige informatie.
+% explain how the new dotenv is working, together with the py function to load .env, we can handle secrets like that, yet another way of handling them, also the secrets have been redacted so as to not leak them
+
+%crew_dotenv.png
+\begin{figure}[H]
+    %\centering
+    \includegraphics[width=0.8\textwidth]{crew_dotenv.png}
+    \caption[dotenv file]{\label{fig:dotenvfile} Bijhorend .env bestand.}
+\end{figure}
+
+\subsection{CrewAI Algemene Features}
+\label{ssec:crewaialgemenefeatures}
+% 03_CrewAI_PydanticModel_Decorator_Yaml -> reminder to talk about
+CrewAI gebruiken een aantal speciale technieken om met agents om te gaan. Bijvoorbeeld de instellingen voor de agent kunnen worden afgezonderd in een .yaml file zoals we zien in de boilerplate file-structuur: \ref{verb:filetree}. \\
+
+Ze kunnen gestructureerde output verzorgen door pydantic BaseModels te gebruiken, wanneer agents de output van hun afgewerkte taken doorgeven aan de volgende agent zal deze een vast object-structuur kunnen volgen, dit vaste schema kan bij de Task ingesteld worden als output-format. Zie volgend codefragment: \ref{fig:crewaialgemenefeatures} \\
+
+Vooral nuttig in grote AI-projecten kunnen decorators gebruikt worden zoals @CrewBase, @agent, @task, @crew, in dat laatste stukje code kan een Crew als python klasse aangeroepen en een object geïnstantieerd worden, het laatste Decorator stukje code(\ref{fig:crewaialgemenefeatures}) afkomstig van \autocite{IBM2026}. Code voor het configureren van de agent en taak zit ook afgezonderd in een .yaml file om gemakkelijk aanpasbaar te zijn.
+
+
+%crew_pydantic_basemodel_decorator_yaml.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{crew_pydantic_basemodel_decorator_yaml.png}
+    \caption[CrewAI algemene features]{\label{fig:crewaialgemenefeatures}Algemene CrewAI features in code.}
+\end{figure}
+
+
+\subsection{CrewAI Project Template}
+\label{ssec:crewaiprojecttemplate}
+
+Volgens de installatie gids \footnote{\href{https://docs.crewai.com/en/installation}{https://docs.crewai.com/en/installation}} kan met de volgende commando's een project boilerplate gegenereerd worden dat men al kan gebruiken om AI-projecten verder uit te werken.\\
+
+Installeer eerst de py package manager \textbf{uv}. BeeAI guides raden deze trouwens ook aan. Uv beheert Python-versies en packages in geïsoleerde virtuele omgevingen, zodat je projectafhankelijkheden niet globaal op je systeem hoeven te worden geïnstalleerd en conflicten tussen projecten worden voorkomen. We zullen niet alle commando's bekijken, uiteindelijk voert men deze code uit in de terminal op het project te bouwen: \textbf{crewai create crew crewai\_demo\_project}. Waarna een aantal vragen gesteld worden:\\
+
+\textbf{Select a provider to set up:} \\
+We kunnen kiezen uit:
+\begin{multicols}{3}
+    \begin{enumerate}
+        \item OpenAI       \item Anthropic    \item Gemini
+        \item NVIDIA NIM   \item Groq         \item HuggingFace
+        \item Ollama       \item Watson       \item Bedrock
+        \item Azure        \item Cerebras     \item SambaNova
+        \item Other
+    \end{enumerate}
+\end{multicols}
+
+\textbf{Select a model to use for Ollama:} \\
+Keuzes waren:
+\begin{enumerate}
+    \item ollama/llama3.1
+    \item ollama/mixtral
+\end{enumerate}
+
+
+\textbf{Project File-Structuur:}
+\phantomsection
+\label{verb:filetree}
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    \begin{verbatim}
+my_project/  
+├── .gitignore  
+├── knowledge/  
+├── pyproject.toml  
+├── README.md  
+├── .env  
+└── src/  
+    └── my_project/  
+        ├── __init__.py  
+        ├── main.py  
+        ├── crew.py  
+        ├── tools/  
+        │   ├── custom_tool.py  
+        │   └── __init__.py  
+        └── config/  
+            ├── agents.yaml  
+            └── tasks.yaml  
+    \end{verbatim}
+\end{tcolorbox}
+
+Na het kiezen van Ollama als provider en llama3.1 als model moest dit model enkel nog gedownload worden(\textbf{ollama pull llama3.1}), en een bestaand kant en klare demo kon al draaien(\textbf{crewai run}), dit is zeker een zinvolle werkwijze wanneer men grootschalige AI-projecten wil maken. Wat er ook bij zit maar niet te zien is in de file-structuur is een \textbf{AGENTS.md} file van meer dan 1000 lijnen instructies bedoeld voor AI-agents, best practices, algemene regels, dependencies, guardrails, human in the loop en veel meer. \\
 
 \section{Pydantic AI}
+\label{sec:pydanticai}
 %als er tijd is om dit ook nog te onderzoeken
 
 \section{n8n}
-
+\label{sec:n8n}
 
 \section{Vergelijking Conclusies}
+\label{sec:vergelijkingconclusies}
 % many different frameworks all kind of boil down to: provide a wrapper for an LLM, using bespoke design LLM-agent management systems 
 
 % most of them contain the same kind of things, prompt-template or agent rol, tools, LLM, some form of context-management, methods for interacting with other agents, instructions on how to act, what to do and how to return the data
