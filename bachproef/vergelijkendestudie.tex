@@ -605,8 +605,47 @@ Belangrijker dan de snelheids- testen zijn de bruikbare codefragmenten om eventu
 \subsection{Naïve RAG met Ollama cli}
 \label{ssec:naiverag}
 % provide the section \& demo about bash-commands and piping file contents to the ollama cli input and talk about the possible downsides to this approach
+Volgens een demo en creatief idee van \autocite{Galea2025} om met bash commando's gevonden string-data door te sluizen recht naar een LLM-input, iets wat zeker mogelijk is met Ollama-cli. We kunnen deze methode gebruiken om het volgende te doen:
 
-\todo{Niet vergeten toe te voegen...}
+\subsubsection{Voor het maken van documentatie}
+Laat documentatie maken voor de codebase in het algemeen:
+\begin{minted}{bash}
+    cat files.txt | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Generate documentation for this codebase."
+\end{minted}
+
+Laat JSDocs maken voor elke functie in alle files met functies:
+\begin{minted}{bash}
+    $ cat files.txt | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Generate JSDoc for above each function in this co
+    debase."
+\end{minted}
+
+\subsubsection{Om testen te schrijven}
+
+Schrijf testen voor alle functies in een file:
+\begin{minted}{bash}
+    find . -name 'add.js' -o -name 'test_rules.md' | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Following the test rules please generate tests for each function."
+\end{minted}
+
+\subsubsection{Om te zoeken in een groot document}
+
+\begin{minted}{bash}
+    find . -name 'example.md' | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Prompt to gemma3: provided above is the contents of a markdown file, could you give me just the bit about dwarves?"
+\end{minted}
+
+\subsubsection{Nadelen van Naïve RAG}
+
+Dit is een grote massa ongestructureerde data en men heeft weinig controle over hoe de LLM dit zal interpreteren, het is mogelijk dat er onverwachte tekst op een raar manier zal geïnterpreteerd worden door de LLM. Met deze techniek nemen we alle gevonden tekst, plakken dit alles aan elkaar en voegen we aan het einde onze prompt toe, in de hoop dat de LLM hiermee om kan gaan. Er bestaat een kans op prompt-injection, verborgen commando's voor de LLM die meekomen met de data. Teveel token-gebruik, de documenten worden volledig ingeladen. Ook is het mogelijk dat de context-venster van de LLM oververzadigd zal zijn wat voor onverwacht gedrag kan zorgen, onder andere hallucinaties.
+
+\subsubsection{Zelfs de groten doen dit}
+Zelfs Anthropic's Claude Sonnet 4.6 maakt gebruik van deze techniek, ja als het efficiënter is zal de LLM een slimme alternatief verkiezen in plaats van de toch iets duurdere RAG operatie.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{claude_ai_grep_no_rag.png}
+    \caption[Grep bash commando uitgevoerd door claude.ai]{\label{fig:claudegrepinsteadofrag}Grep bash commando uitgevoerd door online chatbot, claude.ai}
+\end{figure}
+
+Deze techniek heeft zeker een aantal use-cases en kan zeker ingezet worden op kleine schaal.
 
 %zelfs claude.ai online chatbot gebruikt een bash commando in plaats van RAG, als eenvoudig interpretaties nodig zijn van een document
 %claude_ai_grep_no_rag.png
@@ -1184,6 +1223,13 @@ All field names in the specification are **case-sensitive**.
 \subsection{LlamaIndex RAG \& OAS}
 %een vraag stellen over de OAS dat opgesplitst is met chunking gebruikmakend van RAG
 
+In volgende demo wordt een vraag gesteld over de documentatie, maar eerst wordt een persistente indexed vector-store aangemaakt dat ervoor zorgt dat dit duur proces maar eenmalig uitgevoerd moet worden en bij toekomstige opzoekingen kan de bestaande vector-store ingeladen worden wat vooral tijd zal besparen. Deze techniek is uitermate geschikt voor data dat niet snel verandert zoals, company policy, API-documentatie en bestaande test-modules. Dit proces kan opnieuw uitgevoerd worden maar neemt telkens wat tijd in beslag en ook de embedding proces zal afhankelijk van de hoeveelheid te-embedden data met een bepaald token-kost komen. Er werden twee verschillende versies van de vector-store gemaakt in volgende demo.\\
+
+\textbf{Basic:} Lijn 38-42; 58 $\rightarrow$ in-commentaar en opslag-folder: \verb|"./storage/basic"| \\
+\textbf{Enhanced:} Geen code in-commentaar en opslag-folder: \verb|"./storage/enhanced"| \\
+
+Een mapje met de naam 'basic' en een met de naam 'enhanced'. Het verschil tussen de twee is dat er bij de eerste geen gebruik werd gemaakt van transformaties en bij de volgende wel. We nemen de tweede demo code onder de loep: \ref{fig:persistentvectorstore1}
+
 \begin{comment}
     add this as reference of where I got the code
     https://developers.llamaindex.ai/python/framework/module\_guides/loading/ingestion\_pipeline/transformations/
@@ -1192,17 +1238,21 @@ All field names in the specification are **case-sensitive**.
 \end{comment}
 
 % vectorstore_persistent_1.png
-
-\todo{don't forget to add an explanation}
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{vectorstore_persistent_1.png}
     \caption[persistente vectorstore]{\label{fig:persistentvectorstore1}Persistente vector-store lokaal opslaan deel 1.}
 \end{figure}
 
-\textbf{Uitleg bij de code:}
-TODO
+\textbf{Uitleg bij de code:} In de eerste versie van de demo wordt er geen gebruik gemaakt van TokenTextSplitter, een chunker, TitleExtractor en QuestionsAnsweredExtractor, twee transformaties van de originele data. Er wordt een gpt model gebruikt samen met een huggingface embedding model, hiervoor dienen de API-keys. \\
+
+Vervolgens hebben we een aantal zware bewerkingen, \textbf{transformations}, de tekst opsplitsing is nog redelijk snel, maar de volgende paar operaties hebben een zware kost in tijd en aantal LLM-aanroepingen, er wordt nu extra metadata bewaard, per 5 nodes zal er een bijpassende titel aangemaakt worden en de QuestionsAnsweredExtractor genereert 3 vragen bij elke node, dit alles voor een document-node-count van 254, dat wil zeggen dat er ongeveer 300 LLM aanroepen gebeuren voor dit proces, de duurtijd \ref{fig:vectorstoretransformationtimecost} werd hierbij ook getoetst. \\
+
+Nu wordt een nieuw opslag-folder aangemaakt als die nog niet bestaat waarin de door de VectorStoreIndex geïndexeerde en getransformeerde vector-store opgeslagen wordt. De persist() methode maakt een aantal json files aan: 
+
+
+Waarvan de graph\_store en image\_vector\_store niet opgevuld werden, maar de andere wel. We gebruiken de StorageContext klasse en de load\_index\_from\_storage() functie om de index op te stellen wanneer deze folder wel bestaat en we verwachten dus ook dat de vector-store kan ingeladen worden.
+
 
 \begin{figure}[H]
     \centering
@@ -1210,11 +1260,29 @@ TODO
     \caption[persistente vectorstore]{\label{fig:persistentvectorstore2}Persistente vector-store lokaal opslaan deel 2.}
 \end{figure}
 
-\textbf{Uitleg bij de code:}
-TODO
-\textbf{Output:}
-TODO
+\textbf{Uitleg bij de code:} Deze is ons niet onbekend, er zijn echter een paar opmerkingen, deze aanroep naar de LLM met search-documents tool dat gebruik maakt van een query-engine zal de geïndexeerde document-chunks gebruiken, welke een lange tijd nodig hadden om klaar te zetten, daarom gebeurden die zware bewerkingen sequentieel nu uiteindelijk gevolgd door een asynchroon aanroep van main, nadat alle langdurige bewerkingen afgerond zijn. Uiteindelijk is het opzet met de transformaties om meer kwalitatieve antwoorden te krijgen van de LLM als response van onze vragen, er zijn titels en voorbeeldvragen mee opgeslagen in de persistente vector-store.
+% what do we really expect? will the responses be BETTER? or FASTER?
+De twee verschillende vector-stores zullen elk afzonderlijk met dezelfde query ondervraagd worden en de verschillende antwoorden met elkaar vergeleken.
+
+
+\todo{vergelijk met en zonder transformaties, of er een verschil in kwaliteit van responses is...}
+
+\textbf{Output Zonder transformatie:}
+
 % j J
+\textbf{Output Met transformatie:}
+
+
+
+\subsubsection{Transformatie tijds-kost:}
+De tijd om alle transformaties(chunking en indexering) te doen op de nodes was 945.85312s ofwel 15.76m. Het overgroot deel van tijd bij deze operatie zit in de transformaties van de data als voorbereiding op het indexeren van de data, plus de nieuw aangemaakte metadata.
+
+%vectorstore_transformation_time.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{vectorstore_transformation_time.png}
+    \caption[Tijds-kost transformaties]{\label{fig:vectorstoretransformationtimecost}Tijds-kost transformaties en indexeren.}
+\end{figure}
 
 \subsection{LlamaIndex vs LangChain}
 

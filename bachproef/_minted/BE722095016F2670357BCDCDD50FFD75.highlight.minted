@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+find\PYG{+w}{ }.\PYG{+w}{ }\PYGZhy{}name\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}example.md\PYGZsq{}}\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }xargs\PYG{+w}{ }\PYGZhy{}I\PYG{+w}{ }\PYG{o}{\PYGZob{}\PYGZcb{}}\PYG{+w}{ }sh\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}echo \PYGZdq{}\PYGZbs{}n=== \PYGZob{}\PYGZcb{} ===\PYGZbs{}n\PYGZdq{}; cat \PYGZob{}\PYGZcb{}\PYGZsq{}}\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }ollama\PYG{+w}{ }run\PYG{+w}{ }gemma3\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Prompt to gemma3: provided above is the contents of a markdown file, could you give me just the bit about dwarves?\PYGZdq{}}
+\end{MintedVerbatim}
