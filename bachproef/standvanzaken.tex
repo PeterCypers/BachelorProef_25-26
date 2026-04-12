@@ -416,7 +416,7 @@ RAG heeft een of andere vorm van data-opslag nodig waaruit de informatie opgehaa
 
 Bij een non-RAG systeem hebben we een Prompt $\rightarrow$ LLM $\rightarrow$ Response pipeline. bij RAG zijn er verschillende extra tussenstappen vooraleer men een response van het model ontvangt zie figuur: \ref{fig:ragpipeline}. \\
 
-Een aantal problemen dat met normale LLM gebruik kan voorkomen is dat er  informatie online wordt opgehaald van minder betrouwbare bronnen. Wanneer een LLM antwoorden genereert enkel op basis van zijn training data bestaat het gevaar dat deze data enkel tot en met de cut-off datum van het model gaat en dus mogelijk verouderd is. \todo{reference mogelijke risico's: model cutoff}. Een mogelijke oplossing voor dit probleem is het implementeren van een RAG-pipeline.
+Een aantal problemen dat met normale LLM gebruik kan voorkomen is dat er  informatie online wordt opgehaald van minder betrouwbare bronnen. Wanneer een LLM antwoorden genereert enkel op basis van zijn training data bestaat het gevaar dat deze data enkel tot en met de cut-off datum van het model gaat en dus mogelijk verouderd is, zie sectie \ref{sec:modelcutoffdatums}. Een mogelijke oplossing voor dit probleem is het implementeren van een RAG-pipeline.
 
 
 \begin{figure}[H]
@@ -556,8 +556,7 @@ Een voorbeeld van de data-shape dat opgeslagen zit in een vector database, met a
     \label{lst:chromadbqueryresult}
 \end{listing}
 
-Het indexeren en embedden van de brondata, gebeurt in de reeds besproken voorbeeldcode wel tijdens het lopen van de demo, dit proces kan wat tijd in beslag nemen, als men regelmatig een bron van onveranderlijke data moet doorzoeken kan deze ook in een meer permanente opslag vector database worden opgeslagen en daar kan men sneller op zoeken omdat de embedding stap van de brondata overgeslagen kan worden, \todo{forward reference to the demo in verg.st where I have a code example using LlamaIndex} \\
-%todo: followup, do we have an example of a fixed vector database with permanently stored embeddings? -> yes
+Het indexeren en embedden van de brondata, gebeurt in de reeds besproken voorbeeldcode wel tijdens het lopen van de demo, dit proces kan wat tijd in beslag nemen, als men regelmatig een bron van onveranderlijke data moet doorzoeken kan deze ook in een meer permanente opslag vector database worden opgeslagen en daar kan men sneller op zoeken omdat de embedding stap van de brondata overgeslagen kan worden, zie sectie \ref{ssec:llamaindexragandoas} waar deze techniek toegepast wordt. \\
 
 %https://docs.trychroma.com/docs/querying-collections/query-and-get
 Vector Databases zijn een belangrijk onderdeel van het RAG-proces. Vervolgens bestaan er nog een aantal concepten die met vector databases te maken hebben: HNSW / LSH / Similarity Search / ANN / Cosine similarity / Dot product / Euclidian distance.
@@ -565,6 +564,29 @@ Maar deze lopen wat buiten scope voor dit onderzoek en zullen verder niet meer i
 
 Dit hoofdstuk ging in detail in op de low-level werking van RAG. Er bestaan echter technologieën die abstractie bieden bovenop de complexiteit van de interne werking van dit proces. In het code fragment kwam LangChain al even aan bod.
 LangChain en LlamaIndex zijn frameworks die gemaakt zijn om met LLMs om te gaan. LlamaIndex is een framework die bepaalde delen van het RAG proces vereenvoudigen, maar op sommige vlakken minder controle biedt dan bij LangChain. Deze worden binnen hoofdstuk \ref{ch:vergelijkende-studie} in detail besproken.
+
+\subsection{RAG vs Long-Context}
+\label{ssec:ragvslongcontext}
+
+Onlangs stelden \textcite{IBM2026a} de vraag of we RAG nog nodig hebben wanneer LLMs steeds groter worden en dus ook de hoeveelheid context dat tegelijk door de LLM verwerkt kan worden. Er werd een vergelijking gemaakt tussen de technieken RAG versus "Long-Context": Het brute-force dumpen van heel veel context in het context-venster. \\
+
+Zal RAG nuttig blijven terwijl de context-windows van LLMs steeds groter worden? Wanneer we alle nodige context kunnen inladen in de context-window dan kunnen we ganse boeken proppen in de LLM context. Het is mogelijk om zo te werk te gaan, maar is het duurzaam? \textcite{IBM2026a} herbekijkt het RAG-proces en maakt de argument dat dit proces feilbaar is omdat men mogelijk belangrijke context niet zal ophalen in de retrieval stap, er wordt gesproken van een context loterij en de mogelijkheid op "silent failure", we krijgen namelijk geen feedback van de LLM wanneer de relevante context niet exact werd opgehaald tijdens de retrieval proces, en het RAG syteem zorgt voor een complexe laag "overhead", er zij embedding models nodig, een vector-DB en chunking-strategie. \\
+
+Het brute kracht inladen van een lange context is eenvoudiger (zie ook sectie: \ref{ssec:naiverag}). Deze methode heeft wel use-cases voor wanneer een totale context nodig is voor analyse of vergelijking, dit vermijd ook de complexiteit van het opzetten van een RAG-filter proces. \\
+
+Het is ook een soort resource-management vraag, heeft de aanroeper een quantumcomputer nodig waar een rekenmachine zou volstaan? \\
+
+RAG bewijst echter zijn nut door de mogelijkheid om de context miniem te houden. Token-kosten zullen lager zijn. Veel minder context wil ook zeggen dat de hoogste relevante context blijft en veel extra context dat voor hallucinaties had kunnen zorgen weggefilterd werd. \\
+
+Er zal altijd een bovengrens zijn voor de grootte van het context-venster en dus zal het zeker een relevant probleem blijven om een data filtratie laag te hebben als voorbereiding vóór het aanroepen van LLMs.
+
+
+
+\begin{comment}
+    % https://www.youtube.com/watch?v=UabBYexBD4k
+    % RAG vs Long Context (IBM)
+    % 
+\end{comment}
 
 % j
 % keep this section brief (look at that nice article in the chrome-tabs group)
@@ -624,8 +646,23 @@ Om complexe doelen te bereiken, vertrekken AI agents vanuit een aantal terugkere
 
 % may remove this segment (or super-short explenation):
 \subsection{ReACT Agent}
+% read, and reference : yao2023 (ReAct: Synergizing Reasoning and Acting in Language Models) -> consider getting a summary of this study to see what the ReAct cycle is
 
-\todo{Where did I put the info about this thing?}
+% j
+
+Een design patroon waarbij een AI-agent in een lus het eigen werk beoordeelt en iteratieve verbeteringen aanbrengt en mogelijk ook externe tools aanroept tot er beslist wordt om het eindresultaat af te leveren als response, niet te verwarren met COT(Chain of Thaught) waarbij een AI het denkproces als feedback kan tonen aan de gebruiker, dit is eerder een sequentieel proces van denkstappen.
+
+%todo: Image
+
+% ReAct image from src: https://huggingface.co/learn/agents-course/en/unit1/agent-steps-and-structure \autocite{HuggingFacea}
+
+% ReAct.png
+
+\subsection{Heartbeat}
+% https://www.mindstudio.ai/blog/agentic-os-heartbeat-pattern-proactive-ai-agent
+%todo: put into references and refer to this source
+
+%todo: 4 phases of the heartbeat cycle
 
 \section{Protocol: MCP - ACP - A2A}
 \label{sec:mcpacpa2a}

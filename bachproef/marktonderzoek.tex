@@ -16,6 +16,7 @@
 
 
 \section{Info over verschillende AI modellen}
+\label{sec:infooververschillendeaimodellen}
 
 Een handige resource om up-to-date en geaggregeerde informatie te verkrijgen over de verschillende LLMs op de markt en om deze ook te vergelijken met elkaar volgens een extensief reeks benchmarks vinden we op de website: 'artificialanalysis.ai'\footnote{\href{https://artificialanalysis.ai/}{https://artificialanalysis.ai/}}. Zie figuur \ref{fig:artificialanalysishistory}.
 
@@ -47,7 +48,7 @@ Met Kimi k2.5 op de 10de plaats en Deepseek V3.2 helemaal naar 13de plaats afgez
 \end{comment}
 % j
 
-Het blijft een wedstrijd, vooral tussen de verschillende Amerikaanse big-tech bedrijven en China om de meest performante LLMs beschikbaar te stellen. \\
+Het blijft een wedstrijd, vooral tussen de verschillende Amerikaanse big-tech bedrijven en China om de meest performante LLMs beschikbaar te stellen. Waar gaan ze naartoe? Steeds sterkere LLMs, groter marktaandeel, overtuigen van investeerders en het bereiken van AGI(Artificial General Intelligence) en verder. Sam AltMan legt uit dat het team bij OpenAI altijd het doel hadden om AGI en zelfs ASI(Artificial Super Intelligence) te bereiken \autocite{Tan2024a}. ANI(Artificial Narrow Intelligence) is wanneer AI goed is in één gespecialiseerde taak, AGI is wanneer AI een gelijkaardig niveau van intelligentie heeft als de mens en ASI is wanneer AI de mens heeft overtroffen \autocite{IBMf}. \\
 
 %this fits in discussie? half and half, what's here is fine, we can be more critical in the discussion, mainly about the Nvidia and OpenAI:
 Er is nog geen groot AI-bedrijf dat op instorten staat, maar het loopt wat chaotisch bij sommigen. OpenAI zou in 2025 zo'n 8 miljard dollar hebben verbrand, oplopend tot 40 miljard in 2028, met winstgevendheid pas verwacht in 2030 \autocite{Ferreira2026}. \\
@@ -64,8 +65,36 @@ Google staat in een sterke positie op dit moment, ze hebben veel geld, datacente
 % j 
 Zo lang men oppast voor vendor lock-in en het nieuws volgt, regelmatig eigen gebruikte AI-technologieën beoordeelt en vergelijkt, dus waakzaam blijft, zal men nooit voor verrassingen komen te staan. De wereld van AI verandert voortdurend.
 
-\subsection{Github Marketplace Models}
+\section{Online Chatbots}
+\label{sec:onlinechatbots}
+
+Er is een breed gamma aan online chatbots beschikbaar, conversationele AI waar men interacties mag verwachten in een Q\&A formaat met begrip van context en waarbij de chatbot kennis heeft van eerdere berichten. Op deze platvormen kunnen de verschillende AI providers de gebruiker overtuigen van de kracht en gebruiksvriendelijkheid van hun eigen nieuwste AI-modellen. Deze beschikken over tools zoals online zoeken, context uit verschillende soorten media files interpreteren en soms ook het genereren van afbeeldingen of video's. Een korte overzicht van verschillende online chatbots gerangschikt op markt-aandeel volgens \autocite{Bailyn2026}: \ref{tab:generatieveaichatbots}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Rang} & \textbf{Gen-AI Chatbot} & \textbf{AI-Zoeken Markt Aandeel} & \textbf{Gesch.gebruikersgroei/Q.} \\
+        \midrule
+        1 & ChatGPT & 60.2\% & 4\% \\
+        2 & Google Gemini & 15.3\% & 12\% \\
+        3 & Microsoft Copilot & 12.8\% & 3\% \\
+        4 & Perplexity & 5.5\% & 4\% \\
+        5 & Claude AI & 4.9\% & 14\% \\
+        6 & Grok & 0.6\% & 4\% \\
+        7 & Deepseek & 0.2\% & 7\% \\
+        \bottomrule
+    \end{tabular}
+    \caption[Populaire Ollama modellen]{\label{tab:generatieveaichatbots}Top generatieve AI-chatbots op marktaandeel \autocite{Bailyn2026}.}
+\end{table}
+
+OpenAI met ChatGPT heeft veel van zijn succes te wijten aan het feit dat ze een "First-mover advantage" en zo ook naambekendheid hebben als AI-chatbot, als men over AI spreekt zal er vaak gewoon afgekort worden met "vraag het aan GPT". Nu dat AI-chatbots en het bestaan van alternatieven meer geweten is zien we dat het gebruik van andere AI-chatbots aan het stijgen is, met opvallende verwachtte groei bij het gebruik van Google Gemini en Claude AI \autocite{Bailyn2026}. Opvallend afwezig uit deze lijst is Meta AI, de WhatsApp-geïntegreerde chatbot.
+
+\section{Github Marketplace Models}
 % hier is het mogelyk om modellen in een sandbox omgeving uit te testen met verschillende settings -> look into what can all be done here (sem2/bp/sdk)
+% https://github.com/marketplace/models/
+
+Hier\footnote{\href{https://github.com/marketplace/models/}{https://github.com/marketplace/models/}} kan men verschillende LLMs uittesten en met elkaar vergelijken en kiezen om deze te gebruiken $\rightarrow$ 'Use this model'. Hier wordt dan een korte SDK of gebruiksinstructie weergegeven om met de gekozen model aan de slag te gaan in code. Men kan tokengebruik testen en kwaliteit van antwoorden, verschillende parameters instellen zoals maximum tokens, temperatuur en top\_p.
 
 \section{No-code web-dev platvormen}
 \begin{comment}
@@ -78,9 +107,22 @@ Zo lang men oppast voor vendor lock-in en het nieuws volgt, regelmatig eigen geb
 % laten toe om een custom agent te maken met verschillende mogelijkheden, vaak zonder code, een service die verschillende AI-providers beschikbaar stellen
 % voorbeelden: see LangChain workspace: img 61: agent builder(from langsmith), claude has one, check where API-keys and or billing happens for various services, Anthropic, OpenAI, langchain, github, copilot m365. They're available in many places, sometimes you need to pay to gain access ot that part of the service
 
+We maken een onderscheid tussen \textbf{Low-code} en \textbf{No-code} agent-builder platvormen. Bij low-code is er een beetje technische kennis nodig en wordt er gebruik gemaakt van SDK's(Software Development Kits) om de agents te maken en aan te passen. Bij no-code is er geen technische kennis nodig en kunnen mensen met een lage instapgrens beginnen om AI-agents te ontwikkelen. Veel AI-providers bieden ook agent-builder tools aan. Claude AI, LangChain, LangSmith, Microsoft Copilot M365, ChatGPT, Github, en dergelijke bieden deze feature, maar vaak is dit onderdeel van hun betalende service.
+
+\subsection{Microsoft Copilot M365 (No-code)}
+% microsoft M365
+
+\subsection{MindStudio (No-code)}
+
+
+\subsection{n8n (Low-code)}
+
+
+\subsection{Vertex AI (Low-code)}
+
+
 \section{No-code generatieve workflows}
 
-\subsection{Vertex AI}
 \subsection{ComfyUI}
 %ComfyUI, voorziet een grafische UI, gebruikt nodes, kan voor veel verschillende use-cases ingezet worden zoals foto-generatie, audiogeneratie en videogeneratie
 %gebruikt stablediffusion
@@ -140,8 +182,18 @@ Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft.
 % mention that you normally need to create a user account and can see your usage statistics on that account near: billing or usage
 % mention the token is often set in the .env and it's used for authorisation whenever you try to run a model on one of the APIs
 
-\subsection{OpenAI Codex}
-%requires some investigating, lots of big developments recently, added a tab-link from ChatGPT.com leading to codex
+Volgens \textcite{JabRef} zijn AI providers bedrijven of services die men de mogelijkheid geeft om requests te sturen en responses te ontvangen van AI, bijvoorbeeld: OpenAI / Mistral AI / Google / Hugging Face / Ollama. \\
+
+Ook volgens \textcite{JabRef} worden API keys omschreven als een soort passwoord dat men toegang verleent tot informatie of services van een ander app of website, zoals een LLM service. De service controleert bij een request eerst op een geldig API-key vooraleer een response terug te sturen. \\
+
+\begin{comment}
+    word better:
+    Wanneer er met AI wordt gewerkt kan men over een groot aanbod aan services beschikken AI-providers, MCP(Model Context Protocol)-tool-servers, cloud-AI APIs(Application Programming Interaces)
+\end{comment}
+
+Men kan rechtstreeks API-keys gebruiken van AI-providers zoals OpenAI met ChatGPT-modellen of Anthropic met Claude-modellen of de API-keys van tussenpersonen(bedrijven) werken zoals Ollama. Men kan een Ollama API-key gebruiken om te verbinden met gpt-oss:120b-cloud bijvoorbeeld, de gebruiks-kost wordt dan door de tussenpersoon beheerd. Het is ook mogelijk om goedkoper toegang te krijgen tot bepaalde LLMs net door gebruik te maken van deze tussenpersonen. \\
+
+De meeste AI-gerelateerde externe services beheren de gebruikskosten en toegang met API-keys.
 
 \section{IDE-geïntegreerde Agents}
 \label{sec:idegeintegreerdeagents}
@@ -151,6 +203,11 @@ Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft.
 %claude-code & Cursor -> see dedicated notes on each
 
 % Interpretatie van code-base scoped context wordt hier verder besproken (referenced to here from RAG)
+
+% https://lawrence.eti.br/2025/08/10/the-new-era-of-ai-coding-assistants-comparing-models-and-tools-in-2025/
+
+% todo: add figure: (it's from above reference), maybe discuss shortly the different strengths of the displayed models, github copilot, Cursor(an Agent-integrated fork of VSC) and openAI Codex, (does it have an in VSC-agent? plugin?) make a reference to the chapter discussing codex
+% use_case_matrix.png
 
 \begin{comment}
     %It will always be a problem because AI will always have some limit to how much additional context it can be given when prompted, it may increase if models continue to get stronger, but there will always be some limit.
@@ -166,41 +223,86 @@ Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft.
 \section{Windows M365 Copilot}
 % een AI-assistent die samenhangt aan windows, Word, Excel, PowerPoint en Teams -> onderzoek zijn agent-builder, waar we vroeger Office hadden vinden we nu M365 Copilot
 
-\section{Volledig Autonome AI Agent}
+\section{(Volledig) Autonome AI Agents}
+Er is steeds meer autonomie mogelijk bij AI-agents, het kan op een schaal gezet worden van hoge menselijke tussenkomst tot helemaal geen menselijk tussenkomst \autocite{mitchell2025}. Wanneer men een vraag stelt aan een online AI-chatbot en met het gegenereerd antwoord zelf tot een besluit komt is er nog volledige controle bewaard over het systeem waarmee de mens interageert. Wanneer de AI-agent inzicht mag hebben in verschillende niveaus van context binnen een systeem en de gebruiker vraagt of er code-aanpassingen mogen gebeuren heeft de AI-agent al veel meer autonomie. Wanneer er geen goedkeuring gevraagd wordt en de AI-agent code kan aanpassen, commits kan maken en pull requests afwerken is er al heel veel autonomie aan de agent gegeven en bestaat het risico dat de menselijk controle over het systeem verdwijnt. Wanneer men toegang verleent tot de AI-agent om zelf volledige projecten af te werken, mogelijks met verhoogde gebruiksrechten over het platform waarin deze werkt kan de mens uit het plaatje verdwenen zijn en heeft de AI-agent alle controle over het systeem. \\
+
+Volgens \textcite{mitchell2025} is het een \textbf{Human} $\leftrightarrow$ \textbf{System} schaal. De mens heeft nog volledige controle wanneer de AI-agent vragen beantwoord, minder controle wanneer de agent bepaalt hoe en wanneer functies worden uitgevoerd, of tools worden gebruikt. Uiteindelijk op het moment dat de AI-agent zelf code mag schrijven en code mag uitvoeren is controle over het systeem volledig uit handen van de mens. Dit soort AI-agents brengen serieuze risico's met zich mee en kunnen best vermeden worden \autocite{mitchell2025}. \\
+
 \begin{comment}
     %SHORT discussion about the use of agents to fully autonomously work on, update and deploy code to projects (see my workshop on AI agents at hogent), consider what all exists in this realm, by Theo: https://www.youtube.com/watch?v=GcNu6wrLTJc (Delete your CLAUDE.md (and your AGENT.md too))  https://agents.md/ (read the paper asserting that the use of such repository-Agent-interpret files make agents worse, not better)  ref: \autocite{gloaguen2026} agent.md as subsection
 \end{comment}
 
+\subsection{OpenAI Codex}
+%requires some investigating, lots of big developments recently, added a tab-link from ChatGPT.com leading to codex
+
+% talk: mention where it was downloaded, that it didn't start up until a folder which had git-init and a readme existed, after which it reluctantly started working on it, you need to set a project folder in which it expects a code-project, preferrably connected to a git-repo, it needs a SANDBOX which requires a project workspace
+
+% the demo: create a snake game was chosen, which filled in a prompt for the agent (show the prompt text not as picture, but grey outline). the agent plans out multiple steps to complete the project. It generated various files and wrote 750 lines of code and we ended up with a working snake-game that could run using npm start
+
+% mention it keeps running in the background so it's able to handle automated tasks, it has an automations tab where you already have access to a few automations related to pull requests and git-access
+
+% er zijn plugins en skills beschikbaar voor coding, design etc
+
+% img: 20 / 22 / 23(wat kan het) / 33 (zonder Business subscriptie kan het je code gebruiken om op te trainen -> opt-out -> reference to section: sec:securityandprivacy)
+% codex_gui.png
+% codex_snake.png
+% codex_skills.png
+% codex_training.png
+
+%TODO: 
 
 \section{OpenClaw (wordt niet behandeld)}
 % yust putting it here so I know it's around, I can mention it somewhere, but not in it's own chapter, not sure what to do with it, it's a bit too late to also look into now, but it is taking the world by storm, and rapidly getting integrations with many existing softwares
 \section{Pricing}
 \label{sec:pricing}
 %
-Titel mischien Prijs Vergelijking...
+Veel AI-chatbots die men via de browser kan aanspreken hebben een gratis gebruik tot een bepaald gebruikslimiet, bijvoorbeeld na een aantal berichten wordt het model waarmee men spreekt gedegradeerd naar een zwakkere versie maar de vraag- en antwoord service blijft toegankelijk. Dit laat de providers namelijk toe om de markt te proberen veroveren en ook hun toekomstige modellen te trainen op de chat-interacties en gebruiker input. \\
+
 %todo -> different pricing models, 2 big variants here, the github copilot \& ollama style free tier with monthly limits vs claude code and others using pay as you go based on input/output-token usage
 %J j
-Het draaien van LLMs is een service die zeker wel met een prijskaartje komt. Als gebruiker die het absoluut minimum nodig wil uitgeven moet je er bewust van zijn dat er voor deze case 2 specifieke varianten zijn van AI-services.
+Het draaien van LLMs is een service die zeker wel met een prijskaartje komt. Als gebruiker die het absoluut minimum nodig wil uitgeven moet je er bewust van zijn dat er voor deze case 2 specifieke varianten zijn van AI-services. \\
 
-\textbf{Volledig gratis gebruik:} Dit zien we bijvoorbeeld met Github Copilot Chat. Er is een maandelijkse toelage van code-completions en een aparte maandelijkse toelage van chats of agent interacties(dus met tool-gebruik erbij). Bij het aanspreken van de cloud-LLMs die Ollama ter beschikking stelt zien we een "Session use" en een "Weekly usage", het eerste reset op een tijdspanne van uren, het laatste is elke week gereset. Uit ondervinden heeft de Ollama service een veel hoger limiet van gratis gebruik tegenover Github Copilot Chat. Het is mogelijk om heel veel queries te doen op de cloud-LLMs van Ollama zonder een serieuze toename te ondervinden in gebruiks-limiet, na uitbundig gebruik is dit nog nooit de 5\% overschreden. Terwijl bij Github Copilot Chat al snel  over de 10\% zit en er op een maandelijkse reset moet gewacht worden. Github Copilot Chat voorziet de gratis gebruiker van 2000 code-completions en 50 chatsessies per maand:%todo ref: https://docs.github.com/en/copilot/get-started/plans
-Dit maakt het wel aantrekkelijker om als volledig gratis gebruiker met de sterkere cloud modellen bij Ollama te werken dan met Copilot Chat.
-%https://ollama.com/settings
+\textbf{Volledig gratis gebruik:} Dit zien we bijvoorbeeld met Github Copilot Chat. Er is een maandelijkse toelage van code-completions en een aparte maandelijkse toelage van chats of agent interacties(dus met tool-gebruik erbij). Bij het aanspreken van de cloud-LLMs die Ollama ter beschikking stelt zien we een "Session use" en een "Weekly usage", het eerste reset op een tijdspanne van uren, het laatste is elke week gereset. Uit ondervinden heeft de Ollama service een veel hoger limiet van gratis gebruik tegenover Github Copilot Chat. Het is mogelijk om heel veel queries te doen op de cloud-LLMs van Ollama zonder een serieuze toename te ondervinden in gebruiks-limiet, na uitbundig gebruik is dit nog nooit de 5\% overschreden. Terwijl bij Github Copilot Chat al snel  over de 10\% zit en er op een maandelijkse reset moet gewacht worden. Github Copilot Chat voorziet de gratis gebruiker van 2000 code-completions en 50 chatsessies per maand\footnote{\href{https://docs.github.com/en/copilot/get-started/plans}{https://docs.github.com/en/copilot/get-started/plans}}.
+Dit maakt het wel aantrekkelijker om als volledig gratis gebruiker met de sterkere cloud modellen bij Ollama te werken dan met Copilot Chat. Bij Ollama kan het gebruikslimiet gecontroleerd worden in de settings\footnote{\href{https://ollama.com/settings}{https://ollama.com/settings}}. \\
 
-\textbf{Pay-as-you-go model:} %todo beschrijf deze model van betaling
+\textbf{Pay-as-you-go model:}
 
-Als kleine team, startup en zeker enterprise niveau kan er zeker een subscriptie genomen worden op een van de verschillende AI services, de laagste tier van betaling is rond een competitief prijskaartje van €10
+Sommige services hebben direct een betalingsplan of aankoop van krediet nodig om te beginnen gebruiken. Vooral premium services zoals gebruik van de recentste modellen, zwaardere operaties zoals research, meer geheugen, snellere antwoorden. Men kan bij bepaalde providers zoals Anthropic's Claude eenmalige betalingen maken van een bepaald bedrag en genieten van premium services tot de portefeuille is opgebruikt. API gebruik heeft ook een kost gemeten in dollar kost per miljoen tokens opgesplitst per soort, er is een verschil tussen de kost van input- en output-tokens. \\
 
-Verschillende AI/Agent providers hebben wel een webpagina voor hun subscriptie prijzen:
-%todo: add different links to subscription pages
+\textbf{Subscriptie model:}
+
+Een veiligere optie, gelimiteerd op maandelijks gebruik en betalend per maand met een bepaald verwachte service en specifieke premium gebruiksvoordelen. \\
+
+Als kleine team of startup  kan er zeker een subscriptie genomen worden op een van de verschillende AI services, de individu niveau, de laagste tier van betaling is rond een competitief prijskaartje van €10. \\
+
+Voor grotere bedrijven met een IT-afdeling kan men beter opteren voor een business/enterprise subscriptie, ook wat security betreft is dit vaak het minimum niveau van abonnement dat men nodig heeft om ervoor te zorgen dat de code niet gebruikt wordt door de AI-providers als trainingsdata. \\
+
+Verschillende AI/Agent providers hebben wel een webpagina voor hun subscriptie prijzen: \textit{https://claude.com/pricing};  \textit{https://chatgpt.com/pricing/};  \textit{https://ollama.com/pricing}; \\
+
+Met info over API en service kosten op andere locaties:
+\textit{https://platform.claude.com/docs/en/about-claude/pricing};
+\textit{https://openai.com/api/pricing/}; \\
+
+Info en statistieken over het gebruik wordt meestal getraceerd door de provider en is beschikbaar op de ingelogde gebruikers-account. \\
+
+Een degelijk bron van informatie over beschikbare commerciële AI-agents is nogmaals artificialanalysis.ai\footnote{\href{https://artificialanalysis.ai/agents/coding}{https://artificialanalysis.ai/agents/coding}}: \ref{fig:artificialanalysispricing}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{model_pricing.png}
+    \caption[Vergelijking van AI-agents]{\label{fig:artificialanalysispricing}Vergelijking van AI-agents verkregen van: 'artificialanalysis.ai'}
+\end{figure}
+
+In bovenstaand figuur \ref{fig:artificialanalysispricing} zien we een lijst van AI-coding-agents met naam, type, prijs en of men wel of niet met eigen LLM kan werken. De cirkels stellen conditionele waarden voor, of iets waar een extra uitleg bij staat.
 
 \subsection{API keys}
 \label{ssec:apikeys}
 %fits best here
-Ook als men niet van plan is om geld uit te geven aan AI moet er toch een gebruikers account gemaakt worden en meestal ook een API-key gegenereerd. Dit is zodat de AI-provider het gebruik van de AI kan traceren per gebruiker en eventueel kosten aanrekenen of de kraan dicht-draaien wanneer bepaalde limieten van gebruik bereikt werden.
+Ook als men niet van plan is om geld uit te geven aan AI moet er toch een gebruikers account gemaakt worden en meestal ook een API-key gegenereerd. Dit is zodat de AI-provider het gebruik van de AI kan traceren per gebruiker en eventueel kosten aanrekenen of de kraan dicht-draaien wanneer bepaalde limieten van gebruik bereikt werden. \\
 
-Voor bepaalde AI-workflows kan het zeker gebeuren dat er meerdere API's aangesproken die elk het gebruik willen traceren en dus een reeks van API-keys tegelijk in gebruik zijn, elk met hun eigen verbonden service.
+Voor bepaalde AI-workflows kan het zeker gebeuren dat er meerdere API's aangesproken die elk het gebruik willen traceren en dus een reeks van API-keys tegelijk in gebruik zijn, elk met hun eigen verbonden service. \\
 
-Voor het omgaan met API-keys zie ook: \todo{reference chapter LangChain}
+Zie ook sectie: Omgaan met API Keys \& Secrets \ref{sec:omgaanmetapikeysensecrets}
 
 %todo: see pricing note bp-sem2 \& share links to each options pricing schemes
 
@@ -208,10 +310,10 @@ Voor het omgaan met API-keys zie ook: \todo{reference chapter LangChain}
 %todo: andere titel? AI agent integratie? -> welke soort integraties zijn er mogelijk? IDE?/ web-APP?/ Py script file?/ etc
 % chromaDB/ Ollama / langchain etc -> add to the list, of technologies that suggest using Py and Js as languages to work with LLMs
 
-Welke programmeertalen zijn toegankelijkst om een AI agent mee te ontwikkelen?
+Welke programmeertalen zijn het meest geschikt om met AI-agents te werken en uiteindelijk een proof of concept mee te ontwikkelen? \\
 
-De meeste code voorbeelden die beschikbaar worden gesteld in SDK's en bij Ollama zijn vooral in Python en TypeScript. 
-
+De meeste code voorbeelden die beschikbaar worden gesteld in de documentatie en SDK's van verschillende AI-providers, onder anderen bij Ollama en LangChain, zijn vooral in Python en TypeScript. Vermoedelijk komt TS vaak voor omdat dit de typesafe versie van JavaScript is, de front-end web-dev taal bij uitstek. \\
+% J j 
 %verschillende LLM service providers en AI-build platvormen ... reminder, maybe add something to the existing text
 
-Overal waar men kijkt voor AI-integratie of Agent build tools vallen er 2 grote winnaars uit de boot: Python en Typescript. Hier zien we de meeste codevoorbeelden voor en in de eerste plaats is steeds Python te zien. Het feit dat dit zo ruim te vinden is laat vermoeden dat dit de taal bij uitstek is om in te zetten bij het werken met LLMs/machine learning/data analyse en het maken van AI-agents.
+Overal waar men kijkt voor AI-integratie of Agent build tools vallen er 2 grote winnaars uit de boot: Python en Typescript. Hiervan bestaan de meeste codevoorbeelden voor en in de eerste plaats is steeds Python te zien. Het feit dat dit zo ruim te vinden is laat vermoeden dat dit de taal bij uitstek is om in te zetten bij het werken met LLMs. Dit is niet verbazend als men weet dat Python al lang gebruikt wordt bij machine learning en data science en uitgebreide packages zoals Pandas heeft voor data analyse taken. Dus ook uitermate geschikt bij het werken met AI-agents.

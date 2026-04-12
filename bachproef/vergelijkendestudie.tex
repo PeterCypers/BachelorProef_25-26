@@ -615,8 +615,7 @@ Laat documentatie maken voor de codebase in het algemeen:
 
 Laat JSDocs maken voor elke functie in alle files met functies:
 \begin{minted}{bash}
-    $ cat files.txt | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Generate JSDoc for above each function in this co
-    debase."
+    $ cat files.txt | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Generate JSDoc for above each function in this codebase."
 \end{minted}
 
 \subsubsection{Om testen te schrijven}
@@ -645,7 +644,7 @@ Zelfs Anthropic's Claude Sonnet 4.6 maakt gebruik van deze techniek, ja als het 
     \caption[Grep bash commando uitgevoerd door claude.ai]{\label{fig:claudegrepinsteadofrag}Grep bash commando uitgevoerd door online chatbot, claude.ai}
 \end{figure}
 
-Deze techniek heeft zeker een aantal use-cases en kan zeker ingezet worden op kleine schaal.
+Deze techniek heeft wel een aantal use-cases en kan zeker ingezet worden op kleine schaal.
 
 %zelfs claude.ai online chatbot gebruikt een bash commando in plaats van RAG, als eenvoudig interpretaties nodig zijn van een document
 %claude_ai_grep_no_rag.png
@@ -1221,6 +1220,7 @@ All field names in the specification are **case-sensitive**.
 
 
 \subsection{LlamaIndex RAG \& OAS}
+\label{ssec:llamaindexragandoas}
 %een vraag stellen over de OAS dat opgesplitst is met chunking gebruikmakend van RAG
 
 In volgende demo wordt een vraag gesteld over de documentatie, maar eerst wordt een persistente indexed vector-store aangemaakt dat ervoor zorgt dat dit duur proces maar eenmalig uitgevoerd moet worden en bij toekomstige opzoekingen kan de bestaande vector-store ingeladen worden wat vooral tijd zal besparen. Deze techniek is uitermate geschikt voor data dat niet snel verandert zoals, company policy, API-documentatie en bestaande test-modules. Dit proces kan opnieuw uitgevoerd worden maar neemt telkens wat tijd in beslag en ook de embedding proces zal afhankelijk van de hoeveelheid te-embedden data met een bepaald token-kost komen. Er werden twee verschillende versies van de vector-store gemaakt in volgende demo.\\
@@ -1265,7 +1265,7 @@ Waarvan de graph\_store en image\_vector\_store niet opgevuld werden, maar de an
 De twee verschillende vector-stores zullen elk afzonderlijk met dezelfde query ondervraagd worden en de verschillende antwoorden met elkaar vergeleken.
 
 
-\todo{vergelijk met en zonder transformaties, of er een verschil in kwaliteit van responses is...}
+\todo{vergelijk met en zonder transformaties, of er een verschil in kwaliteit van responses is...} 
 
 \textbf{Output Zonder transformatie:}
 
@@ -1697,6 +1697,21 @@ Na het kiezen van Ollama als provider en llama3.1 als model moest dit model enke
 \section{Vergelijking Conclusies}
 \label{sec:vergelijkingconclusies}
 % many different frameworks all kind of boil down to: provide a wrapper for an LLM, using bespoke design LLM-agent management systems 
+
+De bestaande AI- en agentic frameworks evolueren allemaal en integreren de nieuwste technologische ontwikkelingen binnen AI. Sommigen liepen voorop met multi-agent functionaliteiten, de rest sluit nu aan en velen vereenvoudigen de code via abstractielagen en wrapper-klassen. Hoewel er kleine verschillen bestaan tussen de frameworks, zijn er meer gelijkenissen dan verschillen, elk framework streeft ernaar zoveel mogelijk features aan te bieden zodat gebruikers toegang hebben tot de volledige AI-toolkit: MCP \& toolgebruik, RAG, A2A en multi-agent workflows.
+
+%todo: n8n and pydantic
+\begin{itemize}
+    \item \textbf{Ollama:} (geen framework) Een provider van online en offline LLMs die een hoge limiet van gratis LLM-gebruik toelaat.
+    \item \textbf{LangChain:} Laat diepe controle en aanpasbaarheid toe. Uitbreidbaar met LangGraph voor gestructureerde en zelfs 
+    parallel lopende AI-workflows.
+    \item \textbf{LlamaIndex:} Heeft sterke klassen voor het werken met documenten in RAG-AI-workflows. Ook het grondigste onderzocht tijdens dit onderzoek.
+    \item \textbf{HuggingFace:} (geen framework) Een onmisbaar bron van AI-projecten, training-models en embedding models. De AI-github. 
+    \item \textbf{CrewAI:} Sterke multi-agent samenwerking.
+    \item \textbf{}
+    \item \textbf{}
+    \item \textbf{}
+\end{itemize}
 
 % most of them contain the same kind of things, prompt-template or agent rol, tools, LLM, some form of context-management, methods for interacting with other agents, instructions on how to act, what to do and how to return the data
 

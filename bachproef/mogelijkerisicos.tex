@@ -103,15 +103,29 @@ Wanneer bedrijven willen werken met custom AI-integraties kunnen ze best ervan b
 \end{comment}
 
 \section{Security \& Privacy}
+\label{sec:securityandprivacy}
 %https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/
-% \autocite{Rogriguez2026}
+% \autocite{Rodriguez2026}
 
-Er is een serieus gevaar dat met de sterke algemene kennis waarover LLMs beschikken er alsmaar sneller security vulnerabilities worden gevonden, zoals zero-day exploits. Met de opkomst van Claude Mythos 
-%TODO: reference https://www.anthropic.com/glasswing (add it to sources) die al verscheidene kwetsbaarheden ontdekte in software die al jarenlang op de markt is
-wordt het almaar meer duidelijk dat cybersecurity experts voor grote uitdagingen zullen komen te staan in de nabije toekomst. Anthropic zal dit nieuwste en sterkste Claude model niet direct openbaar maken voor het wijde publiek, maar wil dit eerst met een beperkte groep software bedrijven delen en zelf ook verdedigingen opbouwen om zich klaar te stellen tegen de mogelijke onvoorziene aanvals capaciteiten van dit nieuw model. Deze Claude Mythos dat heel sterk scoort op codeer-benchmarks zou heel sterk kunnen zijn bij zowel de aanvallende als verdedigend kant van cybersecurity.
+Er is een serieus gevaar dat met de sterke algemene kennis waarover LLMs beschikken er alsmaar sneller security vulnerabilities worden gevonden, zoals zero-day exploits. Met de opkomst van Claude Mythos werd de AI-security innitiatief Project Glasswing gelanceerd \autocite{Anthropic}. Dit nieuw LLM heeft al verscheidene kwetsbaarheden ontdekt in software dat al jarenlang op de markt is, het wordt almaar duidelijker dat cybersecurity experts voor grote uitdagingen zullen komen te staan in de nabije toekomst. Anthropic zal dit nieuwste en sterkste Claude model niet direct openbaar maken voor het wijde publiek, maar wil dit eerst met een beperkte groep software bedrijven delen en zelf ook verdedigingen opbouwen om zich klaar te stellen tegen de mogelijke onvoorziene aanvals capaciteiten van dit nieuw model. Deze Claude Mythos dat heel sterk scoort op codeer-benchmarks zou heel sterk kunnen zijn bij zowel de aanvallende als verdedigend kant van cybersecurity. \\
 
-\subsection{Trust but verify}
+Er is een legitiem zorg bij tech-bedrijven dat hun eigen code zal gebruikt worden om AI te trainen, in vele gevallen is deze zorg gerechtvaardigd, initieel werd AI getrained op grote hoeveelheden internet scraped data en GitHub zelf heeft eigen AI-coding agent GitHub Copilot getraind op publieke open-source repositories \autocite{Claburn2022}. In een recente aankondiging deelt Github ook mee dat de code waarmee GitHub Copilot werkt zal gebruikt worden om op te training tenzij gebruikers een 'opt-out' doen, dat wil zeggen de feature afzetten, maar het zal standaard aan staan \autocite{Rodriguez2026}. Dit is ook het geval met OpenAI's ChatGPT, deze zal standaard gebruiker input gebruiken als toekomstig AI-trainingsdata, tenzij de feature wordt afgezet('opt-out') door de gebruiker. \\
+
+Er wordt nu wel een onderscheid gemaakt tussen normale, pro en enterprise abonnementen, op enterprise code zal niet getraind worden, volgens github \autocite{Rodriguez2026}. \\
+
+We zijn in een overgangsperiode tussen een tijdperk waar LLMs  misschien konden helpen met het vinden van vulnerabilities en een tijdperk waar men met een 1-shot prompt zwaktes zal kunnen ontdekken in systemen die al goed onderzocht zijn en versterkt tegen aanvallen. Big-tech bedrijven waarschuwen ons voor dit feit.
+
+\subsection{Don't Trust, Verify}
 % don't just accept AI-output, always check if it's correct
+LLMs hebben een groote verzameling van kennis en zeker bij het coderen kunnen ze helpen bij het invullen van 'knowledge gaps' maar men kan soms heel wat tijd verliezen met debuggen wanneer ze code produceren dat mogelijks kan werken maar niet toepasselijk is binnen het huidige systeem, verouderd of niet performant is. Het inzetten van AI voor productie van boilerplate, herhalen van repetitieve structuren, het helpen met gevonden bugs of review van code. Maar bevestig telkens door vergelijking met de officiele doccumentatie, gelijkaardige implementaties in dezelfde code-base, feedback van senior developers dat de AI-aanbevolen code implementatie klopt. \\
+
+\subsubsection{Shit goes in, Shit comes out}
+Kwaliteit van gegenereerde output heeft een direct verband met de data waarop het model is getraind, als we ervan uitgaan dat een normaal distributie van betrouwbaarheid van de verzamelde data, of kwaliteit van code waarop is getraind kunnen we ervan uitgaan dat er gemiddeld of lager dan gemiddelde kwaliteit kan gegenereerd worden. De verwachtingen waren hoog bij de voorlopers van AI, waar men er namelijk van uit ging dat AI-systemen vooral expertenkennis zou bevatten \autocite{ComputerChronicles1984}.
+
+\section{Model Cut-off datums}
+\label{sec:modelcutoffdatums}
+
+%TODO: this could be a short topic, I have already written about this in other places, main problem: if you use models that aren't doing internet search it'll only have access to it's own training data and therefore you'll only get data out of a model up until it's cutoff date, -> find an example of a model cutoff date link in foonote
 
 \section{Hallucinaties}
 Wanneer een chatbot antwoord vol overtuiging en dit lijkt op het eerste zicht plausibel maar blijkt toch geen bron van waarheid te hebben, dit noemt met hallucineren. 
