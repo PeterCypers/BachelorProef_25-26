@@ -650,19 +650,31 @@ Om complexe doelen te bereiken, vertrekken AI agents vanuit een aantal terugkere
 
 % j
 
-Een design patroon waarbij een AI-agent in een lus het eigen werk beoordeelt en iteratieve verbeteringen aanbrengt en mogelijk ook externe tools aanroept tot er beslist wordt om het eindresultaat af te leveren als response, niet te verwarren met COT(Chain of Thaught) waarbij een AI het denkproces als feedback kan tonen aan de gebruiker, dit is eerder een sequentieel proces van denkstappen.
+Een design patroon waarbij een AI-agent in een lus het eigen werk beoordeelt en iteratieve verbeteringen aanbrengt en mogelijk ook externe tools aanroept tot er beslist wordt om het eindresultaat af te leveren als response, niet te verwarren met COT(Chain of Thaught) waarbij de AI een sequentieel denkproces als feedback toont aan de gebruiker. Dit is de ReAct lus, \textbf{Reason \& Act}, wat zich meerdere keren herhaalt, dit zorgt ervoor dat AI-agents een plan kunnen volgen en ook beter reageren op exceptions \autocite{yao2023}. Een visueel voorstelling volgens \autocite{HuggingFacea}: \ref{fig:reactagent}
 
-%todo: Image
 
 % ReAct image from src: https://huggingface.co/learn/agents-course/en/unit1/agent-steps-and-structure \autocite{HuggingFacea}
 
-% ReAct.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ReAct.png}
+    \caption[React Agentic Patroon]{\label{fig:reactagent}ReAct agentic design patroon van: \autocite{HuggingFacea}}
+\end{figure}
 
 \subsection{Heartbeat}
 % https://www.mindstudio.ai/blog/agentic-os-heartbeat-pattern-proactive-ai-agent
-%todo: put into references and refer to this source
+% \autocite{MindStudio2026}
+
+Een AI agent dat draait op ingeplande momenten om een taak uit te voeren, een soort automatie gelijkaardig aan een cronjob, maar gebruikmakend van een LLM \autocite{MindStudio2026}. Dit kan op vast bepaalde of dynamische intervallen gebeuren volgens het volgende ritme:
 
 %todo: 4 phases of the heartbeat cycle
+
+\begin{enumerate}
+    \item \textbf{Ontwaken:} Een ingesteld, tijdsgebaseerde trigger maakt de AI wakker
+    \item \textbf{Observeren:} De agent haalt context op uit een bepaalde bron, dit kan een API, database of andere bron zijn.
+    \item \textbf{Overwegen:} Afhankelijk van wat de agent in de context aantrof zal beslist worden of er acties nodig zijn.
+    \item \textbf{Ondernemen:} De agent voert een bepaalde actie uit, zoals het versturen van een email of het triggeren van een of andere workflow. De beslissing wordt in een log weggeschreven, relevante 'state' wordt opgeslagen en de agent gaat weer slapen tot de volgende cyclus.
+\end{enumerate}
 
 \section{Protocol: MCP - ACP - A2A}
 \label{sec:mcpacpa2a}

@@ -111,6 +111,7 @@ We maken een onderscheid tussen \textbf{Low-code} en \textbf{No-code} agent-buil
 
 \subsection{Microsoft Copilot M365 (No-code)}
 % microsoft M365
+Wordt besproken in sectie \ref{sec:microsoftm365copilot}.
 
 \subsection{MindStudio (No-code)}
 
@@ -124,8 +125,17 @@ We maken een onderscheid tussen \textbf{Low-code} en \textbf{No-code} agent-buil
 \section{No-code generatieve workflows}
 
 \subsection{ComfyUI}
+
+Dit is een open source software dat een gebruiksvriendelijk grafische UI biedt om AI workflows op te zetten, vooral voor video, audio en foto generatie. Fotogeneratie gebruikmakend van een techniek genaamd "stablediffusion" om een bestaand beeld in een nieuw beeld om te vormen. Er wordt een safetensors model gebruikt, alsook een positieve en negatieve prompt om te laten weten wat er wel of niet in de gegenereerde afbeelding moet komen. Deze technieken werden niet verder onderzocht. Voor dit soort taken is een grafische kaart onmisbaar, men kan ook op de CPU werken, maar dit duurt dan veel langer, deze foto duurde ongeveer een half uur om te produceren, maar zou met een grafische kaart van Nvidia een minuut of twee hebben geduurd. ComfyUI workflow: \ref{fig:comfyuiworkflow}
 %ComfyUI, voorziet een grafische UI, gebruikt nodes, kan voor veel verschillende use-cases ingezet worden zoals foto-generatie, audiogeneratie en videogeneratie
 %gebruikt stablediffusion
+
+%comfy-ui.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{comfy-ui.png}
+    \caption[ComfyUI foto-generatie]{\label{fig:comfyuiworkflow}Foto generatie met ComfyUI, https://www.comfy.org/}
+\end{figure}
 
 %\section{Gradio}
 %een tool voor snelle prototyping van LLMs, zorgt dat je in zo goed als geen tijd je AI-workflows can uittesten op een localhost server, met
@@ -199,29 +209,46 @@ De meeste AI-gerelateerde externe services beheren de gebruikskosten en toegang 
 \label{sec:idegeintegreerdeagents}
 %1) Github copilot chat
 
-%2) IDE geintegreerde Agents met sterke context kennis (codebase awareness)(with strong RAG features making the agent aware of other files in the codebase)
-%claude-code & Cursor -> see dedicated notes on each
+Er bestaan verschillende AI-codeer agent integraties in IDE's. We bespreken kort een aantal opties voor Visual Studio Code(VSC) integraties. De gekendste en meest gebruikte is \textbf{Github Copilot Chat} omdat deze nu standaard in VSC ingebouwd zit. Vóór we AI-agents hadden was github copilot al gekend bij vele programmeurs vanwege zijn sterke code-completion, deze is nu verder uitgebreid tot een volwaardig AI-agent met chat(Q\&A), toolgebruik, MCP, workspace-context (kennis van de files binnen een project). Als gratis gebruiker heeft men toegang tot een gelimiteerd aantal code-completions van Copilot eveneens is het aantal chat-sessies beperkt. Naast Github Copilot Chat hebben we een reeks andere AI-agent integraties. Vervolgens zien we een lijst van AI-agents en hun aanbevolen gebruik afhankelijk van team grootte en andere Use-Cases van \autocite{Teixeira2025}: \ref{fig:agentusecasematrix}\\
 
-% Interpretatie van code-base scoped context wordt hier verder besproken (referenced to here from RAG)
+\textbf{Claude Code:} kan ook losstaand werken van VSC, wordt gebruikt via de terminal(CLI) en heeft zeer sterke project-level context kennis. Het kan zoeken binnen het project filesysteem naar relevante files en weet hoe alles verbonden is. Om Claude Code te gebruiken heeft meen een betalende abonnement nodig. \\
 
-% https://lawrence.eti.br/2025/08/10/the-new-era-of-ai-coding-assistants-comparing-models-and-tools-in-2025/
+\textbf{Cursor:} is een Agent-geïntegreerde IDE, een fork van VSC, alsook de eerste agent dat een sterke kennis van de files binnen een project had. \\
 
-% todo: add figure: (it's from above reference), maybe discuss shortly the different strengths of the displayed models, github copilot, Cursor(an Agent-integrated fork of VSC) and openAI Codex, (does it have an in VSC-agent? plugin?) make a reference to the chapter discussing codex
-% use_case_matrix.png
+\textbf{Codex:} heeft een VSC integratie maar kan ook losstaand gebruikt worden en kan geautomatiseerde taken uitvoeren. \\
+
+Over het algemeen kunnen agents nu ook zelf code aanpassen, waarbij standaard ook goedkeuring gevraagd wordt aan de mens die voor het scherm zit(human in the loop). Het is mogelijk om alle codeerwerk (en denkwerk) aan de agent over te laten.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{use\_case\_matrix.png
+    }
+    \caption[UseCase matrix van IDE-integrated AI-agents]{\label{fig:agentusecasematrix}UC-matrix IDE integrated AI, \autocite{Teixeira2025}}
+\end{figure}
 
 \begin{comment}
     %It will always be a problem because AI will always have some limit to how much additional context it can be given when prompted, it may increase if models continue to get stronger, but there will always be some limit.
     
     %There are areas where some progress has been made in solving this problem, like cursor and claude code which use …* to get project-wide context
-    *: %todo: look into what they exactly did, it likely predates RAG
+    *: look into what they exactly did, it likely predates RAG
 \end{comment}
 
-%todo: also mention Ollama was able to work with github copilot at some point
-%graphic name: bp Ollama selectable models in VSC (just in case).png
+Het is ook mogelijk om Ollama modellen geïntegreerd in VSC te gebruiken, hoewel deze feature niet altijd correct werkt zodanig dat Ollama modellen dan niet meer in de lijst worden weergeven. Wanneer dit werkt kan men lokale modellen gebruiken in VSC en kan de VSC interface gebruikt worden waarmee tools geselecteerd kunnen worden, files als context gepinned, MCP-servers toegevoegd, agent-mode of ask-mode kan worden geselecteerd. Allen features van Github Copilot Chat, maar met een "bring your own model" feature. Met als extensie "bring your own token"(BYOT), er kunnen voor bepaalde connecties tokens in de instellingen van VSC worden opgeslagen. Volgend figuur toont de selecteerbare Ollama modellen in VSC: \ref{fig:ollamainvsc}
 
 
-\section{Windows M365 Copilot}
-% een AI-assistent die samenhangt aan windows, Word, Excel, PowerPoint en Teams -> onderzoek zijn agent-builder, waar we vroeger Office hadden vinden we nu M365 Copilot
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{ollama-in-vsc.png
+    }
+    \caption[Ollama modellen in VSC]{\label{fig:ollamainvsc}Ollama modellen in VSC}
+\end{figure}
+
+\section{Microsoft M365 Copilot}
+\label{sec:microsoftm365copilot}
+
+Deze software omvat een online chatbot en ook een feature om custom agents te maken waaraan een vast gedrag kan ingesteld worden. Er kunnen tools en context aan toegekend worden, context zoals bijvoorbeeld een website of databron(vb.: excel file). Een goede optie om te gebruiken wanneer een vast verloop nodig is zoals het volgen van een procedure of customer support taken. \\
+
+Microsoft wil een sterke AI-integratie over de ganse lijn, een volledig systeem-integratie, dezelfde AI zit in Windows, Word, Excel, Teams, Powerpoint, het ganse office-gamma. Office zit nu onder M365.
 
 \section{(Volledig) Autonome AI Agents}
 Er is steeds meer autonomie mogelijk bij AI-agents, het kan op een schaal gezet worden van hoge menselijke tussenkomst tot helemaal geen menselijk tussenkomst \autocite{mitchell2025}. Wanneer men een vraag stelt aan een online AI-chatbot en met het gegenereerd antwoord zelf tot een besluit komt is er nog volledige controle bewaard over het systeem waarmee de mens interageert. Wanneer de AI-agent inzicht mag hebben in verschillende niveaus van context binnen een systeem en de gebruiker vraagt of er code-aanpassingen mogen gebeuren heeft de AI-agent al veel meer autonomie. Wanneer er geen goedkeuring gevraagd wordt en de AI-agent code kan aanpassen, commits kan maken en pull requests afwerken is er al heel veel autonomie aan de agent gegeven en bestaat het risico dat de menselijk controle over het systeem verdwijnt. Wanneer men toegang verleent tot de AI-agent om zelf volledige projecten af te werken, mogelijks met verhoogde gebruiksrechten over het platform waarin deze werkt kan de mens uit het plaatje verdwenen zijn en heeft de AI-agent alle controle over het systeem. \\
@@ -234,6 +261,54 @@ Volgens \textcite{mitchell2025} is het een \textbf{Human} $\leftrightarrow$ \tex
 
 \subsection{OpenAI Codex}
 %requires some investigating, lots of big developments recently, added a tab-link from ChatGPT.com leading to codex
+
+Een AI-agent software van OpenAI, na het downloaden\footnote{\href{https://openai.com/codex/}{https://openai.com/codex/}} en installeren kan dit stand-alone gebruikt worden om AI-agents taken te geven via een chat-interface. \ref{fig:codexgui} \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{codex\_gui.png}
+    \caption[Codex standalone interface]{\label{fig:codexgui}Codex standalone interface}
+\end{figure}
+
+Codex vraagt eerst om een sandbox omgeving te maken, er moet een project map gekozen worden waarbinnen Codex kan werken. De verwachting bestaat bij de agent dat er files aanwezig zijn en dat er binnen een actief project gewerkt wordt dat gekoppeld is aan een github repository. Bij deze demo werd er een lege map toegewezen maar deze had wel een README.md en was gekoppeld aan een github repo, dit volstond om als geldige sandbox omgeving gebruikt te worden. \\
+
+Nadat Codex een omgeving heeft waarbinnen het kan werken kan er een prompt aan worden gegeven waarmee het duidelijk moet zijn wat het volgend doel is binnen dat project. Men kan een zwakke prompt meegeven en de agent zal mogelijks nodige opklaring vragen vooraleer aan de slag te gaan. In dit geval werd één van de demo prompts gekozen om de mogelijkheden van de agent te toetsen: "Build a classic snake game in this repo." \\
+
+%stappenplan om te volgen
+% achtergrond proces
+\textbf{Snake game demo prompt:}
+%tcolorbox
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    Build a classic Snake game in this repo.\\
+    
+    Scope \& constraints:\\
+    - Implement ONLY the classic Snake loop: grid movement, growing snake, food spawn, score, game-over, restart.\\
+    - Reuse existing project tooling/frameworks; do NOT add new dependencies unless truly required.\\
+    - Keep UI minimal and consistent with the repo’s existing styles (no new design systems, no extra animations).\\
+    
+    Implementation plan:\\
+    1) Inspect the repo to find the right place to add a small interactive game (existing pages/routes/components).\\
+    2) Implement game state (snake positions, direction, food, score, tick timer) with deterministic, testable logic.\\
+    3) Render: simple grid + snake + food; support keyboard controls (arrow keys/WASD) and on-screen controls if mobile is present in the repo.\\
+    4) Add basic tests for the core game logic (movement, collisions, growth, food placement) if the repo has a test runner.\\
+    
+    Deliverables:\\
+    - A small set of files/changes with clear names.\\
+    - Short run instructions (how to start dev server + where to navigate).\\
+    - A brief checklist of what to manually verify (controls, pause/restart, boundaries).
+    
+\end{tcolorbox}
+
+Na het sturen van deze prompt ging Codex aan de slag door een stappenplan op te stellen en files met code te beginnen genereren terwijl afgewerkte stappen een vinkje kregen, daarna werd een verslag meegedeeld welke files allemaal aangemaakt of aangepast werden. Uiteindelijk heeft Codex met 750 lijnen code een Snake spel gemaakt dat kon opgestart worden met een commando dat een server startte om dit javascript project op een localhost poort te laten draaien. Dit werkte direct zonder extra aanpassingen. Zie figuur \ref{fig:codexsnake}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{codex\_snake.png}
+    \caption[Classic Snake]{\label{fig:codexsnake}Werkend klassieke Snake spel.}
+\end{figure}
+
+
+Dit soort agent kan volledig autonoom taken afwerken en zal enkel feedback vragen als dit nodig is om de huidige taak af te werken. Codex draait ook als achtergrondproces en heeft een tab: "Automations" waarin men geplande taken kunnen instellen zoals het git-activiteit van gisteren samenvatten voor de dagelijkse standup. In de "plugins" tab vinden we onder anderen de volgende plugins terug: Hugging Face / Vercel / Cloudflare / Github / CodeRabbit / Figma / Canva / Teams. Onder Automations > Repo Maintenance vinden we ook deze autmotation: "update AGENTS.md with newly discovered workflows and commands". Deze project file is zoals de README.md, maar voor agents bedoeld. Wat kan deze agent nog allemaal? Dit werd aan de agent zelf gevraagd: \ref{fig:codexskills.png}
 
 % talk: mention where it was downloaded, that it didn't start up until a folder which had git-init and a readme existed, after which it reluctantly started working on it, you need to set a project folder in which it expects a code-project, preferrably connected to a git-repo, it needs a SANDBOX which requires a project workspace
 
@@ -249,16 +324,32 @@ Volgens \textcite{mitchell2025} is het een \textbf{Human} $\leftrightarrow$ \tex
 % codex_skills.png
 % codex_training.png
 
-%TODO: 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{codex\_skills.png}
+    \caption[Agent capabilities]{\label{fig:codexskills.png}Codex Agent Overzicht}
+\end{figure}
 
-\section{OpenClaw (wordt niet behandeld)}
+Codex beschikt over een diverse toolkit en kan zeker ingezet worden om te helpen met een van deze taken. Maar we moeten zeker de volgende vraag stellen. Wordt onze code gebruikt om LLMs mee te trainen? Codex antwoord: \ref{fig:codextraining}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{codex\_training.png}
+    \caption[Codex code privacy]{\label{fig:codextraining}Codex code privacy.}
+\end{figure}
+
+Dit is nu een standaard aan het worden, om LLMs up-to-date te houden met de nieuwste code moet er ergens trainingsdata vandaan komen. De code bij enterprise niveau van subscriptie, hier worden  LLMs niet op getraind, beweren ze toch. Onthoud ook dat deze LLM antwoorden zijn en om dit ook nog eens te bevestigen door de relevante Codex-documentatie te lezen.
+
+\subsection{OpenClaw}
+
+OpenClaw is een gratis, open source autonome AI-agent. Dit was een ontzettend populair AI project met op het moment van schrijven 358.000 sterren op github. Een agent die volledig lokaal kan werken, berichten via sociale media sturen, autonome(geplande) taken uitvoeren, heeft toegang tot de systeem kalender, browser en email onder anderen en kan scripts uitvoeren en dat zou voor nogal wat security problemen kunnen zorgen \autocite{Chang2026}. Deze technologie wordt even vermeld omdat het zo veelbesproken was maar zal verder niet onderzocht worden.
 % yust putting it here so I know it's around, I can mention it somewhere, but not in it's own chapter, not sure what to do with it, it's a bit too late to also look into now, but it is taking the world by storm, and rapidly getting integrations with many existing softwares
 \section{Pricing}
 \label{sec:pricing}
 %
 Veel AI-chatbots die men via de browser kan aanspreken hebben een gratis gebruik tot een bepaald gebruikslimiet, bijvoorbeeld na een aantal berichten wordt het model waarmee men spreekt gedegradeerd naar een zwakkere versie maar de vraag- en antwoord service blijft toegankelijk. Dit laat de providers namelijk toe om de markt te proberen veroveren en ook hun toekomstige modellen te trainen op de chat-interacties en gebruiker input. \\
 
-%todo -> different pricing models, 2 big variants here, the github copilot \& ollama style free tier with monthly limits vs claude code and others using pay as you go based on input/output-token usage
+%-> different pricing models, 2 big variants here, the github copilot \& ollama style free tier with monthly limits vs claude code and others using pay as you go based on input/output-token usage
 %J j
 Het draaien van LLMs is een service die zeker wel met een prijskaartje komt. Als gebruiker die het absoluut minimum nodig wil uitgeven moet je er bewust van zijn dat er voor deze case 2 specifieke varianten zijn van AI-services. \\
 
@@ -273,7 +364,7 @@ Sommige services hebben direct een betalingsplan of aankoop van krediet nodig om
 
 Een veiligere optie, gelimiteerd op maandelijks gebruik en betalend per maand met een bepaald verwachte service en specifieke premium gebruiksvoordelen. \\
 
-Als kleine team of startup  kan er zeker een subscriptie genomen worden op een van de verschillende AI services, de individu niveau, de laagste tier van betaling is rond een competitief prijskaartje van €10. \\
+Als kleine team of startup  kan er zeker een subscriptie genomen worden op een van de verschillende AI services, de individu niveau, de laagste tier van betaling is rond een competitief prijskaartje van \$10/\$19(Github Copilot individueel/enterprise). Het eerste betalend niveau van andere providers kosten al direct wat meer met plannen van rond \$20. In dit opzicht is copilot wel de meest betaalbare keuze. \\
 
 Voor grotere bedrijven met een IT-afdeling kan men beter opteren voor een business/enterprise subscriptie, ook wat security betreft is dit vaak het minimum niveau van abonnement dat men nodig heeft om ervoor te zorgen dat de code niet gebruikt wordt door de AI-providers als trainingsdata. \\
 
@@ -304,7 +395,17 @@ Voor bepaalde AI-workflows kan het zeker gebeuren dat er meerdere API's aangespr
 
 Zie ook sectie: Omgaan met API Keys \& Secrets \ref{sec:omgaanmetapikeysensecrets}
 
-%todo: see pricing note bp-sem2 \& share links to each options pricing schemes
+\section{Varia}
+
+% https://www.star-history.com/coding-ai-leaderboard/
+
+\begin{itemize}
+    \item \textbf{Github Code Review Agents:} Greptile\footnote{\href{https://www.greptile.com/}{https://www.greptile.com/}} / Coderabbit\footnote{\href{https://www.coderabbit.ai/}{https://www.coderabbit.ai/}}
+    \item \textbf{MemPalace:} Een alternatieve manier van AI-geheugen opslag\footnote{\href{https://mempalaceofficial.com/}{https://mempalaceofficial.com/}}
+\end{itemize}
+
+
+%see pricing note bp-sem2 \& share links to each options pricing schemes
 
 \section{AI Agent Code taal}
 %todo: andere titel? AI agent integratie? -> welke soort integraties zijn er mogelijk? IDE?/ web-APP?/ Py script file?/ etc
