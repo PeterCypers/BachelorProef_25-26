@@ -666,15 +666,16 @@ Een design patroon waarbij een AI-agent in een lus het eigen werk beoordeelt en 
 % \autocite{MindStudio2026}
 
 Een AI agent dat draait op ingeplande momenten om een taak uit te voeren, een soort automatie gelijkaardig aan een cronjob, maar gebruikmakend van een LLM \autocite{MindStudio2026}. Dit kan op vast bepaalde of dynamische intervallen gebeuren volgens het volgende ritme:
-
-%todo: 4 phases of the heartbeat cycle
+% 4 phases of the heartbeat cycle
 
 \begin{enumerate}
-    \item \textbf{Ontwaken:} Een ingesteld, tijdsgebaseerde trigger maakt de AI wakker
+    \item \textbf{Ontwaken:} Een ingesteld, tijdsgebaseerde trigger maakt de AI wakker.
     \item \textbf{Observeren:} De agent haalt context op uit een bepaalde bron, dit kan een API, database of andere bron zijn.
     \item \textbf{Overwegen:} Afhankelijk van wat de agent in de context aantrof zal beslist worden of er acties nodig zijn.
     \item \textbf{Ondernemen:} De agent voert een bepaalde actie uit, zoals het versturen van een email of het triggeren van een of andere workflow. De beslissing wordt in een log weggeschreven, relevante 'state' wordt opgeslagen en de agent gaat weer slapen tot de volgende cyclus.
 \end{enumerate}
+
+Dit kan ook opgeslagen worden in een HEARTBEAT.md file. Zie \ref{sssec:dotmd}
 
 \section{Protocol: MCP - ACP - A2A}
 \label{sec:mcpacpa2a}
@@ -723,11 +724,11 @@ De Agentic AI Foundation(AAIF) werd mede-opgericht door het non-profit bedrijf T
 
 Ze zorgen ervoor dat, onder anderen, Anthropic's MCP en OpenAI's AGENTS.md open source blijven.
 
-\subsection{AGENT.md}
-Dit nemen we er even tussen, ontwikkeld door OpenAI, AGENT.md is een file dat in de root van een Github repository thuis hoort en bedoeld is om AI-agents die in contact komen met deze repositories te helpen sturen en instructies te geven over hoe ze met de repository moeten omgaan. \\
+\subsection{AGENTS.md}
+Dit nemen we er even tussen, ontwikkeld door OpenAI, AGENTS.md is een file dat in de root van een Github repository thuis hoort en bedoeld is om AI-agents die in contact komen met deze repositories te helpen sturen en instructies te geven over hoe ze met de repository moeten omgaan. \\
 % https://agents.md/
 
-Voorbeeld AGENT.md\footnote{\href{https://agents.md/}{https://agents.md/}} file:
+Voorbeeld AGENTS.md\footnote{\href{https://agents.md/}{https://agents.md/}} file:
 
 \begin{minted}{markdown}
     # Sample AGENTS.md file
@@ -752,7 +753,7 @@ Voorbeeld AGENT.md\footnote{\href{https://agents.md/}{https://agents.md/}} file:
     - Always run `pnpm lint` and `pnpm test` before committing.
 \end{minted}
 
-Men heeft ondertussen een onderzoek gedaan om te bepalen of deze AGENT.md files behulpzaam zijn, waarvan de resultaten aantonen dat deze files echter maar een miniem effect hebben op de AI Agents die ze interpreteren \autocite{gloaguen2026}. \\
+Men heeft ondertussen een onderzoek gedaan om te bepalen of deze AGENTS.md files behulpzaam zijn, waarvan de resultaten aantonen dat deze files echter maar een miniem effect hebben op de AI Agents die ze interpreteren \autocite{gloaguen2026}. \\
 
 Nu keren we terug het pad op van de verschillende protocollen.
 
@@ -804,6 +805,7 @@ Orchestrator pattern met LangGraph kan er zo uitzien: \ref{fig:orchestratorpatte
 \end{figure}
 
 \subsubsection{Evaluator-Optimizer Pattern}
+\label{sssec:evaluatoroptimizerpattern}
 
 Ook wel Reflection pattern genoemd, er is een generator-agent waarvan de output wordt geëvalueerd door een evaluator-agent en deze kan beslissen of dit voldoet aan vooropgestelde criteria, als dit niet het geval is zal de evaluator-output terug naar de generator-agent gestuurd worden als input samen met voorstellen voor verbetering, zo bestaat er een feedback lus die uiteindelijk enkel verder zal gaan wanneer de output van de generator-agent door de evaluator-agent goedgekeurd wordt. Vervolgens kan men een maximum aantal iteraties instellen zodat dit proces niet eindeloos doorgaat. \\
 

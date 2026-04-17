@@ -97,6 +97,31 @@ OpenAI met ChatGPT heeft veel van zijn succes te wijten aan het feit dat ze een 
 Hier\footnote{\href{https://github.com/marketplace/models/}{https://github.com/marketplace/models/}} kan men verschillende LLMs uittesten en met elkaar vergelijken en kiezen om deze te gebruiken $\rightarrow$ 'Use this model'. Hier wordt dan een korte SDK of gebruiksinstructie weergegeven om met de gekozen model aan de slag te gaan in code. Men kan tokengebruik testen en kwaliteit van antwoorden, verschillende parameters instellen zoals maximum tokens, temperatuur en top\_p.
 
 \section{No-code web-dev platvormen}
+
+Er bestaan platvormen waar mensen zonder kennis van coderen aan web development en design kunnen doen, deze platvormen bieden tools aan om websites te maken en direct ook de code in te kunnen zien, aan github koppelen en verlagen de toetredingsdrempel voor mensen die hun eigen website willen maken aanzienlijk. \\
+
+Voor developers kan het gebruikt worden als een tool om snel prototypes in elkaar te steken. \\
+
+Twee gekende producten op de markt vandaag zijn \textbf{Base44} en \textbf{Lovable}, kort even wat voorbeelden van dat laatste:
+
+% lovable.dev 04.png
+% lovable-credits.png
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{lovable.dev 04.png}
+    \caption[Lovable]{\label{fig:lovable}Gegenereerde website voorbeeld, https://lovable.dev/}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{lovable-credits.png}
+    \caption[Lovable code en credits]{\label{fig:lovablecredits}Lovable code en credits, https://lovable.dev/}
+\end{figure}
+
+In de eerste figuur \ref{fig:lovable} zien we een voorbeeld van hoe de gegenereerde website eruit ziet en in de tweede figuur \ref{fig:lovablecredits} is te zien hoeveel credits het heeft gekost alsook dat men direct inzicht in de code heeft, dit kan ook aan github worden gekoppeld. Een standaard feature bij dit soort platvormen.
+
+
 \begin{comment}
     % lovable at:
     % C:\Users\peter\OneDrive\Bureaublad\HOGENT\HOGENT Cursussen\Jaar_5 - Semester_1(backed up)\Bachelor Proef\IT1 Bachelor Proef\Lovable
@@ -113,14 +138,26 @@ We maken een onderscheid tussen \textbf{Low-code} en \textbf{No-code} agent-buil
 % microsoft M365
 Wordt besproken in sectie \ref{sec:microsoftm365copilot}.
 
-\subsection{MindStudio (No-code)}
-
-
 \subsection{n8n (Low-code)}
+\label{ssec:n8n}
+Deze software bestaat al een tijd en was eerst uitgebracht als een workflow automatiserings-platvorm. Tegenwoordig kan het ook AI-integraties doen met toolgebruik en API-calls. N8n gebruikt een visueel en simpel grafisch interface waar men nodes met elkaar kan verbinden die stappen in de workflow voorstellen. Elke node is heel aanpasbaar met LLM nodes waarin men API-keys kan instellen als credentials. Eigen API keys kunnen bij alle relevante nodes worden ingesteld. Men kan ook in n8n ingebouwd data opslag systemen gebruiken of verbinden met externe databases. Het is ook mogelijk om AI in te zetten om te helpen met het maken van workflows. Zie figuur: \ref{fig:n8nworkflow}
 
 
-\subsection{Vertex AI (Low-code)}
+% n8n-workflow.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{n8n-workflow.png}
+    \caption[n8n workflow]{\label{fig:n8nworkflow}Een voorbeeld van een n8n workflow verkregen van: https://n8n.io/}
+\end{figure}
 
+
+Worden even vermeld als alternatieven maar zullen verder niet onderzocht worden: \ref{sssec:mindstudio}, \ref{sssec:vertexai}
+
+\subsubsection{MindStudio (No-code)}
+\label{sssec:mindstudio}
+\subsubsection{Vertex AI (Low-code)}
+\label{sssec:vertexai}
+Van Google Cloud
 
 \section{No-code generatieve workflows}
 
@@ -216,6 +253,8 @@ Er bestaan verschillende AI-codeer agent integraties in IDE's. We bespreken kort
 \textbf{Cursor:} is een Agent-geïntegreerde IDE, een fork van VSC, alsook de eerste agent dat een sterke kennis van de files binnen een project had. \\
 
 \textbf{Codex:} heeft een VSC integratie maar kan ook losstaand gebruikt worden en kan geautomatiseerde taken uitvoeren. \\
+
+\textbf{Google Antigravity:} \todo{look into Google Antigravity and write about it here}
 
 Over het algemeen kunnen agents nu ook zelf code aanpassen, waarbij standaard ook goedkeuring gevraagd wordt aan de mens die voor het scherm zit(human in the loop). Het is mogelijk om alle codeerwerk (en denkwerk) aan de agent over te laten.
 
@@ -344,6 +383,30 @@ Dit is nu een standaard aan het worden, om LLMs up-to-date te houden met de nieu
 
 OpenClaw is een gratis, open source autonome AI-agent. Dit was een ontzettend populair AI project met op het moment van schrijven 358.000 sterren op github. Een agent die volledig lokaal kan werken, berichten via sociale media sturen, autonome(geplande) taken uitvoeren, heeft toegang tot de systeem kalender, browser en email onder anderen en kan scripts uitvoeren en dat zou voor nogal wat security problemen kunnen zorgen \autocite{Chang2026}. Deze technologie wordt even vermeld omdat het zo veelbesproken was maar zal verder niet onderzocht worden.
 % yust putting it here so I know it's around, I can mention it somewhere, but not in it's own chapter, not sure what to do with it, it's a bit too late to also look into now, but it is taking the world by storm, and rapidly getting integrations with many existing softwares
+
+\subsubsection{Dot-md}
+\label{sssec:dotmd}
+Openclaw ondersteunt ook het gebruik van verschillende .md files die bedoeld zijn om agents bepaalde informatie mee te delen. Men kan met een SOUL.md file een persoonlijkheid en wereldbeeld toekennen aan agents volgens openclaw\footnote{\href{https://docs.openclaw.ai/concepts/soul}{https://docs.openclaw.ai/concepts/soul}}. \\
+
+\textbf{SOUL.md} / \textbf{HEARTBEAT.md} / \textbf{AGENTS.md} \\
+
+Met SOUL als de persoonlijkheid, AGENTS als instructies, HEARTBEAT als tijdsschema en info voor het uitvoeren terugkerende taken. \\
+
+Onderhouden op github door Aaron Mars \footnote{\href{https://github.com/aaronjmars/soul.md}{https://github.com/aaronjmars/soul.md}} die een framework rond verschillende .md files ontwierp genaamd "The Soul Stack" dat meerdere .md files gebruikt om de output van agents aan te passen. Met een combinatie van .md files kunnen wereldbeeld, schrijfstijl en vaardigheden aan AI agents toegekend worden. \\
+
+SOUL.md / \textbf{STYLE.md} / \textbf{MEMORY.md} / \textbf{SKILLS.md} \\
+
+Volgens \textcite{Capodieci2026} leven agents in 'plain text' files binnen een workspace folder en de volledige set is: \\
+
+\verb|    my-agent/| \\
+\verb|    ├── |SOUL.md \\
+\verb|    ├── |\textbf{IDENTITY.md} \\
+\verb|    ├── |AGENTS.md \\
+\verb|    ├── |\textbf{USER.md} \\
+\verb|    ├── |\textbf{TOOLS.md} \\
+\verb|    ├── |HEARTBEAT.md \\
+\verb|    └── |MEMORY.md \\
+
 \section{Pricing}
 \label{sec:pricing}
 %
@@ -351,7 +414,7 @@ Veel AI-chatbots die men via de browser kan aanspreken hebben een gratis gebruik
 
 %-> different pricing models, 2 big variants here, the github copilot \& ollama style free tier with monthly limits vs claude code and others using pay as you go based on input/output-token usage
 %J j
-Het draaien van LLMs is een service die zeker wel met een prijskaartje komt. Als gebruiker die het absoluut minimum nodig wil uitgeven moet je er bewust van zijn dat er voor deze case 2 specifieke varianten zijn van AI-services. \\
+Het draaien van LLMs is een service die zeker wel met een prijskaartje komt. Als gebruiker die het absoluut minimum nodig wil uitgeven moet je er bewust van zijn dat er een aantal varianten zijn van AI-services. \\
 
 \textbf{Volledig gratis gebruik:} Dit zien we bijvoorbeeld met Github Copilot Chat. Er is een maandelijkse toelage van code-completions en een aparte maandelijkse toelage van chats of agent interacties(dus met tool-gebruik erbij). Bij het aanspreken van de cloud-LLMs die Ollama ter beschikking stelt zien we een "Session use" en een "Weekly usage", het eerste reset op een tijdspanne van uren, het laatste is elke week gereset. Uit ondervinden heeft de Ollama service een veel hoger limiet van gratis gebruik tegenover Github Copilot Chat. Het is mogelijk om heel veel queries te doen op de cloud-LLMs van Ollama zonder een serieuze toename te ondervinden in gebruiks-limiet, na uitbundig gebruik is dit nog nooit de 5\% overschreden. Terwijl bij Github Copilot Chat al snel  over de 10\% zit en er op een maandelijkse reset moet gewacht worden. Github Copilot Chat voorziet de gratis gebruiker van 2000 code-completions en 50 chatsessies per maand\footnote{\href{https://docs.github.com/en/copilot/get-started/plans}{https://docs.github.com/en/copilot/get-started/plans}}.
 Dit maakt het wel aantrekkelijker om als volledig gratis gebruiker met de sterkere cloud modellen bij Ollama te werken dan met Copilot Chat. Bij Ollama kan het gebruikslimiet gecontroleerd worden in de settings\footnote{\href{https://ollama.com/settings}{https://ollama.com/settings}}. \\

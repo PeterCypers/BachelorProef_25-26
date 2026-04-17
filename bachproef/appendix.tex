@@ -929,8 +929,11 @@ Hier zien we een mogelijke uitwerking van retrievers, gelijkaardig aan RAG in he
 \label{ssec:multiagentworkflowmetllamaindex}
 % Hier zal een demo getoond worden gebruikemakend van LlamaIndex, zie ref-llamaindex voor info over die framework, hier zullen we kort uitleggen wat deen multi-agent workflow inhoud, toolgebruik, agent-autonomie van beslissingen ameken (handoff), API calls, agentworkflow(kan ook met 1 agent), maar maakt mogeliyk een reeks agents in te stellen -> zie llamaindex workspace file 92, dit is een voorbeeld dat veel tokens kost om te draaien, research -> write -> review, interne werking staat uit comment, de normale uitvoer staat in comment, dit staat ook online op huggingface spaces maar werkt minder goed in die online omgeving als hier als py file op de lokale machine, tavily web-search tool with it's own api
 
+Volgend demo maakt gebruik van LlamaIndex \ref{sec:llamaindex} en is een voorbeeld van een multi-agent workflow. Er worden tools gebruikt, API-calls gemaakt en agents kunnen beslissingen maken zoals het wel of niet overhandigen van een afgewerkte taak aan een volgend agent(handoff). AgentWorkflow maakt het mogelijk om meerdere agents die ook over hun eigen tools beschikken te laten samenwerken. Workflows kunnen ook werken wanneer men maar 1 agent meegeeft. De Tavily web-zoek API wordt gebruikt in deze demo met eigen API-key. \\
+
+Deze demo maakt ook gebruik van het Generator $\rightarrow$ Evaluator (ook wel Generator $\rightarrow$ Optimizer) patroon, zie sectie: \ref{sssec:evaluatoroptimizerpattern}. De normale uitvoer staat in de main() functie in commentaar en de uitgebreide informatie wordt uitgeprint in de terminal. Vervolgens bekijken we de demo-code en uitleg bij de code:
+
 % dit is ook een voorbeeld van: generator -> evaluator pipeline -> my research - write and review agents
-\todo{write an intro and explain code for this segment}
 
 \begin{figure}[H]
     \centering
@@ -950,5 +953,24 @@ Hier zien we een mogelijke uitwerking van retrievers, gelijkaardig aan RAG in he
     \caption[LlamaIndex multi-agent workflow deel 3]{\label{fig:llamaindexmultiagentworkflow3}LlamaIndex multi-agent workflow deel 3}
 \end{figure}
 
-\textbf{Uitleg bij de code:} %todo ... explain section by section, but keep it all after all code fragments (here) maybe break it up into logical paragraphs
+\textbf{Uitleg bij de code:} API-keys worden klaargezet, de Tavily web-zoek API wordt gebruikt in deze demo. De gebruikte tools worden als asynchrone functies gedefinieerd, met elk een interne docstring dat de agents helpt bepalen of de tool nodig zal zijn voor het afhandelen van een gekregen taak. Een workflow context object is beschikbaar als parameter bij de verschillende tools dit maakt het mogelijk voor de agents om van een gedeeld state te lezen en schrijven dat enkel beschikbaar is tijdens deze workflow. \\
 
+De agents worden gedefinieerd, ze krijgen een naam, systeem prompt, LLM en tools. Deze krijgen ook een description(omschrijving), dit is vooral nodig voor agent-orchestratie binnen de workflow, dit kan de workflow helpen bepalen naar welke agent de taak gestuurd(ge-rout) wordt. Can\_handoff\_to is een lijst van agents waaraan de output van een agent kan overhandigd worden, merk op dat de write\_agent kan kiezen tussen 2 verschillende agents. De keuze om output naar een volgende agent te sturen ligt deels bij de agent en deels bij de workflow (A:can\_handoff\_to \& WF: description + routing). \\
+
+Vervolgens wordt de AgentWorkflow gedefinieerd dat de verzameling van agents bevat, een root\_agent dat als eerste aan het werk zal gaan alsook de state dat zal aangepast worden door de verschillende agents. Uiteindelijk zal bij aanroep van deze workflow de interne werking uitgeprint worden, afhankelijk van type event, waarbij deze demo inzicht geeft over de interne werking van de agents. Het deel code dat in commentaar staat is de normale output dat nu niet zal getoond worden. (multi-agent workflows kunnen mogelijks veel tokens gebruiken) \\
+
+\textbf{Output:}
+% llama-multi-output-1.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{llama-multi-output-1.png}
+    \caption[LlamaIndex multi-agent workflow deel 3]{\label{fig:llamaindexmultiagentoutput1}LlamaIndex multi-agent output deel 1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{llama-multi-output-2.png}
+    \caption[LlamaIndex multi-agent workflow deel 3]{\label{fig:llamaindexmultiagentoutput2}LlamaIndex multi-agent output deel 2}
+\end{figure}
+
+\textbf{Output uitleg:} We zien de opgehaalde informatie, wat er in de notes als state bewaard werd en naar welke agent de handoff zal gebeuren, de output eindigt hier wel, dus de write\_agent en review\_agent kwamen niet aan bod, mogelijks door een timeout of onafgehandelde fout in een van de asynchrone bewerkingen.
