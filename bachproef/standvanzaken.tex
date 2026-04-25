@@ -913,9 +913,21 @@ Wanneer er tools gebruikt worden kan men deze aan de agent geven, dit is een age
 \subsection{Andere Multi-Agent Frameworks}
 Deze passen ook binnen het plaatje van multi-agent frameworks, worden hier even opgelijst ter info, maar worden verder niet besproken binnen dit hoofdstuk. \\
 
-\textbf{AutoGen} \& \textbf{BeeAI} \& \textbf{Pydantic AI}
+\textbf{AutoGen} \& \textbf{BeeAI} \& \textbf{Pydantic AI} \& \textbf{Vertex AI}
 
-\section{API development en testing}
+\section{Principle of Least Privilege}
+\label{sec:principleofleastprivilege}
+De PoLP(Principle of Least Privilege) stelt dat gebruikers en/of systemen enkel toegang mogen krijgen tot het strikt minimum dat nodig is om een taak af te ronden \autocite{NIST}. \\
+
+Dit is een belangrijk principe om toe te passen op AI en agentic systemen. Bepaalde agents kunnen files maken en verwijderen, code schrijven en zelfs uitvoeren, e-mails verzenden en code repositories aanpassen. Voor automatische agent workflows en autonome taken wordt er vaak met \textbf{white lists} gewerkt, een beknopte lijst waarin de acties staan dat een AI agent mag doen, de agent privileges. Bij bepaalde codeer agents die volledig zelfstandig projecten kunnen maken zoals Claude Code(Anthropic) en Codex(OpenAI) gaan deze te werk en wanneer gevaarlijke acties nodig zijn zullen ze een confirmatie vragen aan een menselijke gebruiker, dit is een voorbeeld van \textbf{human in the loop}(HITL). Wanneer men zonder onderbreking agents aan het werk wil zetten kan de lijst met toegelaten acties uitgebreid worden, met begrip dat dit meer risico's zal inhouden. \\
+
+\textbf{Codex} processen draaien in een \textbf{sandbox} omgeving binnen Windows, een apart proces dat afgezonderd is van de rest van het systeem zodat de toegang dat deze AI agent heeft tot het minimum beperkt wordt. \\
+
+\textbf{Copilot Chat} zal standaard telkens om goedkeuring vragen voor elke code aanpassing dat deze maakt binnen je IDE, men kan dit goedkeuren of afkeuren zodat alle veranderingen pas doorgaan onder menselijk toezicht. \\
+
+Agents zullen vaak vragen of ze bepaalde tools mogen gebruiken, al gebeurt dit steeds vaker zonder goedkeuring te vragen. Ingestelde MCP-tools zijn allen goedgekeurd om te gebruiken bijvoorbeeld met Copilot Chat wanneer deze in Agent modus staat.
+
+\section{API Testen en Documentatie}
 % mogelijks ondersteund door RAG
 
 \subsection{OAS \& OAD}
@@ -923,5 +935,276 @@ Deze passen ook binnen het plaatje van multi-agent frameworks, worden hier even 
 % mention that for DEV and testing of API's the OAS/OAD are crucial components, we have postman, postman MCP, swagger and that based on my investigations into test-technieken ->ref (see voorstel) I have decided that a useful use for AI-agents could be interpreting and retrieving information from these documents or the codebase using RAG and will build my AI-agent to have these large document-parsing or multidocument understanding capabilities
 %todo: possibly add a link to this in methodologie, -> op basis van mijn bevindingen uit ->ref  test-technieken (see voorstel) heb ik besloten om een AI-agent te maken die documenten ken doornemen
 
+De Open Api Specification (OAS) is een conventie in RESTful API ontwikkeling dat wereldwijd gehanteerd wordt en omschrijft onder andere wat de correcte structuur is van API-requests en responses. Deze best practice wordt gevolgd zodat de structuur van requests en responses meteen duidelijk is. Ook voor externe gebruikers. De specificatie volgt REST-principes en wordt ook up-to-date gehouden door de OpenAPI initiative onder de Linux Foundation \autocite{OpenAPIInitiativea}. \\
+
+De conventie wordt niet altijd goed gevolgd bij het ontwikkelen van APIs, volgens een onderzoek van \textcite{Martin-Lopez2022} naar het testen van online APIs van bekende bedrijven waren de helft van de gevonden fouten disconformiteiten tussen API-responses en hun specificaties (F\_OAS).
+
+\subsubsection{OAS}
+\label{sssec:oas}
+
+De Open Api Specificatie is online beschikbaar\footnote{\href{https://swagger.io/specification/}{https://swagger.io/specification/}}, deze resource kan teams helpen bij de ontwikkeling van hun eigen API(s).
+
+\subsubsection{OAD}
+\label{sssec:oad}
+
+Een Open Api Document (OAD) zijn één of meerdere documenten die de vorm van het eigen API weergeeft. Er wordt een onderscheid gemaakt tussen \textbf{OpenAPI Document} en \textbf{OpenAPI Description}, een OA-Document is één enkele json of yaml file terwijl een OA-Description een entry-file is die naar andere files refereert \autocite{OpenAPIInitiative}.\\
+
+% OpenAPIInitiative
+
+Hierin vinden we de volgende elementen terug:\textbf{OpenAPI versie}; \textbf{Paden}; \textbf{Parameters}; \textbf{Verwachte responses}. Een OAD kan in de root van een project bestaan in de vorm van een openapi.json of openapi.yaml file. Deze documentatie maakt het mogelijk om automatisaties te gebruiken, mogelijks ondersteund door AI, zie sectie:\ref{sec:postmanmcp} \\
+
+Hier zien we een voorbeeld openapi.yaml file \ref{fig:oadyaml}
+
+% OAD-example.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{OAD-example.png}
+    \caption[OAD voorbeeld]{\label{fig:oadyaml}Gedeeltelijk voorbeeld van een openapi.yaml file.}
+\end{figure}
 
 
+Het voordeel van een yaml bestand vergeleken met json is dat er commentaar mogelijk is om delen van het document te verduidelijken, ook kan het gemakkelijker zijn om op het zicht de geneste structuur te begrijpen.
+
+\subsubsection{Scramble}
+\label{sssec:scramble}
+
+% j
+Scramble is een tool die automatisch openapi documentatie genereert binnen PHP + Laravel projecten. Men kan dit in een project installeren met: 
+\begin{verbatim}
+    composer require dedoc/scramble
+\end{verbatim}
+
+Om aanpassingen te maken aan de configuratie:
+\begin{verbatim}
+    php artisan vendor:publish --provider="Dedoc\Scramble\ScrambleServiceProvider"
+     --tag="scramble-config"
+\end{verbatim}
+Standaard wordt één documentatie file gegenereerd op basis van routes die in het volgend bestand staan: 
+\begin{verbatim}
+    routes/api.php
+\end{verbatim}
+Dit kan aangepast worden in de configuratie file. Dit kan men aanpassen om te laten wijzen naar de routes/web.php file. Het is mogelijk om ook de web routes te documenteren in 1 file, dit kan door in de config file van scramble: \textbf{vendor/dedoc/scramble/config/scramble.php} de variabele export\_path aan te passen, standaard is dit api.json, men zou dit bijvoorbeeld web.json kunnen noemen en de api\_path veranderen van 'api' naar 'web' om zo ook alle web endpoints te documenteren. Wanneer men documentatiefiles wil bijhouden over beiden kan de config file zo aangepast worden:
+
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+\begin{tabular}{l l c l}
+    \textbf{Web:} 
+    & \texttt{'api\_path'}    & $\Rightarrow$ & \texttt{'web'}      \quad \textit{// routes/web.php} \\
+    & \texttt{'export\_path'} & $\Rightarrow$ & \texttt{'web.json'} \\[1.5em]
+    
+    \textbf{API (default):} 
+    & \texttt{'api\_path'}    & $\Rightarrow$ & \texttt{'api'}      \quad \textit{// routes/api.php} \\
+    & \texttt{'export\_path'} & $\Rightarrow$ & \texttt{'api.json'} \\
+\end{tabular}
+\end{tcolorbox}
+
+In PHP en Laravel gaat men ervan uit dat de browser routes van het project in de \textbf{routes/web/php} file staan, dit zijn de routes die horen bij de web-interface van de applicatie en behoort tot de \textbf{web middleware group} (volgens de Laravel Documentatie\footnote{\href{https://laravel.com/docs/13.x/routing}{https://laravel.com/docs/13.x/routing}}). Dit is waar bezoekers van de website mee in contact komen.\\
+
+Daarnaast hebben we de \textbf{routes/api.php} dat kan gebruikt worden als API voor externe gebruikers, "third-party API consumers", SPAs(single page applications) of mobiele applicaties, deze routes zijn stateless en behoren tot de \textbf{api middleware group} (volgens de Laravel Documentatie). \\
+
+Er kan documentatie gegenereerd worden. Gegeven het volgend voorbeeld file: \\
+
+\textbf{/routes/api.php}
+\begin{minted}{php}
+    <?php
+    
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Route;
+    
+    Route::get('/categories', [\App\Http\Controllers\Api\CategoryController::class, 'index']);
+\end{minted}
+
+Werd de volgende file door Scramble gegenereerd: \\
+
+\textbf{api.json}
+\begin{minted}{json}
+    {
+        "openapi": "3.1.0",
+        "info": {
+            "title": "Laravel",
+            "version": "0.0.1"
+        },
+        "servers": [
+        {
+            "url": "http://localhost:8000/api"
+        }
+        ],
+        "paths": {
+            "/categories": {
+                "get": {
+                    "operationId": "category.index",
+                    "tags": [
+                        "Category"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+\end{minted}
+
+Het moet worden opgemerkt dat Scramble moeilijkheden had met het ontdekken van routes voor models(Objecten) zonder controllers en ook enkel werkte op routes die herkend werden door:
+\begin{verbatim}
+    php artisan route:list
+\end{verbatim}
+Wanneer voor bepaalde routes in de output enkel een generated + hash werd weergeven herkende Scramble die route niet. Dit kan opgelost worden door controllers te gebruiken bijvoorbeeld: \textbf{php artisan make:controller Api/CategoryController}. \\
+
+In de file \textbf{bootstrap/app.php} werden volgende aanpassingen gemaakt:
+
+\begin{minted}{php}
+    <?php
+    
+    use Illuminate\Foundation\Application;
+    use Illuminate\Foundation\Configuration\Exceptions;
+    use Illuminate\Foundation\Configuration\Middleware;
+    
+    return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+    web: __DIR__.'/../routes/web.php',
+    api: __DIR__.'/../routes/api.php', # added
+    apiPrefix: 'api', # added
+    commands: __DIR__.'/../routes/console.php',
+    health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+        //
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();
+\end{minted}
+
+De documentatie kan nu ook online worden geraadpleegd, in dit geval op volgend URL:
+\begin{itemize}
+    \item[] \textbf{http://localhost:8000/docs/api\#/}
+\end{itemize}
+Bekijk onderstaande figuren \ref{fig:scrambledocsapi} en \ref{fig:scrambledocsapiendpoints}. Merk op dat men een kopij van de door scramble gegenereerde api.json file kan downloaden met het 'Export' menu. We zien ook een 'Stoplight' interface dat aanpasbaar is in de scramble config file. Men kan in de UI linkerpaneel alle beschikbare endpoints bekijken en testen door een request te sturen en het response na te kijken. De titel komt uit .env $\rightarrow$ APP\_NAME=Laravel.
+
+% scramble-docs-api.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{scramble-docs-api.png}
+    \caption[API interface van Scramble]{\label{fig:scrambledocsapi}API interface van Scramble.}
+\end{figure}
+
+% scramble-endpoints.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{scramble-endpoints.png}
+    \caption[Scramble API endpoints]{\label{fig:scrambledocsapiendpoints}Scramble API endpoints.}
+\end{figure}
+
+Online zijn er een groot aantal publieke APIs te vinden, er bestaan API marketplaces zoals APILayer\footnote{\href{https://apilayer.com/}{https://apilayer.com/}}$^{,}$\footnote{\href{https://github.com/public-apis/public-apis}{https://github.com/public-apis/public-apis}} die een breed gamma aan APIs aanbieden die in projecten kunnen worden geïntegreerd. De documentatie API ziet er gelijkaardig uit als onze voorbeeld, deze werd mogelijks ook opgesteld met scramble. Zie figuur: \ref{fig:ipstackdocsapi}
+
+% img APILayer IPstack API Documentatie van APILayer
+% ipstack-api.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{ipstack-api.png}
+    \caption[IPStack API van APILayer]{\label{fig:ipstackdocsapi}IPStack API interface, beschikbaar gesteld door APILayer.}
+\end{figure}
+
+
+\subsubsection{Swagger-PHP}
+\label{sssec:swaggerphp}
+
+Swagger-PHP\footnote{\href{https://zircote.com/swagger-php/}{https://zircote.com/swagger-php/}} gebruikt annotaties om OpenAPI documentatie te genereren, volgens deze online gids komen er 3 stappen aan te pas:
+
+\begin{enumerate}
+    \item \textbf{Installeren:} Met het commando: \textit{composer require zircote/swagger-php}
+    \item \textbf{Update de Code:} Dit is de zwaarste stap voor bestaande grote codebases, er is een refactor nodig en routes worden vanaf nu in groter detail omschreven, zie: onderstaande codeblokken: Attributen(\ref{minted:swaggerphpattributen}) \& Annotaties(\ref{minted:swaggerphpannotaties})
+    \item \textbf{OpenAPI documentatie genereren:} Met het commando: \textit{./vendor/bin/openapi src -o openapi.yaml}
+\end{enumerate}
+
+\textbf{Attributen:}
+\phantomsection
+\label{minted:swaggerphpattributen}
+\begin{minted}{php}
+    <?php
+    
+    namespace Openapi\Snippets\MinimalApi;
+    
+    use OpenApi\Attributes as OA;
+    
+    #[OA\Info(title: 'My First API', version: '0.1')]
+    class OpenApi
+    {
+    }
+    
+    class MyController
+    {
+        #[OA\Get(path: '/api/data.json', operationId: 'getData')]
+        #[OA\Response(response: '200', description: 'The data')]
+        public function getResource()
+        {
+            // ...
+        }
+    }
+\end{minted}
+
+\textbf{Annotaties:}
+\phantomsection
+\label{minted:swaggerphpannotaties}
+\begin{minted}{php}
+    <?php
+    
+    namespace Openapi\Snippets\MinimalApi;
+    
+    use OpenApi\Annotations as OA;
+    
+    /**
+    * @OA\Info(
+    *     title="My First API",
+    *     version="0.1"
+    * )
+    */
+    class OpenApi
+    {
+    }
+    
+    class MyController
+    {
+        /**
+        * @OA\Get(
+        *     path="/api/data.json",
+        *     operationId="getData",
+        *     @OA\Response(
+        *         response="200",
+        *         description="The data"
+        *     )
+        * )
+        */
+        public function getResource()
+        {
+            // ...
+        }
+    }
+\end{minted}
+
+De online documentatie\footnote{\href{https://zircote.com/swagger-php/}{https://zircote.com/swagger-php/}} waarschuwt dat de annotatie manier zal vervallen en dat men beter de attributen methode toepast.
+
+\subsubsection{Testing Frameworks (PHP \& Laravel)}
+
+\textbf{PHPUnit \& Pest:} Out of the box bevatten nieuwe Laravel en Filament projecten PHPUnit voorzien van 2 voorbeeld testfiles, 1 voor Unit en Feature tests. Pest kan als extensie bovenop PHPUnit worden geïnstalleerd en heeft een kortere en meer leesbare syntax. Wanneer men Pest in een project installeert moet PHPUnit eerst verwijdert worden, maar Pest is omgekeerd compatibel en kan PHPUnit tests draaien samen met Pest tests. \\
+
+Tests staan in de tests folder, door het uitvoeren van de volgende commando's worden alle tests onder de opgegeven folder (en subfolders) uitgevoerd: \\
+
+Om PHPUnit tests te laten draaien: \textbf{./vendor/bin/phpunit}.
+Pest tests:\textbf{./vendor/bin/pest tests/Unit}. Bij de Pest tests werd de map toegewezen waaronder naar tests zal gezocht worden, binnen de opgegeven folder zullen alle verder geneste tests ook uitgevoerd worden.
+
+% php-tests.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{php-tests.png}
+    \caption[PHP tests]{\label{fig:phptests}PHPUnit en Pest tests.}
+\end{figure}

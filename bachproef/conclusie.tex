@@ -14,8 +14,6 @@
 % Heeft het onderzoek geleid tot nieuwe vragen die uitnodigen tot verder 
 %onderzoek?
 
-\lipsum[76-80]
-
 \begin{comment}
     % Er werden tientallen werkende demo's gemaakt met verschillende technologieën waarvan maar een deel in deze corpus opgenomen ziyn
     
@@ -25,4 +23,18 @@
     % https://www.youtube.com/watch?v=UabBYexBD4k
     
 \end{comment}
+
+%todo: Is the tone too negative? is it a bad idea to write that my research went in a wrong path or was inconclusive?
+
+Er werden bestaande AI-agents onderzocht binnen de Visual Studio Code IDE, verschillende Agentic technieken getoetst zoals RAG, MCP en prompt engineering. Voor algemene taken is de bestaande Github Copilot Chat met een enterprise abonement wat anonimiteit biedt al een zeer nuttige codeer assistent, deze heeft Agentic/Ask/MCP/RAG mogelijkheden, model-selectie, internet zoeken en kan taken plannen. \\
+
+Postman MCP met AI-ondersteuning biedt de mogelijkheid om met een bestaand openapi.yaml of openapi.json file een postman verzameling te maken en zo eenvoudig met een single point of truth Postman verzamelingen te synchroniseren met de code om dan met Postman APIs te testen. \\
+
+Er werd tijdens dit onderzoek zwaar ingezet op het uitzoeken of RAG een mogelijk plaats heeft bij het testen en documenteren van APIs. Dit bleek echter niet de ideale techniek om in te zetten op dit problematiek.\\
+
+Naast bestaande automatie-technieken en test-tools is het niet zeker of een eigen AI agent met RAG-technieken een meerwaarde bieden voor het testen of het documenteren van APIs. Individuele AI-agents met specifieke taken zoals het ophalen van informatie uit een grote verzameling van documenten zijn vooral zinvol wanneer er niet met 1 file als context al tot een degelijk resultaat kan worden gekomen. Het negeren van tools en het missen van context wanneer RAG wordt ingezet blijven punten waar men voorzichtig mee moet zijn bij het zelf implementeren van AI-agents. RAG is vooral zinvol wanneer er vragen zijn over een groot corpus van informatie, wanneer deze niet volledig kan ingeladen worden in context en wanneer er niet gewoon gezocht kan worden naar sleutelwoorden. \\
+
+Het komt erop neer dat men de tool best zo goed mogelijk aanpast aan de taak, RAG heeft zijn Use-Cases, alsook MCP. \\
+
+Er werden heel wat verschillende technologieën bekeken waarvan mogelijks een aantal beter geschikte opties om verder te onderzoeken. Dit onderzoek is geëvolueerd in een algemeen overzicht van verscheidene AI-technologie die vandaag bestaat, AI en Agentic technieken die kunnen toegepast worden in het algemeen, niet perse met genoeg focus op testen en documenteren van APIs. Er werd initieel niet genoeg tijd besteed aan het onderzoeken van test-technieken voor APIs, met een focus eerder op AI-agents.
 

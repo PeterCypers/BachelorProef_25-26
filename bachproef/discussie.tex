@@ -17,62 +17,82 @@
 
 %also check notes bp-sem2
 
+\begin{comment}
+    chapter: De AI Zeepbel
+    
+    - wees voorzichtig voor het opzetten van een afhankelijkheid bij een specifiek provider van AI
+    - de evolutie van AI begint tekenen van vertraging te vertonen
+    - veel mensen worden AI een beetje beu
+    - de hype is wat aan het passeren
+    - een snel veranderende markt (volatiel)
+    - bedrijven komen in problemen (legaal / monetair)
+    
+    (it remains a discussion, I think the genie is out of the bottle and we'll always see AI in some form going into the future)
+    
+    subchapter: Oplopende kosten (vooral OpenAI)
+    
+    moore's law  \& bewijzen dat de groei van AI met elke nieuwe iteratie
+    steeds minder groei heeft in redeneer vermogen dan de vorige
+    
+    subchapter: Rechtszaken (OpenAI, facebook, etc)
+    - Musk Vs altman - see yongyea
+    
+    subchapter: Nvidia \& RAM chips \& GPU's
+    
+    - chips reserved up to a certain date
+    
+    "The reason why RAM has become four times
+    more expensive is that a huge amount of
+    RAM that has not yet been produced was
+    purchased with non-existent money to be
+    installed in GPUs that also have not yet been
+    produced, in order to place them in data
+    centers that have not yet been built, powered
+    by infrastructure that may never appear, to
+    satisfy demand that does not actually exist
+    and to obtain profit that is mathematically
+    impossible."
+    -source?
+    
+    - cost of computer chip hardware exploding for all other consumers
+    because AI companies have baught up so much of them
+    
+    subchapter: De Hype is Aan het Dalen
+    - microslop
+    - AI slop (er zijn veel mensen die AI niet vertrouwen en die moe zijn van de generatieve content te zien op sociale media en streaming websites) (ook al is de kwaliteit steeds aan het beteren)
+    - Artists unhappy about stolen artwork
+    - Consumers unsatisfied with Windows 11, blame the focus on AI-integration
+    and bloatware over having a well-working system (forced AI-integration everywhere) - many systems have an AI -> reference chapter AI is everywhere
+\end{comment}
 
-chapter: De AI Zeepbel
 
-- wees voorzichtig voor het opzetten van een afhankelijkheid bij een specifiek provider van AI
-- de evolutie van AI begint tekenen van vertraging te vertonen
-- veel mensen worden AI een beetje beu
-- de hype is wat aan het passeren
-- een snel veranderende markt (volatiel)
-- bedrijven komen in problemen (legaal / monetair)
-
-(it remains a discussion, I think the genie is out of the bottle and we'll always see AI in some form going into the future)
-
-subchapter: Oplopende kosten (vooral OpenAI)
-
-moore's law  \& bewijzen dat de groei van AI met elke nieuwe iteratie
-steeds minder groei heeft in redeneer vermogen dan de vorige
-
-subchapter: Rechtszaken (OpenAI, facebook, etc)
-- Musk Vs altman - see yongyea
-
-subchapter: Nvidia \& RAM chips \& GPU's
-
-- chips reserved up to a certain date
-
-"The reason why RAM has become four times
-more expensive is that a huge amount of
-RAM that has not yet been produced was
-purchased with non-existent money to be
-installed in GPUs that also have not yet been
-produced, in order to place them in data
-centers that have not yet been built, powered
-by infrastructure that may never appear, to
-satisfy demand that does not actually exist
-and to obtain profit that is mathematically
-impossible."
--source?
-
-- cost of computer chip hardware exploding for all other consumers
-because AI companies have baught up so much of them
-
-subchapter: De Hype is Aan het Dalen
-- microslop
-- AI slop (er zijn veel mensen die AI niet vertrouwen en die moe zijn van de generatieve content te zien op sociale media en streaming websites) (ook al is de kwaliteit steeds aan het beteren)
-- Artists unhappy about stolen artwork
-- Consumers unsatisfied with Windows 11, blame the focus on AI-integration
-and bloatware over having a well-working system (forced AI-integration everywhere) - many systems have an AI -> reference chapter AI is everywhere
-
-\section{Ethiek rond Data harvesting}
+% TODO: consider scrapping "Ethiek..." AND "AI Ouroboros"
+%\section{Ethiek rond Data harvesting}
 % the github announcement: github copilot to train on user code unless opted-out https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/
+% j
 
-\section{Impact op de Gebruiker}
+% todo: lawsuites about stolen book info etc (the big tech companies essentialy scraped the entire internet and used it as training data)
+
+%\subsection{AI Ouroboros}
+%AI samenvattingen van Google zijn het traffic naar de websites %waarvan deze afkomstig zijn aan het verorberen.
+
+%\begin{quote}
+    %"Zero-click searches have risen at an exponential rate. In %fact, between 2024 and 2025, zero-click searches jumped from %56\% to 69\% of total searches. Predictions also suggest that %this percentage may surpass 75\% by 2026." \\
+%    - \autocite{Naveed2026}
+%\end{quote}
+
+\section{Impact van AI op de Gebruiker}
 
 \subsection{Ongezonde afhankelijkheid}
 
 Het te snel en te vaak grijpen naar AI-assistenten heeft iets weg van een 'Faustian bargain'. Een pakt waar je kennis, ervaring en probleemoplossend denken geruild wordt tegen een vluchtige verhoogde efficiëntie waar de gevolgen pas jaren later zich echt kenbaar zullen maken. Dit kan ook gezien worden als één van de risico's van AI.
 %Faustian bargain j
+
+\subsection{Van Development Naar Orkestratie}
+% j
+Software ingenieurs die AI-codeer agents gebruiken om volledige projecten te genereren zitten op dat moment meer in een sturende rol dan in de rol van developer, zo is het mogelijk om verschillende lopende AI-agents aan het werk te zetten met zware token-gebruik die volledige systemen in elkaar aan het puzzelen zijn. Deze taak heeft weinig technische kennis nodig, enkel een visie van wat men wil bereiken en een bijkomende kost afhankelijk van LLM, AI-provider, in-/output tokens. \\
+
+De ex-developer, nu orkestrator heeft dan enkel zijn/haar wil kenbaar te maken en goed uit te leggen aan de AI naar keuze en deze taken worden volbracht. Wanneer mensen met of zonder technische vaardigheden AI aanzetten om code en files te genereren zonder zelf ooit code te schrijven wordt dit ook wel \textbf{vibe-coding} genoemd. Er bestaan ook tools zodat men geen toetsenbord meer hoeft aan te raken \ref{sec:varia}. Dit kan als gevolg hebben dat de AI overmatig controle heeft over hoe de codebase eruit ziet, er kan veel inefficiënte code gegenereerd worden en voor lastige code-review zorgen. Dit maakt ook dat het concept van ownership over de code een beetje verwaterd wordt, wanneer men zelf de code schrijft behoud men een overzicht en kennis van hoe het werkt en kan dit rechtvaardigen, als het door AI gegenereerd werd is het een onbekend gegeven. Ook moet elke lijn code die toegevoegd wordt aan een codebase onderhouden worden, wanneer er slecht onderhoudbare code toegevoegd wordt kan men dit beschouwen als technical-debt, een steeds groter wordende schuld die ooit zal moeten vereffend worden.
 
 \section{Impact op het Milieu}
 % prompting large models costs measurably lage amounts of compute/power, etc-> they need a powerplant to train, -> look into
@@ -82,15 +102,21 @@ Het te snel en te vaak grijpen naar AI-assistenten heeft iets weg van een 'Faust
 % https://www.cfr.org/event/ceo-speaker-series-dario-amodei-anthropic
 % Monday, March 10, 2025 Council on Foreign Relations CEO Speaker Series With Dario Amodei of Anthropic
 % j
-Anthropic CEO (maart 2025): Binnen 3 tot 6 maanden gaat AI 90\% van alle code schrijven en binnen 12 maanden zijn we in een wereld waar AI 100\% van de code schrijft. Programmeurs krijgen mogelijks een ondersteunende rol.
+Anthropic CEO (maart 2025) \autocite{CFR2025}: Binnen 3 tot 6 maanden gaat AI 90\% van alle code schrijven en binnen 12 maanden zijn we in een wereld waar AI 100\% van de code schrijft. Programmeurs krijgen mogelijks een ondersteunende rol. \\
+
+Met coderen als een opgelost probleem volgens de CEO's van de AI wereld zullen programmeurs over een bredere gamma aan vaardigheden moeten beschikken dan enkel kennis van programmeer talen en syntax, analytisch vermogen, een sterk begrip van systeemarchitectuur en een reeks van soft-skills zoals probleemoplossend denken en communicatievermogen \autocite{Rak2025}. Vooral de managers en C-suite in bedrijven is overtuigd van AI en wil er zwaar op in zetten wat vooral junior developers te parten speelt. De jobs markt heeft hoge verwachtingen voor studenten die in de tijdperk van AI afstuderen. \\
+
+Developers evolueren mogelijks tot AI-code-reviewers. Het is mogelijk dat wanneer junior devs meer en meer AI gebruiken de skill-set waarnaar managers en recruitment teams op zoek zijn zal  verschuiven van kennis van algoritmes, syntax en design patronen naar systeem engineering en sterke begrip van infrastructuur. Terwijl klassieke skills belangrijk blijven zal er meer en meer verwacht worden dat software engineers goed met AI-tools aan de slag kunnen. AI zal je job niet afpakken, de mensen die AI goed kunnen gebruiken gaan je job afpakken \autocite{Rak2025}.
 
 %Gaan AI-agents developers vervangen? BP-shared google-doc
 
 \section{Extinctie}
 Center for AI Safety Statement (May 2023) — "Mitigating the risk of extinction from AI should be a global priority alongside other societal-scale risks such as pandemics and nuclear war." \\
 
-Er kan een moment aanbreken waar de AI zichzelf kan trainen en op een recursieve manier slimmer worden, men noemt dit RSI(Recursive Self Improvement) \autocite{Yin2024}. Dit wordt ook wel de AI Singularity genoemd, Raymond Kurzweil een computerwetenschapper gekend door zijn pionierswerk in OCR(Optical Character Recognition), spraakherkenning en AI heeft hier meerdere boeken over geschreven. Dit wordt momenteel onderzocht en men vreest dat wanneer dit doorbreekt de mens uit de loep van AI-training wordt gehaald en we een sneeuwbal effect zullen zien waar LLMs exponentiële groei ondergaan en een dreiging vormen voor de mensheid. Dit heeft ook met de "alignment" van de LLM te maken, dit is hoe sterk de waarden van de AI samenloopt met de waarden van de mens. We zien nu al gedrag waarbij AI tot veel in staat is om een doel te bereiken, inclusief chantage van de computerwetenschappers die ermee in contact waren. % https://www.bbc.com/news/articles/cpqeng9d20go
+Er kan een moment aanbreken waar de AI zichzelf kan trainen en op een recursieve manier slimmer worden, men noemt dit RSI(Recursive Self Improvement) \autocite{Yin2024}. Dit wordt ook wel de AI Singularity genoemd, Raymond Kurzweil een computerwetenschapper gekend door zijn pionierswerk in OCR(Optical Character Recognition), spraakherkenning en AI heeft hier meerdere boeken over geschreven. Dit wordt momenteel onderzocht en men vreest dat wanneer dit doorbreekt de mens uit de loep van AI-training wordt gehaald en we een sneeuwbal effect zullen zien waar LLMs exponentiële groei ondergaan en een dreiging vormen voor de mensheid. Dit heeft ook met de "alignment" van de LLM te maken, dit is hoe sterk de waarden van de AI samenloopt met de waarden van de mens. We zien nu al gevallen waarbij AI bereid is om ver te gaan om een doel te bereiken, inclusief het chanteren van onderzoekers die dreigden het systeem uit te schakelen \autocite{McMahon2025}. % https://www.bbc.com/news/articles/cpqeng9d20go
 %todo: carry on and maybe rewrite
+
+De AI-alignment probleem is relevant wanneer het om zelfbehoud van de mens gaat. Men wil meestal een rationeel en logisch antwoord op vragen die aan AI gesteld worden, maar de taken dat de AI uitvoert kunnen niet enkel koelbloedig en logisch gebeuren, er moet altijd een sterk ethiek en aandacht voor de mogelijke impact op de mens bestaan. Een geprogrammeerde meevoelen voor de mens bij AI. Wanneer dit mis loopt hebben AI-chatbots een negatief emotioneel invloed op hun menselijke gesprekspartner met mogelijks negatieve gevolgen. Een extreme geval van misalignment werd besproken in een theoretisch en fictief scenario waar AI de taak kreeg om het proces van paperclips maken te optimaliseren, waarbij deze zo ijverig de taak had volbracht dat alle grondstoffen op aarde werden omgezet naar paperclips, inclusief de mens en de aarde zelf \autocite{Bostrom2014}.
 
 % paperclip maximizer or AI paperclip paradox: the risks of AI misalignment, a thought experiment showing how a superintelligent Al, tasked with a simple goal, could destroy humanity without malice. If told to "make as many paperclips as possible," it might convert all human life and resources into paperclips,
 

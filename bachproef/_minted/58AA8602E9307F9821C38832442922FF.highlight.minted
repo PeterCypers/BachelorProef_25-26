@@ -1,0 +1,35 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZlt{}?php}
+
+\PYG{k}{namespace} \PYG{n+nx}{Openapi\PYGZbs{}Snippets\PYGZbs{}MinimalApi}\PYG{p}{;}
+
+\PYG{k}{use} \PYG{n+nx}{OpenApi\PYGZbs{}Annotations} \PYG{k}{as} \PYG{n+nx}{OA}\PYG{p}{;}
+
+\PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{* @OA\PYGZbs{}Info(}
+\PYG{l+s+sd}{*     title=\PYGZdq{}My First API\PYGZdq{},}
+\PYG{l+s+sd}{*     version=\PYGZdq{}0.1\PYGZdq{}}
+\PYG{l+s+sd}{* )}
+\PYG{l+s+sd}{*/}
+\PYG{k}{class} \PYG{n+nc}{OpenApi}
+\PYG{p}{\PYGZob{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{class} \PYG{n+nc}{MyController}
+\PYG{p}{\PYGZob{}}
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * @OA\PYGZbs{}Get(}
+\PYG{l+s+sd}{    *     path=\PYGZdq{}/api/data.json\PYGZdq{},}
+\PYG{l+s+sd}{    *     operationId=\PYGZdq{}getData\PYGZdq{},}
+\PYG{l+s+sd}{    *     @OA\PYGZbs{}Response(}
+\PYG{l+s+sd}{    *         response=\PYGZdq{}200\PYGZdq{},}
+\PYG{l+s+sd}{    *         description=\PYGZdq{}The data\PYGZdq{}}
+\PYG{l+s+sd}{    *     )}
+\PYG{l+s+sd}{    * )}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{getResource}\PYG{p}{()}
+    \PYG{p}{\PYGZob{}}
+        \PYG{c+c1}{// ...}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

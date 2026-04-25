@@ -163,7 +163,7 @@ Van Google Cloud
 
 \subsection{ComfyUI}
 
-Dit is een open source software dat een gebruiksvriendelijk grafische UI biedt om AI workflows op te zetten, vooral voor video, audio en foto generatie. Fotogeneratie gebruikmakend van een techniek genaamd "stablediffusion" om een bestaand beeld in een nieuw beeld om te vormen. Er wordt een safetensors model gebruikt, alsook een positieve en negatieve prompt om te laten weten wat er wel of niet in de gegenereerde afbeelding moet komen. Deze technieken werden niet verder onderzocht. Voor dit soort taken is een grafische kaart onmisbaar, men kan ook op de CPU werken, maar dit duurt dan veel langer, deze foto duurde ongeveer een half uur om te produceren, maar zou met een grafische kaart van Nvidia een minuut of twee hebben geduurd. ComfyUI workflow: \ref{fig:comfyuiworkflow}
+Dit is een open source software dat een gebruiksvriendelijk grafische UI biedt om AI workflows op te zetten, vooral voor video, audio en foto generatie. Fotogeneratie gebruikmakend van een techniek genaamd "stablediffusion" om een bestaand beeld in een nieuw beeld om te vormen. Er wordt een safetensors model gebruikt, alsook een positieve en negatieve prompt om te laten weten wat er wel of niet in de gegenereerde afbeelding moet komen. Voor dit soort taken is een grafische kaart onmisbaar, men kan ook op de CPU werken, maar dit duurt dan veel langer, deze foto duurde ongeveer een half uur om te produceren, maar zou met een grafische kaart van Nvidia een minuut of twee hebben geduurd. ComfyUI workflow: \ref{fig:comfyuiworkflow}
 %ComfyUI, voorziet een grafische UI, gebruikt nodes, kan voor veel verschillende use-cases ingezet worden zoals foto-generatie, audiogeneratie en videogeneratie
 %gebruikt stablediffusion
 
@@ -221,8 +221,30 @@ HuggingFace Spaces kan gezien worden als code-repository en deployment platvorm.
 
 Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft. Voor de technische uitwerking en demo's gebruikmakend van dit platvorm, kijk verder naar: \ref{sec:huggingfacemetgradiovoordeploymentvanaiprojecten}
 
-\section{Postman MCP(todo)}
-%todo
+\section{Postman MCP}
+\label{sec:postmanmcp}
+% write about how it can be used to generate postman-collections from an openapi.yaml or openapi.json file -> VIA MCP-connection, asking the AI to use the postman-MCP tool to connect with a postman workspace by workspace-ID, you can find this by hovering over the workpace name
+
+Postman is een API-testing software waarmee men kan verbinden met APIs, gestructureerde requests sturen en de responses onderzoeken. \\
+
+MCP servers voorzien een verbinding met externe tools dat AI-agents kunnen gebruiken, model context protocol. Er bestaan veel MCP servers die agents kunnen verbinden met externe tools, Postman heeft een Visual Studio Code plugin dat 'Postman MCP' noemt hiermee kunnen AI-agents verbonden worden met Postman en zo bepaalde acties uitvoeren binnen die software. \\
+
+\subsection{Synchronisatie van Collections met Postman MCP}
+
+Wanneer teams reeds API documentatie hebben in de vorm van een openapi.yaml of openapi.json file, zie sectie: \ref{sssec:oad}, kunnen ze met behulp van Postman MCP verbinding maken met een Postman workspace en de bestaande collecties synchronizeren met de documentatie file(s) welke een single point of truth zijn voor de API van dat project. \\
+
+Door een AI-agent in de IDE aan te spreken en de Postman workspace ID mee te geven in de prompt kan de agent via Postman MCP-tool collections op die workspace bekijken en aanpassen. Zo kan gevraagd worden om de bestaande collections te synchroniseren. Uiteindelijk heeft men zo gebruikmakend van de documentatie en AI-ondersteuning via MCP servers Postman klaar gezet zodat het team verder API-endpoint tests kan doen in Postman. \\
+
+Initieel kan postman een collection aanmaken en opvullen met de import feature en deze kan ook een OpenAPI file gebruiken om deze import te doen, zie: \ref{fig:postmanimport}
+
+% postman-import.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{postman-import.png}
+    \caption[Postman import]{\label{fig:postmanimport}Een openapi.yaml file geïmporteerd in Postman.}
+\end{figure}
+
+
 \section{AI providers \& APIs}
 % groot aanbod, see notes & pricing -> meta/github/openai/anthropic/deepseek/etc etc
 %talk about the API keys I have, talk about how AI-companies provide APIs to which you can connect using their models to run inference on their haardware (datacenters) at certain kost/mil tokens
@@ -381,7 +403,7 @@ Dit is nu een standaard aan het worden, om LLMs up-to-date te houden met de nieu
 
 \subsection{OpenClaw}
 
-OpenClaw is een gratis, open source autonome AI-agent. Dit was een ontzettend populair AI project met op het moment van schrijven 358.000 sterren op github. Een agent die volledig lokaal kan werken, berichten via sociale media sturen, autonome(geplande) taken uitvoeren, heeft toegang tot de systeem kalender, browser en email onder anderen en kan scripts uitvoeren en dat zou voor nogal wat security problemen kunnen zorgen \autocite{Chang2026}. Deze technologie wordt even vermeld omdat het zo veelbesproken was maar zal verder niet onderzocht worden.
+OpenClaw is een open source autonome AI-agent. Dit was een ontzettend populair AI project met op het moment van schrijven 358.000 sterren op github. Een agent die volledig lokaal kan werken, berichten via sociale media sturen, autonome(geplande) taken uitvoeren, heeft toegang tot de systeem kalender, browser en email onder anderen en kan scripts uitvoeren en dat zou voor nogal wat security problemen kunnen zorgen \autocite{Chang2026}. Deze technologie wordt nu enkel kort vermeld als veelbesproken nieuwe agentic AI toepassing.
 % yust putting it here so I know it's around, I can mention it somewhere, but not in it's own chapter, not sure what to do with it, it's a bit too late to also look into now, but it is taking the world by storm, and rapidly getting integrations with many existing softwares
 
 \subsubsection{Dot-md}
@@ -459,12 +481,14 @@ Voor bepaalde AI-workflows kan het zeker gebeuren dat er meerdere API's aangespr
 Zie ook sectie: Omgaan met API Keys \& Secrets \ref{sec:omgaanmetapikeysensecrets}
 
 \section{Varia}
-
+\label{sec:varia}
 % https://www.star-history.com/coding-ai-leaderboard/
 
 \begin{itemize}
-    \item \textbf{Github Code Review Agents:} Greptile\footnote{\href{https://www.greptile.com/}{https://www.greptile.com/}} / Coderabbit\footnote{\href{https://www.coderabbit.ai/}{https://www.coderabbit.ai/}}
-    \item \textbf{MemPalace:} Een alternatieve manier van AI-geheugen opslag\footnote{\href{https://mempalaceofficial.com/}{https://mempalaceofficial.com/}}
+    \item[] \textbf{Github Code Review Agents:} Greptile\footnote{\href{https://www.greptile.com/}{https://www.greptile.com/}} / Coderabbit\footnote{\href{https://www.coderabbit.ai/}{https://www.coderabbit.ai/}}
+    \item[] \textbf{MemPalace:} Een alternatieve manier van AI-geheugen opslag\footnote{\href{https://mempalaceofficial.com/}{https://mempalaceofficial.com/}}
+    \item[] \textbf{WhisperFlow:} Een dicteer-tool\footnote{\href{https://wisprflow.ai/}{https://wisprflow.ai/}} dat men toelaat om enkel met stem te dicteren en de input kan aan de input van een AI gestuurd worden. Perfect voor vibe-coders die moe zijn van constant zelf prompts naar de LLM te typen.
+    \item[] \textbf{Hermes Agent:} Een AI Agent\footnote{\href{https://hermes-agent.nousresearch.com/}{https://hermes-agent.nousresearch.com/}} dat steeds beter wordt met herhaald gebruik en eigen skills kan opslaan. 
 \end{itemize}
 
 

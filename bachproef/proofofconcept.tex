@@ -1,0 +1,38 @@
+%%=============================================================================
+%% Inleiding
+%%=============================================================================
+
+\chapter{Proof of Concept}%
+\label{ch:proofofconcept}
+
+Hoewel RAG kan ingezet worden voor specifieke taken zoals het opvragen van informatie uit een grote interne bron van kennis zijn er andere, meer zinvolle technieken die met ondersteuning van AI gebruikt kunnen worden om APIs te helpen ontwikkelen, testen en documenteren. \\
+
+RAG kan alsnog van pas komen voor het interpreteren en vragen stellen over de officiële OAS documentatie, als alternatief kan men ook grote documenten meegeven aan AI agents om zo zeker te zijn dat alle context beschikbaar blijft. Hier moet er telkens een afweging gemaakt worden of het inladen van documenten wel of niet voor een teveel aan context zorgt en dus verhoogde kosten van token-gebruik en een grotere kans op hallucinaties als nevenwerking teweegbrengt, maar dan kan de complexiteit van het opzetten van een RAG systeem vermeden worden, zoals besproken in sectie: 'RAG vs Long Context'(\ref{ssec:ragvslongcontext}). \\
+
+\section{RAG Voor vragen over OAS}
+
+
+\section{Scramble als basis voor API Documentatie}
+% single point of truth
+% commands, brief talk about, and refer to the section where I put the images and resources
+
+\section{Postman Generatie van Testen \& Documentatie}
+% TODO MCP? subsection?
+
+\begin{comment}
+    % very reasonable pricing
+    
+    % postman MCP
+    
+    % postman has a long history of being used for API-development
+    
+    % possibly use postman tests as inspiration for the in-codebase testsuite
+    
+    % there are a wide variety of tests that can be run, I believe it can be benificial for teams to learn how to employ many of these techniques, it will definitely reduce the amount of bugs that are in the code and production will be much resillient thanks to this.
+    
+    % comment about how I did ask AI to generate tests based on specific endpoints and the quality of the generated code was not great, it worked syntactically, but the tests it generated were mostly unusable (I don't understand testing enough myself to determine this, but I asked Claude.ai to review it and it came to that conclusion). Using AI to generate some initial tests could be a valid methodology when first building a testsuite, but mostly to get some inspiration/ideas on how to make the tests, in the long term you want to learn how to make a proper testsuite yourself and possibly use AI to generate more tests based on your previously created tests. Code ownership, knowledge of what is created and AI assistance only for repetitive tasks is preferable so the humans who need to maintain the system can still understand it.
+    
+    % naturally AI can always be used as a QA- (Copilot Ask)(Agent/Ask/Plan) assistant with ever increasing codebase knowledge and better understanding of the codebase. copilot allows for model-selection; BYOT (bring your own tokens); tool use with MCP; context understanding and planning
+    
+    % copilot remains the most accessible and affordable option for AI-agent with the role of coding-assistant, if you want a fully autonomous solution, use claude-code or OpenAI codex
+\end{comment}

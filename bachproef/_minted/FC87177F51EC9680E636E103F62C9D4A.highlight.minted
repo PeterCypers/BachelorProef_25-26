@@ -1,0 +1,22 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZlt{}?php}
+
+\PYG{k}{namespace} \PYG{n+nx}{Openapi\PYGZbs{}Snippets\PYGZbs{}MinimalApi}\PYG{p}{;}
+
+\PYG{k}{use} \PYG{n+nx}{OpenApi\PYGZbs{}Attributes} \PYG{k}{as} \PYG{n+nx}{OA}\PYG{p}{;}
+
+\PYG{p}{\PYGZsh{}[}\PYG{n+nd}{OA\PYGZbs{}Info}\PYG{p}{(}\PYG{n+nx}{title}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}My First API\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{version}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}0.1\PYGZsq{}}\PYG{p}{)]}
+\PYG{k}{class} \PYG{n+nc}{OpenApi}
+\PYG{p}{\PYGZob{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{class} \PYG{n+nc}{MyController}
+\PYG{p}{\PYGZob{}}
+    \PYG{p}{\PYGZsh{}[}\PYG{n+nd}{OA\PYGZbs{}Get}\PYG{p}{(}\PYG{n+nx}{path}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}/api/data.json\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{operationId}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}getData\PYGZsq{}}\PYG{p}{)]}
+    \PYG{p}{\PYGZsh{}[}\PYG{n+nd}{OA\PYGZbs{}Response}\PYG{p}{(}\PYG{n+nx}{response}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}200\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{description}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}The data\PYGZsq{}}\PYG{p}{)]}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{getResource}\PYG{p}{()}
+    \PYG{p}{\PYGZob{}}
+        \PYG{c+c1}{// ...}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

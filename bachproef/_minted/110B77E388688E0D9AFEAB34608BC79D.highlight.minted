@@ -1,0 +1,22 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZlt{}?php}
+
+\PYG{k}{use} \PYG{n+nx}{Illuminate\PYGZbs{}Foundation\PYGZbs{}Application}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{Illuminate\PYGZbs{}Foundation\PYGZbs{}Configuration\PYGZbs{}Exceptions}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{Illuminate\PYGZbs{}Foundation\PYGZbs{}Configuration\PYGZbs{}Middleware}\PYG{p}{;}
+
+\PYG{k}{return} \PYG{n+nx}{Application}\PYG{o}{::}\PYG{n+na}{configure}\PYG{p}{(}\PYG{n+nx}{basePath}\PYG{o}{:} \PYG{n+nb}{dirname}\PYG{p}{(}\PYG{n+no}{\PYGZus{}\PYGZus{}DIR\PYGZus{}\PYGZus{}}\PYG{p}{))}
+\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{withRouting}\PYG{p}{(}
+\PYG{n+nx}{web}\PYG{o}{:} \PYG{n+no}{\PYGZus{}\PYGZus{}DIR\PYGZus{}\PYGZus{}}\PYG{o}{.}\PYG{l+s+s1}{\PYGZsq{}/../routes/web.php\PYGZsq{}}\PYG{p}{,}
+\PYG{n+nx}{api}\PYG{o}{:} \PYG{n+no}{\PYGZus{}\PYGZus{}DIR\PYGZus{}\PYGZus{}}\PYG{o}{.}\PYG{l+s+s1}{\PYGZsq{}/../routes/api.php\PYGZsq{}}\PYG{p}{,} \PYG{c+c1}{\PYGZsh{} added}
+\PYG{n+nx}{apiPrefix}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}api\PYGZsq{}}\PYG{p}{,} \PYG{c+c1}{\PYGZsh{} added}
+\PYG{n+nx}{commands}\PYG{o}{:} \PYG{n+no}{\PYGZus{}\PYGZus{}DIR\PYGZus{}\PYGZus{}}\PYG{o}{.}\PYG{l+s+s1}{\PYGZsq{}/../routes/console.php\PYGZsq{}}\PYG{p}{,}
+\PYG{n+nx}{health}\PYG{o}{:} \PYG{l+s+s1}{\PYGZsq{}/up\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{)}
+\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{withMiddleware}\PYG{p}{(}\PYG{k}{function} \PYG{p}{(}\PYG{n+nx}{Middleware} \PYG{n+nv}{\PYGZdl{}middleware}\PYG{p}{)}\PYG{o}{:} \PYG{n+nx}{void} \PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{//}
+\PYG{p}{\PYGZcb{})}
+\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{withExceptions}\PYG{p}{(}\PYG{k}{function} \PYG{p}{(}\PYG{n+nx}{Exceptions} \PYG{n+nv}{\PYGZdl{}exceptions}\PYG{p}{)}\PYG{o}{:} \PYG{n+nx}{void} \PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{//}
+\PYG{p}{\PYGZcb{})}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{create}\PYG{p}{();}
+\end{MintedVerbatim}

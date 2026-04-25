@@ -4,8 +4,8 @@
 \chapter{\IfLanguageName{dutch}{Risico's van AI gebruik}{Risks of using AI}}%
 \label{ch:risicosvanaigebruik}
 
-% -> zoek nl - titel
-\section{Evolving AI Field}
+% -> zoek nl - titel (Evolving AI Field)
+\section{Evoluerend AI-vakgebied}
 
 De wereld van AI-technologie is razendsnel aan het veranderen en is constant in flux. Wanneer men zelf code wil integreren in projecten/producten zal er rekening moeten gehouden met het feit dat de implementatie regelmatig zal aangepast moeten worden, de verschillende bestaande frameworks zijn regelmatig aan het evolueren. \\
 
@@ -115,6 +115,16 @@ Er wordt nu wel een onderscheid gemaakt tussen normale, pro en enterprise abonne
 
 We zijn in een overgangsperiode tussen een tijdperk waar LLMs  misschien konden helpen met het vinden van vulnerabilities en een tijdperk waar men met een 1-shot prompt zwaktes zal kunnen ontdekken in systemen die al goed onderzocht zijn en versterkt tegen aanvallen. Big-tech bedrijven waarschuwen ons voor dit feit.
 
+\subsection{AI Aanvalsoppervlak}
+\label{ssec:aiaanvalsoppervlak}
+
+%At its core, the AI attack surface is the collection of all the ways an AI system can be exploited, spanning  across data, infrastructure, applications, and users.
+
+De aanvalsoppervlak van AI systemen bevat alle manieren dat deze kan uitgebuit worden, op vlak van data, infrastructuur, applicaties en gebruikers \autocite{Ramnarayanan2025}.\\
+
+AI kan gevoelige trainings-data en secrets lekken. Ongeoorloofd gebruik van AI kan voor security problemen zorgen. APIs kunnen het systeem kwetsbaar maken voor prompt-injection \autocite{Ramnarayanan2025}. \\
+
+
 \subsection{Don't Trust, Verify}
 % don't just accept AI-output, always check if it's correct
 LLMs hebben een groote verzameling van kennis en zeker bij het coderen kunnen ze helpen bij het invullen van 'knowledge gaps' maar men kan soms heel wat tijd verliezen met debuggen wanneer ze code produceren dat mogelijks kan werken maar niet toepasselijk is binnen het huidige systeem, verouderd of niet performant is. Het inzetten van AI voor productie van boilerplate, herhalen van repetitieve structuren, het helpen met gevonden bugs of review van code. Maar bevestig telkens door vergelijking met de officiele doccumentatie, gelijkaardige implementaties in dezelfde code-base, feedback van senior developers dat de AI-aanbevolen code implementatie klopt. \\
@@ -128,12 +138,13 @@ Kwaliteit van gegenereerde output heeft een direct verband met de data waarop he
 %TODO: this could be a short topic, I have already written about this in other places, main problem: if you use models that aren't doing internet search it'll only have access to it's own training data and therefore you'll only get data out of a model up until it's cutoff date, -> find an example of a model cutoff date link in foonote
 
 \section{Hallucinaties}
-Wanneer een chatbot antwoord vol overtuiging en dit lijkt op het eerste zicht plausibel maar blijkt toch geen bron van waarheid te hebben, dit noemt met hallucineren. 
-%re-write this section with better sources -> data quality
+AI kan antwoorden verzinnen.
+Wanneer een chatbot antwoord vol overtuiging lijkt dit op het eerste zicht plausibel maar wanneer dit antwoord achteraf toch geen bron van waarheid blijkt te hebben noemt men dit hallucineren. 
+%TODO: re-write this section with better sources -> data quality
 Wanneer de data afkomstig is van verschillende online beschikbare bronnen is de kwaliteit van de trainingsdata niet volledig betrouwbaar, het kan gaan om een mening van de auteur of gewoon misinformatie.
 
 %model training problems
-GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin ze incentief krijgen om toch een antwoord te geven(een gok wagen) ook als ze het niet weten, dat scoort beter op de tests die ze moeten maken\todo{reference businessinsider: see below link}. Tijdens een interactie met ChatGPT heeft de gebruiker heel weinig kans om "ik weet het niet" als antwoord te krijgen. Dit kan expliciet als systeem prompt meegegeven worden aan het model bij prompt-engineering.
+GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin ze incentief krijgen om toch een antwoord te geven(een gok wagen) ook als ze het niet weten, dat scoort beter op de tests die ze moeten maken\todo{reference businessinsider: see below link}. Tijdens een interactie met ChatGPT heeft de gebruiker heel weinig kans om "ik weet het niet" als antwoord te krijgen. Dit kan expliciet als systeem prompt meegegeven worden aan het model bij prompt-engineering. Wanneer
 
 % https://www.businessinsider.com/why-ai-chatbots-hallucinate-openai-chatgpt-anthropic-claude-2025-9
 
@@ -149,24 +160,26 @@ GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin z
 %SelfCheckGPT -> to try and counter hallucinations
 
 
-%todo: where does this segment fit? marktonderzoek is more things that I'm trying out and comparing... does it go in discussie or Risico's or something else?
+%todo: where does this(below) segment fit? marktonderzoek is more things that I'm trying out and comparing... does it go in discussie or Risico's or something else?
+\begin{comment}
+    title(subject to change): Nvidia, markt leider
+    % see Nvidia : Semester_2\Bachelor Proef\Look into\Nvidia -> samenwerking NVidia en OpenAI
+    Brief segment
+    
+    talk about how the company has become one of the world's most
+    profitable as the rise of demand for AI-hardware (chips) rises, big
+    tech is investing heavily in AI and the increasing strength of AI models
+    require a lot of RAM and visual memory to work well, the company who has
+    specialized most in the type of memory which is useful for AI (GPUs) is
+    Nvidea, they're the global market leader, focus was gaming, now big tech
+    companies have reserved a substantial share of the chip-production for use
+    in their AI systems. Bad news for averyone else, individuals who want to
+    build/buy a new pc, companies who need GPUs to produce their own hardware
+    like gaming consoles (sony, etc)
+    
+    are they the world's most profitable corporation now? -> look into
+\end{comment}
 
-title(subject to change): Nvidia, markt leider
-% see Nvidia : Semester_2\Bachelor Proef\Look into\Nvidia -> samenwerking NVidia en OpenAI
-Brief segment
-
-talk about how the company has become one of the world's most
-profitable as the rise of demand for AI-hardware (chips) rises, big
-tech is investing heavily in AI and the increasing strength of AI models
-require a lot of RAM and visual memory to work well, the company who has
-specialized most in the type of memory which is useful for AI (GPUs) is
-Nvidea, they're the global market leader, focus was gaming, now big tech
-companies have reserved a substantial share of the chip-production for use
-in their AI systems. Bad news for averyone else, individuals who want to
-build/buy a new pc, companies who need GPUs to produce their own hardware
-like gaming consoles (sony, etc)
-
-are they the world's most profitable corporation now? -> look into
 
 \subsection{Attention}
 % attention is all you need
@@ -179,7 +192,7 @@ are they the world's most profitable corporation now? -> look into
 % TODO: read and see if it sounds good
 Hoe langer de context wordt, hoe meer kans op hallucinaties, het Kimi-AI team maakte hier recent nog een doorbraak in verbeteringen van model architectuur om dit probleem te helpen oplossen. Met de paper: \autocite{Kimi2026} gebruiken ze 'attention residuals' en maken grote vooruitgang om het probleem rond hallucinaties op te lossen. 
 
-\section{Overwegingen bij het maken van AI-gedreven projecten}
+\section{Overwegingen bij het maken van AI-geïntegreerde projecten}
 % j J
 
 \subsection{Rate Limiting}
@@ -204,18 +217,23 @@ Er moet een zekere overzicht en controle blijven op het gebruik van LLMs op de i
     \label{lst:rate_limiting_code}
 \end{listing}
 
+Verschillende soorten rate limiting kunnen ingesteld worden afhankelijk van AI-provider, vaak heel uitgebreid controle is mogelijk, we zien bijvoorbeeld met Claude\footnote{\href{https://platform.claude.com/docs/en/api/rate-limits}{https://platform.claude.com/docs/en/api/rate-limits}} AI RPM(Maximum Requests per Minuut); ITPM(Maximum Input Tokens per Minuut); OTPM(Maximum Output Tokens per Minuut). Prompt caching is mogelijk zodat voor gelijkaardige prompts de gecachete data gebruikt wordt en dus minder tokens nodig zijn.
+
+%https://platform.claude.com/docs/en/api/rate-limits
+
 \subsection{MLOPS}
 % Coursera course 1, mod3, vid2: 5:30 -> operationalizing AI-powered applications MLOPS
 
 % Net zoals we DEVOPS kennen bestaat er ook MLOPS, het deployen en continu onderhouden van AI-gedreven applicaties
 
-\subsubsection{Benchmarking}
+\subsection{Benchmarking}
 % gebruikte modellen regelmatig vergelijken met andere modellen. sterktes en zwaktes van verschillende modellen voor de nodige use-case(s) waarvoor ze worden gebruikt aftoetsen. Mogelijks moeten gebruikte LLMs geupdate worden naar een nieuwere versie, of zal er overwogen worden om over te stappen op een andere LLM omdat deze voor de relevante benchmaarks hoger scoort dan de gebruikte LLM.
 
-\section{Human in the loop}
+\subsection{Human in the loop}
+\label{ssec:humanintheloop}
+Dit concept werd besproken in sectie: PoLP (\ref{sec:principleofleastprivilege}).
 
-
-\section{Self-Consistency}
+\subsection{Self-Consistency}
 % https://www.promptingguide.ai/techniques/consistency
 % chatGPT giving 2 different responses and asking which one the user prefers
 % look more into -> it's a way to keep the AI honest, it's a self-check, I think a self-check can be built into the AI somehow
