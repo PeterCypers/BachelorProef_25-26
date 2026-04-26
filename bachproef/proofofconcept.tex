@@ -10,23 +10,35 @@ Hoewel RAG kan ingezet worden voor specifieke taken zoals het opvragen van infor
 RAG kan alsnog van pas komen voor het interpreteren en vragen stellen over de officiële OAS documentatie, als alternatief kan men ook grote documenten meegeven aan AI agents om zo zeker te zijn dat alle context beschikbaar blijft. Hier moet er telkens een afweging gemaakt worden of het inladen van documenten wel of niet voor een teveel aan context zorgt en dus verhoogde kosten van token-gebruik en een grotere kans op hallucinaties als nevenwerking teweegbrengt, maar dan kan de complexiteit van het opzetten van een RAG systeem vermeden worden, zoals besproken in sectie: 'RAG vs Long Context'(\ref{ssec:ragvslongcontext}). \\
 
 \section{RAG Voor vragen over OAS}
+%todo: first finish of the section vectorstore and run both demos + document responses, write about + reference it here
 
+Door een bron van kennis op te slaan in een vector database en RAG technieken toe te passen kan men met semantic search vragen stellen over onder anderen een verzameling van documenten, of één groot document met een minimale kost van tokens en tijd. Dit kan mogelijks ingezet worden om info op te vragen over de eigen APIs of andere APIs en zo AI assistentie krijgen voor het ontwikkelen van eigen API(s). %todo: reference my OAS demos
 
 \section{Scramble als basis voor API Documentatie}
 % single point of truth
 % commands, brief talk about, and refer to the section where I put the images and resources
 
+Er bestaan tools om automatisch een OAD, OpenAPI document te genereren binnen een project, één zo'n tool is Scramble, deze kan ingezet worden om aan de hand van bestaande files waarin API-endpoints gedefinieerd zijn deze info extraheren en een openapi.json of openapi.yaml file genereren conform het officiële OAS(Open API Specification). Deze actie kan herhaaldelijk uitgevoerd worden om de bestaande file te updaten, zo bestaat er een \textbf{Single Point Of Truth}(SPOT) als API documentatie. Dit kan ook gebruikt worden om routes die in andere files gedefinieerd zijn in een file op te slaan, de input file en output filenaam kunnen geconfigureerd worden, zie ook sectie: 'Scramble'(\ref{sssec:scramble}).
+
 \section{Postman Generatie van Testen \& Documentatie}
 % TODO MCP? subsection?
 
+Postman als software heeft een lange geschiedenis op het gebied van het testen en ontwikkelen van API's \autocite{Lane2021}. De kosten\footnote{\href{https://www.postman.com/pricing/}{https://www.postman.com/pricing/}} voor gebruik als maandelijks subscriptie(korting bij jaarlijkse betaling) is gelijkaardig aan de subscriptie kosten voor copilot chat. Men kan Postman ook gratis gebruiken, de kosten zijn vooral om de AI assistent en wat extra features te gebruiken. Men krijgt met het gratis model ook wel een aantal AI credits die maandelijks hernieuwen. \\
+
+Op de desktop applicatie van Postman kan men de AI chatbot vragen om tests te genereren voor alle endpoints binnen een specifieke collectie. Dit kan men mogelijks ook binnen VSC(Visual Studio Code) doen, maar het is best om dit binnen Postman te doen omdat deze agent uitgerust is met de nodige tools om goed met de collecties te kunnen werken. % todo: pictures !
+
+
+%door /tests in de Copilot chat venster te typen, wat eigenlijk gewoon een hardgecodeerde string klaar zet om te prompten aan de agent
+
+
 \begin{comment}
-    % very reasonable pricing
+    % (very) reasonable pricing ~ the same as copilot
     
     % postman MCP
     
     % postman has a long history of being used for API-development
     
-    % possibly use postman tests as inspiration for the in-codebase testsuite
+    % possibly use postman tests as inspiration(sterke basis) for the in-codebase testsuite
     
     % there are a wide variety of tests that can be run, I believe it can be benificial for teams to learn how to employ many of these techniques, it will definitely reduce the amount of bugs that are in the code and production will be much resillient thanks to this.
     

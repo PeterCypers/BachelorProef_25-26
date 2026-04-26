@@ -227,15 +227,18 @@ Dit is een sterke community platvorm voor alles wat met AI en ML te maken heeft.
 
 Postman is een API-testing software waarmee men kan verbinden met APIs, gestructureerde requests sturen en de responses onderzoeken. \\
 
-MCP servers voorzien een verbinding met externe tools dat AI-agents kunnen gebruiken, model context protocol. Er bestaan veel MCP servers die agents kunnen verbinden met externe tools, Postman heeft een Visual Studio Code plugin dat 'Postman MCP' noemt hiermee kunnen AI-agents verbonden worden met Postman en zo bepaalde acties uitvoeren binnen die software. \\
+Postman heeft ook sterke integratie met Visual Studio Code via de gelijknamige extensie, deze bevat gelijkaardige features als men in de online en desktop applicaties vind, API collecties, environments, scripts(waaronder ook testen), de import feature().
 
+MCP servers voorzien een verbinding met externe tools dat AI-agents kunnen gebruiken, model context protocol. Er bestaan veel MCP servers die agents kunnen verbinden met externe tools, Postman heeft een Visual Studio Code plugin dat 'Postman MCP' noemt hiermee kunnen AI-agents verbonden worden met Postman en zo bepaalde acties uitvoeren binnen die software. \\ %todo: check what else MCP can do
+
+%todo: rewatch how to do this: v
 \subsection{Synchronisatie van Collections met Postman MCP}
+\label{ssec:synchronisatievancollectionsmetpostmanmcp}
+Wanneer in projecten reeds API documentatie bestaat in de vorm van een openapi.yaml of openapi.json file, zie sectie: \ref{sssec:oad}, kunnen developers met behulp van Postman MCP verbinding maken met een Postman workspace en de bestaande collecties synchronizeren met de documentatie file(s) welke een single point of truth zijn voor de API van dat project. \\
 
-Wanneer teams reeds API documentatie hebben in de vorm van een openapi.yaml of openapi.json file, zie sectie: \ref{sssec:oad}, kunnen ze met behulp van Postman MCP verbinding maken met een Postman workspace en de bestaande collecties synchronizeren met de documentatie file(s) welke een single point of truth zijn voor de API van dat project. \\
+Door een AI-agent in de IDE aan te spreken en de Postman workspace ID mee te geven in de prompt kan de agent via Postman MCP-tool collections op die workspace bekijken en aanpassen. Zo kan gevraagd worden om de bestaande \textbf{collections} te \textbf{synchroniseren}. Uiteindelijk heeft men zo gebruikmakend van de documentatie en AI-ondersteuning via MCP servers Postman klaar gezet zodat het team verder API-endpoint tests kan doen in Postman. \\
 
-Door een AI-agent in de IDE aan te spreken en de Postman workspace ID mee te geven in de prompt kan de agent via Postman MCP-tool collections op die workspace bekijken en aanpassen. Zo kan gevraagd worden om de bestaande collections te synchroniseren. Uiteindelijk heeft men zo gebruikmakend van de documentatie en AI-ondersteuning via MCP servers Postman klaar gezet zodat het team verder API-endpoint tests kan doen in Postman. \\
-
-Initieel kan postman een collection aanmaken en opvullen met de import feature en deze kan ook een OpenAPI file gebruiken om deze import te doen, zie: \ref{fig:postmanimport}
+Initieel kan postman een collection aanmaken en opvullen met de \textbf{import feature} en deze kan ook een OpenAPI file (zie 'OAD' sectie: \ref{sssec:oad}) gebruiken om deze import te doen, zie: \ref{fig:postmanimport}
 
 % postman-import.png
 \begin{figure}[H]
@@ -276,7 +279,8 @@ Er bestaan verschillende AI-codeer agent integraties in IDE's. We bespreken kort
 
 \textbf{Codex:} heeft een VSC integratie maar kan ook losstaand gebruikt worden en kan geautomatiseerde taken uitvoeren. \\
 
-\textbf{Google Antigravity:} \todo{look into Google Antigravity and write about it here}
+\textbf{Google Antigravity:}
+%todo: look into Google Antigravity and write about it here
 
 Over het algemeen kunnen agents nu ook zelf code aanpassen, waarbij standaard ook goedkeuring gevraagd wordt aan de mens die voor het scherm zit(human in the loop). Het is mogelijk om alle codeerwerk (en denkwerk) aan de agent over te laten.
 
@@ -304,6 +308,56 @@ Het is ook mogelijk om Ollama modellen geïntegreerd in VSC te gebruiken, hoewel
     \caption[Ollama modellen in VSC]{\label{fig:ollamainvsc}Ollama modellen in VSC}
 \end{figure}
 
+\subsection{Github Copilot Chat}
+\label{ssec:githubcopilotchat}
+
+Ook van Microsoft, copilot integratie in VSC(Visual Studio Code) heeft nu een volwaardig AI-chat interface als sidebar in de IDE, dit werd kort aangehaald in de vorige sectie, we bespreken nu de verschillende features die hierin te vinden zijn.
+
+% github-copilot-chat-a.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{github-copilot-chat-a.png
+    }
+    \caption[Copilot Chat in VSC]{\label{fig:copilotchata}Copilot Chat sidebar in de VSC IDE.}
+\end{figure}
+
+In bovenstaande figuur: \ref{fig:copilotchata} zien we de open sidebar interface waar men verschillende functionaliteiten terug vindt. 
+
+\begin{itemize}
+    \item[] \textbf{+:} Hiermee kunnen extra context (files en folders) of tools aan de agent worden meegegeven.
+    \item[] \textbf{Agent:} Onder deze keuze menu vinden we de volgende opties: \textbf{Agent} - \textbf{Ask} - \textbf{Plan}. Elke optie heeft bepaalde mogelijkheden, Agent heeft toegang tot tools(en MCP servers) en kan code veranderen, Ask zal geen code aanpassen, maar kan gevraagd worden om uitleg te geven over code fragmenten of de huidige file. Plan kan helpen om een gestructureerd stappenplan op te stellen om nieuwe features te implementeren gebaseerd op de bestaande code en zal verificatie vragen vooraleer aanpassingen te maken.
+    \item[] \textbf{Auto:} Dit menu bevat LLM-selectie, dit staat nu op automatisch kiezen, het systeem bepaalt welk LLM zal gebruikt worden.
+    \item[] \textbf{Tools icoon:} Hier kan men een menu openen met een overzicht van alle tools dat de AI toegang tot heeft. Zie figuur: \ref{fig:mcptools}
+    \item[] \textbf{Default Approvals:} \textbf{Bypass Approvals} \& \textbf{Autopilot(preview)} zijn de andere opties in deze menu, dit heeft te maken met hoe vrij de AI agent is om zelf aanpassingen aan het project te maken, nu is het op de strengste modus, dus er is altijd een Human In The Loop, maar Autopilot suggereert een workflow waar ononderbroken kan gewerkt worden zonder menselijk toezicht of controle.
+\end{itemize}
+
+Alle verschillende modi(Ask/Agent/Plan) van copilot chat hebben toegang tot de openstaande file en ook de andere files in de codebase, standaard zal de huidige file in context mee geladen worden tenzij deze wordt losgekoppeld uit de context. \\
+
+% configure-tools.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{configure-tools.png
+    }
+    \caption[MCP Servers en AI Tools]{\label{fig:mcptools}Copilot Chat MCP Servers en Agent Tools.}
+\end{figure}
+
+Door op het tools icoontje binnen het chat-venster te klikken ziet men bovenstaand menu: \ref{fig:mcptools}. Hier kunnen alle tools gekozen worden waar de Agent toegang tot mag hebben, dit is ook wat ervoor zorgt dat de AI in de IDE niet zomaar een AI-chatbot is maar een slimme AI-Agent die beslissingen kan maken en de nodige tools afhankelijk van de gebruikers vraag kan inzetten om een taak vlot te volbrengen. Bij het prompten van de AI zal er in de chat een bericht verschijnen 'Starting MCP Servers', dit geeft aan dat de Agent naar de juiste tools aan het zoeken is.
+
+% github-copilot-chat-b.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{github-copilot-chat-b.png
+    }
+    \caption[Copilot Chat gebruikslimiet]{\label{fig:copilotchatb}Copilot Chat gratis gebruikslimiet.}
+\end{figure}
+
+In bovenstaande figuur \ref{fig:copilotchatb} zien we dat er commando's bestaan alsook wat er te zien is wanneer men over de Copilot icoontje hovert, dit zijn de maandelijks herstartende gebruiks-limieten. Op het gratis gebruiksmodel heeft de gebruiker maandelijks toegang tot 50 chats en 2000 code-completions. Met de betaalbare Pro plan\footnote{\href{https://github.com/features/copilot/plans}{https://github.com/features/copilot/plans}} heeft de gebruiker ongelimiteerde inline suggesties en chat-sessies, naast Codex binnen VSC en toegang tot meerdere LLMs van onder anderen Anthropic en Google. \\
+
+Door zijn sterke integratie, vele features en competitief subscriptie kost blijft Github Copilot Chat een van de beste opties als AI-agent en coding assistent voor alledaags gebruik als developer. \\
+
+In de figuur \ref{fig:copilotchatb} zien we ook een 'Build index' knop, met daarnaast een link naar de documentatie\footnote{\href{https://code.visualstudio.com/docs/copilot/reference/workspace-context\#\_semantic-search}{https://code.visualstudio.com/docs/copilot/reference/workspace-context\#\_semantic-search}}. Hierin staat er dat Copilot achter de schermen deze index onderhoud, dus het beschikt over semantic search(een eigenschap van RAG).
+
+
 \section{Microsoft M365 Copilot}
 \label{sec:microsoftm365copilot}
 
@@ -314,7 +368,7 @@ Microsoft wil een sterke AI-integratie over de ganse lijn, een volledig systeem-
 \section{(Volledig) Autonome AI Agents}
 Er is steeds meer autonomie mogelijk bij AI-agents, het kan op een schaal gezet worden van hoge menselijke tussenkomst tot helemaal geen menselijk tussenkomst \autocite{mitchell2025}. Wanneer men een vraag stelt aan een online AI-chatbot en met het gegenereerd antwoord zelf tot een besluit komt is er nog volledige controle bewaard over het systeem waarmee de mens interageert. Wanneer de AI-agent inzicht mag hebben in verschillende niveaus van context binnen een systeem en de gebruiker vraagt of er code-aanpassingen mogen gebeuren heeft de AI-agent al veel meer autonomie. Wanneer er geen goedkeuring gevraagd wordt en de AI-agent code kan aanpassen, commits kan maken en pull requests afwerken is er al heel veel autonomie aan de agent gegeven en bestaat het risico dat de menselijk controle over het systeem verdwijnt. Wanneer men toegang verleent tot de AI-agent om zelf volledige projecten af te werken, mogelijks met verhoogde gebruiksrechten over het platform waarin deze werkt kan de mens uit het plaatje verdwenen zijn en heeft de AI-agent alle controle over het systeem. \\
 
-Volgens \textcite{mitchell2025} is het een \textbf{Human} $\leftrightarrow$ \textbf{System} schaal. De mens heeft nog volledige controle wanneer de AI-agent vragen beantwoord, minder controle wanneer de agent bepaalt hoe en wanneer functies worden uitgevoerd, of tools worden gebruikt. Uiteindelijk op het moment dat de AI-agent zelf code mag schrijven en code mag uitvoeren is controle over het systeem volledig uit handen van de mens. Dit soort AI-agents brengen serieuze risico's met zich mee en kunnen best vermeden worden \autocite{mitchell2025}. \\
+Volgens \textcite{mitchell2025} is het een \textbf{Human} $\leftrightarrow$ \textbf{System} schaal. De mens heeft nog volledige controle wanneer de AI-agent vragen beantwoord, minder controle wanneer de agent bepaalt hoe en wanneer functies worden uitgevoerd, of tools worden gebruikt. Uiteindelijk op het moment dat de AI-agent zelf code mag schrijven en code mag uitvoeren is controle over het systeem volledig uit handen van de mens. Dit soort AI-agents brengen serieuze risico's met zich mee en kunnen best vermeden worden \autocite{mitchell2025}. Zie ook sectie: 'PoLP' (\ref{sec:principleofleastprivilege}). \\
 
 \begin{comment}
     %SHORT discussion about the use of agents to fully autonomously work on, update and deploy code to projects (see my workshop on AI agents at hogent), consider what all exists in this realm, by Theo: https://www.youtube.com/watch?v=GcNu6wrLTJc (Delete your CLAUDE.md (and your AGENT.md too))  https://agents.md/ (read the paper asserting that the use of such repository-Agent-interpret files make agents worse, not better)  ref: \autocite{gloaguen2026} agent.md as subsection
