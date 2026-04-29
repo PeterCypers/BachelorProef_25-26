@@ -1262,18 +1262,144 @@ Waarvan de graph\_store en image\_vector\_store niet opgevuld werden, maar de an
 
 \textbf{Uitleg bij de code:} Deze is ons niet onbekend, er zijn echter een paar opmerkingen, deze aanroep naar de LLM met search-documents tool dat gebruik maakt van een query-engine zal de geïndexeerde document-chunks gebruiken, welke een lange tijd nodig hadden om klaar te zetten, daarom gebeurden die zware bewerkingen sequentieel nu uiteindelijk gevolgd door een asynchroon aanroep van main, nadat alle langdurige bewerkingen afgerond zijn. Uiteindelijk is het opzet met de transformaties om meer kwalitatieve antwoorden te krijgen van de LLM als response van onze vragen, er zijn titels en voorbeeldvragen mee opgeslagen in de persistente vector-store.
 % what do we really expect? will the responses be BETTER? or FASTER?
-De twee verschillende vector-stores zullen elk afzonderlijk met dezelfde query ondervraagd worden en de verschillende antwoorden met elkaar vergeleken.
+De twee verschillende vector-stores zullen elk afzonderlijk met dezelfde query ondervraagd worden en de verschillende antwoorden met elkaar vergeleken. \\
+
+\textbf{Output Zonder transformaties(as is):} 
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+    I’m happy to help, but I’m not sure which document you’d like summarized. Could you let me know the title or provide the text (or a link) for the document whose introduction you’d like summarized?
+\end{tcolorbox}
+
+We zien hier een vaak voorkomend probleem bij AI toolgebruik. Het is mogelijk dat de AI niet uit de prompt kan achterhalen dat een tool nodig is, de context van een meegegeven prompt moet kunnen gelinkt worden aan de omschrijving van een tool om de AI aan te zetten om deze te gebruiken. Bij RAG is dit meestal het niet beseffen dat er documenten beschikbaar zijn om te doorzoeken en dan zal er standaard gevraagd worden om een document ter beschikking te stellen. Het is ook mogelijk bij RAG dat een agent in plaats van uit de brondocumenten zelf uit eigen trainingsdata antwoorden zal genereren. Dit is vooral gevaarlijk wanneer recente data nodig is maar de AI agent reageert met antwoorden uit de trainings-data welke mogelijks verouderde data bevat $\rightarrow$ afhankelijk van model cut-off datum. \\
+
+\textbf{De system\_prompt werd aangepast en grounded\_prompt toegevoegd:}(door Claude-AI gegenereerd)
+% enhanced-prompt.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{enhanced-prompt.png}
+    \caption[persistente vectorstore]{\label{fig:persistentvectorstore3}Persistente vector-store lokaal opslaan aangepast.}
+\end{figure}
+
+\textbf{Uitleg van de code:} Er werden aanpassingen gemaakt zodat de agent een strenger impuls krijgt om de bestaande documenten te doorzoeken, een streng systeem boodschap dat aandringt om documenten te doorzoeken met een expliciet genaamde tool in de prompt template.
 
 
-\todo{vergelijk met en zonder transformaties, of er een verschil in kwaliteit van responses is...} 
+%todo: check difference in quality of answers for each question
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+\textbf{Output Zonder transformaties(aangepast) Q4:}
+\begin{verbatim}
+* **Contact Object** – information (name, URL, email) for the person
+ or organization responsible for the API.  
+* **License Object** – how to declare the license name, an SPDX
+ identifier, or a URL to the license terms.  
+* **Server Object** – the required `url` field for the target host,
+ optional description, name, and a map of server variables for URL
+  templating.  
+* **Tag Object** – metadata for operation tags, including name,
+ summary, description, external docs, hierarchical parent
+  relationships, and a machine‑readable kind.  
+* **Reference Object** – a lightweight way to point to other
+ components via a `$ref` URI, with any extra properties on a
+  reference being ignored.  
+* **Schema Object** – the core construct for defining data models,
+ supporting primitive types, objects, arrays, and extending JSON
+  Schema Draft 2020‑12 for detailed request/response payload
+   definitions.
 
-\textbf{Output Zonder transformatie:}
+Overall, the introduction serves as a quick reference for building
+ well-structured API definitions, covering contact details, licen-
+ sing, server locations, tagging, referencing, and data modeling.
+\end{verbatim}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!20, colframe=gray!80]
+\textbf{Output Met transformaties(aangepast) Q4:}
+\begin{verbatim}
+The introduction explains that the OpenAPI 3.2.0 specification
+offers detailed guidance for defining APIs. It covers how to
+describe common query parameters (e.g., required `skip` and
+`limit` pagination parameters), generic error responses using a
+reusable `GeneralError` schema, and security mechanisms such as
+an API-key header and an OAuth2 flow. It also introduces support
+for sequential media types-like line-oriented JSON streams and
+Server-Sent Events-showing that these streams should be modeled
+as arrays in JSON-Schema, with a distinction between a global
+schema for the whole payload and an `itemSchema` for each
+element.
+\end{verbatim}
+\end{tcolorbox}
+
+Uit de Q4 vraag kunnen er geen grote verschillen in kwaliteit worden waargenomen, enkel dat het deel met transformaties gemakkelijker leest. Er werd een nieuwe vraag toegevoegd aan de demo: \\
+\textbf{q\_test = "What are all the different objects defined in this specification and what is the purpose of each?"} \\
+
+Omdat de antwoord telkens in de vorm van een markdown tabel was zal de output van beide tests als pdf worden weergeven voor een betere leesbaarheid. \\
+
+\textbf{Output Zonder transformaties(aangepast), vraag q\_test:}
+% without-transformations.png
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width=1.0\textwidth]{without-transformations.png}
+     \caption[Tijds-kost transformaties]{\label{fig:notransformationsanswerquality}Antwoord kwaliteit zonder transformaties.}
+ \end{figure}
+\textbf{Output Met transformaties(aangepast), vraag q\_test:}
+% using-transformations.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{using-transformations.png}
+    \caption[Tijds-kost transformaties]{\label{fig:transformationsanswerquality}Antwoord kwaliteit met transformaties.}
+\end{figure}
+
+\textbf{Output uitleg:} Nu merken we een serieus verschil tussen de 2 verschillende demo's, de eerste demo met een persistent opgeslagen OAS in een vectorstore, de tweede met eveneens een persistent opgeslagen OAS maar eerst werd een dure operatie van transformatie toegepast en werden deze mee opgeslagen. Het is een éénmalig duur proces, maar eens gedaan is de kwaliteit in data-retrieval opmerkelijk verbeterd, in dit voorbeeld wordt meer data opgehaald, wat ook een redelijk ernstige fout aantoont bij RAG.
+
+\textbf{RAG \& Silent Failure:} Hoewel RAG een krachtige techniek is om informatie te filteren eer deze aan een LLM mee te sturen heeft het bepaalde plaatsen waar het kan falen zonder dat men dit zal merken. Onvolledige of foutieve data werd opgehaald. Omdat RAG de top\_k sterkste overeenkomende document-chunks ophaalt uit een vector store is het wel degelijk mogelijk dat de gebruiker een vraag stelt waarbij er in de bron-data niets relevant aanwezig is en alsnog zullen de top\_k beste matches worden opgehaald en meegestuurd worden met de prompt, dit zorgt onmiddellijk voor hallucinaties. Wanneer men deze bachelor proef inlaadt in een vector store en de LLM de volgende vraag stelt over het document: \\
+\textit{"Summarize the introduction of the document."} \\
+
+Echter bestaat er geen sectie in dit document met als expliciete titel 'introduction', dus er worden delen opgehaald uit verschillende plaatsen, zie volgende output: \\
+
+\begin{minted}{markdown}
+    Loading weights: 100%|████████████████████████████████| 199/199 [00:00<00:00, 1844.35it/s, Materializing param=pooler.dense.weight]
+    BertModel LOAD REPORT from: BAAI/bge-base-en-v1.5
+    Key                     | Status     |  | 
+    ------------------------+------------+--+-
+    embeddings.position_ids | UNEXPECTED |  | 
+    
+    Notes:
+    - UNEXPECTED    :can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+    Embedding model load time in seconds: 3.51026 
+    
+    Storage time in seconds: 107.32038 
+    2026-04-29 13:24:16,245 - INFO - HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+    2026-04-29 13:24:17,267 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+    2026-04-29 13:24:26,174 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+    2026-04-29 13:24:26,622 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+    **Summary of the Introduction**
+    
+    The document begins by describing the current landscape of large language models (LLMs) and the practical issues that arise when using them. It explains that every user input is tokenized, and the model generates predictions based on these tokens. When the total number of tokens exceeds a model’s context window, the system must create summaries and use a condensed context, which helps maintain answer quality while reducing hallucinations. A broader context generally improves an LLM’s ability to analyze large data sets, although larger models require more computational resources.
+    
+    The introduction then provides a taxonomy of LLM families:
+    
+    | LLM Family | Key Characteristics |
+    |------------|--------------------|
+    | **Vision models** | Include image‑recognition capabilities; can handle prompts like “What is shown in this photo?” together with an image. |
+    | **Multimodal models** | Can ingest combinations of text, images, video, or audio simultaneously. |
+    | **Mixture‑of‑Experts (MoE)** | Example: Mixtral 8x7B, which combines multiple specialist sub‑models to deliver strong performance on tasks such as mathematics, multilingual reasoning, and code generation, often outperforming larger models despite having fewer parameters. |
+    
+    The text notes that “LLM” and “AI” are used interchangeably, as discussions about either effectively refer to deploying a large language model with artificial‑intelligence functionality.
+    
+    Finally, the introduction outlines the structure of the rest of the document, mentioning forthcoming sections on benchmarking, human‑in‑the‑loop methods, self‑consistency, a proof‑of‑concept applying Retrieval‑Augmented Generation (RAG) to OAS queries, API documentation generation, and Postman test creation. Later chapters will explore the broader impact of AI on users, the environment, the job market, and speculative future developments.
+    
+    Total time in seconds: 132.23641 
+\end{minted}
+
+\textbf{Tijds kost van RAG-processen:} Verschillende tijdscontroles vonden plaats:
+
+\begin{itemize}
+    \item[] \textbf{Embedding Model Load Time:} De tijd nodig om de embedding model van HF te downloaden $\rightarrow$ \textbf{3.51026}s. Na de eerste run wordt het uit cache opgehaald, deze wordt lokaal opgeslagen in: \verb|C:\Users\peter\.cache\huggingface\hub|
+    \item[] \textbf{Vector Storage Time:} De tijd nodig om de opgehaalde documenten in een vector store in te laden $\rightarrow$ \textbf{107.32038}s
+    \item[] \textbf{Total Time:} De totale tijd $\rightarrow$ \textbf{132.23641}s
+\end{itemize}
+
+Het zal niemand verbazen dat het grootste tijdskost bij RAG het opbouwen van de index (vector store) is, bij herhaalde prompts met een persistent opgeslagen vector store werd er gemiddeld binnen 20s een antwoord gegenereerd.
 
 % j J
-\textbf{Output Met transformatie:}
-
-
-
 \subsubsection{Transformatie tijds-kost:}
 De tijd om alle transformaties(chunking en indexering) te doen op de nodes was 945.85312s ofwel 15.76m. Het overgroot deel van tijd bij deze operatie zit in de transformaties van de data als voorbereiding op het indexeren van de data, plus de nieuw aangemaakte metadata.
 

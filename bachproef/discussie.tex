@@ -67,9 +67,41 @@
 
 
 % TODO: consider scrapping "Ethiek..." AND "AI Ouroboros"
-%\section{Ethiek rond Data harvesting}
+\section{Ethiek rond Data harvesting}
 % the github announcement: github copilot to train on user code unless opted-out https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/
 % j
+
+We zagen een soort snelle diefstal van het verzameld werk van de mens, vele online beschikbare bronnen in alle mogelijke vormen zijn verzameld geweest en gebruikt om AI op te trainen. OpenAI werd opgericht als non-profit en waren heel open en transparant, nu zijn ze niet meer een non-profit. Met het verloop van tijd en een steeds groeiende poel van concurrenten zijn de AI bedrijven helemaal niet meer open en zijn heel beschermend van hun bedrijfsgeheimen. \\
+%todo: find sources for  the above statement
+
+Uit een rechtzaak met Anthropic werd het bedrijf schuldig bevonden aan het gebruiken van illegaal verkregen boeken \autocite{Jamali2025}. Het probleem was dus niet dat het materiaal verkregen was zonder toestemming, maar de manier waarop deze informatie werd verkregen. \\
+
+Wanneer Claude AI gevraagd wordt of de OAS in zijn trainings-data zit:
+
+% claude-ai-knows-OAS.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{claude-ai-knows-OAS.png}
+    \caption[Claude AI kent de OAS]{\label{fig:claudeoas1}Weet Claude AI van de OpenAPI Specification?}
+\end{figure}
+
+Maar het zou niet gepast zijn om deze informatie te delen:
+
+% claude-ai-knows-OAS-2.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{claude-ai-knows-OAS-2.png}
+    \caption[Claude AI mag de OAS niet delen]{\label{fig:claudeoas2}Claude AI mag de OAS niet expliciet delen.}
+\end{figure}
+
+Een tijdje geleden wanneer men een link deelde kregen ze van de chatbots te horen dat ze de informatie dat op een website te zien was niet mochten omschrijven, nu mogen ze het samenvatten of bespreken maar niet exact delen want dan zou het auteursrechten schenden. \\
+
+Ook op github delen ze mee dat er op publieke repositories en bij gebruik van Github Copilot Chat zal getraind worden op de geziene code \autocite{Rodriguez2026}. LLMs zullen altijd nieuwe data nodig hebben om op getraind te worden en in deze mededeling krijgen gebruikers te horen dat ze mogen uitschrijven als ze niet willen dat hun code wordt gebruikt om LLMs mee te trainen.
+
+\begin{quote}
+    "From April 24 onward, interaction data—specifically inputs, outputs, code snippets, and associated context—from Copilot Free, Pro, and Pro+ users will be used to train and improve our AI models unless they opt out." \\
+    -\autocite{Rodriguez2026}
+\end{quote}
 
 % todo: lawsuites about stolen book info etc (the big tech companies essentialy scraped the entire internet and used it as training data)
 
