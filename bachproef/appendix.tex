@@ -974,3 +974,216 @@ Vervolgens wordt de AgentWorkflow gedefinieerd dat de verzameling van agents bev
 \end{figure}
 
 \textbf{Output uitleg:} We zien de opgehaalde informatie, wat er in de notes als state bewaard werd en naar welke agent de handoff zal gebeuren, de output eindigt hier wel, dus de write\_agent en review\_agent kwamen niet aan bod, mogelijks door een timeout of onafgehandelde fout in een van de asynchrone bewerkingen.
+
+\section{Test Generatie met Github Copilot}
+\label{sec:testgeneratiemetgithubcopilot}
+
+\begin{minted}{php}
+    <?php
+    
+    namespace Tests\Unit\Filament\Resources;
+    
+    use App\Filament\Resources\CategoryResource;
+    use App\Filament\Resources\CategoryResource\Pages\CreateCategory;
+    use App\Filament\Resources\CategoryResource\Pages\EditCategory;
+    use App\Filament\Resources\CategoryResource\Pages\ListCategories;
+    use App\Filament\Resources\CategoryResource\RelationManagers\PostsRelationManager;
+    use App\Models\Category;
+    use Filament\Forms\Components\TextInput;
+    use Illuminate\Support\Str;
+    use Tests\TestCase;
+    
+    class CategoryResourceTest extends TestCase
+    {
+        private CategoryResource $resource;
+        
+        protected function setUp(): void
+        {
+            parent::setUp();
+            $this->resource = new CategoryResource();
+        }
+        
+        /**
+        * Test that CategoryResource has correct model assigned
+        */
+        public function test_resource_uses_category_model(): void
+        {
+            $this->assertEquals(Category::class, CategoryResource::$model);
+        }
+        
+        /**
+        * Test that navigation icon is properly set
+        */
+        public function test_navigation_icon_is_set(): void
+        {
+            $this->assertEquals('heroicon-o-folder', CategoryResource::$navigationIcon);
+        }
+        
+        /**
+        * Test that authorization is skipped
+        */
+        public function test_authorization_is_skipped(): void
+        {
+            $this->assertTrue(CategoryResource::$shouldSkipAuthorization);
+        }
+        
+        /**
+        * Test form schema contains required fields
+        */
+        public function test_form_has_name_and_slug_inputs(): void
+        {
+            $form = CategoryResource::form(\Filament\Forms\Form::make());
+            $schema = $form->getComponents();
+            
+            $this->assertNotEmpty($schema, 'Form schema should not be empty');
+            
+            $fieldNames = array_map(fn($field) => $field->getName(), $schema);
+            $this->assertContains('name', $fieldNames, 'Form should contain name field');
+            $this->assertContains('slug', $fieldNames, 'Form should contain slug field');
+        }
+        
+        /**
+        * Test that name field is required
+        */
+        public function test_name_field_is_required(): void
+        {
+            $form = CategoryResource::form(\Filament\Forms\Form::make());
+            $nameField = $form->getComponent('name');
+            
+            $this->assertInstanceOf(TextInput::class, $nameField);
+            $this->assertTrue($nameField->isRequired(), 'Name field should be required');
+        }
+        
+        /**
+        * Test that slug field is required
+        */
+        public function test_slug_field_is_required(): void
+        {
+            $form = CategoryResource::form(\Filament\Forms\Form::make());
+            $slugField = $form->getComponent('slug');
+            
+            $this->assertInstanceOf(TextInput::class, $slugField);
+            $this->assertTrue($slugField->isRequired(), 'Slug field should be required');
+        }
+        
+        /**
+        * Test slug generation on create operation
+        */
+        public function test_slug_is_generated_from_name_on_create(): void
+        {
+            $testName = 'Test Category';
+            $expectedSlug = Str::slug($testName);
+            
+            $form = CategoryResource::form(\Filament\Forms\Form::make());
+            $nameField = $form->getComponent('name');
+            
+            $this->assertNotNull($nameField->getAfterStateUpdated());
+        }
+        
+        /**
+        * Test slug is not updated on edit operation
+        */
+        public function test_slug_is_not_regenerated_on_edit(): void
+        {
+            $category = Category::factory()->create(['slug' => 'original-slug']);
+            
+            // Simulate edit operation - slug should remain unchanged
+            $originalSlug = $category->slug;
+            $category->update(['name' => 'Updated Name']);
+            
+            // In edit mode, slug generation is skipped
+            $this->assertEquals($originalSlug, $category->fresh()->slug);
+        }
+        
+        /**
+        * Test table has correct columns
+        */
+        public function test_table_has_name_and_slug_columns(): void
+        {
+            $table = CategoryResource::table(\Filament\Tables\Table::make());
+            $columns = $table->getColumns();
+            
+            $columnNames = array_map(fn($column) => $column->getName(), $columns);
+            $this->assertContains('name', $columnNames, 'Table should display name column');
+            $this->assertContains('slug', $columnNames, 'Table should display slug column');
+        }
+        
+        /**
+        * Test table has edit action
+        */
+        public function test_table_has_edit_action(): void
+        {
+            $table = CategoryResource::table(\Filament\Tables\Table::make());
+            $actions = $table->getActions();
+            
+            $hasEditAction = collect($actions)->some(
+            fn($action) => $action instanceof \Filament\Tables\Actions\EditAction
+            );
+            
+            $this->assertTrue($hasEditAction, 'Table should have edit action');
+        }
+        
+        /**
+        * Test table has delete bulk action
+        */
+        public function test_table_has_delete_bulk_action(): void
+        {
+            $table = CategoryResource::table(\Filament\Tables\Table::make());
+            $bulkActions = $table->getBulkActions();
+            
+            $this->assertNotEmpty($bulkActions, 'Table should have bulk actions');
+        }
+        
+        /**
+        * Test resource has correct relations
+        */
+        public function test_resource_has_posts_relation_manager(): void
+        {
+            $relations = CategoryResource::getRelations();
+            
+            $this->assertContains(PostsRelationManager::class, $relations);
+        }
+        
+        /**
+        * Test resource has correct pages
+        */
+        public function test_resource_has_correct_pages(): void
+        {
+            $pages = CategoryResource::getPages();
+            
+            $this->assertArrayHasKey('index', $pages);
+            $this->assertArrayHasKey('create', $pages);
+            $this->assertArrayHasKey('edit', $pages);
+        }
+        
+        /**
+        * Test index page route
+        */
+        public function test_index_page_has_correct_route(): void
+        {
+            $pages = CategoryResource::getPages();
+            
+            $this->assertStringContainsString('/', $pages['index']);
+        }
+        
+        /**
+        * Test create page route
+        */
+        public function test_create_page_has_correct_route(): void
+        {
+            $pages = CategoryResource::getPages();
+            
+            $this->assertStringContainsString('/create', $pages['create']);
+        }
+        
+        /**
+        * Test edit page route with parameter
+        */
+        public function test_edit_page_has_correct_route_with_parameter(): void
+        {
+            $pages = CategoryResource::getPages();
+            
+            $this->assertStringContainsString('{record}/edit', $pages['edit']);
+        }
+    }
+\end{minted}

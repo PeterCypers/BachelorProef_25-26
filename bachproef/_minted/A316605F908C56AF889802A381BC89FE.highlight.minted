@@ -1,0 +1,209 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZlt{}?php}
+
+\PYG{k}{namespace} \PYG{n+nx}{Tests\PYGZbs{}Unit\PYGZbs{}Filament\PYGZbs{}Resources}\PYG{p}{;}
+
+\PYG{k}{use} \PYG{n+nx}{App\PYGZbs{}Filament\PYGZbs{}Resources\PYGZbs{}CategoryResource}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{App\PYGZbs{}Filament\PYGZbs{}Resources\PYGZbs{}CategoryResource\PYGZbs{}Pages\PYGZbs{}CreateCategory}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{App\PYGZbs{}Filament\PYGZbs{}Resources\PYGZbs{}CategoryResource\PYGZbs{}Pages\PYGZbs{}EditCategory}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{App\PYGZbs{}Filament\PYGZbs{}Resources\PYGZbs{}CategoryResource\PYGZbs{}Pages\PYGZbs{}ListCategories}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{App\PYGZbs{}Filament\PYGZbs{}Resources\PYGZbs{}CategoryResource\PYGZbs{}RelationManagers\PYGZbs{}PostsRelationManager}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{App\PYGZbs{}Models\PYGZbs{}Category}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{Filament\PYGZbs{}Forms\PYGZbs{}Components\PYGZbs{}TextInput}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{Illuminate\PYGZbs{}Support\PYGZbs{}Str}\PYG{p}{;}
+\PYG{k}{use} \PYG{n+nx}{Tests\PYGZbs{}TestCase}\PYG{p}{;}
+
+\PYG{k}{class} \PYG{n+nc}{CategoryResourceTest} \PYG{k}{extends} \PYG{n+nx}{TestCase}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{private} \PYG{n+nx}{CategoryResource} \PYG{n+nv}{\PYGZdl{}resource}\PYG{p}{;}
+
+    \PYG{k}{protected} \PYG{k}{function} \PYG{n+nf}{setUp}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{parent}\PYG{o}{::}\PYG{n+na}{setUp}\PYG{p}{();}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{resource} \PYG{o}{=} \PYG{k}{new} \PYG{n+nx}{CategoryResource}\PYG{p}{();}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test that CategoryResource has correct model assigned}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}resource\PYGZus{}uses\PYGZus{}category\PYGZus{}model}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertEquals}\PYG{p}{(}\PYG{n+nx}{Category}\PYG{o}{::}\PYG{n+na}{class}\PYG{p}{,} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+nv}{\PYGZdl{}model}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test that navigation icon is properly set}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}navigation\PYGZus{}icon\PYGZus{}is\PYGZus{}set}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertEquals}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}heroicon\PYGZhy{}o\PYGZhy{}folder\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+nv}{\PYGZdl{}navigationIcon}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test that authorization is skipped}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}authorization\PYGZus{}is\PYGZus{}skipped}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertTrue}\PYG{p}{(}\PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+nv}{\PYGZdl{}shouldSkipAuthorization}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test form schema contains required fields}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}form\PYGZus{}has\PYGZus{}name\PYGZus{}and\PYGZus{}slug\PYGZus{}inputs}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}form} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{form}\PYG{p}{(}\PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Forms\PYGZbs{}Form}\PYG{o}{::}\PYG{n+na}{make}\PYG{p}{());}
+        \PYG{n+nv}{\PYGZdl{}schema} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}form}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getComponents}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertNotEmpty}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}schema}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Form schema should not be empty\PYGZsq{}}\PYG{p}{);}
+
+        \PYG{n+nv}{\PYGZdl{}fieldNames} \PYG{o}{=} \PYG{n+nb}{array\PYGZus{}map}\PYG{p}{(}\PYG{n+nx}{fn}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}field}\PYG{p}{)} \PYG{o}{=\PYGZgt{}} \PYG{n+nv}{\PYGZdl{}field}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getName}\PYG{p}{(),} \PYG{n+nv}{\PYGZdl{}schema}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertContains}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}name\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}fieldNames}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Form should contain name field\PYGZsq{}}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertContains}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}slug\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}fieldNames}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Form should contain slug field\PYGZsq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test that name field is required}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}name\PYGZus{}field\PYGZus{}is\PYGZus{}required}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}form} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{form}\PYG{p}{(}\PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Forms\PYGZbs{}Form}\PYG{o}{::}\PYG{n+na}{make}\PYG{p}{());}
+        \PYG{n+nv}{\PYGZdl{}nameField} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}form}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getComponent}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}name\PYGZsq{}}\PYG{p}{);}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertInstanceOf}\PYG{p}{(}\PYG{n+nx}{TextInput}\PYG{o}{::}\PYG{n+na}{class}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}nameField}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertTrue}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}nameField}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{isRequired}\PYG{p}{(),} \PYG{l+s+s1}{\PYGZsq{}Name field should be required\PYGZsq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test that slug field is required}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}slug\PYGZus{}field\PYGZus{}is\PYGZus{}required}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}form} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{form}\PYG{p}{(}\PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Forms\PYGZbs{}Form}\PYG{o}{::}\PYG{n+na}{make}\PYG{p}{());}
+        \PYG{n+nv}{\PYGZdl{}slugField} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}form}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getComponent}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}slug\PYGZsq{}}\PYG{p}{);}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertInstanceOf}\PYG{p}{(}\PYG{n+nx}{TextInput}\PYG{o}{::}\PYG{n+na}{class}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}slugField}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertTrue}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}slugField}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{isRequired}\PYG{p}{(),} \PYG{l+s+s1}{\PYGZsq{}Slug field should be required\PYGZsq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test slug generation on create operation}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}slug\PYGZus{}is\PYGZus{}generated\PYGZus{}from\PYGZus{}name\PYGZus{}on\PYGZus{}create}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}testName} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Test Category\PYGZsq{}}\PYG{p}{;}
+        \PYG{n+nv}{\PYGZdl{}expectedSlug} \PYG{o}{=} \PYG{n+nx}{Str}\PYG{o}{::}\PYG{n+na}{slug}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}testName}\PYG{p}{);}
+
+        \PYG{n+nv}{\PYGZdl{}form} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{form}\PYG{p}{(}\PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Forms\PYGZbs{}Form}\PYG{o}{::}\PYG{n+na}{make}\PYG{p}{());}
+        \PYG{n+nv}{\PYGZdl{}nameField} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}form}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getComponent}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}name\PYGZsq{}}\PYG{p}{);}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertNotNull}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}nameField}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getAfterStateUpdated}\PYG{p}{());}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test slug is not updated on edit operation}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}slug\PYGZus{}is\PYGZus{}not\PYGZus{}regenerated\PYGZus{}on\PYGZus{}edit}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}category} \PYG{o}{=} \PYG{n+nx}{Category}\PYG{o}{::}\PYG{n+na}{factory}\PYG{p}{()}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{create}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}slug\PYGZsq{}} \PYG{o}{=\PYGZgt{}} \PYG{l+s+s1}{\PYGZsq{}original\PYGZhy{}slug\PYGZsq{}}\PYG{p}{]);}
+
+        \PYG{c+c1}{// Simulate edit operation \PYGZhy{} slug should remain unchanged}
+        \PYG{n+nv}{\PYGZdl{}originalSlug} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}category}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{slug}\PYG{p}{;}
+        \PYG{n+nv}{\PYGZdl{}category}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{update}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}name\PYGZsq{}} \PYG{o}{=\PYGZgt{}} \PYG{l+s+s1}{\PYGZsq{}Updated Name\PYGZsq{}}\PYG{p}{]);}
+
+        \PYG{c+c1}{// In edit mode, slug generation is skipped}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertEquals}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}originalSlug}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}category}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{fresh}\PYG{p}{()}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{slug}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test table has correct columns}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}table\PYGZus{}has\PYGZus{}name\PYGZus{}and\PYGZus{}slug\PYGZus{}columns}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}table} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{table}\PYG{p}{(}\PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Tables\PYGZbs{}Table}\PYG{o}{::}\PYG{n+na}{make}\PYG{p}{());}
+        \PYG{n+nv}{\PYGZdl{}columns} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}table}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getColumns}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}columnNames} \PYG{o}{=} \PYG{n+nb}{array\PYGZus{}map}\PYG{p}{(}\PYG{n+nx}{fn}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}column}\PYG{p}{)} \PYG{o}{=\PYGZgt{}} \PYG{n+nv}{\PYGZdl{}column}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getName}\PYG{p}{(),} \PYG{n+nv}{\PYGZdl{}columns}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertContains}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}name\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}columnNames}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Table should display name column\PYGZsq{}}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertContains}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}slug\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}columnNames}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Table should display slug column\PYGZsq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test table has edit action}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}table\PYGZus{}has\PYGZus{}edit\PYGZus{}action}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}table} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{table}\PYG{p}{(}\PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Tables\PYGZbs{}Table}\PYG{o}{::}\PYG{n+na}{make}\PYG{p}{());}
+        \PYG{n+nv}{\PYGZdl{}actions} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}table}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getActions}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}hasEditAction} \PYG{o}{=} \PYG{n+nx}{collect}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}actions}\PYG{p}{)}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{some}\PYG{p}{(}
+        \PYG{n+nx}{fn}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}action}\PYG{p}{)} \PYG{o}{=\PYGZgt{}} \PYG{n+nv}{\PYGZdl{}action} \PYG{n+nx}{instanceof} \PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Tables\PYGZbs{}Actions\PYGZbs{}EditAction}
+        \PYG{p}{);}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertTrue}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}hasEditAction}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Table should have edit action\PYGZsq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test table has delete bulk action}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}table\PYGZus{}has\PYGZus{}delete\PYGZus{}bulk\PYGZus{}action}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}table} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{table}\PYG{p}{(}\PYG{n+nx}{\PYGZbs{}Filament\PYGZbs{}Tables\PYGZbs{}Table}\PYG{o}{::}\PYG{n+na}{make}\PYG{p}{());}
+        \PYG{n+nv}{\PYGZdl{}bulkActions} \PYG{o}{=} \PYG{n+nv}{\PYGZdl{}table}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{getBulkActions}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertNotEmpty}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}bulkActions}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Table should have bulk actions\PYGZsq{}}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test resource has correct relations}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}resource\PYGZus{}has\PYGZus{}posts\PYGZus{}relation\PYGZus{}manager}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}relations} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{getRelations}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertContains}\PYG{p}{(}\PYG{n+nx}{PostsRelationManager}\PYG{o}{::}\PYG{n+na}{class}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}relations}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test resource has correct pages}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}resource\PYGZus{}has\PYGZus{}correct\PYGZus{}pages}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}pages} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{getPages}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertArrayHasKey}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}index\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}pages}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertArrayHasKey}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}create\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}pages}\PYG{p}{);}
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertArrayHasKey}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}edit\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}pages}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test index page route}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}index\PYGZus{}page\PYGZus{}has\PYGZus{}correct\PYGZus{}route}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}pages} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{getPages}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertStringContainsString}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}/\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}pages}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}index\PYGZsq{}}\PYG{p}{]);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test create page route}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}create\PYGZus{}page\PYGZus{}has\PYGZus{}correct\PYGZus{}route}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}pages} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{getPages}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertStringContainsString}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}/create\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}pages}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}create\PYGZsq{}}\PYG{p}{]);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{l+s+sd}{/**}
+\PYG{l+s+sd}{    * Test edit page route with parameter}
+\PYG{l+s+sd}{    */}
+    \PYG{k}{public} \PYG{k}{function} \PYG{n+nf}{test\PYGZus{}edit\PYGZus{}page\PYGZus{}has\PYGZus{}correct\PYGZus{}route\PYGZus{}with\PYGZus{}parameter}\PYG{p}{()}\PYG{o}{:} \PYG{n+nx}{void}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n+nv}{\PYGZdl{}pages} \PYG{o}{=} \PYG{n+nx}{CategoryResource}\PYG{o}{::}\PYG{n+na}{getPages}\PYG{p}{();}
+
+        \PYG{n+nv}{\PYGZdl{}this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+na}{assertStringContainsString}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZob{}record\PYGZcb{}/edit\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{\PYGZdl{}pages}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}edit\PYGZsq{}}\PYG{p}{]);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

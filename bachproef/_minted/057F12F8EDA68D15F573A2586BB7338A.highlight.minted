@@ -1,0 +1,11 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{x}{test(\PYGZsq{}sum\PYGZsq{}, function () \PYGZob{}}
+\PYG{x}{    \PYGZdl{}value = sum(1, 2);}
+
+\PYG{x}{    expect(\PYGZdl{}value)}
+\PYG{x}{        \PYGZhy{}\PYGZgt{}toBeInt()}
+\PYG{x}{        \PYGZhy{}\PYGZgt{}toBe(3)}
+\PYG{x}{        \PYGZhy{}\PYGZgt{}not\PYGZhy{}\PYGZgt{}toBeString()}
+\PYG{x}{        \PYGZhy{}\PYGZgt{}not\PYGZhy{}\PYGZgt{}toBe(4);}
+\PYG{x}{\PYGZcb{});}
+\end{MintedVerbatim}

@@ -132,19 +132,28 @@ LLMs hebben een groote verzameling van kennis en zeker bij het coderen kunnen ze
 \subsubsection{Shit goes in, Shit comes out}
 Kwaliteit van gegenereerde output heeft een direct verband met de data waarop het model is getraind, als we ervan uitgaan dat een normaal distributie van betrouwbaarheid van de verzamelde data, of kwaliteit van code waarop is getraind kunnen we ervan uitgaan dat er gemiddeld of lager dan gemiddelde kwaliteit kan gegenereerd worden. De verwachtingen waren hoog bij de voorlopers van AI, waar men er namelijk van uit ging dat AI-systemen vooral expertenkennis zou bevatten \autocite{ComputerChronicles1984}.
 
-\section{Model Cut-off datums}
+\section{Model Cutoff datums}
 \label{sec:modelcutoffdatums}
 
-%TODO: this could be a short topic, I have already written about this in other places, main problem: if you use models that aren't doing internet search it'll only have access to it's own training data and therefore you'll only get data out of a model up until it's cutoff date, -> find an example of a model cutoff date link in foonote
+% this could be a short topic, I have already written about this in other places, main problem: if you use models that aren't doing internet search it'll only have access to it's own training data and therefore you'll only get data out of a model up until it's cutoff date, -> find an example of a model cutoff date link in foonote
+
+Een belangrijk concept dat men in het achterhoofd moet houden bij het werken met LLMs is dat deze getraind zijn op data van een bepaalde periode, met een harde grens in de tijd waar hun kennis ophoudt. De model cutoff datum, men kan dit met Google vinden door te zoeken naar het gebruikte LLM + cutoff. Bijvoorbeeld: "gpt oss 120b knowledge cutoff". Men kan er sterk vanuit gaan dat historische data na deze datum niet gekend is door de LLM. Het kan over wereldlijke feiten gaan, over nieuwe codeer frameworks, zo kan het een redelijk ernstig probleem worden wanneer men met een LLM werkt die enkel kennis heeft over verouderde code. Als er uit de trainingsdata geen antwoord kan worden gevonden zal de AI mogelijks  internet opzoek tools gebruiken om up-to-date info te verkrijgen. \\
+
+Wanneer recente kennis nodig is kan men best een relatief nieuw LLM gebruiken en bewust blijven van dit concept. \\
+
+Dit zal één van de uitdagingen blijven voor de AI bedrijven, het constant opnieuw trainen, en up-to-date houden van de informatie waarover hun modellen beschikken. \\
+
+Er is ook sprake van synthetische data dat ingezet kan worden bij het trainen van generatieve AI modellen, een techniek dat ze bij Nvidia gebruiken wanneer het moeilijk wordt om originele data te verkrijgen is Synthetic Data Generation(SDG) \autocite{Nvidia}.
+% https://www.nvidia.com/en-us/glossary/synthetic-data-generation/
 
 \section{Hallucinaties}
-AI kan antwoorden verzinnen.
+AI kan antwoorden verzinnen. \\
 Wanneer een chatbot antwoord vol overtuiging lijkt dit op het eerste zicht plausibel maar wanneer dit antwoord achteraf toch geen bron van waarheid blijkt te hebben noemt men dit hallucineren. 
 %TODO: re-write this section with better sources -> data quality
-Wanneer de data afkomstig is van verschillende online beschikbare bronnen is de kwaliteit van de trainingsdata niet volledig betrouwbaar, het kan gaan om een mening van de auteur of gewoon misinformatie.
+AI trainingsdata is vaak afkomstig van diverse online beschikbare bronnen van uiteenlopende kwaliteit, dus AI beschikt over 'kennis' dat niet honderd procent betrouwbaar is, mogelijks gaat het over foutieve informatie of een subjectieve meningen van de auteur. \\
 
 %model training problems
-GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin ze incentief krijgen om toch een antwoord te geven(een gok wagen) ook als ze het niet weten, dat scoort beter op de tests die ze moeten maken\todo{reference businessinsider: see below link}. Tijdens een interactie met ChatGPT heeft de gebruiker heel weinig kans om "ik weet het niet" als antwoord te krijgen. Dit kan expliciet als systeem prompt meegegeven worden aan het model bij prompt-engineering. Wanneer
+GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin ze incentief krijgen om toch een antwoord te geven(een gok wagen) ook als ze het niet weten, dat scoort beter op de tests die ze moeten maken \autocite{Varanasi2025}. Tijdens een interactie met ChatGPT heeft de gebruiker heel weinig kans om "ik weet het niet" als antwoord te krijgen. Dit kan expliciet als systeem prompt meegegeven worden aan het model bij prompt-engineering. Wanneer in een systeem bericht aan de AI werd meegegeven om aan te geven wanneer een antwoord niet is geweten, dan pas zal dit gebeuren, maar dit is niet standaard gedrag, vaak zal iets verzonnen worden. Wanneer er enig twijfel is over een antwoord van AI kan dit nog eens opnieuw worden gevraagd, een tweede mening van een andere AI chatbot, verifiëren aan de hand van andere, niet-AI bronnen en als dit niet mogelijk is, het antwoord als verkeerd/onbruikbaar beschouwen.
 
 % https://www.businessinsider.com/why-ai-chatbots-hallucinate-openai-chatgpt-anthropic-claude-2025-9
 
@@ -224,10 +233,11 @@ Verschillende soorten rate limiting kunnen ingesteld worden afhankelijk van AI-p
 \subsection{MLOPS}
 % Coursera course 1, mod3, vid2: 5:30 -> operationalizing AI-powered applications MLOPS
 
-% Net zoals we DEVOPS kennen bestaat er ook MLOPS, het deployen en continu onderhouden van AI-gedreven applicaties
+Net zoals we DEVOPS kennen bestaat er ook MLOPS, experts en teams die de taak van het deployen en continu onderhouden van AI-gedreven applicaties op zich nemen.
 
 \subsection{Benchmarking}
 % gebruikte modellen regelmatig vergelijken met andere modellen. sterktes en zwaktes van verschillende modellen voor de nodige use-case(s) waarvoor ze worden gebruikt aftoetsen. Mogelijks moeten gebruikte LLMs geupdate worden naar een nieuwere versie, of zal er overwogen worden om over te stappen op een andere LLM omdat deze voor de relevante benchmaarks hoger scoort dan de gebruikte LLM.
+Vergelijk gebruikte modellen regelmatig met gelijkaardige of sterkere LLMs, zoek de nieuwste benchmarks op en bereid je voor om gebruikte modellen te veranderen of upgraden. Verschillende LLMs zijn sterker voor bepaalde toepassingen. Op het moment van schrijven blijft https://artificialanalysis.ai/ een degelijke bron van informatie om LLMs te vergelijken.
 
 \subsection{Human in the loop}
 \label{ssec:humanintheloop}
@@ -239,6 +249,9 @@ Dit concept werd besproken in sectie: PoLP (\ref{sec:principleofleastprivilege})
 % look more into -> it's a way to keep the AI honest, it's a self-check, I think a self-check can be built into the AI somehow
 
 %lab1 from course1 mod1
+
+Zet AI aan om eigen antwoorden opnieuw te beoordelen en mogelijks te verbeteren, we zien bij ChatGPT bijvoorbeeld soms dat er meerdere antwoorden gegenereerd worden en dat we de beste antwoord mogen kiezen. Wanneer AI duidelijke fouten maakt en men deze erop aanwijst dat er een fout werd gemaakt kan de AI meestal het vorige antwoord hernemen en tot betere conclusies komen, dit kan men ook teweegbrengen door aan de AI te vragen om een probleem op x-verschillende manieren aan te pakken en de beste oplossing eruit te kiezen.
+
 \begin{comment}
     [**Self-consistency**](https://www.promptingguide.ai/techniques/consistency) is an advanced technique in which the model generates multiple independent solutions or answers to the same problem, then evaluates these different approaches to determine the most consistent or reliable result. This method enhances accuracy by leveraging the model's ability to approach problems from different angles and identify the most robust solution through comparison and verification.
     
