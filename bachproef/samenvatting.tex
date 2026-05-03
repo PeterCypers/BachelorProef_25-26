@@ -2,7 +2,7 @@
 %% Samenvatting
 %%=============================================================================
 
-% TODO: De "abstract" of samenvatting is een kernachtige (~ 1 blz. voor een
+% T'DO: De "abstract" of samenvatting is een kernachtige (~ 1 blz. voor een
 % thesis) synthese van het document.
 %
 % Een goede abstract biedt een kernachtig antwoord op volgende vragen:
@@ -27,7 +27,7 @@
 
 %%---------- Nederlandse samenvatting -----------------------------------------
 %
-% TODO: Als je je bachelorproef in het Engels schrijft, moet je eerst een
+% T'DO: Als je je bachelorproef in het Engels schrijft, moet je eerst een
 % Nederlandse samenvatting invoegen. Haal daarvoor onderstaande code uit
 % commentaar.
 % Wie zijn bachelorproef in het Nederlands schrijft, kan dit negeren, de inhoud
@@ -36,7 +36,7 @@
 \IfLanguageName{english}{%
 \selectlanguage{dutch}
 \chapter*{Samenvatting}
-\lipsum[1-4]
+%\lipsum[1-4]
 \selectlanguage{english}
 }{}
 
@@ -44,7 +44,8 @@
 % De samenvatting in de hoofdtaal van het document
 
 \chapter*{\IfLanguageName{dutch}{Samenvatting}{Abstract}}
+\label{ch:samenvatting}
 % I can definitely use parts of my Samenvatting from the bp-voorstel, if not outright copy paste the entire thing, with some adgustments
 
+In moderne softwareontwikkeling zijn APIs een cruciale schakel tussen systemen. Het ontwikkelen en testen van deze APIs vereist echter veel repetitieve en technische handelingen zoals het schrijven van testcases, het valideren van responses en het controleren van documentatie. In agile teams, waar snelheid en iteratie centraal staan, vormt dit een bottleneck. Het onderzoek gaat na in welke mate een AI agent, gebaseerd op recente ontwikkelingen in natural language processing en machine learning, kan bijdragen aan het ondersteunen en deels automatiseren van het ontwikkel- en testproces van RESTful APIs binnen een agile softwareontwikkeltraject. Uit een uitgebreid onderzoek naar het huidige AI-landschap, waarbij bestaande marktoplossingen en technologieën met elkaar vergeleken werden, kon bepaald worden welke AI- en agentic technologieën ingezet kunnen worden ter ondersteuning van de ontwikkeling, het testen en de documentatie van APIs. Het vergelijken van deze technieken leidde tot de verkenning van Retrieval Augmented Generation (RAG) als mogelijke hulpmiddel bij het interpreteren van API documentatie. Voor API-ontwikkeling wordt gebruik gemaakt van bestaande tools zoals Postman, ondersteund door AI, om het testen en documenteren te vereenvoudigen en gedeeltelijk te automatiseren.
 
-\lipsum[1-3]

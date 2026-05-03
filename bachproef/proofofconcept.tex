@@ -7,28 +7,31 @@
 
 Hoewel RAG kan ingezet worden voor specifieke taken zoals het opvragen van informatie uit een grote interne bron van kennis zijn er andere, meer zinvolle technieken die met ondersteuning van AI gebruikt kunnen worden om APIs te helpen ontwikkelen, testen en documenteren. \\
 
-RAG kan alsnog van pas komen voor het interpreteren en vragen stellen over de officiële OAS documentatie, als alternatief kan men ook grote documenten meegeven aan AI agents om zo zeker te zijn dat alle context beschikbaar blijft. Hier moet er telkens een afweging gemaakt worden of het inladen van documenten wel of niet voor een teveel aan context zorgt en dus verhoogde kosten van token-gebruik en een grotere kans op hallucinaties als nevenwerking teweegbrengt, maar dan kan de complexiteit van het opzetten van een RAG systeem vermeden worden, zoals besproken in sectie: 'RAG vs Long Context'(\ref{ssec:ragvslongcontext}). \\
+RAG kan alsnog van pas komen voor het interpreteren en vragen stellen over de officiële OAS documentatie, als alternatief kan men ook grote documenten meegeven aan AI agents om zo zeker te zijn dat alle context beschikbaar blijft. Hier moet er telkens een afweging gemaakt worden of het inladen van documenten wel of niet voor een teveel aan context zorgt en dus verhoogde kosten van token-gebruik en een grotere kans op hallucinaties als nevenwerking teweegbrengt, maar dan kan de complexiteit van het opzetten van een RAG systeem vermeden worden, zoals besproken in Sectie: RAG vs Long Context (\ref{ssec:ragvslongcontext}). \\
 
 \section{RAG Voor vragen over OAS}
-%todo: first finish of the section vectorstore and run both demos + document responses, write about + reference it here
+\label{sec:ragvoorvraagenoveroas}
+%tdo: first finish of the section vectorstore and run both demos + document responses, write about + reference it here
 
-Door een bron van kennis op te slaan in een vector database en RAG in combinatie met semantic search technieken toe te passen kan men vragen stellen over bijvoorbeeld een verzameling van documenten, of één groot document met een minimale kost van tokens en tijd. Dit kan mogelijks ingezet worden om info op te vragen over de eigen APIs of andere APIs en zo AI assistentie krijgen voor het ontwikkelen van eigen API(s). Zie sectie: 'LlamaIndex RAG \& OAS'( \ref{ssec:llamaindexragandoas}) voor uitgewerkte demo's. Het is opmerkelijk sneller en genereert betere antwoorden wanneer dit persistent in een vector database(of andere opslagmedium) wordt opgeslagen en eerst getransformeerd met toegevoegde metadata in de vorm van titels en voorbeeld- vragen/-antwoorden. Mogelijks kunnen officiële documenten zoals de OpenAPI Specification al tot de trainings-data van grote LLMs behoren. Zie sectie: 'Ethiek Rond Data Harvesting'(\ref{sec:ethiekronddataharvesting}).
+Door een bron van kennis op te slaan in een vector database en RAG in combinatie met semantic search technieken toe te passen kan men vragen stellen over bijvoorbeeld een verzameling van documenten, of één groot document met een minimale kost van tokens en tijd. Dit kan mogelijks ingezet worden om info op te vragen over de eigen APIs of andere APIs en zo AI assistentie krijgen voor het ontwikkelen van eigen API(s). Zie Sectie: LlamaIndex RAG \& OAS ( \ref{ssec:llamaindexragandoas}) voor uitgewerkte demo's. Het is opmerkelijk sneller en genereert betere antwoorden wanneer dit persistent in een vector database (of andere opslagmedium) wordt opgeslagen en eerst getransformeerd met toegevoegde metadata in de vorm van titels en voorbeeld- vragen/-antwoorden. Mogelijks kunnen officiële documenten zoals de OpenAPI Specification al tot de trainings-data van grote LLMs behoren. Zie Sectie: Ethiek Rond Data Harvesting (\ref{sec:ethiekronddataharvesting}).
 
 
 \section{Scramble als basis voor API Documentatie}
+\label{sec:scramblealsbasisvoorapidocumentatie}
 % single point of truth
 % commands, brief talk about, and refer to the section where I put the images and resources
 
-Er bestaan tools om automatisch een OAD, OpenAPI document te genereren binnen een project, één zo'n tool is Scramble, deze kan ingezet worden om aan de hand van bestaande files waarin API-endpoints gedefinieerd zijn deze info extraheren en een openapi.json of openapi.yaml file genereren conform het officiële OAS(Open API Specification). Deze actie kan herhaaldelijk uitgevoerd worden om de bestaande file te updaten, zo bestaat er een \textbf{Single Point Of Truth}(SPOT) als API documentatie. Dit kan ook gebruikt worden om routes die in andere files gedefinieerd zijn in een file op te slaan, de input file en output filenaam kunnen geconfigureerd worden, zie ook sectie: 'Scramble'(\ref{sssec:scramble}).
+Er bestaan tools om automatisch een OAD, OpenAPI document te genereren binnen een project, één zo'n tool is Scramble, deze kan ingezet worden om aan de hand van bestaande files waarin API-endpoints gedefinieerd zijn deze info extraheren en een openapi.json of openapi.yaml file genereren conform het officiële Open API Specification (OAS). Deze actie kan herhaaldelijk uitgevoerd worden om de bestaande file te updaten, zo bestaat er een \textbf{Single Point Of Truth} (SPOT) als API documentatie. Dit kan ook gebruikt worden om routes die in andere files gedefinieerd zijn in een file op te slaan, de input file en output filenaam kunnen geconfigureerd worden, zie ook Sectie: Scramble (\ref{sssec:scramble}).
 
 \section{Postman AI Generatie van Testen \& Documentatie}
+\label{sec:postmanaigeneratievantestenendocumentatie}
 % TODO MCP? subsection?
 % j
-Postman als software heeft een lange geschiedenis op het gebied van het testen en ontwikkelen van API's \autocite{Lane2021}. De kosten\footnote{\href{https://www.postman.com/pricing/}{https://www.postman.com/pricing/}} voor gebruik als maandelijks subscriptie(korting bij jaarlijkse betaling) is gelijkaardig aan de subscriptie kosten voor copilot chat. Men kan Postman ook gratis gebruiken, de kosten zijn vooral om de AI assistent en wat extra features te gebruiken. Men krijgt met het gratis model ook wel een aantal AI credits die maandelijks hernieuwen. Het kan eventueel zinvol zijn om een tijdelijk subscriptie te nemen, alle nodige tests door AI te laten genereren en daarna verder gaan op het gratis model. \\
+Postman als software heeft een lange geschiedenis op het gebied van het testen en ontwikkelen van API's \autocite{Lane2021}. De kosten\footnote{\href{https://www.postman.com/pricing/}{https://www.postman.com/pricing/}} voor gebruik als maandelijks subscriptie (korting bij jaarlijkse betaling) is gelijkaardig aan de subscriptie kosten voor copilot chat. Men kan Postman ook gratis gebruiken, de kosten zijn vooral om de AI assistent en wat extra features te gebruiken. Men krijgt met het gratis model ook wel een aantal AI credits die maandelijks hernieuwen. Het kan eventueel zinvol zijn om een tijdelijk subscriptie te nemen, alle nodige tests door AI te laten genereren en daarna verder gaan op het gratis model. \\
 
-Op de desktop applicatie van Postman kan men de AI chatbot vragen om tests te genereren voor alle endpoints binnen een specifieke collectie. Dit kan men mogelijks ook binnen VSC(Visual Studio Code) doen, maar het is beter om dit binnen Postman te doen omdat deze agent uitgerust is met de nodige tools om goed met de collecties te kunnen werken. \\ % todo: pictures !
+Op de desktop applicatie van Postman kan men de AI chatbot vragen om tests te genereren voor alle endpoints binnen een specifieke collectie. Dit kan men mogelijks ook binnen Visual Studio Code doen, maar het is beter om dit binnen Postman te doen omdat deze agent uitgerust is met de nodige tools om goed met de collecties te kunnen werken. \\ % t'do: pictures !
 
-Binnen de Postman applicatie werd de vraag gesteld aan de agent wat deze allemaal kon doen, het response kwam terug dat deze documentatie en tests kon genereren voor bepaalde collecties. Vervolgens werd aan deze agent gevraagd om tests te genereren voor de budget verzameling(collection), zie figuur: \ref{fig:postmanagent1}.
+Binnen de Postman applicatie werd de vraag gesteld aan de agent wat deze allemaal kon doen, het response kwam terug dat deze documentatie en tests kon genereren voor bepaalde collecties. Vervolgens werd aan deze agent gevraagd om tests te genereren voor de budget verzameling (collection), zie Figuur~\ref{fig:postmanagent1}.
 
 % images:
 % postman-ask-what-AI-can-do-4.png
@@ -38,7 +41,7 @@ Binnen de Postman applicatie werd de vraag gesteld aan de agent wat deze allemaa
     \caption[Postman agent genereert tests]{\label{fig:postmanagent1}Vraag aan de Postman Agent om tests te genereren.}
 \end{figure}
 
-Er werd ook documentatie gegenereerd voor alle endpoints in de collection, zie onderstaand figuur: \ref{fig:postmanagent2}. We zien in het midden de gegenereerde tests voor één endpoint onder de 'Scripts' tab, onder de 'Docs' tab vinden we een korte omschrijving van de endpoint. De endpoint in kwestie: \textit{http://localhost:9000/api/transactions}. De Postman Agent kan ook helpen bij het debuggen van falende tests en een monitoring systeem opzetten waarbij tests kunnen uitgevoerd worden op ingeplande tijdstippen.
+Er werd ook documentatie gegenereerd voor alle endpoints in de collection, zie onderstaand Figuur~\ref{fig:postmanagent2}. We zien in het midden de gegenereerde tests voor één endpoint onder de 'Scripts' tab, onder de 'Docs' tab vinden we een korte omschrijving van de endpoint. De endpoint in kwestie: \textit{http://localhost:9000/api/transactions}. De Postman Agent kan ook helpen bij het debuggen van falende tests en een monitoring systeem opzetten waarbij tests kunnen uitgevoerd worden op ingeplande tijdstippen.
 % postman-ask-what-AI-can-do-9.png (Tests gegenereerd en sugesties voor volgende acties)
 \begin{figure}[H]
     \centering
@@ -46,7 +49,7 @@ Er werd ook documentatie gegenereerd voor alle endpoints in de collection, zie o
     \caption[Postman agent genereert tests]{\label{fig:postmanagent2}Postman Agent na het genereren van de tests.}
 \end{figure}
 % j J
-Nu dat er tests bestaan voor de verschillende endpoints zullen deze automatisch samen met het sturen van een request activeren, in onderstaande figuur: \ref{fig:postmanresponse} zien we de response-body tab met de API response in JSON formaat en in het volgend figuur: \ref{fig:postmantestuitslag} zien we de tab met testuitslagen. Een van de tests faalt omdat we de transactie met id=3 ophalen maar er wordt in de test gecontroleerd op gelijkheid en we verwachten id=4.
+Nu dat er tests bestaan voor de verschillende endpoints zullen deze automatisch samen met het sturen van een request activeren, in onderstaande Figuur~\ref{fig:postmanresponse} zien we de response-body tab met de API response in JSON formaat en in het volgend Figuur~\ref{fig:postmantestuitslag} zien we de tab met testuitslagen. Een van de tests faalt omdat we de transactie met id=3 ophalen maar er wordt in de test gecontroleerd op gelijkheid en we verwachten id=4.
 
 % postman-testresults-1.png (onderaan zien we de response body tab)
 \begin{figure}[H]
@@ -61,13 +64,13 @@ Nu dat er tests bestaan voor de verschillende endpoints zullen deze automatisch 
     \caption[Postman response]{\label{fig:postmantestuitslag}Postman uitslag van de tests na het sturen van een API request.}
 \end{figure}
 
-Postman heeft een degelijk integratie binnen Visual Studio Code. Zie onderstaande figuur: \ref{fig:postmaninvsc}, dit is wat er te zien is op de Postman tab binnen VSC.
+Postman heeft een degelijk integratie binnen Visual Studio Code. Zie onderstaande Figuur~\ref{fig:postmaninvsc}, dit is wat er te zien is op de Postman tab binnen VSC.
 
 % postman-in-vsc-test-3.png
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{postman-in-vsc-test-3.png}
-    \caption[Postman response]{\label{fig:postmaninvsc}Postman binnen de Visual Studio Code(VSC) IDE.}
+    \caption[Postman response]{\label{fig:postmaninvsc}Postman binnen de Visual Studio Code (VSC) IDE.}
 \end{figure}
 
 
@@ -99,10 +102,11 @@ Postman gebruikt Chai\footnote{\href{https://www.chaijs.com/}{https://www.chaijs
 
 
 \subsection{Vergelijking met Github Copilot}
+\label{ssec:vergelijkingmetgithubcopilot}
 % vergeleken met github copilot chat:(textbf)
 %door /tests in de Copilot chat venster te typen, wat eigenlijk gewoon een hardgecodeerde string klaar zet om te prompten aan de agent
 
-Men kan ook proberen om tests te laten genereren door de VSC-geïntegreerde AI Agent Copilot. Deze heeft een aantal ingebouwde slash-commando's, zoals \textbf{/tests} en \textbf{/setupTests}(experimenteel). Met deze Copilot commando's worden er hard gecodeerde strings klaar gezet in de prompt input. Bij het versturen van de prompt wordt de tekst naast het commando naar Copilot gestuurd, zie figuur: \ref{fig:copilottestcommando}.
+Men kan ook proberen om tests te laten genereren door de VSC-geïntegreerde AI Agent Copilot. Deze heeft een aantal ingebouwde slash-commando's, zoals \textbf{/tests} en \textbf{/setupTests} (experimenteel). Met deze Copilot commando's worden er hard gecodeerde strings klaar gezet in de prompt input. Bij het versturen van de prompt wordt de tekst naast het commando naar Copilot gestuurd, zie Figuur~\ref{fig:copilottestcommando}.
 
 % copilot-slash-tests-testgeneration.png
 \begin{figure}[H]
@@ -114,8 +118,8 @@ Men kan ook proberen om tests te laten genereren door de VSC-geïntegreerde AI A
 % /tests and /setupTests (experimenteel) 2 github copilot commando's proberen tests te genereren aan de hand van een geselecteerde file, deze commando's zetten gewoon bepaalde hardgecodeerde strings klaaar om naar de LLM te sturen (copilot-slash-tests-testgeneration-1.png)
 
 % generated testcode for resource, syntactically without errors, but functionally useless, move this code output to the appendix since it's 5 pages long
-Copilot genereerde voor de opgegeven Filament resource een unit test waarvan de code geen syntactisch fouten bevatte, maar functioneel onbruikbaar bleek te zijn. Voor de code output refereer naar de appendix in sectie: 'Test Generatie met Github Copilot'
-(\ref{sec:testgeneratiemetgithubcopilot}). De resultaten van deze tests zien we in volgende figuur: \ref{fig:copilottestresultaat}
+Copilot genereerde voor de opgegeven Filament resource een unit test waarvan de code geen syntactisch fouten bevatte, maar functioneel onbruikbaar bleek te zijn. Voor de code output refereer naar de appendix in Sectie: Test Generatie met Github Copilot
+(\ref{sec:testgeneratiemetgithubcopilot}). De resultaten van deze tests zien we in volgende Figuur~\ref{fig:copilottestresultaat}.
 
 % copilot-generate-tests-for-resource-5.png
 \begin{figure}[H]
@@ -128,9 +132,10 @@ Het feit dat er veel tests falen wil op zich niet zeggen dat ze verkeerd zijn, m
 
 
 \subsection{Publiceren van Documentatie met Fern}
+\label{ssec:publicerenvandocumentatiemetfern}
 % https://learning.postman.com/docs/fern/document-a-collection
 
-Men kan API documentatie als online website publiceren met behulp van Fern\footnote{\href{https://learning.postman.com/docs/fern/document-a-collection}{https://learning.postman.com/docs/fern/document-a-collection}}, zie onderstaand figuur: \ref{fig:postmanferndocumentation}, dit is volledig aanpasbaar en is aan een github repository gekoppeld. Deze feature werd niet verder uitgewerkt maar is een interessante startpunt voor verdere onderzoek. \\
+Men kan API documentatie als online website publiceren met behulp van Fern\footnote{\href{https://learning.postman.com/docs/fern/document-a-collection}{https://learning.postman.com/docs/fern/document-a-collection}}, zie onderstaand Figuur~\ref{fig:postmanferndocumentation}, dit is volledig aanpasbaar en is aan een github repository gekoppeld. Deze feature werd niet verder uitgewerkt maar is een interessante startpunt voor verdere onderzoek. \\
 
 % postman-Fern-published-API-documentation.png
 \begin{figure}[H]
@@ -142,7 +147,7 @@ Men kan API documentatie als online website publiceren met behulp van Fern\footn
 Een korte lijst met verschillende Postman integraties\footnote{\href{https://www.postman.com/product/integrations/}{https://www.postman.com/product/integrations/}}: Fern Docs / Jira / Slack / 1Password Vault / Aikido / Amazon API Gateway / Apigee API Management / APIMatic / AWS Secrets Manager / Azure API Management / Azure Key Vault / Bitbucket / Datadog / GitHub / GitLab / HashiCorp Vault / IBM API Connect / Microsoft Teams / New Relic / OpenAPI / Opsgenie / PagerDuty / ReadMe / Splunk / Splunk On-Call / Stainless / Statuspage / VS Code.
 
 \subsection{POC Conclusies}
-
+\label{ssec:pocconclusies}
 Postman blijft een sterke tool om APIs te helpen ontwikkelen, testen en documenteren, ondersteund door een geïntegreerde AI-agent. De gegenereerde tests kunnen een hulpmiddel zijn om inspiratie op te doen voor een eigen testsuite binnen projecten.
 
 

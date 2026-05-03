@@ -4,7 +4,7 @@
 \chapter{Appendix}
 \label{ch:appendix}
 
-%todo: move many code fragments here (Ollama section)
+%t'do: move many code fragments here (Ollama section)
 
 %=============================================================================
 % Ollama Section todo: move the codefragments from Ollama and the outputs here
@@ -12,6 +12,7 @@
 %=============================================================================
 
 \section{Ollama Lokaal (offline) resultaten}
+\label{sec:ollamalokaalofflineresultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -83,6 +84,7 @@
 \end{minted}
 
 \section{Ollama Cloud-Signin (online) resultaten}
+\label{sec:ollamacloudsigninonlineresultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -189,6 +191,7 @@
 \end{minted}
 
 \section{Ollama Cloud-API (online) resultaten}
+\label{sec:ollamacloudapionlineresultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -316,6 +319,7 @@
 \end{minted}
 
 \section{Ollama AsyncClient (offline) resultaten}
+\label{sec:ollamaasyncclientofflineresultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -392,6 +396,7 @@
 \end{minted}
 
 \section{Ollama Async Generator (offline) resultaten}
+\label{sec:ollamaasyncgeneratorofflineresultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -466,6 +471,7 @@
 \end{minted}
 
 \section{Ollama Img Async Generator (offline) resultaten}
+\label{sec:ollamaimgasyncgeneratorofflineresultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -522,6 +528,7 @@
 \end{minted}
 
 \section{Ollama Localhost-API Img (offline) resultaten}
+\label{sec:ollamalocalhostapiimgofflineresultaten}
 
 \begin{listing}
     \begin{minted}{python}
@@ -622,10 +629,12 @@
 \end{minted}
 
 \section{Ollama + Tools (offline) resultaten}
+\label{sec:ollamaplustoolsofflineresultaten}
 
 Zie: \ref{sssec:ollamaplustools}
 
 \section{Ollama + JavaScript (offline) resultaten}
+\label{sec:ollamaplusjavascriptofflineresultaten}
 
 \begin{listing}
     \begin{minted}{js}
@@ -722,8 +731,10 @@ Zie: \ref{sssec:ollamaplustools}
 \end{minted}
 
 \section{LangChain}
+\label{sec:langchain2}
 
 \subsection{LangChain Eerste Code Voorbeeld}
+\label{ssec:langchaineerstecodevoorbeeld}
 
 \begin{listing}
     \begin{minted}{python}
@@ -793,15 +804,18 @@ Zie: \ref{sssec:ollamaplustools}
 Dit codefragment gebruikt ook een LLM van IBM, zij hebben een eigen custom LLM-wrapper ontwikkeld met IBM-Granite.
 
 \subsection{LangChain Verschillende use case code voorbeelden}
+\label{ssec:langchainverschusecasecodevb}
 
 \subsubsection{Code Generatie:}
+\label{sssec:codegeneratie}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{LCEL_code-generation.png}
     \caption[Code generatie AI agent met LangChain]{\label{fig:lcelcodegenlangchainagent}Code generatie AI agent met LangChain en LCEL, \autocite{IBM2026}}
 \end{figure}
 
-\textbf{Output:}
+\textbf{Output:} (Figuur~\ref{fig:lcelcodegenlangchainagent})
 \begin{minted}{markdown}
     SELECT c.name, c.email 
     FROM customers c 
@@ -830,25 +844,29 @@ Dit codefragment gebruikt ook een LLM van IBM, zij hebben een eigen custom LLM-w
 \end{minted}
 
 \subsubsection{Tekst Samenvatting:}
+\label{sssec:tekstsamenvatting}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{LCEL_tekst-samenvatting.png}
     \caption[tekst samenvatting AI agent met LangChain]{\label{fig:lceltextsummarylangchainagent}Tekst samenvatting AI agent met LangChain en LCEL, \autocite{IBM2026}}
 \end{figure}
 
-\textbf{Output:}
+\textbf{Output:} (Figuur~\ref{fig:lceltextsummarylangchainagent})
 \begin{tcolorbox}[colback=gray!20, colframe=gray!80]
 The rapid advancement of technology in the 21st century has transformed various industries, including healthcare, education, and transportation, through innovations like AI, machine learning, and the Internet of Things.
 \end{tcolorbox}
 
 \subsubsection{Tekst Classificatie:}
+\label{sssec:tekstclassificatie}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{LCEL_tekst-classificatie.png}
     \caption[tekst samenvatting AI agent met LangChain]{\label{fig:lceltextclassificationlangchainagent}Tekst classificatie AI agent met LangChain en LCEL, \autocite{IBM2026}}
 \end{figure}
 
-\textbf{Output:}
+\textbf{Output:} (Figuur~\ref{fig:lceltextclassificationlangchainagent})
 \begin{tcolorbox}[colback=gray!20, colframe=gray!80]
 Music \\
 Reasoning Skill: \\
@@ -861,9 +879,10 @@ The reasoning skill for this question is Emotion Recognition And Sentiment Analy
 In volgend demo's is een poging ondernomen om met het ophalen van documenten te werken met LangChain.
 
 \subsubsection{Document-Loaders}
+\label{sssec:documentloaders}
 % langchain_document_loaders.png
 
-Er wordt een initiele poging gedaan om de Open Api Specification (OAS) als document in te laden en met een langchain\_community package dat toelaat informatie vanop een website op te halen. De structuur van deze ingeladen document wordt vervolgens onder de loep genomen.
+Er wordt een initiele poging gedaan om de Open Api Specification (OAS) als document in te laden en met een langchain\_community package dat toelaat informatie vanop een website op te halen. De structuur van deze ingeladen document wordt vervolgens onder de loep genomen (Figuur~\ref{fig:langchaindocumentloaders}).
 
 \begin{figure}[H]
     \centering
@@ -913,9 +932,10 @@ Dit werkte nog redelijk goed, maar er is gekozen eerst verder te gaan naar het o
 
 
 \subsubsection{Retrievers}
+\label{sssec:retrievers}
 %langchain_retrievers.png
 
-Hier zien we een mogelijke uitwerking van retrievers, gelijkaardig aan RAG in het opzicht dat er uit een opslag van data gezocht wordt naar context relevant aan de query, maar hier is het niet ophalen van relevante data uit eigen bronnen, maar bepaalde bronnen op het internet. Deze demo maakt ook nog gebruik van LCEL (LangChain expression language). Maar zoals in de comment-blokken al laat doorschijnen werkten deze demo's niet, er zijn 2 verschillende retrievers van info, WikipediaRetriever en AmazonKendraRetriever. Voor beide waren er credentials nodig die men niet perse wou vrijmaken om deze demo uit te werken. Er gaat namelijk echt geld ter verspilling bij het gebruiken van LLM-API-calls. Er werden wel OPENAI\_API\_KEY en LANGSMITH\_API\_KEY in de environment ingeladen om alsnog te proberen. LangSmith is ook nog verbonden aan LangChain. Voorlopig zijn er geen plannen om dit verder te onderzoeken.
+Hier zien we een mogelijke uitwerking van retrievers (Figuur~\ref{fig:langchainretrievers}), gelijkaardig aan RAG in het opzicht dat er uit een opslag van data gezocht wordt naar context relevant aan de query, maar hier is het niet ophalen van relevante data uit eigen bronnen, maar bepaalde bronnen op het internet. Deze demo maakt ook nog gebruik van LCEL (LangChain expression language). Maar zoals in de comment-blokken al laat doorschijnen werkten deze demo's niet, er zijn 2 verschillende retrievers van info, WikipediaRetriever en AmazonKendraRetriever. Voor beide waren er credentials nodig die men niet perse wou vrijmaken om deze demo uit te werken. Er gaat namelijk echt geld ter verspilling bij het gebruiken van LLM-API-calls. Er werden wel OPENAI\_API\_KEY en LANGSMITH\_API\_KEY in de environment ingeladen om alsnog te proberen. LangSmith is ook nog verbonden aan LangChain. Voorlopig zijn er geen plannen om dit verder te onderzoeken.
 
 \begin{figure}[H]
     \centering
@@ -924,14 +944,15 @@ Hier zien we een mogelijke uitwerking van retrievers, gelijkaardig aan RAG in he
 \end{figure}
 
 \section{LlamaIndex}
+\label{sec:llamaindex2}
 
 \subsection{Multi-Agent Workflow met LlamaIndex}
 \label{ssec:multiagentworkflowmetllamaindex}
 % Hier zal een demo getoond worden gebruikemakend van LlamaIndex, zie ref-llamaindex voor info over die framework, hier zullen we kort uitleggen wat deen multi-agent workflow inhoud, toolgebruik, agent-autonomie van beslissingen ameken (handoff), API calls, agentworkflow(kan ook met 1 agent), maar maakt mogeliyk een reeks agents in te stellen -> zie llamaindex workspace file 92, dit is een voorbeeld dat veel tokens kost om te draaien, research -> write -> review, interne werking staat uit comment, de normale uitvoer staat in comment, dit staat ook online op huggingface spaces maar werkt minder goed in die online omgeving als hier als py file op de lokale machine, tavily web-search tool with it's own api
 
-Volgend demo maakt gebruik van LlamaIndex \ref{sec:llamaindex} en is een voorbeeld van een multi-agent workflow. Er worden tools gebruikt, API-calls gemaakt en agents kunnen beslissingen maken zoals het wel of niet overhandigen van een afgewerkte taak aan een volgend agent(handoff). AgentWorkflow maakt het mogelijk om meerdere agents die ook over hun eigen tools beschikken te laten samenwerken. Workflows kunnen ook werken wanneer men maar 1 agent meegeeft. De Tavily web-zoek API wordt gebruikt in deze demo met eigen API-key. \\
+Volgend demo maakt gebruik van LlamaIndex \ref{sec:llamaindex} en is een voorbeeld van een multi-agent workflow. Er worden tools gebruikt, API-calls gemaakt en agents kunnen beslissingen maken zoals het wel of niet overhandigen van een afgewerkte taak aan een volgend agent (handoff). AgentWorkflow maakt het mogelijk om meerdere agents die ook over hun eigen tools beschikken te laten samenwerken. Workflows kunnen ook werken wanneer men maar 1 agent meegeeft. De Tavily web-zoek API wordt gebruikt in deze demo met eigen API-key. \\
 
-Deze demo maakt ook gebruik van het Generator $\rightarrow$ Evaluator (ook wel Generator $\rightarrow$ Optimizer) patroon, zie sectie: \ref{sssec:evaluatoroptimizerpattern}. De normale uitvoer staat in de main() functie in commentaar en de uitgebreide informatie wordt uitgeprint in de terminal. Vervolgens bekijken we de demo-code en uitleg bij de code:
+Deze demo maakt ook gebruik van het Generator $\rightarrow$ Evaluator (ook wel Generator $\rightarrow$ Optimizer) patroon, zie Sectie: Evaluator-Optimizer Pattern (\ref{sssec:evaluatoroptimizerpattern}). De normale uitvoer staat in de main() functie in commentaar en de uitgebreide informatie wordt uitgeprint in de terminal. Vervolgens bekijken we de demo-code en uitleg bij de code (Figuur~\ref{fig:llamaindexmultiagentworkflow1}; Figuur~\ref{fig:llamaindexmultiagentworkflow2}; Figuur~\ref{fig:llamaindexmultiagentworkflow3}; Figuur~\ref{fig:llamaindexmultiagentoutput1}; Figuur~\ref{fig:llamaindexmultiagentoutput2}):
 
 % dit is ook een voorbeeld van: generator -> evaluator pipeline -> my research - write and review agents
 
@@ -955,7 +976,7 @@ Deze demo maakt ook gebruik van het Generator $\rightarrow$ Evaluator (ook wel G
 
 \textbf{Uitleg bij de code:} API-keys worden klaargezet, de Tavily web-zoek API wordt gebruikt in deze demo. De gebruikte tools worden als asynchrone functies gedefinieerd, met elk een interne docstring dat de agents helpt bepalen of de tool nodig zal zijn voor het afhandelen van een gekregen taak. Een workflow context object is beschikbaar als parameter bij de verschillende tools dit maakt het mogelijk voor de agents om van een gedeeld state te lezen en schrijven dat enkel beschikbaar is tijdens deze workflow. \\
 
-De agents worden gedefinieerd, ze krijgen een naam, systeem prompt, LLM en tools. Deze krijgen ook een description(omschrijving), dit is vooral nodig voor agent-orchestratie binnen de workflow, dit kan de workflow helpen bepalen naar welke agent de taak gestuurd(ge-rout) wordt. Can\_handoff\_to is een lijst van agents waaraan de output van een agent kan overhandigd worden, merk op dat de write\_agent kan kiezen tussen 2 verschillende agents. De keuze om output naar een volgende agent te sturen ligt deels bij de agent en deels bij de workflow (A:can\_handoff\_to \& WF: description + routing). \\
+De agents worden gedefinieerd, ze krijgen een naam, systeem prompt, LLM en tools. Deze krijgen ook een description (omschrijving), dit is vooral nodig voor agent-orchestratie binnen de workflow, dit kan de workflow helpen bepalen naar welke agent de taak gestuurd (ge-rout) wordt. Can\_handoff\_to is een lijst van agents waaraan de output van een agent kan overhandigd worden, merk op dat de write\_agent kan kiezen tussen 2 verschillende agents. De keuze om output naar een volgende agent te sturen ligt deels bij de agent en deels bij de workflow (A:can\_handoff\_to \& WF: description + routing). \\
 
 Vervolgens wordt de AgentWorkflow gedefinieerd dat de verzameling van agents bevat, een root\_agent dat als eerste aan het werk zal gaan alsook de state dat zal aangepast worden door de verschillende agents. Uiteindelijk zal bij aanroep van deze workflow de interne werking uitgeprint worden, afhankelijk van type event, waarbij deze demo inzicht geeft over de interne werking van de agents. Het deel code dat in commentaar staat is de normale output dat nu niet zal getoond worden. (multi-agent workflows kunnen mogelijks veel tokens gebruiken) \\
 

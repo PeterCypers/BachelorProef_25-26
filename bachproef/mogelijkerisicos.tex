@@ -6,10 +6,10 @@
 
 % -> zoek nl - titel (Evolving AI Field)
 \section{Evoluerend AI-vakgebied}
-
+\label{sec:evoluerendaivakgebied}
 De wereld van AI-technologie is razendsnel aan het veranderen en is constant in flux. Wanneer men zelf code wil integreren in projecten/producten zal er rekening moeten gehouden met het feit dat de implementatie regelmatig zal aangepast moeten worden, de verschillende bestaande frameworks zijn regelmatig aan het evolueren. \\
 
-De bestaande methodes veranderen, de API aanroepen eveneens. Het is een snel veranderende industrie. %todo: beter word?  and find more examples or stories
+De bestaande methodes en API-aanroepen veranderen voortdurend. De AI-landschap verandert snel. \\ %t'do: beter word?  and find more examples or stories
 
 LangChain werd volledig hernieuw, nieuwe integraties en collaboraties springen voort. Ollama was nog in versie 0.13 toen dit onderzoek begon, de 0.15 update heeft grote veranderingen meegebracht op vlak van integratie van andere technologieën, op het moment van schrijven zitten ze aan 0.18 en telkens brengen deze updates meer opties en integraties met zich mee. \\
 
@@ -17,8 +17,8 @@ Als men vast hangt aan de technieken van maanden geleden zal men de verbeterde k
 
 Wanneer bedrijven willen werken met custom AI-integraties kunnen ze best ervan bewust blijven dat er mensen zullen moeten ingezet worden op deze infrastructuur te onderhouden. 
 
-%todo: consider to keep this, or improve/source
-%Het is mischien iets minder het geval wanneer men bepaalde technologieen gebruikt in plaats van deze zelf te implementeren. De onderhoud is out-sourced.
+%t'do: consider to keep this, or improve/source
+%Het is misschien iets minder het geval wanneer men bepaalde technologieen gebruikt in plaats van deze zelf te implementeren. De onderhoud is out-sourced.
 
 \begin{comment}
     DREIGINGEN INHERENT IN LLMs
@@ -109,7 +109,7 @@ Wanneer bedrijven willen werken met custom AI-integraties kunnen ze best ervan b
 
 Er is een serieus gevaar dat met de sterke algemene kennis waarover LLMs beschikken er alsmaar sneller security vulnerabilities worden gevonden, zoals zero-day exploits. Met de opkomst van Claude Mythos werd de AI-security innitiatief Project Glasswing gelanceerd \autocite{Anthropic}. Dit nieuw LLM heeft al verscheidene kwetsbaarheden ontdekt in software dat al jarenlang op de markt is, het wordt almaar duidelijker dat cybersecurity experts voor grote uitdagingen zullen komen te staan in de nabije toekomst. Anthropic zal dit nieuwste en sterkste Claude model niet direct openbaar maken voor het wijde publiek, maar wil dit eerst met een beperkte groep software bedrijven delen en zelf ook verdedigingen opbouwen om zich klaar te stellen tegen de mogelijke onvoorziene aanvals capaciteiten van dit nieuw model. Deze Claude Mythos dat heel sterk scoort op codeer-benchmarks zou heel sterk kunnen zijn bij zowel de aanvallende als verdedigend kant van cybersecurity. \\
 
-Er is een legitiem zorg bij tech-bedrijven dat hun eigen code zal gebruikt worden om AI te trainen, in vele gevallen is deze zorg gerechtvaardigd, initieel werd AI getrained op grote hoeveelheden internet scraped data en GitHub zelf heeft eigen AI-coding agent GitHub Copilot getraind op publieke open-source repositories \autocite{Claburn2022}. In een recente aankondiging deelt Github ook mee dat de code waarmee GitHub Copilot werkt zal gebruikt worden om op te training tenzij gebruikers een 'opt-out' doen, dat wil zeggen de feature afzetten, maar het zal standaard aan staan \autocite{Rodriguez2026}. Dit is ook het geval met OpenAI's ChatGPT, deze zal standaard gebruiker input gebruiken als toekomstig AI-trainingsdata, tenzij de feature wordt afgezet('opt-out') door de gebruiker. \\
+Er is een legitiem zorg bij tech-bedrijven dat hun eigen code zal gebruikt worden om AI te trainen, in vele gevallen is deze zorg gerechtvaardigd, initieel werd AI getrained op grote hoeveelheden internet scraped data en GitHub zelf heeft eigen AI-coding agent GitHub Copilot getraind op publieke open-source repositories \autocite{Claburn2022}. In een recente aankondiging deelt Github ook mee dat de code waarmee GitHub Copilot werkt zal gebruikt worden om op te training tenzij gebruikers een 'opt-out' doen, dat wil zeggen de feature afzetten, maar het zal standaard aan staan \autocite{Rodriguez2026}. Dit is ook het geval met OpenAI's ChatGPT, deze zal standaard gebruiker input gebruiken als toekomstig AI-trainingsdata, tenzij de feature wordt afgezet ('opt-out') door de gebruiker. \\
 
 Er wordt nu wel een onderscheid gemaakt tussen normale, pro en enterprise abonnementen, op enterprise code zal niet getraind worden, volgens github \autocite{Rodriguez2026}. \\
 
@@ -126,10 +126,12 @@ AI kan gevoelige trainings-data en secrets lekken. Ongeoorloofd gebruik van AI k
 
 
 \subsection{Don't Trust, Verify}
+\label{ssec:donttrustverify}
 % don't just accept AI-output, always check if it's correct
 LLMs hebben een groote verzameling van kennis en zeker bij het coderen kunnen ze helpen bij het invullen van 'knowledge gaps' maar men kan soms heel wat tijd verliezen met debuggen wanneer ze code produceren dat mogelijks kan werken maar niet toepasselijk is binnen het huidige systeem, verouderd of niet performant is. Het inzetten van AI voor productie van boilerplate, herhalen van repetitieve structuren, het helpen met gevonden bugs of review van code. Maar bevestig telkens door vergelijking met de officiele doccumentatie, gelijkaardige implementaties in dezelfde code-base, feedback van senior developers dat de AI-aanbevolen code implementatie klopt. \\
 
 \subsubsection{Shit goes in, Shit comes out}
+\label{sssec:shitgoesinshitcomesout}
 Kwaliteit van gegenereerde output heeft een direct verband met de data waarop het model is getraind, als we ervan uitgaan dat een normaal distributie van betrouwbaarheid van de verzamelde data, of kwaliteit van code waarop is getraind kunnen we ervan uitgaan dat er gemiddeld of lager dan gemiddelde kwaliteit kan gegenereerd worden. De verwachtingen waren hoog bij de voorlopers van AI, waar men er namelijk van uit ging dat AI-systemen vooral expertenkennis zou bevatten \autocite{ComputerChronicles1984}.
 
 \section{Model Cutoff datums}
@@ -143,17 +145,18 @@ Wanneer recente kennis nodig is kan men best een relatief nieuw LLM gebruiken en
 
 Dit zal één van de uitdagingen blijven voor de AI bedrijven, het constant opnieuw trainen, en up-to-date houden van de informatie waarover hun modellen beschikken. \\
 
-Er is ook sprake van synthetische data dat ingezet kan worden bij het trainen van generatieve AI modellen, een techniek dat ze bij Nvidia gebruiken wanneer het moeilijk wordt om originele data te verkrijgen is Synthetic Data Generation(SDG) \autocite{Nvidia}.
+Er is ook sprake van synthetische data dat ingezet kan worden bij het trainen van generatieve AI modellen, een techniek dat ze bij Nvidia gebruiken wanneer het moeilijk wordt om originele data te verkrijgen is Synthetic Data Generation (SDG) \autocite{Nvidia}.
 % https://www.nvidia.com/en-us/glossary/synthetic-data-generation/
 
 \section{Hallucinaties}
+\label{sec:hallucinaties}
 AI kan antwoorden verzinnen. \\
 Wanneer een chatbot antwoord vol overtuiging lijkt dit op het eerste zicht plausibel maar wanneer dit antwoord achteraf toch geen bron van waarheid blijkt te hebben noemt men dit hallucineren. 
 %TODO: re-write this section with better sources -> data quality
 AI trainingsdata is vaak afkomstig van diverse online beschikbare bronnen van uiteenlopende kwaliteit, dus AI beschikt over 'kennis' dat niet honderd procent betrouwbaar is, mogelijks gaat het over foutieve informatie of een subjectieve meningen van de auteur. \\
 
 %model training problems
-GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin ze incentief krijgen om toch een antwoord te geven(een gok wagen) ook als ze het niet weten, dat scoort beter op de tests die ze moeten maken \autocite{Varanasi2025}. Tijdens een interactie met ChatGPT heeft de gebruiker heel weinig kans om "ik weet het niet" als antwoord te krijgen. Dit kan expliciet als systeem prompt meegegeven worden aan het model bij prompt-engineering. Wanneer in een systeem bericht aan de AI werd meegegeven om aan te geven wanneer een antwoord niet is geweten, dan pas zal dit gebeuren, maar dit is niet standaard gedrag, vaak zal iets verzonnen worden. Wanneer er enig twijfel is over een antwoord van AI kan dit nog eens opnieuw worden gevraagd, een tweede mening van een andere AI chatbot, verifiëren aan de hand van andere, niet-AI bronnen en als dit niet mogelijk is, het antwoord als verkeerd/onbruikbaar beschouwen.
+GPT (languit: Generative Pretrained Transformer) modellen doorstaan pre-training waarin ze incentief krijgen om toch een antwoord te geven (een gok wagen) ook als ze het niet weten, dat scoort beter op de tests die ze moeten maken \autocite{Varanasi2025}. Tijdens een interactie met ChatGPT heeft de gebruiker heel weinig kans om "ik weet het niet" als antwoord te krijgen. Dit kan expliciet als systeem prompt meegegeven worden aan het model bij prompt-engineering. Wanneer in een systeem bericht aan de AI werd meegegeven om aan te geven wanneer een antwoord niet is geweten, dan pas zal dit gebeuren, maar dit is niet standaard gedrag, vaak zal iets verzonnen worden. Wanneer er enig twijfel is over een antwoord van AI kan dit nog eens opnieuw worden gevraagd, een tweede mening van een andere AI chatbot, verifiëren aan de hand van andere, niet-AI bronnen en als dit niet mogelijk is, het antwoord als verkeerd/onbruikbaar beschouwen.
 
 % https://www.businessinsider.com/why-ai-chatbots-hallucinate-openai-chatgpt-anthropic-claude-2025-9
 
@@ -169,7 +172,7 @@ GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin z
 %SelfCheckGPT -> to try and counter hallucinations
 
 
-%todo: where does this(below) segment fit? marktonderzoek is more things that I'm trying out and comparing... does it go in discussie or Risico's or something else?
+%t'do: where does this(below) segment fit? marktonderzoek is more things that I'm trying out and comparing... does it go in discussie or Risico's or something else?
 \begin{comment}
     title(subject to change): Nvidia, markt leider
     % see Nvidia : Semester_2\Bachelor Proef\Look into\Nvidia -> samenwerking NVidia en OpenAI
@@ -191,21 +194,25 @@ GPT (Generative Pretrained Transformer) modellen doorstaan pre-training waarin z
 
 
 \subsection{Attention}
+\label{ssec:attention}
 % attention is all you need
+
+% LLM attention layer
 
 % recente doorbraak:
 % https://youtu.be/2IfAVV7ewO0?si=9X9LSEyMvZNiyZmk
 % https://arxiv.org/abs/2603.15031
 % Attention Residuals
 
-% TODO: read and see if it sounds good
+% T'DO: read and see if it sounds good
 Hoe langer de context wordt, hoe meer kans op hallucinaties, het Kimi-AI team maakte hier recent nog een doorbraak in verbeteringen van model architectuur om dit probleem te helpen oplossen. Met de paper: \autocite{Kimi2026} gebruiken ze 'attention residuals' en maken grote vooruitgang om het probleem rond hallucinaties op te lossen. 
 
 \section{Overwegingen bij het maken van AI-geïntegreerde projecten}
+\label{sec:overwegingenbijhetmakenvanaigeintegreerdeprojecten}
 % j J
 
 \subsection{Rate Limiting}
-
+\label{ssec:ratelimiting}
 Er moet een zekere overzicht en controle blijven op het gebruik van LLMs op de input en output token-gebruik, mogelijks moet men hier bepaalde limieten op zetten om de kosten voor het gebruik van de zekere service te beperken, of zeker niet de controle te verliezen. Net zoals code-efficiëntie (vb.: lussen binnen lussen) kan het voorvallen dat er gelijkaardige problemen zich voor doen bij het werken met LLMs. Hoe vaak wordt de context meegestuurd? Hoe veel tokens is dit telkens per prompt binnen een bepaalde sessie. Hebben de gebruikte tools/context gebruik en internet zoekfunctionaliteiten een heel groot aantal tokens nodig. De verscheidene kosten per input-/output token kunnen verschillen afhankelijk van de gekozen provider. Bij het gebruiken van LLMs in code is er een paramater, namelijk: "context\_window" waarmee er een limiet kan gezet worden op de hoeveelheid context dat er gebruikt wordt, zie onderstaande code fragment: \ref{lst:rate_limiting_code}.
 
 
@@ -226,16 +233,18 @@ Er moet een zekere overzicht en controle blijven op het gebruik van LLMs op de i
     \label{lst:rate_limiting_code}
 \end{listing}
 
-Verschillende soorten rate limiting kunnen ingesteld worden afhankelijk van AI-provider, vaak heel uitgebreid controle is mogelijk, we zien bijvoorbeeld met Claude\footnote{\href{https://platform.claude.com/docs/en/api/rate-limits}{https://platform.claude.com/docs/en/api/rate-limits}} AI RPM(Maximum Requests per Minuut); ITPM(Maximum Input Tokens per Minuut); OTPM(Maximum Output Tokens per Minuut). Prompt caching is mogelijk zodat voor gelijkaardige prompts de gecachete data gebruikt wordt en dus minder tokens nodig zijn.
+Verschillende soorten rate limiting kunnen ingesteld worden afhankelijk van AI-provider, vaak heel uitgebreid controle is mogelijk, we zien bijvoorbeeld met Claude\footnote{\href{https://platform.claude.com/docs/en/api/rate-limits}{https://platform.claude.com/docs/en/api/rate-limits}} AI RPM (Maximum Requests per Minuut); ITPM (Maximum Input Tokens per Minuut); OTPM (Maximum Output Tokens per Minuut). Prompt caching is mogelijk zodat voor gelijkaardige prompts de gecachete data gebruikt wordt en dus minder tokens nodig zijn.
 
 %https://platform.claude.com/docs/en/api/rate-limits
 
 \subsection{MLOPS}
+\label{ssec:mlops}
 % Coursera course 1, mod3, vid2: 5:30 -> operationalizing AI-powered applications MLOPS
 
 Net zoals we DEVOPS kennen bestaat er ook MLOPS, experts en teams die de taak van het deployen en continu onderhouden van AI-gedreven applicaties op zich nemen.
 
 \subsection{Benchmarking}
+\label{ssec:benchmarking}
 % gebruikte modellen regelmatig vergelijken met andere modellen. sterktes en zwaktes van verschillende modellen voor de nodige use-case(s) waarvoor ze worden gebruikt aftoetsen. Mogelijks moeten gebruikte LLMs geupdate worden naar een nieuwere versie, of zal er overwogen worden om over te stappen op een andere LLM omdat deze voor de relevante benchmaarks hoger scoort dan de gebruikte LLM.
 Vergelijk gebruikte modellen regelmatig met gelijkaardige of sterkere LLMs, zoek de nieuwste benchmarks op en bereid je voor om gebruikte modellen te veranderen of upgraden. Verschillende LLMs zijn sterker voor bepaalde toepassingen. Op het moment van schrijven blijft https://artificialanalysis.ai/ een degelijke bron van informatie om LLMs te vergelijken.
 
@@ -244,6 +253,7 @@ Vergelijk gebruikte modellen regelmatig met gelijkaardige of sterkere LLMs, zoek
 Dit concept werd besproken in sectie: PoLP (\ref{sec:principleofleastprivilege}).
 
 \subsection{Self-Consistency}
+\label{ssec:selfconsistency}
 % https://www.promptingguide.ai/techniques/consistency
 % chatGPT giving 2 different responses and asking which one the user prefers
 % look more into -> it's a way to keep the AI honest, it's a self-check, I think a self-check can be built into the AI somehow

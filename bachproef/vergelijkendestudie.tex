@@ -5,16 +5,16 @@
 \label{ch:vergelijkende-studie}
 
 Er wordt gezocht binnen het AI-landschap naar de meest passende kandidaat die zal dienen als AI agent. Er zal geëxperimenteerd worden met allerlei verschillende AI-tools, technieken, frameworks en technologieën.
-%todo: nog verder uitwerken
+%todo: nog verder uitwerken (misschien herbekijken)
 
 \section{Ollama}%
 \label{sec:Ollama}
 
-Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}, van het gelijknamig bedrijf, is een gratis open-source software dat het gebruik van LLMs vereenvoudigt. Deze software maakt het mogelijk om LLMs te downloaden op een lokaal machine zodat ze ook offline kunnen draaien. De software  behandelt de achterliggende complexiteit grotendeels zelf af, dus deze moet eerst geïnstalleerd zijn om met de gedownloade modellen te kunnen werken.\\
+Ollama\footnote{\href{https://ollama.com/}{https://ollama.com/}}, van het gelijknamig bedrijf, is een gratis open-source software dat het gebruik van LLMs vereenvoudigt. Deze software maakt het mogelijk om LLMs te downloaden op een lokale machine zodat ze ook offline kunnen draaien. De software  behandelt de achterliggende complexiteit grotendeels zelf, dus deze moet eerst geïnstalleerd zijn om met de gedownloade modellen te kunnen werken.\\
 
-In dit tabel\ref{tab:populaireollamallms} staan de meest gedownloade LLMs aangeboden door  \autocite{Ollama}. Deze nummers waren correct bij het maken van de tabel op 23-12-2025. De "b" naast het getal in de kolom "grootte", staat voor billion (miljard) en stelt het aantal parameters van het model voor. Aantal pulls is hoe vaak deze LLMs zijn gedownload met de commando: "ollama pull <modelnaam>" (voor Ollama commando's, zie \ref{sssec:ollamacliandcommandos})
+In Tabel~\ref{tab:populaireollamallms} staan de meest gedownloade LLMs aangeboden door  \autocite{Ollama}. Deze nummers waren correct bij het maken van de tabel op 23-12-2025. De "b" naast het getal in de kolom "grootte", staat voor billion (miljard) en stelt het aantal parameters van het model voor. Aantal pulls is hoe vaak deze LLMs zijn gedownload met het commando: "ollama pull <modelnaam>" (voor Ollama commando's, zie Sectie: Ollama CLI \& Commando's \ref{sssec:ollamacliandcommandos})
 
-%todo: how do I reference scraped data from a webpage?
+%t'do: how do I reference scraped data from a webpage?
 \begin{table}[H]
     \centering
     \begin{tabular}{lcr}
@@ -49,13 +49,13 @@ In dit tabel\ref{tab:populaireollamallms} staan de meest gedownloade LLMs aangeb
 Er werden een aantal LLMs gekozen om bepaalde functionaliteiten uit te testen zowel offline als online (in de cloud). De keuze werd beinvloed door een paar factoren, namelijk: populariteit, kenmerken en grootte.
 Het werken met de LLMs gebeurde op computer A met specificaties:
 \begin{itemize}
-    \item[] \textbf{Compter A:} Lenovo Ideapad 3
+    \item \textbf{Compter A:} Lenovo Ideapad 3
     \item \textbf{Opslag:} 1 TerraByte
     \item \textbf{Processor:} AMD Ryzen 7 5700U with Radeon Graphics
     \item \textbf{RAM:} 16.0 GB (13.8 GB bruikbaar)
     \item \textbf{Besturingssysteem:} Windows 11 Home
 \end{itemize}
-Er werd een voorkeur gegeven aan modellen van een beperkte grootte die het gebruik van tools toelieten en ook cloud-modellen. Computer A heeft een beperkte hoeveelheid beschikbare RAM(random-access memory) of werkgeheugen. LLMs nemen heel wat RAM in beslag omdat ze in het werkgeheugen worden ingeladen om in werking te kunnen treden.%todo: bewijs nodig?)
+Er werd een voorkeur gegeven aan modellen van een beperkte grootte die het gebruik van tools toelieten en ook cloud-modellen. Computer A heeft een beperkte hoeveelheid beschikbare RAM (languit: random-access memory) of werkgeheugen. LLMs nemen heel wat RAM in beslag omdat ze in het werkgeheugen worden ingeladen om in werking te kunnen treden.%t'do: bewijs nodig?)
 
 \subsection{RAM Vereisten van Offline LLMs}
 \label{ssec:ramvereistenofflinellms}
@@ -68,9 +68,9 @@ Bijvoorbeeld heeft gpt-oss:120b 80GB RAM nodig om vlot te werken, volgens de rel
     "The weights for both gpt-oss-120b and gpt-oss-20b are freely available for download on Hugging Face and come natively quantized in MXFP4. This allows for the gpt-oss-120B model to run within 80GB of memory, while gpt-oss-20b only requires 16GB."
 \end{quote}
 
-Het was niet mogelijk om een 20b(gpt-oss:20b) model te laten draaien op computer A. Door middel van Quantization \todo{link to reference} neemt gpt-oss:20b(20b $\rightarrow$ 20 miljard) parameter model 16GB RAM in beslag.  Computer A gebruikt al wat RAM om andere achtergrondprocessen te laten draaien en er blijft nadien niet meer genoeg om modellen van deze grootte in te laden. \\
+Het was niet mogelijk om een 20b (gpt-oss:20b) model te laten draaien op computer A. Door middel van Quantization (\ref{sssec:quantization}) neemt gpt-oss:20b (20b $\rightarrow$ 20 miljard) parameter model 16GB RAM in beslag.  Computer A gebruikt al wat RAM om andere achtergrondprocessen te laten draaien en er blijft nadien niet meer genoeg om modellen van deze grootte in te laden. \\
 
-Figuur \ref{fig:ollamaram} toont een piek van RAM gebruikt bij het lokaal draaien van qwen3-vl:8b op Computer A. Ollama zorgt ervoor dat de machine nooit meer dan de beschikbare RAM zal gebruiken bij het runnen van een lokale LLM, in Ollama-CLI zal er een foutboodschap getoond worden dat aangeeft hoeveel het tekort aan resources bedraagt. Dit is ook hoe er geweten is dat model gpt-oss:20b niet kan draaien op Computer A. Ook bij het gebruik van de Ollama App, of Ollama Code zal het runnen van de LLM onderbroken worden als er andere processen zorgen voor een cumulatief teveel aan RAM-gebruik. Wanneer een LLM aan het runnen is blijft die gedurende 5 minuten ingeladen als achtergrond proces(ollama ps). Wanneer tijdens deze periode een ander model opgestart wordt. Ollama ondersteunt twee lopende LLMs tegelijkertijd\footnote{\href{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}}, wanneer het systeem genoeg beschikbare werk geheugen heeft zal de nieuwe LLM ook opgestart worden, anders zal het eerder opgestarte model afgesloten worden door Ollama (ollama stop <modelnaam>) om genoeg RAM vrij te maken voor de nieuwe opstart.
+Figuur~\ref{fig:ollamaram} toont een piek van RAM gebruikt bij het lokaal draaien van qwen3-vl:8b op Computer A. Ollama zorgt ervoor dat de machine nooit meer dan de beschikbare RAM zal gebruiken bij het runnen van een lokale LLM, in Ollama-CLI zal er een foutboodschap getoond worden die aangeeft hoeveel het tekort aan resources bedraagt. Dit is ook hoe er geweten is dat model gpt-oss:20b niet kan draaien op Computer A. Ook bij het gebruik van de Ollama App, of Ollama Code zal het runnen van de LLM onderbroken worden als er andere processen zorgen voor een cumulatief teveel aan RAM-gebruik. Wanneer een LLM aan het runnen is blijft die gedurende 5 minuten ingeladen als achtergrond proces (ollama ps). Wanneer tijdens deze periode een ander model opgestart wordt. Ollama ondersteunt twee lopende LLMs tegelijkertijd\footnote{\href{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}}, wanneer het systeem genoeg beschikbaar werk geheugen heeft zal de nieuwe LLM ook opgestart worden, anders zal het eerder opgestarte model afgesloten worden door Ollama (ollama stop <modelnaam>) om genoeg RAM vrij te maken voor de nieuwe opstart.
 
 
 \begin{figure}[H]
@@ -82,9 +82,9 @@ Figuur \ref{fig:ollamaram} toont een piek van RAM gebruikt bij het lokaal draaie
 \subsubsection{Geheugen op de schijf}
 \label{sssec:geheugenopdeschijf}
 
-Als men LLMs op de lokale machine willen gebruiken moet de opslag van deze ook in rekening gebracht worden, hoe groter de LLM, hoe meer schijfruimte deze zal innemen, als men kiest voor een groot model bijvoorbeeld gpt-oss:120b\footnote{\href{https://ollama.com/library/gpt-oss}{https://ollama.com/library/gpt-oss}} zal deze 65 GigaByte schijfruimte in beslag nemen. Dit is nog haalbaar, nogmaals door middel van Quantization \todo{link to reference in aienllms chapter}. Men zal eerder tegen een RAM-vereisten muur(\ref{ssec:ramvereistenofflinellms}) oplopen dan een opslag-vereisten muur.
+Als men LLMs op de lokale machine wil gebruiken moet de opslag van deze ook in rekening gebracht worden, hoe groter de LLM, hoe meer schijfruimte deze zal innemen, als men kiest voor een groot model bijvoorbeeld gpt-oss:120b\footnote{\href{https://ollama.com/library/gpt-oss}{https://ollama.com/library/gpt-oss}} zal deze 65 GigaByte schijfruimte in beslag nemen. Dit is nog haalbaar, nogmaals door middel van Quantization (Sectie: Quantization\ref{sssec:quantization}). Men zal eerder tegen een RAM-vereisten muur (Sectie: RAM Vereisten \ref{ssec:ramvereistenofflinellms}) oplopen dan een opslag-vereisten muur.
 
-Het volgende tabel bevat de LLMs
+Tabel~\ref{tab:gekozenollamallms} bevat de LLMs
 \footnote{\href{https://ollama.com/library/llava:7b}{https://ollama.com/library/llava:7b}}
 \footnote{\href{https://ollama.com/library/gemma3:4b}{https://ollama.com/library/gemma3:4b}}
 \footnote{\href{https://ollama.com/library/gpt-oss:120b-cloud}{https://ollama.com/library/gpt-oss:120b-cloud}}
@@ -110,11 +110,11 @@ gpt-oss:20b**           & 14  GB    &    Tools + Cloud + "thinking" \\
 \end{table}
 
 
-*: De 'latest' van gemma3 is een 4b parameter model genaamd 'gemma3:4b'. Dit model zal gebruikt worden in de tests met gemma3, maar omdat deze bij installatie werd installeert met commando: \textit{ollama run gemma3:latest} is dit op Computer A de alias geworden van gemma3:4b.
+*: De 'latest' van gemma3 is een 4b parameter model genaamd 'gemma3:4b'. Dit model zal gebruikt worden in de tests met gemma3, maar omdat deze bij installatie werd geïnstalleerd met commando: \textit{ollama run gemma3:latest} is dit op Computer A de alias geworden van gemma3:4b.
 
-**: gpt-oss:20b werd initieel geinstalleerd op Computer A, maar kon niet gebruikt worden vanwege RAM-restricties en werd snel verwijdert om schijfruimte vrij te maken (ollama rm <modelnaam>).
+**: gpt-oss:20b werd initieel geinstalleerd op Computer A, maar kon niet gebruikt worden vanwege RAM-restricties en werd snel verwijderd om schijfruimte vrij te maken (ollama rm <modelnaam>).
 
-De standaard lokaties waar Ollama LLMs op een Windows machine bewaart zijn:
+De standaard lokaties waar Ollama LLMs op een Windows machine bewaard zijn:
 
 \begin{itemize}
     \item \textbf{Lokaal LLM}: \verb|C:\Users\peter\.ollama\models\blobs|
@@ -122,41 +122,46 @@ De standaard lokaties waar Ollama LLMs op een Windows machine bewaart zijn:
 \end{itemize}
 
 In het geval van de Lokale LLM wordt een sha256 file (dat gigabytes groot kan zijn) bewaard, bij de cloud modellen worden die op LLM-naam > LLM-versie bewaard en dit zijn manifest files die zo ~1kb plaats innemen.
-Bij bovenstaand voorbeeld is het: gpt-oss(foldernaam) > 120b-cloud(filenaam)
+Bij bovenstaand voorbeeld is het: gpt-oss (foldernaam) > 120b-cloud (filenaam)
 
 \subsection{Ollama LLM Kenmerken en Functionaliteiten}
 \label{ssec:ollamallmkenmerkenenfunctionaliteiten}
 
 \subsubsection{Multimodal LLM (MLLM)}
-Multimodal LLMs zijn modellen die meerdere soorten data tegelijk kunnen verwerken, naast tekst ook afbeeldingen, geluid of video. \autocite{Varughese}
-De gebruikte vision modellen(llava, qwen3-vl, gemma3) zijn per definitie ook multimodal.
+\label{sssec:multimodalllmmllm}
+Multimodale LLMs zijn modellen die meerdere soorten data tegelijk kunnen verwerken, naast tekst ook afbeeldingen, geluid of video. \autocite{Varughese}
+De gebruikte vision modellen (llava, qwen3-vl, gemma3) zijn per definitie ook multimodaal.
 
-%todo: check output of ollama show gemma3 -> explain things like 
+%t'do: check output of ollama show gemma3 -> explain things like 
 
 \subsubsection{Vision}
-De beschikbare vision LLMs bij Ollama zijn multimodal LLMs die ook afbeeldingen kunnen interpreteren.
+\label{sssec:vision2}
+De beschikbare vision LLMs bij Ollama zijn multimodale LLMs die ook afbeeldingen kunnen interpreteren.
 
 \subsubsection{Cloud}
-De Cloud modellen van Ollama staan ons het gebruik toe van grote LLMs met "datacenter-grade hardware" die te groot zijn om op een lokaal machine te laten draaien. Ollama's cloud houdt je data ook niet bij, dit verzekert je privacy en security. \autocite{Ollama2025} \\
+\label{sssec:cloud}
+De Cloud modellen van Ollama staan ons het gebruik toe van grote LLMs met "datacenter-grade hardware" die te groot zijn om op een lokale machine te laten draaien. Ollama's cloud houdt je data ook niet bij, dit verzekert je privacy en security. \autocite{Ollama2025} \\
 
-Lokaal geïnstalleerde LLMs hebben een onbeperkt gebruik, de cloud modellen hebben een gebruikslimiet. Zie figuur \ref{fig:ollamacloudlimieten}.
+Lokaal geïnstalleerde LLMs hebben een onbeperkt gebruik, de cloud modellen hebben een gebruikslimiet. Zie Figuur \ref{fig:ollamacloudlimieten}.
 
 \subsubsection{Thinking}
-De gebruiker ziet voor de eigenlijke output eerst het denkproces van de LLM te zien en krijgt daarmee inzicht van wat in de opgebouwde context heeft geleid tot die antwoord. Modellen zoals gpt-oss:20b-cloud hebben deze feature, men krijgt inzicht tot de model zijn chain-of-thaught \footnote{\href{https://ollama.com/library/gpt-oss:20b-cloud}{https://ollama.com/library/gpt-oss:20b-cloud}}.
+\label{sssec:thinking}
+De gebruiker krijgt voor de eigenlijke output eerst het denkproces van de LLM te zien en krijgt daarmee inzicht van wat in de opgebouwde context heeft geleid tot dat antwoord. Modellen zoals gpt-oss:20b-cloud hebben deze feature, men krijgt inzicht tot het model zijn chain-of-thought \footnote{\href{https://ollama.com/library/gpt-oss:20b-cloud}{https://ollama.com/library/gpt-oss:20b-cloud}}.
 
-Met Ollama CLI is het denken voorgesteld op hetzelfde manier als het eigenlijke antwoord, maar in het grijs afgebeeld, terwijl het geconcludeerde antwoord volgt, in het wit.
+Met Ollama CLI is het denken voorgesteld op dezelfde manier als het eigenlijke antwoord, maar in het grijs afgebeeld, terwijl het geconcludeerde antwoord volgt, in het wit.
 
-Standaard gedrag van qwen3-vl:8b is dat het denk proces eerst uitgeprint wordt vooraleer een echt antwoord wordt weergegeven. Qwen3-vl:8b-instruct is een variant die ter beschikking wordt gesteld als work-around\footnote{\href{https://github.com/ollama/ollama/issues/12907\#issuecomment-3478500546}{https://github.com/ollama/ollama/issues/12907\#issuecomment-3478500546}} omdat het afzetten van qwen3-vl zijn denk proces niet meer werkt met het meegeven van een extra parameter bij het prompten via de Ollama CLI(command line interface) commando's.
+Standaard gedrag van qwen3-vl:8b is dat het denk proces eerst uitgeprint wordt vooraleer een echt antwoord wordt weergegeven. Qwen3-vl:8b-instruct is een variant die ter beschikking wordt gesteld als work-around\footnote{\href{https://github.com/ollama/ollama/issues/12907\#issuecomment-3478500546}{https://github.com/ollama/ollama/issues/12907\#issuecomment-3478500546}} omdat het afzetten van qwen3-vl zijn denk proces niet meer werkt met het meegeven van een extra parameter bij het prompten via de Ollama command line interface (CLI) commando's.
 
 \subsubsection{Tools}
-Het oproepen van externe resources zoals het web browsen om informatie te zoeken, functies oproepen, "python tool calls" en het genereren van gestructureerde output(JSON, CSV, MD, etc.), kort gezegd, "Agentic capabilities" \footnote{\href{https://ollama.com/library/gpt-oss}{https://ollama.com/library/gpt-oss}}.
+\label{sssec:tools}
+Het oproepen van externe resources zoals het web browsen om informatie te zoeken, functies oproepen, "python tool calls" en het genereren van gestructureerde output (JSON, CSV, MD, etc.), kort gezegd, "Agentic capabilities" \footnote{\href{https://ollama.com/library/gpt-oss}{https://ollama.com/library/gpt-oss}}.
 
 \subsection{Interacties met Ollama}
 \label{ssec:interactiesmetollama}
 
-Bij lokaal geïnstalleerde LLMs is het gebruik ongelimiteerd, maar bij de cloud modellen moet er rekening gehouden worden met de aantal gebruikte tokens. Het kost geld om LLMs te laten draaien \todo{zie hoofdstuk Tokens \& Pricing}  \\ 
+Bij lokaal geïnstalleerde LLMs is het gebruik ongelimiteerd, maar bij de cloud modellen moet er rekening gehouden worden met het aantal gebruikte tokens. Het kost geld om LLMs te laten draaien, zie Sectie: Pricing (\ref{sec:pricing}). \\ 
 
-Gebruikers van LLMs die in de cloud draaien kunnen hun resterend krediet vaak online raadplegen bij de provider van die bepaalde service. Bij Ollama ziet dit er zo uit:
+Gebruikers van LLMs die in de cloud draaien kunnen hun resterend krediet vaak online raadplegen bij de provider van die bepaalde service. Bij Ollama ziet dit er zo uit: (Figuur~\ref{fig:ollamacloudlimieten}).
 
 \begin{figure}[H]
     \centering
@@ -169,12 +174,12 @@ Wat volgt zijn drie manieren om Ollama te gebruiken:
 \subsubsection{Ollama API}
 \label{sssec:ollamaapi}
 
-Ollama heeft een gereserveerd poortnummer(11434) waarmee verbonden kan worden gebruikmakend van TCP(Transmission Control Protocol)\footnote{\href{https://en.wikipedia.org/wiki/List\_of\_TCP\_and\_UDP\_port\_numbers}{https://en.wikipedia.org/wiki/List\_of\_TCP\_and\_UDP\_port\_numbers}} met de bijschrift: "Ollama to run LLM locally". Deze API kan gebruikt worden zonder internet verbinding.
+Ollama heeft een gereserveerd poortnummer (11434) waarmee verbonden kan worden gebruikmakend van Transmission Control Protocol (TCP)\footnote{\href{https://en.wikipedia.org/wiki/List\_of\_TCP\_and\_UDP\_port\_numbers}{https://en.wikipedia.org/wiki/List\_of\_TCP\_and\_UDP\_port\_numbers}} met het bijschrift: "Ollama to run LLM locally". Deze API kan gebruikt worden zonder internet verbinding.
 
 De Ollama API endpoints\footnote{\href{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}{https://github.com/ollama/ollama/blob/main/docs/faq.mdx}} die aangeroepen kunnen worden met API-requests zijn:
 \begin{itemize}
     \item \textbf{http://localhost:11434/api/generate}: Generate wordt gebruikt om een bepaald LLM een eenmalige prompt te sturen.
-    \item \textbf{http://localhost:11434/api/chat}: Chat wordt gebruikt om meerdere vragen(prompts) na elkaar te kunnen stellen aan een bepaald LLM.
+    \item \textbf{http://localhost:11434/api/chat}: Chat wordt gebruikt om meerdere vragen (prompts) na elkaar te kunnen stellen aan een bepaald LLM.
 \end{itemize}
 
 Deze API zal verschillende keren gebruikt worden bij \ref{ssec:ollamametcode}.
@@ -183,7 +188,7 @@ Hiervoor zullen we wat code nodig hebben van \autocite{OllamaApi}.
 \subsubsection{Ollama GUI}
 \label{sssec:ollamagui}
 
-Als we op Computer A windows zoeken naar Ollama vinden we de gelijknamige App. Bij het opstarten biedt deze een GUI aan dat goed lijkt op gekende internet browser interfaces van online LLMs zoals die van chatgpt.com en claude.ai, onder anderen. Een sober design met als focus de prompt input om een vraag aan de LLM te stellen.
+Als we op Computer A windows zoeken naar Ollama vinden we de gelijknamige App (Figuur~\ref{fig:ollamagui}). Bij het opstarten biedt deze een GUI aan dat goed lijkt op gekende internet browser interfaces van online LLMs zoals die van chatgpt.com en claude.ai, onder anderen. Een sober design met als focus de prompt input om een vraag aan de LLM te stellen.
 
 \begin{figure}[H]
     \centering
@@ -191,28 +196,28 @@ Als we op Computer A windows zoeken naar Ollama vinden we de gelijknamige App. B
     \caption[Ollama GUI]{\label{fig:ollamagui}De Ollama App + GUI.}
 \end{figure}
 
-Er kan een LLM gekozen worden om mee te communiceren, maar eerst moet die gedownload worden, dit kan wat tijd duren en er is bij de GUI geen feedback te zien over het download proces, dus men kan niet gemakkelijk zien wanneer het downloaden klaar is. De CLI download commando's (ollama pull <modelnaam> \& ollama run <modelnaam>) worden daarom verkozen om de gekozen LLM te downloaden vooraleer deze te gebruiken met de GUI. \\
+Er kan een LLM gekozen worden om mee te communiceren, maar eerst moet die gedownload worden (Figuur~\ref{fig:ollamagui}), dit kan wat tijd duren en er is bij de GUI geen feedback te zien over het download proces, dus men kan niet gemakkelijk zien wanneer het downloaden klaar is. De CLI download commando's (ollama pull <modelnaam> \& ollama run <modelnaam>) worden daarom verkozen om de gekozen LLM te downloaden vooraleer deze te gebruiken met de GUI. \\
 
-De GUI bevat features die we kennen van online LLM browser schermen, er wordt per nieuwe chat sessie een titel gekozen en aan de linker kant van het scherm is een lijst beschikbaar van verleden conversaties met de daarbij horende chat geschiedenis. Men kan kiezen om een gekozen chat opnieuw verder te zetten waardoor die chatgeschiedenis zal gebruikt worden als context. De chat(meerdere na elkaar prompts vs. één enkele prompt = "generate") feature is het gemakkelijkst te bekomen via de GUI. Er kan gemakkelijk een afbeelding worden toegevoegd aan de context en internet opzoekingen kunnen ook geactiveerd/gedeactiveerd worden. In de LLM select lijst ziet men onder anderen de beschikbare cloud modellen en een lijst van lokale LLMs, waarbij een download pijl staat als ze nog niet op de machine staan. Zoals eerder vermeld, dit is niet aan te raden. De GUI is heel gebruiksvriendelijk, maar heeft als nadeel dat men geen toegang heeft tot de code om bijvoorbeeld nieuwe tool-gebruik te introduceren.
+De GUI bevat features die we kennen van online LLM browser schermen, er wordt per nieuwe chat sessie een titel gekozen en aan de linker kant van het scherm is een lijst beschikbaar van verleden conversaties met de daarbij horende chat geschiedenis. Men kan kiezen om een gekozen chat opnieuw verder te zetten waardoor die chatgeschiedenis zal gebruikt worden als context. De chat (meerdere na elkaar prompts vs. één enkele prompt = "generate") feature is het gemakkelijkst te bekomen via de GUI. Er kan gemakkelijk een afbeelding worden toegevoegd aan de context en internet opzoekingen kunnen ook geactiveerd/gedeactiveerd worden. In de LLM select lijst ziet men onder anderen de beschikbare cloud modellen en een lijst van lokale LLMs, waarbij een download pijl staat als ze nog niet op de machine staan. Zoals eerder vermeld, dit is niet aan te raden. De GUI is heel gebruiksvriendelijk, maar heeft als nadeel dat men geen toegang heeft tot de code om bijvoorbeeld nieuw tool-gebruik te introduceren.
 
-\subsubsection{Ollama CLI \& Commandos}
+\subsubsection{Ollama CLI \& Commando's}
 \label{sssec:ollamacliandcommandos}
 
-De CLI kan aangesproken worden vanuit een Windows cmd omgeving of powershell omgeving. Het is ook aangeraden om in de CLI een lokaal LLM te downloaden omdat de download-progressie ook wordt afgebeeld. Hier volgen een aantal nuttige commando's\footnote{\href{https://docs.ollama.com/cli}{https://docs.ollama.com/cli}} om via de CLI LLMs(lokaal en cloud) te gebruiken. \\
+De CLI kan aangesproken worden vanuit een Windows cmd omgeving of power-shell omgeving. Het is ook aangeraden om in de CLI een lokaal LLM te downloaden omdat de download-progressie ook wordt afgebeeld. Hier volgen een aantal nuttige commando's\footnote{\href{https://docs.ollama.com/cli}{https://docs.ollama.com/cli}} om via de CLI LLMs (lokaal en cloud) te gebruiken. \\
 
 \begin{itemize}
     \item \textbf{ollama --version}: Hiermee controleren we de installatie van de Ollama software
     \item \textbf{ollama pull <modelnaam>}: Downloadt een LLM.
-    \item \textbf{ollama run <modelnaam>}: Start een LLM op, waarna je automatisch in een chatvenster zit om ermee te communiceren. Als de LLM nog niet gedownload is zal deze commando de LLM downloaden.
-    \item \textbf{/bye}: Deze input zal de chatvenster met de LLM verlaten, men kan ook "ctrl + d" in typen om hetzelfde te bekomen.
+    \item \textbf{ollama run <modelnaam>}: Start een LLM op, waarna je automatisch in een chatvenster zit om ermee te communiceren. Als de LLM nog niet gedownload is zal dit commando de LLM downloaden.
+    \item \textbf{/bye}: Deze input zal het chatvenster met de LLM verlaten, men kan ook "ctrl + d" in typen om hetzelfde te bekomen.
     \item \textbf{ctrl + c}: Onderbreken van een LLM-output.
     \item \textbf{ollama stop <modelnaam>}: Stopt een draaiende LLM.
     \item \textbf{ollama ls}: Geeft een lijst weer van geïnstalleerde LLMs (of cloud-manifesten) en hoeveel ruimte ze op de machine gebruiken.
     \item \textbf{ollama ps}: Toont de actieve LLM proces(sen).
-    \item \textbf{ollama show <modelnaam>}: Geeft wat info over een bepaald model (architectuur, parameters, context lengte, embedding lengte, quantizatie methode, temperatuur(0|1), top\_k, top\_p)
+    \item \textbf{ollama show <modelnaam>}: Geeft wat info over een bepaald model (architectuur, parameters, context lengte, embedding lengte, quantizatie methode, temperatuur (0|1), top\_k, top\_p)
     \item \textbf{"""}: Start/einde van een multi-line input.
      \item \textbf{ollama rm <modelnaam>}: Verwijdert een LLM van de harde schijf.
-     \item \textbf{ollama signin}: Hiermee wordt een link uitgeprint, wanneer deze gevolgd wordt zal de computer verbonden worden met de Ollama account, deze device is nu gekoppeld aan de account. Dit is een manier om cloud modellen te mogen gebruiken(een andere manier is met een API-key).
+     \item \textbf{ollama signin}: Hiermee wordt een link uitgeprint, wanneer deze gevolgd wordt zal de computer verbonden worden met de Ollama account, deze device is nu gekoppeld aan de account. Dit is een manier om cloud modellen te mogen gebruiken (een andere manier is met een API-key).
      \item \textbf{ollama signout}: De computer loskoppelen van de Ollama account.
 \end{itemize}
 
@@ -230,24 +235,24 @@ Ollama CLI kan om met afbeeldingen, achter de schermen wordt deze geconverteerd 
     \caption[Ollama CLI PS]{\label{fig:ollamaactieveprocessen}Ollama CLI actieve LLMs.}
 \end{figure}
 
-Met bovenstaande afbeelding is te zien dat actieve LLMs als processen weergegeven en ook dat ze standaard 5 minuten in leven worden gehouden, wanneer een nieuw LLM zou opgestart worden binnen deze tijds venster zal de actieve LLM eerst afgesloten worden als er niet genoeg RAM is om meerdere LLMs tegelijk te laten draaien. %todo: heb ik ergens vermeld dat meerdere LLMs niet kunnen draaien? -> ze kunnen wel, "ollama ps" kan meerdere processen tonen
+In bovenstaande Figuur~\ref{fig:ollamaactieveprocessen} is te zien dat actieve LLMs als processen weergegeven en ook standaard 5 minuten in leven worden gehouden, wanneer een nieuw LLM zou opgestart worden binnen dit tijds venster zal de actieve LLM eerst afgesloten worden als er niet genoeg RAM is om meerdere LLMs tegelijk te laten draaien. %t'do: heb ik ergens vermeld dat meerdere LLMs niet kunnen draaien? -> ze kunnen wel, "ollama ps" kan meerdere processen tonen
 
 \subsubsection{Ollama met Code}
 \label{sssec:ollamametcode}
 
-Een derde manier om via Ollama te verbinden met LLMs is door dit te integreren in een codebase, zie \ref{ssec:ollamametcode}
+Een derde manier om via Ollama te verbinden met LLMs is door dit te integreren in een codebase, zie Sectie: Ollama met Code \& Tijds-Controle (\ref{ssec:ollamametcode}).
 
 \subsection{Ollama met Code \& Tijds-Controle}
 \label{ssec:ollamametcode}
 
-Nu dat we zeker drie manieren kennen om te communiceren met Ollama LLMs is er een vergelijkende test gedaan op vlak van efficiëntie, gemeten in snelheid van response in seconden bij de verschillende manieren van werken met de LLMs. Tussen elke test werd de Bash commando 'Ollama stop <llm-naam>' gebruikt zodat de opstart tijd van de LLM ook meegerekend werd. 
+Nu dat we zeker drie manieren kennen om te communiceren met Ollama LLMs is er een vergelijkende test gedaan op vlak van efficiëntie, gemeten in snelheid van response in seconden bij de verschillende manieren van werken met de LLMs. Tussen elke test werd het Bash commando 'Ollama stop <llm-naam>' gebruikt zodat de opstart tijd van de LLM ook meegerekend werd. 
 Bij onderstaande code fragmenten wordt er vermeld als ze offline of online moeten gebruikt worden. Wanneer het online is betekent dit dat deze methode van communiceren met de LLM een internet verbinding nodig heeft. Voor deze tests werd python versie 3.12.9 gebruikt. \\
 
-Een test met de \textit{qwen3-vl:8b-instruct} model, dit is een variant van de \textit{qwen3-vl:8b} LLM die het denk proces niet zal weergeven in de output. Dat tonen van het denk proces vertraagt namelijk de response tijd aanzienlijk en in sommige gevallen, zoals bij moeilijkere vragen of een lange chatsessie kan de LLM vastlopen. \\
+Een test met het \textit{qwen3-vl:8b-instruct} model, dit is een variant van de \textit{qwen3-vl:8b} LLM die het denk proces niet zal weergeven in de output. Dat tonen van het denk proces vertraagt namelijk de response tijd aanzienlijk en in sommige gevallen, zoals bij moeilijkere vragen of een lange chatsessie kan de LLM vastlopen. \\
 
 Eerst werd de Ollama\footnote{\href{https://ollama.com/download}{https://ollama.com/download}} software op Computer A gedownload. \\
 
-Om de LLM te gebruiken moest deze eerst op de lokale machine Computer A aanwezig zijn. Dit werd gedownload naar Computer A met volgende Bash commando:
+Om de LLM te gebruiken moest deze eerst op de lokale machine Computer A aanwezig zijn. Dit werd gedownload naar Computer A met volgend Bash commando:
 \textit{ollama pull qwen3-vl:8b-instruct}
 
 Het downloaden van een LLM kan wat tijd in beslag nemen, dit zijn volledige LLMs, in dit voorbeeld \textit{qwen3-vl:8b-instruct} neemt 6.1GB schijfruimte in. \\
@@ -257,7 +262,7 @@ Het downloaden van een LLM kan wat tijd in beslag nemen, dit zijn volledige LLMs
 
 Deze methode gebruikt ChatResponse van Ollama om met een gegeven vraag een antwoord te verkrijgen. Deze methode heeft een ongelukkige naam gekregen, er kan hiermee verbonden worden met een cloud LLM, maar de Ollama package moet geïnstalleerd zijn in python. De test wordt gedaan met een lokaal geïnstalleerde LLM.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-lokaal-test} hier zien we de input, code en output van de test.
+De test werd gedaan met het codefragment: \ref{lst:ollama-lokaal-test} hier zien we de input, code en output van de test.
 
 \subsubsection{Ollama Cloud-Signin (online)}
 \label{sssec:ollamacloudsignin}
@@ -269,10 +274,10 @@ Voorbereiding op de test:
     \item Er werd een Ollama account aangemaakt.
     \item Bash commando: \textit{ollama signin} genereerde een link.
     \item Deze link werd gevolgd om Computer A te verbinden met de Ollama account.
-    \item Deze bash commando werd uitgevoerd: \textit{ollama pull gpt-oss:120b-cloud}.
+    \item Dit bash commando werd uitgevoerd: \textit{ollama pull gpt-oss:120b-cloud}.
 \end{enumerate}
 
-In tegenstelling tot de lokale modellen wordt er bij de cloud varianten geen schijfruimte op de gebruikte machine ingenomen, in plaats daarvan wordt een manifest met metadata over het model bijgehouden, bijvoorbeeld als het bash commando: \textit{ollama pull qwen3-vl:235b} wordt ingegeven in de terminal zal niet op het lokaal systeem een ontzettend groot LLM met 235 miljard parameters gedownload worden, maar in de plaats daarvan zal een 'manifest' gecreëerd worden dat slechts enkele bytes op de schijf nodig heeft. Zie figuur \ref{fig:cloud_manifest} \\
+In tegenstelling tot de lokale modellen wordt er bij de cloud varianten geen schijfruimte op de gebruikte machine ingenomen, in plaats daarvan wordt een manifest met metadata over het model bijgehouden, bijvoorbeeld als het bash commando: \textit{ollama pull qwen3-vl:235b} wordt ingegeven in de terminal zal niet op het lokaal systeem een ontzettend groot LLM met 235 miljard parameters gedownload worden, maar in de plaats daarvan zal een 'manifest' gecreëerd worden dat slechts enkele bytes op de schijf nodig heeft. Zie Figuur~\ref{fig:cloud_manifest}. \\
 
 \begin{figure}[H]
     \centering
@@ -280,54 +285,54 @@ In tegenstelling tot de lokale modellen wordt er bij de cloud varianten geen sch
     \caption[Ollama Cloud model manifest download]{\label{fig:cloud_manifest}De terminal output bij het downloaden van een Ollama cloud LLM.}
 \end{figure}
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-signin-test} hier zien we de input, code en output van de test. \\
+De test werd gedaan met het codefragment: \ref{lst:ollama-cloud-signin-test} hier zien we de input, code en output van de test. \\
 
 \subsubsection{Ollama Cloud-API (online)}
 \label{sssec:ollamacloudapi}
 
-Deze methode vereist dat er bij de provider (Ollama) een account aangemaakt is en dat een API-key gegenereerd wordt. Dit zal gebruikt worden voor autorisatie van de gebruiker bij het verbinden met een bepaald cloud LLM en zal ook het gebruik ervan bijhouden, er is een gelimiteerd gebruik afhankelijk van betalingsplan, in dit geval gaat het om een gratis plan. Zie figuur \ref{fig:ollamacloudlimieten}. Het gebruik van een API-key of access token is een veelgebruikte manier om cloud-LLMs te gebruiken. %todo: give some examples of llms that a api-key or access token is used
+Deze methode vereist dat er bij de provider (Ollama) een account aangemaakt is en dat een API-key gegenereerd wordt. Dit zal gebruikt worden voor autorisatie van de gebruiker bij het verbinden met een bepaald cloud LLM en zal ook het gebruik ervan bijhouden, er is een gelimiteerd gebruik afhankelijk van betalingsplan, in dit geval gaat het om een gratis plan. Zie figuur \ref{fig:ollamacloudlimieten}. Het gebruik van een API-key of access token is een veelgebruikte manier om cloud-LLMs te gebruiken. %t'do: give some examples of llms that a api-key or access token is used
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-cloud-api-test} hier zien we de input, code en output van de test.
+De test werd gedaan met het codefragment: \ref{lst:ollama-cloud-api-test} hier zien we de input, code en output van de test.
 
 \subsubsection{Ollama AsyncClient (offline)}
 \label{sssec:ollamaasyncclient}
 
 Deze methode gebruikt ollama AsyncClient en zorgt ervoor dat de communicatie met een gekozen LLM geen blokkerende actie is, dus de code kan verder terwijl de chat in een zij-proces bezig is, we zien bij het uitvoeren van deze test dat "after async function call" in de output verschijnt voor dat een antwoord wordt getoond.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-asyncclient-test} hier zien we de input, code en output van de test.
+De test werd gedaan met het codefragment: \ref{lst:ollama-asyncclient-test} hier zien we de input, code en output van de test.
 
 \subsubsection{Ollama Async Generator (offline)}
 \label{sssec:ollamaasyncgenerator}
 
-Net zoals bij \ref{sssec:ollamaasyncclient} wordt hier AsyncClient gebruikt, maar in plaats van de response van de LLM in één keer af te printen gaan we stukje per stukje de output weergeven, dus voor de gebruiker geeft dit de indruk dat de LLM aan het typen is. Op deze manier krijgt de gebruiker sneller feedback dan bij alles in één uitprint-methoden.
+Net zoals bij \ref{sssec:ollamaasyncclient} wordt hier AsyncClient gebruikt, maar in plaats van de response van de LLM in één keer af te printen gaan we stukje per stukje de output weergeven, dus voor de gebruiker geeft dit de indruk dat de LLM aan het typen is. Op deze manier krijgt de gebruiker sneller feedback dan bij alles in één uitprint-methode.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-async-generator-test} hier zien we de input, code en output van de test.
+De test werd gedaan met het codefragment: \ref{lst:ollama-async-generator-test} hier zien we de input, code en output van de test.
 
 \subsubsection{Ollama Img Async Generator (offline)}
 \label{sssec:ollamaimgasyncgenerator}
 
-Bij het gebruiken van de CLI kan Ollama omgaan met een absoluut pad naar de afbeelding, wanneer we zelf code schrijven om een vraag aan de LLM te stellen dat een afbeelding gebruikt moeten we deze zelf eerst omzetten naar base64-decoded tekst, dus eerst encoderen dan weer decoderen\footnote{\href{https://www.geeksforgeeks.org/python/python-convert-image-to-string-and-vice-versa/}{https://www.geeksforgeeks.org/python/python-convert-image-to-string-and-vice-versa/}} naar unicode standaard UTF-8\footnote{\href{https://en.wikipedia.org/wiki/UTF-8}{https://en.wikipedia.org/wiki/UTF-8}}, dit is wat de LLM als data verwacht om de foto te kunnen analyseren. \\
+Bij het gebruiken van de CLI kan Ollama omgaan met een absoluut pad naar de afbeelding, wanneer we zelf code schrijven om een vraag aan de LLM te stellen die een afbeelding gebruikt moeten we deze zelf eerst omzetten naar base64-decoded tekst, dus eerst encoderen dan weer decoderen\footnote{\href{https://www.geeksforgeeks.org/python/python-convert-image-to-string-and-vice-versa/}{https://www.geeksforgeeks.org/python/python-convert-image-to-string-and-vice-versa/}} naar unicode standaard UTF-8\footnote{\href{https://en.wikipedia.org/wiki/UTF-8}{https://en.wikipedia.org/wiki/UTF-8}}, dit is wat de LLM als data verwacht om de foto te kunnen analyseren. \\
 
-Het inladen van een afbeelding neemt altijd meer tijd dan wanneer enkel een text vraag gesteld wordt. Een base64 afbeelding is een zeer lange string van tekst dat allemaal verwerkt moet worden door de LLM. \\ %todo: see Tokens \& context window
+Het inladen van een afbeelding neemt altijd meer tijd dan wanneer enkel een tekst vraag gesteld wordt. Een base64 afbeelding is een zeer lange string van tekst die allemaal verwerkt moet worden door de LLM. \\ %t'do: see Tokens \& context window
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-img-async-generator-test} hier zien we de input, code en output van de test.
+De test werd gedaan met het codefragment: \ref{lst:ollama-img-async-generator-test} hier zien we de input, code en output van de test.
 
 \subsubsection{Ollama Localhost-API Img (offline)}
 \label{sssec:ollamalocalhostapi}
 
-In deze methode wordt de Ollama API aangesproken met een multimodal model \todo{link to segment where I discus multimodal models} die ook in de Ollama API docs wordt aangeraden: llava. Er kunnen meerdere geëncodeerde afbeeldingen mee gestuurd worden. In de code is er een soort controle mechanisme gemaakt voor wanneer de gekozen model nog niet zou gedownload(geïnstalleerd) zijn. Als gekozen model nog niet in de lijst staat wordt die gedownload. Dit is echter geen al te goede oplossing want er is weer geen feedback te zien van de download-progressie. We zien enkel dat de terminal bezet is met iets. \\
+In deze methode wordt de Ollama API aangesproken met een multimodal model (zie Sectie: MLLM \ref{sssec:multimodalllmmllm}) die ook in de Ollama API docs wordt aangeraden: llava. Er kunnen meerdere geëncodeerde afbeeldingen mee gestuurd worden. In de code is er een soort controle mechanisme gemaakt voor wanneer het gekozen model nog niet zou gedownload (geïnstalleerd) zijn. Als gekozen model nog niet in de lijst staat wordt het gedownload. Dit is echter geen al te goede oplossing want er is weer geen feedback te zien van de download-progressie. We zien enkel dat de terminal bezet is met iets. \\
 
 De structuur van response die terugkeert van de API is nogal omslachtig.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-localhost-api-img-test} hier zien we de input, code en output van de test.
+De test werd gedaan met het codefragment: \ref{lst:ollama-localhost-api-img-test} hier zien we de input, code en output van de test.
 
 \subsubsection{Ollama + Tools (offline)}
 \label{sssec:ollamaplustools}
 
-In dit voorbeeld hebben we als tools functies die aangeroepen kunnen worden wanneer de gebruikers invoer hints bevat dat de LLM overtuigt dat er een tool kan gebruikt worden om te helpen met het antwoorden van de gestelde vraag. De LLM zal deze tool(functie) aanbieden met de correcte parameter(s).
+In dit voorbeeld hebben we als tools functies die aangeroepen kunnen worden wanneer de gebruikers invoer hints bevat dat de LLM overtuigt dat er een tool kan gebruikt worden om te helpen met het antwoorden van de gestelde vraag. De LLM zal deze tool (functie) aanbieden met de correcte parameter(s).
 
-Voor het gebruiken van tools hebben we ook de Ollama API nodig: zie \ref{sssec:ollamaapi}
-De test werd gedaan met de codefragment: \ref{lst:ollama-tools-test} hier zien we de input, code en output van de test.
+Voor het gebruiken van tools hebben we ook de Ollama API nodig: zie Sectie: Ollama API (\ref{sssec:ollamaapi}).
+De test werd gedaan met het codefragment: \ref{lst:ollama-tools-test} hier zien we de input, code en output van de test.
 
 \begin{listing}
     \begin{minted}{python}
@@ -513,7 +518,7 @@ Er werd eerst een \textbf{gemakkelijke vraag} gesteld waarvoor er geen tool besc
     Response tijd in seconden: 50.35526 
 \end{minted}
 
-De \textbf{standaard vraag} werd gesteld. De LLM stelde vast dat er geen tool gebruik nodig was en beantwoord de vraag zonder een hulpfunctie aan te bieden.
+De \textbf{standaard vraag} werd gesteld. De LLM stelde vast dat er geen tool gebruik nodig was en beantwoordde de vraag zonder een hulpfunctie aan te bieden.
 
 \textbf{Vraag B:} 'Why is the sky blue?'
 
@@ -542,16 +547,16 @@ Indien er een vraag gesteld werd waarbij een hulpfunctie kon opgeroepen worden, 
 
 Communiceren met LLMs gebruik makend van JavaScript. Bij de documentatie van Ollama vinden we dat er het meeste met python en JavaScript wordt gewerkt om de LLMs te gebruiken. Er zal nog een keuze gemaakt worden met welke taal de AI-agent zal werken bij het kiezen van Ollama.
 
-De test werd gedaan met de codefragment: \ref{lst:ollama-javascript-test} hier zien we de input, code en output van de test.
+De test werd gedaan met het codefragment: \ref{lst:ollama-javascript-test} hier zien we de input, code en output van de test.
 
-()Code in appendix)
+(Code in appendix)
 
-De output werd voorafgegaan door een waarschuwing omdat we in de runtime omgeving van Node.js een file lieten lopen dat een import nodig had, dus we hadden de Node.js runtime omgeving gebruikt om deze file buiten de web-omgeving te laten lopen. Normaal gezien draait js in een browser omgeving.
+De output werd voorafgegaan door een waarschuwing omdat we in de runtime omgeving van Node.js een file lieten lopen die een import nodig had, dus we hadden de Node.js runtime omgeving gebruikt om deze file buiten de web-omgeving te laten lopen. Normaal gezien draait js in een browser omgeving.
 
 \subsubsection{Ollama Test Conclusies}
 \label{sssec:ollamatestconclusies}
 
-Bij elke methode werd het gemiddelde response tijd gemeten, beginnend bij het invoeren van de prompt tot het afwerken en weergeven van het antwoord, eindigend waar de LLM klaar staat voor de volgende prompt.
+Bij elke methode werd de gemiddelde response tijd gemeten, beginnend bij het invoeren van de prompt tot het afwerken en weergeven van het antwoord, eindigend waar de LLM klaar staat voor de volgende prompt.
 
 %todo: (expect) Bij de kleine lokale modellen is de tijdsverschil van antwoorden eerder afhankelijk van de gekozen communicatiemethode dan de eigenschappen van de LLMs zelf
 
@@ -583,20 +588,20 @@ Bij elke methode werd het gemiddelde response tijd gemeten, beginnend bij het in
     \label{tab:ollamatijdstabel}
 \end{table}
 
-Deze tabel bevat de gebruikte methodes om te verbinden met verschillende LLMs gebruikmakend van Ollama code, vooral python, met één laatste methode die JavaScript gebruikt. Volgende kolommen, de model waarmee verbonden werd, een gebruikte resource, offline modellen kunnen werken zonder verbinding met het internet te maken, stream geeft aan of de output response van de LLM beetje bij beetje verscheen, of als het allemaal tegelijk uitgeprint werd. Laatst, de tijd is hoeveel seconden de LLM nodig had om de output volledig weer te geven. \\
+Tabel~\ref{tab:ollamatijdstabel} bevat de gebruikte methodes om te verbinden met verschillende LLMs gebruikmakend van Ollama code, vooral python, met één laatste methode die JavaScript gebruikt. Volgende kolommen, het model waarmee verbonden werd, een gebruikte resource, offline modellen kunnen werken zonder verbinding met het internet te maken, stream geeft aan of de output response van de LLM beetje bij beetje verscheen, of dat het allemaal tegelijk uitgeprint werd. Laatst, de tijd is hoeveel seconden de LLM nodig had om de output volledig weer te geven. \\
 
-De grootte(aantal tokens), of de complexiteit van een vraag en het toevoegen van resources zal een impact hebben op de tijd nodig voor de LLM om een response terug te geven, zie \todo{reference to chapter Context Window}
+De grootte (aantal tokens), of de complexiteit van een vraag en het toevoegen van resources zal een impact hebben op de tijd nodig voor de LLM om een response terug te geven, zie Sectie: Context Venster (\ref{sssec:contextvenster}).
 
-Van alle offline LLM methodes van interactie 'oogt' de async generator methode het snelste, dit omdat er meteen een output stream te zien is, dus er moet maar heel even gewacht worden om feedback te zien. Het duurt toch bijna even lang als de andere modellen eer dat het volledige antwoord als output op het scherm te zien is. Bij de offline LLMs moet men telkens een minuut of langer wachten op een response, of dit nu extra resources gebruikt of niet. \\
+Van alle offline LLM methodes van interactie 'oogt' de async generator methode het snelste, dit omdat er meteen een output stream te zien is, dus er moet maar heel even gewacht worden om feedback te zien. Het duurt toch bijna even lang als de andere modellen voor dat het volledige antwoord als output op het scherm te zien is. Bij de offline LLMs moet men telkens een minuut of langer wachten op een response, of dit nu extra resources gebruikt of niet. \\
 
 Het inladen van een afbeelding nam meer dan de helft van de tijd in beslag bij de methodes waar als resource een afbeelding meegegeven werd, de response output van de LLM die een afbeelding als input mee kreeg was relatief kort. De responses van de methodes waar geen afbeelding gebruikt werd waren relatief lang en er moest worden gewacht tot die volledige response op het scherm verscheen. Dus het gebruiken van een afbeelding, of het uitprinten van een lange uitleg zijn beiden vertragende factoren. De tijd om een response uit te printen loopt daarom wat gelijk bij alle offline modellen. Het lijkt ook zo, dat wanneer de gekozen LLM en input hetzelfde zijn, de tijd van reageren hetzelfde is voor een gestreamde response versus een alles in één response. Zie methoden: asyncclient \& async generator.\\
 
-%todo: after running all avg tests - expect when a short question that leads to tool use is asked, quick response, when the standard question is asked a: same time as other offline(non-img) LLMs or slightly longer time (because tools added to context)
+%t'do: after running all avg tests - expect when a short question that leads to tool use is asked, quick response, when the standard question is asked a: same time as other offline(non-img) LLMs or slightly longer time (because tools added to context)
 We merken bij de LLM waar een tool gebruikt werd op dat het tool gebruik de LLM niet vertraagde ten opzichte van het de methoden waar geen tool werd gebruikt. \\
 
 Bij een aantal LLMs is ervoor gekozen om de response stream parameter op false te zetten, dit was om het eenvoudiger te maken om de LLM response in de output weer te geven. \\
 
-Bij de online modellen, welke te groot zijn om op Computer A te installeren is er een aanzienlijk grote snelheidsverschil te zien met de offline modellen, dit zal vermoedelijk te wijten zijn aan de aanzienlijk grootte van die modellen en ook het feit dat ze op een sterkere machine draaien dan Computer A. \\
+Bij de online modellen, welke te groot zijn om op Computer A te installeren is er een aanzienlijk groot snelheidsverschil te zien met de offline modellen, dit zal vermoedelijk te wijten zijn aan de aanzienlijke grootte van die modellen en ook het feit dat ze op een sterkere machine draaien dan Computer A. \\
 
 Als er wordt gekozen voor Ollama om de Agent te maken, zou er bij de offline bruikbare LLMs een voorkeur zijn voor een combinatie van de methodes: async generator + tool gebruik. De redenen hiervoor zijn de snelle feedback van het direct afprinten van chunks tekst in de response stream en de mogelijkheid om tools op te roepen. Als een online methode wordt gekozen, dit ligt nog niet vast, maar de cloud-signin methode heeft een extra stap nodig om Computer A te verbinden met een Ollama account, de andere methode, verbinden met de Ollama cloud-api heeft een API sleutel nodig om de verbinding te autoriseren. Dit brengt een extra veiligheids- risico met zich mee, er moet veilig omgegaan worden met die API sleutel...
 
@@ -608,6 +613,7 @@ Belangrijker dan de snelheids- testen zijn de bruikbare codefragmenten om eventu
 Volgens een demo en creatief idee van \autocite{Galea2025} om met bash commando's gevonden string-data door te sluizen recht naar een LLM-input, iets wat zeker mogelijk is met Ollama-cli. We kunnen deze methode gebruiken om het volgende te doen:
 
 \subsubsection{Voor het maken van documentatie}
+\label{sssec:voorhetmakenvandocumentatie}
 Laat documentatie maken voor de codebase in het algemeen:
 \begin{minted}{bash}
     cat files.txt | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Generate documentation for this codebase."
@@ -619,24 +625,25 @@ Laat JSDocs maken voor elke functie in alle files met functies:
 \end{minted}
 
 \subsubsection{Om testen te schrijven}
-
+\label{sssec:omtestenteschrijven}
 Schrijf testen voor alle functies in een file:
 \begin{minted}{bash}
     find . -name 'add.js' -o -name 'test_rules.md' | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Following the test rules please generate tests for each function."
 \end{minted}
 
 \subsubsection{Om te zoeken in een groot document}
-
+\label{sssec:omtezoekenineengrootdocument}
 \begin{minted}{bash}
     find . -name 'example.md' | xargs -I {} sh -c 'echo "\n=== {} ===\n"; cat {}' | ollama run gemma3 "Prompt to gemma3: provided above is the contents of a markdown file, could you give me just the bit about dwarves?"
 \end{minted}
 
 \subsubsection{Nadelen van Naïve RAG}
-
-Dit is een grote massa ongestructureerde data en men heeft weinig controle over hoe de LLM dit zal interpreteren, het is mogelijk dat er onverwachte tekst op een raar manier zal geïnterpreteerd worden door de LLM. Met deze techniek nemen we alle gevonden tekst, plakken dit alles aan elkaar en voegen we aan het einde onze prompt toe, in de hoop dat de LLM hiermee om kan gaan. Er bestaat een kans op prompt-injection, verborgen commando's voor de LLM die meekomen met de data. Teveel token-gebruik, de documenten worden volledig ingeladen. Ook is het mogelijk dat de context-venster van de LLM oververzadigd zal zijn wat voor onverwacht gedrag kan zorgen, onder andere hallucinaties.
+\label{sssec:nadelenvannaiverag}
+Dit is een grote massa ongestructureerde data en men heeft weinig controle over hoe de LLM dit zal interpreteren, het is mogelijk dat er onverwachte tekst op een rare manier zal geïnterpreteerd worden door de LLM. Met deze techniek nemen we alle gevonden tekst, plakken dit alles aan elkaar en voegen we aan het einde onze prompt toe, in de hoop dat de LLM hiermee om kan gaan. Er bestaat een kans op prompt-injection, verborgen commando's voor de LLM die meekomen met de data. Teveel token-gebruik, de documenten worden volledig ingeladen. Ook is het mogelijk dat het context-venster van de LLM oververzadigd zal zijn wat voor onverwacht gedrag kan zorgen, onder andere hallucinaties.
 
 \subsubsection{Zelfs de groten doen dit}
-Zelfs Anthropic's Claude Sonnet 4.6 maakt gebruik van deze techniek, ja als het efficiënter is zal de LLM een slimme alternatief verkiezen in plaats van de toch iets duurdere RAG operatie.
+\label{sssec:zelfsdegrotendoendit}
+Zelfs Anthropic's Claude Sonnet 4.6 maakt gebruik van deze techniek (Figuur~\ref{fig:claudegrepinsteadofrag}), ja als het efficiënter is zal de LLM een slim alternatief verkiezen in plaats van de toch iets duurdere RAG operatie.
 
 \begin{figure}[H]
     \centering
@@ -651,11 +658,11 @@ Deze techniek heeft wel een aantal use-cases en kan zeker ingezet worden op klei
 
 \section{Omgaan met API Keys \& Secrets}
 \label{sec:omgaanmetapikeysensecrets}
-Tot nu toe werd nogal kort door de bocht gegaan met de API-sleutels. In echte projecten is het de bedoeling dat mensen niet zomaar aan een API-sleutels kunnen. Er kan best zorgvuldig mee omgesprongen worden om te vermijden dat derden toegang krijgen tot je sleutels, deze zijn al kort besproken, zie \ref{ssec:apikeys}. Als deze sleutels openbaar worden gemaakt kan iemand anders de service gebruiken zonder dat je het weet. Door de account info te controleren en verdacht gebruik vast te stellen kan men concluderen dat er een API-sleutel gelekt is. Gelukkig zijn deze gemakkelijk om aan te maken en kan er op elk moment bij twijfel een nieuw sleutel gebruikt worden. \\
+Tot nu toe werd nogal kort door de bocht gegaan met de API-sleutels. In echte projecten is het de bedoeling dat mensen niet zomaar aan API-sleutels kunnen. Er kan best zorgvuldig mee omgesprongen worden om te vermijden dat derden toegang krijgen tot je sleutels, deze zijn al kort besproken, zie Sectie: API keys (\ref{ssec:apikeys}). Als deze sleutels openbaar worden gemaakt kan iemand anders de service gebruiken zonder dat je het weet. Door de account info te controleren en verdacht gebruik vast te stellen kan men concluderen dat er een API-sleutel gelekt is. Gelukkig zijn deze gemakkelijk om aan te maken en kan er op elk moment bij twijfel een nieuwe sleutel gebruikt worden. \\
 
-Men zorg best dat API-keys nooit op code repositories terecht komen door ze te bewaren in een .env file of een andere locatie dat in de .gitignore file zit en dus niet mee op de (mogelijk) publiek beschikbare repository terecht komt. \\
+Men zorgt best dat API-keys nooit op code repositories terecht komen door ze te bewaren in een .env file of een andere locatie die in de .gitignore file zit en dus niet mee op de (mogelijk) publiek beschikbare repository terecht komt. \\
 
-De oplossing dat gebruikt werd in de komende demo's en code-fragmenten is het bewaren van de sleutels in een folder dat in de .gitignore zit en in de python demo's wordt die sleutel met een functie binnen gehaald.  \\
+De oplossing die gebruikt werd in de komende demo's en code-fragmenten is het bewaren van de sleutels in een folder die in de .gitignore zit en in de python demo's wordt die sleutel met een functie binnen gehaald.  \\
 
 Buiten een project heeft men soms geen .env file en zijn er maar losse files en folders, om in python zelf een functie vanuit een andere file te importeren moet een python file eerst als module gezien worden door je IDE. Dit kan verwezenlijkt worden door een leeg \_\_init\_\_.py file aan te maken in de folder die python files bevat waaruit functies geëxporteerd moeten worden. Nu kunnen alle functies in de folder met die init file geïmporteerd worden in de python demo's. \\
 
@@ -700,7 +707,7 @@ Bij het werken met LLMs worden API-keys ingesteld in de environment variabelen, 
 
 "LangChain is an open source orchestration framework for the development of applications using large language models (LLMs)." volgens \autocite{Bergmanna} \\
 
-Deze framework dient ervoor om het werken met LLMs te vergemakkelijken, dit maakt het mogelijk om met prompt templates te werken en een duidelijk visueel flow van data met LCEL. Ook wanneer er RAG-technieken toegepast worden geeft LangChain heel veel controle over elke stap van dit proces. \\
+Dit framework dient ervoor om het werken met LLMs te vergemakkelijken, dit maakt het mogelijk om met prompt templates te werken en een duidelijk visuele flow van data met LCEL. Ook wanneer er RAG-technieken toegepast worden geeft LangChain heel veel controle over elke stap van dit proces. \\
 
 Voor een lange uitwerking, low level, met LangChain zie deze code: \ref{lst:langchaineerstecodevoorbeeld} 
 
@@ -710,7 +717,7 @@ Voor een lange uitwerking, low level, met LangChain zie deze code: \ref{lst:lang
 
 % j
 
-LCEL staat voor LangChain Expression Language. Dit is een manier binnen LangChain om verschillende onderdelen van een AI-workflow met elkaar te verbinden. Hierbij wordt de pipe-operator | gebruikt om componenten zoals prompt templates, LLMs en output-parsers aan elkaar te koppelen.
+LCEL staat voor LangChain Expression Language. Dit is een manier binnen LangChain om verschillende onderdelen van een AI-workflow met elkaar te verbinden. Hierbij wordt de pipe-operator | gebruikt om componenten zoals prompt templates, LLMs en output-parsers aan elkaar te koppelen (Figuur~\ref{fig:lcelqalangchainagent}).
 
 (Sommige delen van de code zijn ondertussen verouderd.)
 
@@ -729,9 +736,9 @@ LCEL staat voor LangChain Expression Language. Dit is een manier binnen LangChai
 \textbf{Omschrijving van de code:} qa\_chain erft van de Runnable klasse en men kan de methode invoke aanroepen, de meegegeven parameters worden in de format\_prompt ingevuld en alle delen van de ketting worden ook met invoke() aangeroepen en krijgen de output van de vorige stap mee als argument. Elk deel van de ketting is gescheiden met pipe(|) teken, op de LCEL manier dus. \\
 
 % j
-Vervolgens kijken we naar een meer complexe uitwerking van een agent die toegang heeft tot tools.
+Vervolgens kijken we naar een meer complexe uitwerking van een agent die toegang heeft tot tools (Figuur~\ref{fig:lceltooluselangchainagent} en Figuur~\ref{fig:lceltooluselangchainagent2}).
 
-%todo: keep an eye on the positioning of the following 2 images until the end
+%t'do: keep an eye on the positioning of the following 2 images until the end
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{LangChain_Agent_Tool_Use_1.png}
@@ -782,22 +789,23 @@ Vervolgens kijken we naar een meer complexe uitwerking van een agent die toegang
 \textbf{Omschrijving van de code:} De 'Tool' import wordt niet gebruikt, dit heeft een iets meer ingewikkelde implementatie dan de gebruikte @tool annotaties. We zien het begin van hoger level agents en workflows verschijnen, de eerste wordt als variabele 'agent' gedefinieerd, we roepen een functie aan die een LLM, lijst van tools en een prompt mee krijgt. De prompt template wordt nog altijd gebruikt. De agent wordt gewrapped met een agent\_executor waarop de LCEL-invoke methode kan aangeroepen worden. Nogmaals is het belangrijk met tools om duidelijkheid te scheppen hoe ze best kunnen gebruikt worden, binnen de twee tool functies is een beknopte python documentatie geschreven dat de tool uitlegt, dit wordt door de agent gekoppeld aan de prompt van de gebruiker om te bepalen welke tool(s) wel of niet nodig zijn. Door veranderingen in het LangChain framework is deze code niet meer bruikbaar met de nieuwere versies van LangChain.
 
 \subsection{Agent-gebaseerde \& High-Level LangChain}
-
-De LangChain ecosysteem is ondertussen ge-shift, weg van LCEL composities naar een hoger niveau van abstractie om met LLMs om te gaan, namelijk in de richting van workflows, agents en agent-middleware. \\
+\label{ssec:agentgebaseerdeandhighlevellangchain}
+Het LangChain ecosysteem is ondertussen ge-shift, weg van LCEL composities naar een hoger niveau van abstractie om met LLMs om te gaan, namelijk in de richting van workflows, agents en agent-middleware. \\
 
 In september 2025 heeft LangChain de LangChain en LangGraph frameworks grotendeels herschreven en geüpdatet van versie 0.3 naar 1.0 \autocite{Lim2025}.
 
 \subsubsection{Snel Evoluerende AI Wereld}
-Net als het iteratief proces van steeds sterkere LLMs die op de wereld gelanceerd worden zijn de technologieën rond AI constant in flux. Bij het onderzoeken naar verschillende mogelijkheden voor het ontwikkelen van de AI-agent zijn de gebruikte technologieën gelijk ook aan het evolueren en aan het veranderen, de tempo is hoog en wanneer men voor een bepaald technologie heeft gekozen kan men deze best goed in de gaten houden en ontdekken welke nieuwe features allemaal beschikbaar worden. Ook regelmatig een vergelijking maken met andere opties op de markt.
+\label{sssec:snelevoluerendeaiwereld}
+Net als het iteratief proces van steeds sterkere LLMs die op de wereld gelanceerd worden zijn de technologieën rond AI constant in flux. Bij het onderzoeken naar verschillende mogelijkheden voor het ontwikkelen van de AI-agent zijn de gebruikte technologieën ook aan het evolueren en aan het veranderen, het tempo is hoog en wanneer men voor een bepaalde technologie heeft gekozen kan men deze best goed in de gaten houden en ontdekken welke nieuwe features allemaal beschikbaar worden. Ook regelmatig een vergelijking maken met andere opties op de markt.
 
 \subsubsection{LangChain Quickstart}
 \label{sssec:langchainquickstart}
 % j
-Om publiek beschikbare LLMs te kunnen gebruiken, via de API, moet men vaak eerst een account maken bij die bepaalde provider en een API-key aanmaken, dit wordt gebruikt om de gebruik van deze service en de kosten bij te houden. Voor volgende demo is er een account by Anthropic gemaakt en een waarde van €5 geïnvesteerd om een minimaal functionaliteit te kunnen uittesten. Deze demo is eveneens in python gedaan, eerst werden de nodige dependencies geïnstalleerd: "pip install -U langchain"; "pip install -U langchain-openai"; "pip install -U langchain-anthropic". \\
+Om publiek beschikbare LLMs te kunnen gebruiken, via de API, moet men vaak eerst een account maken bij die bepaalde provider en een API-key aanmaken, dit wordt gebruikt om het gebruik van deze service en de kosten bij te houden. Voor volgende demo is er een account by Anthropic gemaakt en een waarde van €5 geïnvesteerd om een minimale functionaliteit te kunnen uittesten. Deze demo is eveneens in python gedaan, eerst werden de nodige dependencies geïnstalleerd: "pip install -U langchain"; "pip install -U langchain-openai"; "pip install -U langchain-anthropic". \\
 
-Het is opvallend dat bepaalde technologieën samenwerken met AI-providers die hun eigen package hebben binnen dat ecosysteem. De demo legt ook uit dat de gebruiker best een Claude(Anthropic) account aanmaakt en een API-key verkrijgt om verder te gaan met de quickstart demo. \\
+Het is opvallend dat bepaalde technologieën samenwerken met AI-providers die hun eigen package hebben binnen dat ecosysteem. De demo legt ook uit dat de gebruiker best een Claude (Anthropic) account aanmaakt en een API-key verkrijgt om verder te gaan met de quickstart demo. \\
 
-Hieronder een foto van de demo-code: \ref{fig:langchainquickstartagent}
+Hieronder een foto van de demo-code: (Figuur~\ref{fig:langchainquickstartagent}).
 
 \begin{figure}[H]
     \centering
@@ -807,9 +815,9 @@ Hieronder een foto van de demo-code: \ref{fig:langchainquickstartagent}
 
 \textbf{Uitleg bij de code:} Dit is ineens al een high-level implementatie waarbij er meer complexe interne werking van de agent verborgen is (of weg geabstraheerd is). Nu is er een 'create\_agent' functie die een groot aantal parameters mee kan krijgen, maar waarvoor bij een minimale werking maar een klein aantal expliciet nodig zijn. We zien de LLM, een lijst van tools en een systeem prompt. \\
 
-Er is een functie(of tool) beschikbaar dat 'get\_weather' noemt met interne uitleg zodat de agent weet wanneer het relevant is om deze te gebruiken, een parameter 'city' dat kan ingevuld worden. Het feit dat de interne uitleg en parameter 'city' noemen gaan een groot invloed hebben voor de LLM om te kiezen wanneer er een gebruikers-prompt wordt ingegeven waarin de naam van een stad voorkomt. Het is soms een taak bij het ontwerpen van een AI-agent om ervoor te zorgen dat deze tools gebruikt wanneer dat nodig is. We herkennen de invoke() functie met argumenten die duidelijk maken dat dit een bericht van de gebruiker is (en niet een systeem- of AI-bericht), er is prompt templating maar in dit geval zal de agent slim genoeg moeten zijn om de stad uit het bericht te halen en zelf in te vullen in de voorziene tool. \\
+Er is een functie (of tool) beschikbaar dat 'get\_weather' noemt met interne uitleg zodat de agent weet wanneer het relevant is om deze te gebruiken, een parameter 'city' dat kan ingevuld worden. Het feit dat de interne uitleg en parameter 'city' noemen gaan een grote invloed hebben voor de LLM om te kiezen wanneer er een gebruikers-prompt wordt ingegeven waarin de naam van een stad voorkomt. Het is soms een taak bij het ontwerpen van een AI-agent om ervoor te zorgen dat deze tools gebruikt wanneer dat nodig is. We herkennen de invoke() functie met argumenten die duidelijk maken dat dit een bericht van de gebruiker is (en niet een systeem- of AI-bericht), er is prompt templating maar in dit geval zal de agent slim genoeg moeten zijn om de stad uit het bericht te halen en zelf in te vullen in de voorziene tool. \\
 
-Bij de eerste run van de demo zal het falen. Er is namelijk iets belangrijk dat ontbreekt in deze code: Authorisatie. Er is altijd een manier nodig om bij een AI-API aanroep de API-call te kunnen linken aan een gebruiker en de bijhorende kosten te traceren. \\
+Bij de eerste run van de demo zal het falen. Er is namelijk iets belangrijk dat ontbreekt in deze code: Autorisatie. Er is altijd een manier nodig om bij een AI-API aanroep de API-call te kunnen linken aan een gebruiker en de bijhorende kosten te traceren. \\
 
 Nadat er een eerste run gedaan werd in python hebben we in de visual studio code IDE een python terminal open staan met onderstaande foutboodschap: \\
 \begin{tcolorbox}[colback=gray!20, colframe=gray!80]
@@ -826,12 +834,12 @@ Deze API-key is bijna 100 tekens lang maar is ingekort om geheim te houden. Wann
 Nu kan de demo succesvol runnen, we hebben een account, zitten niet aan de AI (token-)gebruikslimiet van onze gekozen provider, gebruiken een API-key voor autorisatie en de code bevat geen fouten. Nu is er bij de output niets te zien omdat de quickstart-gids dat niet voorzien heeft in de code. Agent.invoke() is namelijk een functie met return-waarde.  \\
 
 \subsubsection{API-Key Variabelen}
-
-Dit is misschien iets terzijde, maar het is vaak het geval dat wanneer men niet in de constructie of argumenten van de AI-agent of LLM een field ziet zoals 'headers'; 'api\_key'; 'auth\_token'; 'credentials' of iets gelijkaardig de Agent of LLM zelf achterliggend bij aanroep in de environment gaat zoeken naar een zeer expliciet genaamde variabele om de autorisatie af te handelen, bij Claude(Anthropic) is dit: \textit{ANTHROPIC\_API\_KEY}
+\label{sssec:apikeyvariabelen}
+Dit is misschien iets terzijde, maar het is vaak het geval dat wanneer men niet in de constructie of argumenten van de AI-agent of LLM een field ziet zoals 'headers'; 'api\_key'; 'auth\_token'; 'credentials' of iets gelijkaardig de Agent of LLM zelf achterliggend bij aanroep in de environment gaat zoeken naar een zeer expliciet genaamde variabele om de autorisatie af te handelen, bij Claude (Anthropic) is dit: \textit{ANTHROPIC\_API\_KEY}
 
 \subsubsection{Agent output parsing}
-
-De agent.invoke() functie retourneert een dictionary (python dict) dat ontzettend veel bijkomstige informatie(of metadata) bevat, waarvan men in de eerste plaats geïnteresseerd is in wat de (user-, AI-, system-)berichten waren. De structuur van deze response is een lijst van key-value-paren waarvan de values genest kunnen zijn en ook verzamelingen of lijsten kunnen zijn. Heel gelijkaardig aan een JSON. Met de 'HumanMessage' en 'AIMessage' klassen kan er een onderscheid worden gemaakt tussen de gebruiker en AI berichten. In volgend codevoorbeeld wordt de quickstart code aangepast om de gebruiker-prompt en AI-response af te beelden in de terminal. Vorige methode van omgaan met secrets wordt trouwens opnieuw toegepast \ref{sec:omgaanmetapikeysensecrets}. Hieronder, de codefragment: \ref{fig:langchainagentoutputparsing} \\
+\label{sssec:agentoutputparsing}
+De agent.invoke() functie retourneert een dictionary (python dict) dat ontzettend veel bijkomstige informatie (of metadata) bevat, waarvan men in de eerste plaats geïnteresseerd is in wat de (user-, AI-, system-)berichten waren. De structuur van deze response is een lijst van key-value-paren waarvan de values genest kunnen zijn en ook verzamelingen of lijsten kunnen zijn. Heel gelijkaardig aan een JSON. Met de 'HumanMessage' en 'AIMessage' klassen kan er een onderscheid worden gemaakt tussen de gebruiker en AI berichten. In volgend codevoorbeeld wordt de quickstart code aangepast om de gebruiker-prompt en AI-response af te beelden in de terminal. Vorige methode van omgaan met secrets wordt trouwens opnieuw toegepast zoals in Sectie: Omgaan met API Keys \& Secrets (\ref{sec:omgaanmetapikeysensecrets}). Hieronder, het codefragment: (Figuur~\ref{fig:langchainagentoutputparsing}). \\
 
 \begin{figure}[H]
     \centering
@@ -845,16 +853,16 @@ Prompt: ['what is the weather in sf'] \\
 
 The weather in San Francisco is sunny!
 \end{tcolorbox}
-\textbf{Uitleg bij de code:} Bij deze codefragment wordt de agent.invoke() returnwaaarde opgeslagen, de Human en AI delen worden geëxtraheerd en in de output weergegeven, van de AI berichten werd enkel de laatste bericht weergegeven. Wat opvalt is dat de LLM weet dat 'sf' staat voor San Francisco. Mogelijks is er een sterkere voorspelling van amerikaanse steden dan elders in de wereld bijgebleven bij de LLM. De bedrijven die met LLMs bezig zijn zitten ook grotendeels in Amerika. \\
+\textbf{Uitleg bij de code:} Bij dit codefragment wordt de agent.invoke() returnwaaarde opgeslagen, de Human en AI delen worden geëxtraheerd en in de output weergegeven, van de AI berichten werd enkel het laatste bericht weergegeven. Wat opvalt is dat de LLM weet dat 'sf' staat voor San Francisco. Mogelijks is er een sterkere voorspelling van amerikaanse steden dan elders in de wereld bijgebleven bij de LLM. De bedrijven die met LLMs bezig zijn zitten ook grotendeels in Amerika. \\
 
 Terzijde werd even een korte test gedaan bij de input van ChatGPT. Op 'what is the weather in sf' herkende GPT-5.3 de stad San Francisco, bij de vraag 'wat is het weer in SN?' keert dit als response terug: "Als je met 'SN' het land Senegal bedoelt (vaak wordt dat als landcode gebruikt), dan is het weer...". (Eigenlijk werd met SN een 2-delig stadsnaam Sint-Niklaas bedoelt.)
 Mogelijks is er een sterkere 'named entity recognition' bij Amerikaanse stadsnamen/staten en hun afkortingen dan elders in de wereld. \\
 
-Het is vooral de kunst om met API-calls naar AI services en de structuur van terugkerende responses correct te kunnen interpreteren en verwerken dat bepaalde uitdagingen met zich mee brengt. Wat zijn de verschillende parameters, hoe kunnen ze gebruikt worden en zal de API veranderen wanneer de provider een nieuwe versie van zijn product uitrolt en hoe meer APIs of dependencies men heeft, hoe gevoeliger de gebruikte AI-agent of LLM integratie zal zijn. In dit geval hebben we LangChain en Anthropic, waarvan LangChain al een serieuze evolutie gezien heeft.
+Het is vooral de kunst om met API-calls naar AI services en de structuur van terugkerende responses correct te kunnen interpreteren en verwerken wat bepaalde uitdagingen met zich mee brengt. Wat zijn de verschillende parameters, hoe kunnen ze gebruikt worden en zal de API veranderen wanneer de provider een nieuwe versie van zijn product uitrolt en hoe meer APIs of dependencies men heeft, hoe gevoeliger de gebruikte AI-agent of LLM integratie zal zijn. In dit geval hebben we LangChain en Anthropic, waarvan LangChain al een serieuze evolutie gezien heeft.
 
 \subsubsection{LangChain Tokengebruik}
-
-LangChain heeft ook een manier om token gebruik te meten.
+\label{sssec:langchaintokengebruik}
+LangChain heeft ook een manier om token gebruik te meten (Figuur~\ref{fig:langchainagentokengebruik}).
 
 \begin{figure}[H]
     \centering
@@ -870,7 +878,8 @@ LangChain heeft ook een manier om token gebruik te meten.
     {'input\_tokens': 9, 'output\_tokens': 12, 'total\_tokens': 21, 'input\_token\_details': {'cache\_read': 0, 'cache\_creation': 0, 'ephemeral\_5m\_input\_tokens': 0, 'ephemeral\_1h\_input\_tokens': 0}}
 \end{comment}
 \subsubsection{LangChain Real World Agent}
-
+\label{sssec:langchainrealworldagent}
+Een voorbeeld uit de documentatie van LangChain, zie onderstaande Figuur~\ref{fig:langchainrealworldagentpt1} en Figuur~\ref{fig:langchainrealworldagentpt2}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{langchain_realworld_agent_1.png}
@@ -903,13 +912,15 @@ Agent-implementaties kunnen heel specifiek ingesteld worden naar gelang de use-c
 
 (De ToolRuntime klasse bevat: state; tool\_call\_id; config; context; store; stream\_writer. Dit geeft toolfuncties toegang tot deze functionaliteiten. Verschillende hiervan zijn langgraph packages, langchain en langgraph worden nu vaak door elkaar gebruikt.) 
 
-\subsubsection{LangChain en RAG(verouderde implementatie)}
-
+\subsubsection{LangChain en RAG (verouderde implementatie)}
+\label{sssec:langchainenragverouderd}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{langchain_rag_example_c1mod2lab2ex4.png}
-    \caption[LangChain RAG verouderde implementatie]{\label{fig:langchainragoutdated}Voorbeeld LangChain RAG-workflow, verouderd, maar toont wat er achter de schermen allemaal moet gebeuren, verkregen van: \autocite{IBM2026}}
+    \caption[LangChain RAG verouderde implementatie]{\label{fig:langchainragoutdated}Voorbeeld LangChain RAG-workflow, verkregen van: \autocite{IBM2026}}
 \end{figure}
+
+Bovenstaande Figuur~\ref{fig:langchainragoutdated} is ondertussen verouderde code, maar geeft een volledig overzicht van wat er allemaal achter de schermen moet gebeuren bij RAG processen.
 
 \textbf{Output:}
 
@@ -940,11 +951,11 @@ Agent-implementaties kunnen heel specifiek ingesteld worden naar gelang de use-c
 
 \textbf{Uitleg bij de code:} We zien een uitgebreid voorbeeld van een RAG proces. Het begint bij het ophalen van brondata met een \textbf{document-loader} of web-loader dat met de load() functie een lijst van documenten retourneert, een \textbf{tekst splitter} om de tekst op te splitsen in een opgegeven aantal karakters met een overlap dat extra karakters toevoegt aan het begin en einde om zo beter te bepalen in wat de omliggende context is, de tekst wordt gesplitst op newlines in chunks, een verzameling kleinere documenten. \\
 
-Een \textbf{embedding model} wordt geconfigureerd om de documenten(chunks) in een vector-store te indexeren, in dit geval chroma DB, dit krijgt de documenten en het embedding model mee en is een \textbf{vectorstore} object \\
+Een \textbf{embedding model} wordt geconfigureerd om de documenten (chunks) in een vector-store te indexeren, in dit geval chroma DB, dit krijgt de documenten en het embedding model mee en is een \textbf{vectorstore} object \\
 
 De vectorstore wordt geconverteerd naar een \textbf{retriever} met de methode as\_retriever(), er wordt een retrievalQA object gemaakt als wrapper voor een bepaald \textbf{LLM}, dit is een vraag en antwoord ketting waar de methode \textbf{invoke()} op aangeroepen kan worden. Dit is een onvolledige uitwerking van de code, de search\_documents functie wordt namelijk nergens aangeroepen, het is wel interessant om de output met invoke te zien.\\
 
-Ter info, is volgende code een meer uitgebreid gebruik van de retriever waarbij de search\_documents methode aangeroepen wordt, hiervan werd de output niet getest. Er kan afgeleid worden wat er in de output zou verschijnen. Elke query zal afgeprint worden, het aantal opgehaalde documenten relevant aan de query(prompt), voor elk opgehaald document de eerste 150 karakters en de bron uit de metadata. \\
+Ter info, is volgende code een meer uitgebreid gebruik van de retriever waarbij de search\_documents methode aangeroepen wordt, hiervan werd de output niet getest. Er kan afgeleid worden wat er in de output zou verschijnen. Elke query zal afgeprint worden, het aantal opgehaalde documenten relevant aan de query (prompt), voor elk opgehaald document de eerste 150 karakters en de bron uit de metadata. \\
 
 Aanvullende Code:
 
@@ -967,7 +978,7 @@ Dan werd er besloten om even verder te gaan met het onderzoeken van andere techn
 % j
 \subsection{LangGraph}
 \label{ssec:langgraph}
-%gaat mischien geen tijd voor zijn
+%gaat misschien geen tijd voor zijn
 Een evolutie en extensie van LangChain, delen hetzelfde ecosysteem en kunnen samen gebruikt worden, dit werd kort besproken in secties: \ref{ssec:multiagentdesignpatterns} \& \ref{ssec:langgraphframework}
 
 \section{LlamaIndex}
@@ -1019,7 +1030,7 @@ LlamaIndex Document klasse:
     {'id\_': '841db349-5e70-4180-b2fa-867677b32e21', 'embedding': None, 'metadata': {}, 'excluded\_embed\_metadata\_keys': [], 'excluded\_llm\_metadata\_keys': [], 'relationships': {}, 'metadata\_template': '{key}: {value}', 'metadata\_separator': '\verb|\n|', 'text\_resource': {'embeddings': None, 'text': 'Hello LlamaIndex', 'path': None, 'url': None, 'mimetype': None}, 'image\_resource': None, 'audio\_resource': None, 'video\_resource': None, 'text\_template': '{metadata\_str}\verb|\n\n|{content}', 'class\_name': 'Document', 'text': 'Hello LlamaIndex'}
 \end{tcolorbox}
 
-De BaseNode klasse van LlamaIndex is een Node, vergelijkbaar met het Document klasse, dit zijn in stukken gekapte delen van de originele documenten. We kunnen ook de methoden en attributen van deze klasse te weten komen met onderstaand codevoorbeeld: \ref{lst:llamaindexbasenodeklasse} door het python dir() methode op te roepen bij de eerste node in de lijst. Merk op dat het een klasse is dat veel methoden en attributen bevat.
+De BaseNode klasse van LlamaIndex is een Node, vergelijkbaar met het Document klasse, dit zijn in stukken gekapte delen van de originele documenten. We kunnen ook de methoden en attributen van deze klasse te weten komen met onderstaand codevoorbeeld: \ref{lst:llamaindexbasenodeklasse} door de python dir() methode op te roepen bij de eerste node in de lijst. Merk op dat het een klasse is die veel methoden en attributen bevat.
 
 % j J
 
@@ -1057,8 +1068,8 @@ Parsing nodes: 100%|████████████████████
 % single_directory_largefile_qa.png
 
 \subsection{LlamaIndex RAG demo}
-
-Nu kunnen we al RAG technieken toepassen op een reeks van files, we hebben een folder dat 3 pdf bestanden bevat en er is een prompt voorbereid dat de LLM zal vragen om een relevant deel van de contextueel inhoud van deze files te bespreken. 
+\label{ssec:llamaindexragdemo}
+Nu kunnen we al RAG technieken toepassen op een reeks van files, we hebben een folder die 3 pdf bestanden bevat en er is een prompt voorbereid dat de LLM zal vragen om een relevant deel van de contextuele inhoud van deze files te bespreken (Figuur~\ref{fig:llamaindexragdemo}). 
 
 \begin{figure}[H]
     \centering
@@ -1069,9 +1080,9 @@ Nu kunnen we al RAG technieken toepassen op een reeks van files, we hebben een f
 % VectorStoreIndex handelt de embeddings + vector store
 % LlamaIndex' query engine handelt al het volgende achter de schemren af: prompt embedding, retrieval, prompt augmentation, LLM querying, and response generation. Dit vereenvoudigt de het RAG proces aanzienlijk
 
-\textbf{Uitleg bij de code:} Laden van de databronnen uit de opgegeven folder met SimpleDirectoryReader, nu bevat de variabele een lijst van Document objecten. De nodige API-keys worden in de environment bewaard. Settings is een soort globaal configuratie waar LLM en embedding model ingesteld worden. De llm wordt expliciet gebruikt door de agent en de embedding model wordt impliciet gebruikt door de VectorStoreIndex. \\
+\textbf{Uitleg bij de code:} Laden van de databronnen uit de opgegeven folder met SimpleDirectoryReader, nu bevat de variabele een lijst van Document objecten. De nodige API-keys worden in de environment bewaard. Settings is een soort globale configuratie waar LLM en embedding model ingesteld worden. De llm wordt expliciet gebruikt door de agent en het embedding model wordt impliciet gebruikt door de VectorStoreIndex. \\
 
-Ter info: Wanneer men lijn 29 in-comment zou zetten, zal in de output een lange foutboodschap getoond worden inclusief dit betekenisvol bericht: \textit{Could not load OpenAI embedding model. If you intended to use OpenAI, please check your OPENAI\_API\_KEY.}. We halen zelf een embedding model en stellen deze in bij de Settings om dit te voorkomen. LlamaIndex gebruikt namelijk als default een OpenAI embedding model dat wel een werkend API-key nodig heeft om het gebruik/kosten bij te houden. \\
+Ter info: Wanneer men lijn 29 in-comment zou zetten, zal in de output een lange foutboodschap getoond worden inclusief dit betekenisvol bericht: \textit{Could not load OpenAI embedding model. If you intended to use OpenAI, please check your OPENAI\_API\_KEY.}. We halen zelf een embedding model en stellen deze in bij de Settings om dit te voorkomen. LlamaIndex gebruikt namelijk als default een OpenAI embedding model dat wel een werkende API-key nodig heeft om het gebruik/kosten bij te houden. \\
 
 We gebruiken opnieuw Ollama's API om te verbinden met een gpt-oss variant, dit wordt ook in de Settings ingesteld. Binnen de main functie gebruiken we een prompt dat een hint geeft dat we op zoek zijn naar een deel van dit onderzoek-document, deze zal bij het retrieval proces gematched worden met de relevante content uit de databron. \\
 
@@ -1080,10 +1091,10 @@ De volgende 3 lijnen zijn een representatie van hoe LlamaIndex het RAG proces si
 \begin{enumerate}
     \item \textbf{SimpleDirectoryReader:} De variabele 'documents' wijst naar onze opgehaalde lijst van documenten die met SimpleDirectoryReader allen zijn ingeladen, klaar voor de volgende stap.
     \item \textbf{VectorStoreIndex:} De variabele 'index' zijn de geïndexeerde documenten, VectorStoreIndex handelt gelijk de document-chunking, embedding en vector-store af. De methode .from\_documents() krijgt een lijst van Document objecten mee en heeft ook een transformations parameter waaraan men een ingestion pipeline kan meegeven, dat kan TextSplitters en NodeParsers bevatten voor meer controle over hoe de documenten worden geïndexeerd. Hier kan trouwens ook een meer persistente vector-DB aan worden meegegeven, op dit moment wordt het enkel in-memory bijgehouden.
-    \item \textbf{query engine:} LlamaIndex' query engine handelt al het volgende achter de schemren af: prompt embedding, retrieval, prompt augmentation, LLM querying en response generation. Dit vereenvoudigt de het RAG proces aanzienlijk! Dit zet onze VectorStoreIndex om naar een query engine, het is ook mogelijk om deze naar een retriever om te zetten met \textit{index.as\_retriever()}.
+    \item \textbf{query engine:} LlamaIndex' query engine handelt al het volgende achter de schermen af: prompt embedding, retrieval, prompt augmentation, LLM querying en response generation. Dit vereenvoudigt de het RAG proces aanzienlijk! Dit zet onze VectorStoreIndex om naar een query engine, het is ook mogelijk om deze naar een retriever om te zetten met \textit{index.as\_retriever()}.
 \end{enumerate}
 
-De functie search\_documents is een tool die de krachtige query\_engine kan aanspreken om de relevante documenten(of delen ervan) op te halen, dit geeft de augmented prompt terug aan de agent die hier nu een heel context-onderbouwd antwoord aan de gebruiker kan geven. De functie bevat ook interne documentatie-string dat de LLM signaleert dat dit een handige tool is om te gebruiken wanneer er gevraagd wordt om info uit een document te halen dit kan een sterke invloed hebben voor het al dan niet aanroepen van de functie. \\
+De functie search\_documents is een tool die de krachtige query\_engine kan aanspreken om de relevante documenten (of delen ervan) op te halen, dit geeft de augmented prompt terug aan de agent die hier nu een heel context-onderbouwd antwoord aan de gebruiker kan geven. De functie bevat ook een interne documentatie-string dat de LLM signaleert dat dit een handige tool is om te gebruiken wanneer er gevraagd wordt om info uit een document te halen dit kan een sterke invloed hebben voor het al dan niet aanroepen van de functie. \\
 
 De agent wordt aangemaakt, deze is van het type AgentWorkFlow en kan trouwens meerdere agents bevatten, deze krijgt de zoek tool mee, de gebruikte LLM wordt ingesteld en een systeem prompt dat wellicht bekend voorkomt. De uiteindelijke response wordt gegenereerd als returnwaarde van de agent.run() methode, deze methode heeft veel meer mogelijke argumenten, onder anderen: user\_msg / chat\_history / memory / ctx / max\_iterations / early\_stopping\_method / start\_event. Deze worden voorlopig niet besproken. \\
 
@@ -1149,13 +1160,13 @@ De agent wordt aangemaakt, deze is van het type AgentWorkFlow en kan trouwens me
     Dit is het complete onderdeel over onderzoeksvragen uit de beschikbare documenten.
 \end{minted}
 
-\textbf{Uitleg bij de output:} De embedding model dat werd gebruikt is afkomstig van HuggingFace, dus er worden een heleboel API-requests gestuurd naar die service en het duurde wel bijna 3 minuten om een antwoord te verkrijgen. De agent heeft wel uit het correct pdf document de relevante info kunnen halen, er zijn 3 documenten in desbetreffend folder, waarvan één 11 blz. lang is, een ander 2 blz. en het document dat onderzocht werd is niets anders dan een kopij van dit huidig onderzoek, wel met 90 blz. De grote hoeveelheid aan dataverkeer heeft zo goed als geen impact gehad op de token-gebruik bij Ollama's APIs en er was ook geen verschuiving op HuggingFace waar te nemen. Het embeddings-proces was het zwaarste en tijdrovendste bij de uitvoering van deze demo.
+\textbf{Uitleg bij de output:} Het embedding model dat werd gebruikt is afkomstig van HuggingFace, dus er worden een heleboel API-requests gestuurd naar die service en het duurde wel bijna 3 minuten om een antwoord te verkrijgen. De agent heeft wel uit het correct pdf document de relevante info kunnen halen, er zijn 3 documenten in desbetreffende folder, waarvan één 11 blz. lang is, een ander 2 blz. en het document dat onderzocht werd is niets anders dan een kopij van dit huidig onderzoek, wel met 90 blz. De grote hoeveelheid aan dataverkeer heeft zo goed als geen impact gehad op het token-gebruik bij Ollama's APIs en er was ook geen verschuiving op HuggingFace waar te nemen. Het embeddings-proces was het zwaarste en tijdrovendste bij de uitvoering van deze demo.
 
-\subsection{Custom Chunking van Groot document(OAS)}
+\subsection{Custom Chunking van Groot document (OAS)}
+\label{ssec:customchunkingvangrootdocumentoas}
+In de vorige demo werden de documenten op een standaard manier door de VectorStoreIndex in stukjes gekapt om in de RAG-pipeline te verwerken, hier wordt er getracht om op een zelf bepaalde manier een groot document, de OpenAPI Specification (3.2.0), in stukken te kappen alvorens deze in de vector-store te steken. Het doel van deze demo is enkel om het eerste opgeslagen Node uit lijst van documenten in de terminal uit te printen. \\
 
-In de vorige demo werden de documenten op een standaard manier door de VectorStoreIndex in stukjes gekapt om in de RAG-pipeline te verwerken, hier wordt er getracht om op een zelf bepaalde manier een groot document, de OpenAPI Specification (3.2.0), in stukken te kappen alvorens deze in de vector-store te steken. Het doel is nu enkel om het eerste opgeslagen Node uit te printen. \\
-
-Vervolgens een kort voorbeeld waar zelf wordt bepaald hoe de documenten in stukken gekapt worden. Dit maakt gebruik van een losstaand SentenceSplitter maar dit kan ook in een ingestionpipeline gebruikt worden \footnote{\href{https://developers.llamaindex.ai/python/framework/module_guides/loading/ingestion_pipeline/transformations/}{https://developers.llamaindex.ai/python/framework/module\_guides/loading/ingestion\_pipeline/transformations/}}
+Vervolgens een kort voorbeeld (Figuur~\ref{fig:llamaindexoaschunking}) waar zelf wordt bepaald hoe de documenten in stukken gekapt worden. Dit maakt gebruik van een losstaand SentenceSplitter maar dit kan ook in een ingestionpipeline gebruikt worden \footnote{\href{https://developers.llamaindex.ai/python/framework/module_guides/loading/ingestion_pipeline/transformations/}{https://developers.llamaindex.ai/python/framework/module\_guides/loading/ingestion\_pipeline/transformations/}}.
 
 
 \begin{figure}[H]
@@ -1223,12 +1234,12 @@ All field names in the specification are **case-sensitive**.
 \label{ssec:llamaindexragandoas}
 %een vraag stellen over de OAS dat opgesplitst is met chunking gebruikmakend van RAG
 
-In volgende demo wordt een vraag gesteld over de documentatie, maar eerst wordt een persistente indexed vector-store aangemaakt dat ervoor zorgt dat dit duur proces maar eenmalig uitgevoerd moet worden en bij toekomstige opzoekingen kan de bestaande vector-store ingeladen worden wat vooral tijd zal besparen. Deze techniek is uitermate geschikt voor data dat niet snel verandert zoals, company policy, API-documentatie en bestaande test-modules. Dit proces kan opnieuw uitgevoerd worden maar neemt telkens wat tijd in beslag en ook de embedding proces zal afhankelijk van de hoeveelheid te-embedden data met een bepaald token-kost komen. Er werden twee verschillende versies van de vector-store gemaakt in volgende demo.\\
+In volgende demo wordt een vraag gesteld over de documentatie, maar eerst wordt een persistente indexed vector-store aangemaakt die ervoor zorgt dat dit duur proces maar éénmalig uitgevoerd moet worden en bij toekomstige opzoekingen kan de bestaande vector-store ingeladen worden wat vooral tijd zal besparen. Deze techniek is uitermate geschikt voor data die niet snel verandert zoals, company policy, API-documentatie en bestaande test-modules. Dit proces kan opnieuw uitgevoerd worden maar neemt telkens wat tijd in beslag en ook het embedding proces zal afhankelijk van de hoeveelheid te-embedden data met een bepaalde token-kost komen. Er werden twee verschillende versies van de vector-store gemaakt in volgende demo.\\
 
 \textbf{Basic:} Lijn 38-42; 58 $\rightarrow$ in-commentaar en opslag-folder: \verb|"./storage/basic"| \\
 \textbf{Enhanced:} Geen code in-commentaar en opslag-folder: \verb|"./storage/enhanced"| \\
 
-Een mapje met de naam 'basic' en een met de naam 'enhanced'. Het verschil tussen de twee is dat er bij de eerste geen gebruik werd gemaakt van transformaties en bij de volgende wel. We nemen de tweede demo code onder de loep: \ref{fig:persistentvectorstore1}
+Een mapje met de naam 'basic' en een met de naam 'enhanced'. Het verschil tussen de twee is dat er bij de eerste geen gebruik werd gemaakt van transformaties en bij de volgende wel. We nemen de tweede demo code onder de loep: Zie Figuur~\ref{fig:persistentvectorstore1} en Figuur~\ref{fig:persistentvectorstore2}.
 
 \begin{comment}
     add this as reference of where I got the code
@@ -1260,18 +1271,18 @@ Waarvan de graph\_store en image\_vector\_store niet opgevuld werden, maar de an
     \caption[persistente vectorstore]{\label{fig:persistentvectorstore2}Persistente vector-store lokaal opslaan deel 2.}
 \end{figure}
 
-\textbf{Uitleg bij de code:} Deze is ons niet onbekend, er zijn echter een paar opmerkingen, deze aanroep naar de LLM met search-documents tool dat gebruik maakt van een query-engine zal de geïndexeerde document-chunks gebruiken, welke een lange tijd nodig hadden om klaar te zetten, daarom gebeurden die zware bewerkingen sequentieel nu uiteindelijk gevolgd door een asynchroon aanroep van main, nadat alle langdurige bewerkingen afgerond zijn. Uiteindelijk is het opzet met de transformaties om meer kwalitatieve antwoorden te krijgen van de LLM als response van onze vragen, er zijn titels en voorbeeldvragen mee opgeslagen in de persistente vector-store.
+\textbf{Uitleg bij de code:} Deze is ons niet onbekend, er zijn echter een paar opmerkingen, deze aanroep naar de LLM met search-documents tool dat gebruik maakt van een query-engine zal de geïndexeerde document-chunks gebruiken, welke een lange tijd nodig hadden om klaar te zetten, daarom gebeurden die zware bewerkingen sequentieel als eerste, waarna er op het einde van de file een asynchrone aanroep van main gebeurt, nadat alle langdurige bewerkingen afgerond zijn. Uiteindelijk is het opzet met de transformaties om meer kwalitatieve antwoorden te krijgen van de LLM als response van onze vragen, er zijn titels en voorbeeldvragen mee opgeslagen in de persistente vector-store.
 % what do we really expect? will the responses be BETTER? or FASTER?
 De twee verschillende vector-stores zullen elk afzonderlijk met dezelfde query ondervraagd worden en de verschillende antwoorden met elkaar vergeleken. \\
 
-\textbf{Output Zonder transformaties(as is):} 
+\textbf{Output Zonder transformaties (as is):} 
 \begin{tcolorbox}[colback=gray!20, colframe=gray!80]
     I’m happy to help, but I’m not sure which document you’d like summarized. Could you let me know the title or provide the text (or a link) for the document whose introduction you’d like summarized?
 \end{tcolorbox}
 
 We zien hier een vaak voorkomend probleem bij AI toolgebruik. Het is mogelijk dat de AI niet uit de prompt kan achterhalen dat een tool nodig is, de context van een meegegeven prompt moet kunnen gelinkt worden aan de omschrijving van een tool om de AI aan te zetten om deze te gebruiken. Bij RAG is dit meestal het niet beseffen dat er documenten beschikbaar zijn om te doorzoeken en dan zal er standaard gevraagd worden om een document ter beschikking te stellen. Het is ook mogelijk bij RAG dat een agent in plaats van uit de brondocumenten zelf uit eigen trainingsdata antwoorden zal genereren. Dit is vooral gevaarlijk wanneer recente data nodig is maar de AI agent reageert met antwoorden uit de trainings-data welke mogelijks verouderde data bevat $\rightarrow$ afhankelijk van model cut-off datum. \\
 
-\textbf{De system\_prompt werd aangepast en grounded\_prompt toegevoegd:}(door Claude-AI gegenereerd)
+\textbf{De system\_prompt werd aangepast en grounded\_prompt toegevoegd:}(door Claude-AI gegenereerd)(Figuur~\ref{fig:persistentvectorstore3})
 % enhanced-prompt.png
 \begin{figure}[H]
     \centering
@@ -1279,12 +1290,12 @@ We zien hier een vaak voorkomend probleem bij AI toolgebruik. Het is mogelijk da
     \caption[persistente vectorstore]{\label{fig:persistentvectorstore3}Persistente vector-store lokaal opslaan aangepast.}
 \end{figure}
 
-\textbf{Uitleg van de code:} Er werden aanpassingen gemaakt zodat de agent een strenger impuls krijgt om de bestaande documenten te doorzoeken, een streng systeem boodschap dat aandringt om documenten te doorzoeken met een expliciet genaamde tool in de prompt template.
+\textbf{Uitleg bij de code:} Er werden aanpassingen gemaakt zodat de agent een strenger impuls krijgt om de bestaande documenten te doorzoeken, een streng systeem boodschap dat aandringt om documenten te doorzoeken met een expliciet genaamde tool in de prompt template.
 
 
-%todo: check difference in quality of answers for each question
+%t'do: check difference in quality of answers for each question
 \begin{tcolorbox}[colback=gray!20, colframe=gray!80]
-\textbf{Output Zonder transformaties(aangepast) Q4:}
+\textbf{Output Zonder transformaties (aangepast) Q4:}
 \begin{verbatim}
 * **Contact Object** – information (name, URL, email) for the person
  or organization responsible for the API.  
@@ -1311,7 +1322,7 @@ Overall, the introduction serves as a quick reference for building
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=gray!20, colframe=gray!80]
-\textbf{Output Met transformaties(aangepast) Q4:}
+\textbf{Output Met transformaties (aangepast) Q4:}
 \begin{verbatim}
 The introduction explains that the OpenAPI 3.2.0 specification
 offers detailed guidance for defining APIs. It covers how to
@@ -1332,14 +1343,14 @@ Uit de Q4 vraag kunnen er geen grote verschillen in kwaliteit worden waargenomen
 
 Omdat de antwoord telkens in de vorm van een markdown tabel was zal de output van beide tests als pdf worden weergeven voor een betere leesbaarheid. \\
 
-\textbf{Output Zonder transformaties(aangepast), vraag q\_test:}
+\textbf{Output Zonder transformaties (aangepast), vraag q\_test:}(Figuur~\ref{fig:notransformationsanswerquality})
 % without-transformations.png
  \begin{figure}[H]
      \centering
      \includegraphics[width=1.0\textwidth]{without-transformations.png}
      \caption[Tijds-kost transformaties]{\label{fig:notransformationsanswerquality}Antwoord kwaliteit zonder transformaties.}
  \end{figure}
-\textbf{Output Met transformaties(aangepast), vraag q\_test:}
+\textbf{Output Met transformaties (aangepast), vraag q\_test:}(Figuur~\ref{fig:transformationsanswerquality})
 % using-transformations.png
 \begin{figure}[H]
     \centering
@@ -1392,16 +1403,17 @@ Echter bestaat er geen sectie in dit document met als expliciete titel 'introduc
 \textbf{Tijds kost van RAG-processen:} Verschillende tijdscontroles vonden plaats:
 
 \begin{itemize}
-    \item[] \textbf{Embedding Model Load Time:} De tijd nodig om de embedding model van HF te downloaden $\rightarrow$ \textbf{3.51026}s. Na de eerste run wordt het uit cache opgehaald, deze wordt lokaal opgeslagen in: \verb|C:\Users\peter\.cache\huggingface\hub|
-    \item[] \textbf{Vector Storage Time:} De tijd nodig om de opgehaalde documenten in een vector store in te laden $\rightarrow$ \textbf{107.32038}s
-    \item[] \textbf{Total Time:} De totale tijd $\rightarrow$ \textbf{132.23641}s
+    \item \textbf{Embedding Model Load Time:} De tijd nodig om de embedding model van HF te downloaden $\rightarrow$ \textbf{3.51026}s. Na de eerste run wordt het uit cache opgehaald, deze wordt lokaal opgeslagen in: \verb|C:\Users\peter\.cache\huggingface\hub|
+    \item \textbf{Vector Storage Time:} De tijd nodig om de opgehaalde documenten in een vector store in te laden $\rightarrow$ \textbf{107.32038}s
+    \item \textbf{Total Time:} De totale tijd $\rightarrow$ \textbf{132.23641}s
 \end{itemize}
 
 Het zal niemand verbazen dat het grootste tijdskost bij RAG het opbouwen van de index (vector store) is, bij herhaalde prompts met een persistent opgeslagen vector store werd er gemiddeld binnen 20s een antwoord gegenereerd.
 
 % j J
 \subsubsection{Transformatie tijds-kost:}
-De tijd om alle transformaties(chunking en indexering) te doen op de nodes was 945.85312s ofwel 15.76m. Het overgroot deel van tijd bij deze operatie zit in de transformaties van de data als voorbereiding op het indexeren van de data, plus de nieuw aangemaakte metadata.
+\label{sssec:transformatietijdskost}
+De tijd om alle transformaties (chunking en indexering) te doen op de nodes was 945.85312s ofwel 15.76m (Figuur~\ref{fig:vectorstoretransformationtimecost}). Het overgrote deel van tijd bij deze operatie zit in de transformaties van de data als voorbereiding op het indexeren van de data, plus de nieuw aangemaakte metadata.
 
 %vectorstore_transformation_time.png
 \begin{figure}[H]
@@ -1411,7 +1423,7 @@ De tijd om alle transformaties(chunking en indexering) te doen op de nodes was 9
 \end{figure}
 
 \subsection{LlamaIndex vs LangChain}
-
+\label{ssec:llamaindexvslangchain}
 LlamaIndex heeft krachtige, hoge level (wrapper-) klassen en simplificeert verschillende stappen in het RAG proces. \\
 
 LangChain daarentegen heeft als voordeel dat het granulair en flexibel (en customizable) is juist omdat er meer manuele setup vereist is.
@@ -1420,8 +1432,9 @@ LangGraph, als natuurlijke opvolger van LangChain, kan mogelijk een nog betere o
 
 
 \section{Gradio Prototyping}
+\label{sec:gradioprototyping}
 % see gradio workspace, also see course 2: RAG
-Gradio is een open source python library om snel een gebruiksvriendelijke web-gebaseerde user-interfaces op te zetten. Dit maakt een verbinding op een localhost poort en de connectie kan ook gedeeld worden. Ideaal om een prototype op te zetten en te delen. Het kan goed om met machine learning modellen en rekenkundige tools. Dit kan geinstalleerd worden met \textit{pip install gradio}.
+Gradio is een open source python library om snel gebruiksvriendelijke web-gebaseerde user-interfaces op te zetten. Dit maakt een verbinding op een localhost poort en de connectie kan ook gedeeld worden. Ideaal om een prototype op te zetten en te delen. Het kan goed om met machine learning modellen en rekenkundige tools. Dit kan geinstalleerd worden met \textbf{pip install gradio}. Onderstaande Figuur~\ref{fig:gradioinputsvoorbeeld} toont een uitgebreide demo van Gradio dat we in detail zullen bespreken.
 
 % Gradio_inputs.png
 
@@ -1431,15 +1444,15 @@ Gradio is een open source python library om snel een gebruiksvriendelijke web-ge
     \caption[Gradio UI prototyping]{\label{fig:gradioinputsvoorbeeld}Een Uitgebreid voorbeeld van Gradio UI in code.}
 \end{figure}
 
-\textbf{Uitleg van de code:} Deze is heel beknopt en gebruiksvriendelijk, men instantieert met de Interface() constructor een gelijknamig object waarop de launch() methode kan aangeroepen worden. Vervolgens ontleden we dit object:
+\textbf{Uitleg bij de code:} Deze is heel beknopt en gebruiksvriendelijk, men instantieert met de Interface() constructor een gelijknamig object waarop de launch() methode kan aangeroepen worden. Vervolgens ontleden we dit object:
 \begin{itemize}
-    \item \textbf{fn:} De functie dat men kan meegeven aan de Gratio interface. Een belangrijk onderdeel, dit zorgt ervoor dat we onze eigen code-implementaties kunnen gebruiken, deze zijn mogelijks ook heel complex in uitwerking, deze functie kan als toegangspunt dienen voor een complexe en genest systeem, dit is het belangrijkste onderdeel van deze Interface object en heeft interacties met alle volgende attributen.
+    \item \textbf{fn:} De functie die men kan meegeven aan de Gratio interface. Een belangrijk onderdeel, dit zorgt ervoor dat we onze eigen code-implementaties kunnen gebruiken, deze zijn mogelijks ook heel complex in uitwerking, deze functie kan als toegangspunt dienen voor een complex en genest systeem, dit is het belangrijkste onderdeel van dit Interface object en heeft interacties met alle volgende attributen.
     \item \textbf{inputs:} Dit voorziet allerlei verschillende soorten typische web-interface invoer van verschillende soorten data, zelfs files zijn mogelijk. Dit is een verzameling van Gradio objecten dat kan omgaan met de ingevoerde data. Deze worden uiteindelijk meegegeven aan de functie als argumenten. We zien 6 verschillende Gradio input types, dus onze functie zal 6 argumenten meekrijgen en het is aan ons de keuze hoe deze data zal verwerkt worden, in dit geval is het een eenvoudige uitwerking, maar de functie zou ook een LLM kunnen gebruiken. Er wordt een return-waarde verwacht.
     \item \textbf{outputs:} Hier kan men de return-waarde van de functie verwerken, er worden evenveel output componenten verwacht als aantal returnwaarden van de functie, wanneer men met LLMs werkt is het normaal om tekst of markdown als type output te gebruiken.
     \item \textbf{examples:} Er kan een lijst van voorbeelden klaargezet worden, wanneer de gebruiker deze aanklikt zullen de inputvelden hiermee opgevuld worden, het is dus ook de bedoeling dat het type data overeen komt met de verwachte input data types.
 \end{itemize}
 
-Tenslotte, \textbf{Launch !} Onze demo wordt gelanceerd, hier zijn alle gebruikte argumenten optioneel, dit zijn ook default-waarden. Interessant wel is dat laatste, 'share', wanneer men dit op True zet kan de demo gedeeld worden met derden (er wordt een URL gegenereerd dat gedeeld kan worden). Zo lang men de localhost server laat draaien kan iedereen met de link ook het gedeeld demo laten uitvoeren. Dit wordt afgehandeld via de Gradio servers en alle bewerkingen gebeuren op eigen machine, dus iedereen die de demo laat draaien zullen afhankelijk zijn van de machine waarop de demo gehost wordt. Dit zal na 1 week automatisch verbroken worden door Gradio om hun resources te besparen. Om de launch functie manueel te onderbreken kan men in de actieve terminal \textit{ctrl + c} doen. De User Interface is hier te zien:
+Tenslotte, \textbf{Launch !} Onze demo wordt gelanceerd, hier zijn alle gebruikte argumenten optioneel, dit zijn ook default-waarden. Interessant wel is dat laatste, 'share', wanneer men dit op True zet kan de demo gedeeld worden met derden (er wordt een URL gegenereerd die gedeeld kan worden). Zo lang men de localhost server laat draaien kan iedereen met de link ook de gedeelde demo laten uitvoeren. Dit wordt afgehandeld via de Gradio servers en alle bewerkingen gebeuren op eigen machine, dus iedereen die de demo laat draaien zal afhankelijk zijn van de machine waarop de demo gehost wordt. Dit zal na 1 week automatisch verbroken worden door Gradio om hun resources te sparen. Om de launch functie manueel te onderbreken kan men in de actieve terminal \textit{ctrl + c} doen. De User Interface is hier te zien: (Figuur~\ref{fig:gradiouserinterface}).
 
 \begin{figure}[H]
     \centering
@@ -1450,16 +1463,16 @@ Tenslotte, \textbf{Launch !} Onze demo wordt gelanceerd, hier zijn alle gebruikt
 
 \section{HuggingFace met Gradio voor Deployment van AI-projecten}
 \label{sec:huggingfacemetgradiovoordeploymentvanaiprojecten}
-Voor een omschrijving van HuggingFace zie: \ref{sec:huggingface} En voor H.F.-Spaces zie: \ref{sec:huggingfacespaces}
+Voor een omschrijving van HuggingFace zie: Sectie HuggingFace (\ref{sec:huggingface}) En voor H.F.-Spaces zie: Sectie HuggingFace Spaces (\ref{sec:huggingfacespaces}).
 %dependencies(requirements.txt)/secrets(spaces-settings)/deployment(app.py) hebben elk hun eigen werkwijze
 
-Men kan op HuggingFace Spaces eigen AI-projecten uitrollen. Ze werken nauw samen met Gradio en hebben integraties die ervoor zorgen dat men bij het maken van een nieuwe Space verschillende Gradio templates kunnen kiezen bij initiatie. \\
+Men kan op HuggingFace Spaces eigen AI-projecten uitrollen. Ze werken nauw samen met Gradio en hebben integraties die ervoor zorgen dat men bij het maken van een nieuwe Space verschillende Gradio templates kan kiezen bij initiatie. \\
 
-Bij deze onderzoek werden verschillende AI-projecten ontworpen en uitgerold\footnote{\href{https://huggingface.co/PeterCypers}{https://huggingface.co/PeterCypers}} op HF-spaces, waaronder: 'Image Classification'; 'Multi Agent Research'; 'Tavily Web Search'; 'Chatbot Vision'; 'File Search'; 'Peter GPT'
+Bij dit onderzoek werden verschillende AI-projecten ontworpen en uitgerold\footnote{\href{https://huggingface.co/PeterCypers}{https://huggingface.co/PeterCypers}} op HF-spaces, waaronder: 'Image Classification'; 'Multi Agent Research'; 'Tavily Web Search'; 'Chatbot Vision'; 'File Search'; 'Peter GPT'
 
 
 %\footnote{\href{https://ollama.com/download}{https://ollama.com/download}}
-Image Classification gebruikt een pretrained model(resnet18) om een gebruiker gekozen afbeelding te proberen classificeren uit 1000 mogelijke klassen(de voorwerpen waarop dit model op voorhand was getrained om te herkennen) de top-n meest gepaste klassen te kiezen. Tavily Web Search gebruikt de gelijknamige service met API-key om de internet te doorzoeken naar antwoorden op een meegegeven prompt. Chatbot Vision laat de gebruiker toe om te kiezen tussen een vraag- en antwoord bot of een AI die de inhoud van foto's kan begrijpen en omschrijven(deze werkt enkel offline omdat bepaalde dynamische Gradio web-interacties fout lopen). Multi Agent Research is een agent-workflow dat uit 3 agents bestaat en 3 verschillende stappen doorloopt: Opzoeken van informatie door de research\_agent, de write\_agent schrijft een raport over de verzamelde info en uiteindelijk zal de review\_agent een beoordeling maken over het geschreven werk. Dit wordt in de documentatie\footnote{\href{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}} van LlamaIndex ook goed omschreven. \\
+Image Classification gebruikt een pretrained model (resnet18) om een gebruiker gekozen afbeelding te proberen classificeren uit 1000 mogelijke klassen (de voorwerpen waarop dit model op voorhand was getrained om te herkennen) de top-n meest gepaste klassen te kiezen. Tavily Web Search gebruikt de gelijknamige service met API-key om het internet te doorzoeken naar antwoorden op een meegegeven prompt. Chatbot Vision laat de gebruiker toe om te kiezen tussen een vraag- en antwoord bot of een AI die de inhoud van foto's kan begrijpen en omschrijven (deze werkt enkel offline omdat bepaalde dynamische Gradio web-interacties fout lopen). Multi Agent Research is een agent-workflow dat uit 3 agents bestaat en 3 verschillende stappen doorloopt: Opzoeken van informatie door de research\_agent, de write\_agent schrijft een rapport over de verzamelde info en uiteindelijk zal de review\_agent een beoordeling maken over het geschreven werk. Dit wordt in de documentatie\footnote{\href{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}{https://developers.llamaindex.ai/python/examples/agent/agent\_workflow\_multi/}} van LlamaIndex ook goed omschreven. \\
 %https://developers.llamaindex.ai/python/examples/agent/agent_workflow_multi/
 
 % https://huggingface.co/PeterCypers
@@ -1467,9 +1480,9 @@ Image Classification gebruikt een pretrained model(resnet18) om een gebruiker ge
 Van deze projecten nemen we er nu 2 hier even onder de loep. \\
 
 \subsection{Peter's GPT}
-
+\label{ssec:petersgpt}
 Deze demo staat live op HuggingFace spaces
-\footnote{\href{https://huggingface.co/spaces/PeterCypers/Peter-GPT}{https://huggingface.co/spaces/PeterCypers/Peter-GPT}}. Inhoud van de app.py file: \ref{fig:gradiopetergpt}
+\footnote{\href{https://huggingface.co/spaces/PeterCypers/Peter-GPT}{https://huggingface.co/spaces/PeterCypers/Peter-GPT}}. Inhoud van de app.py file: (Figuur~\ref{fig:gradiopetergpt}).
 
 \begin{figure}[H]
     \centering
@@ -1477,11 +1490,11 @@ Deze demo staat live op HuggingFace spaces
     \caption[Op HuggingFace uitgerolde QA-bot]{\label{fig:gradiopetergpt}Eigen code implementatie van een QA-chatbot met keuze tussen 3 LLMs en rudimentaire memory.}
 \end{figure}
 
-\textbf{Uitleg bij de code:} De API-key is nodig om verbinding te maken met de Ollama client, de host is hier trouwens de online website van Ollama en niet de lokalhost poort van Ollama omdat we hier in een online omgeving zitten zal dat niet meer werken. Er werd een system prompt ingesteld in de hoop dat de response van de AI altijd in een copieerbare maarkdown blok wordt gezet, dit zal de LLM zelf proberen afhandelen, men kan aan de AI zelfs vragen om bepaalde opmaak-code te gebruiken in zijn response. \\
+\textbf{Uitleg bij de code:} De API-key is nodig om verbinding te maken met de Ollama client, de host is hier trouwens de online website van Ollama en niet de lokalhost poort van Ollama omdat we hier in een online omgeving zitten zal dat niet meer werken. Er werd een system prompt ingesteld in de hoop dat de response van de AI altijd in een copieerbare markdown blok wordt gezet, dit zal de LLM zelf proberen afhandelen, men kan aan de AI zelfs vragen om bepaalde opmaak-code te gebruiken in zijn response. \\
 
-Er is een cull\_state functie dat ervoor zorgt dat de chatgeschiedenis telkens afgekapt wordt om tegelijk te zorgen dat de LLM iets van verleden chat-context heeft en een maximum in te stellen van context, rate limiting dus. De oudste berichten worden uit de state gesliced, maar system\_prompt dat er als eerste in opgeslagen werd moet liefst wel behouden blijven. In essentie zorgt deze functie dat de system\_prompt blijft bestaan en de memory max 20 berichten lang blijft. Opvallend nu is dat we yield gebruiken wat in python een generator-functie maakt, ideaal om een iteratief-antwoord stapsgewijs terug te sturen. De functie moet altijd 2 returnwaarden hebben omdat de Gradio Interface dit verwacht. De systeem bericht wordt eenmalig aan de state toegevoegd daarna de gebruiker prompt. \\
+Er is een cull\_state functie die ervoor zorgt dat de chatgeschiedenis telkens afgekapt wordt om tegelijk te zorgen dat de LLM iets van verleden chat-context heeft en een maximum in te stellen van context, rate limiting dus. De oudste berichten worden uit de state gesliced, maar system\_prompt dat er als eerste in opgeslagen werd moet liefst wel behouden blijven. In essentie zorgt deze functie dat de system\_prompt blijft bestaan en de memory max 20 berichten lang blijft. Opvallend nu is dat we yield gebruiken wat in python een generator-functie maakt, ideaal om een iteratief-antwoord stapsgewijs terug te sturen. De functie moet altijd 2 returnwaarden hebben omdat de Gradio Interface dit verwacht. De systeem bericht wordt eenmalig aan de state toegevoegd daarna de gebruiker prompt. \\
 
-De gekozen LLM, een letterlijke string-waarde dat gekoppeld is aan de radio-select en mee in de argumenten van de functie zit wordt nu via de Ollama client chat functie als argument meegegeven, alsook de state wat de chatgeschiedenis bevat. Dit is trouwens een heel manueel aanpak om de chatgeschiedenis te beheren en heeft soms negatieve gevolgen, vermoedelijk leid dit tot hallucinaties, dit werd niet verder onderzocht, maar er bestaan hogere level functies die gemaakt zijn om de chatgeschiedenis te beheren, dat even terzijde. De opgebouwde stream van tekst wordt teruggestuurd met yield, samen met de state. Op het einde van de functie wordt de opgebouwde stream in zijn geheel toegevoegd als assistant bericht aan de state en wordt er met cul\_state de oudste berichten verwijdert(als er meer dan 20 zouden zijn). Dit is één iteratie, alles binnen deze functie wordt opnieuw uitgevoerd bij elke klik op de submit knop. Vervolgens zal de view even besproken worden: \ref{fig:gradiopetergptview}
+De gekozen LLM, een letterlijke string-waarde die gekoppeld is aan de radio-select en mee in de argumenten van de functie zit wordt nu via de Ollama client chat functie als argument meegegeven, alsook de state wat de chatgeschiedenis bevat. Dit is trouwens een heel manuele aanpak om de chatgeschiedenis te beheren en heeft soms negatieve gevolgen, vermoedelijk leidt dit tot hallucinaties, dit werd niet verder onderzocht, maar er bestaan hogere level functies die gemaakt zijn om de chatgeschiedenis te beheren, dat even terzijde. De opgebouwde stream van tekst wordt teruggestuurd met yield, samen met de state. Op het einde van de functie wordt de opgebouwde stream in zijn geheel toegevoegd als assistant bericht aan de state en wordt er met cul\_state de oudste berichten verwijderd (als er meer dan 20 zouden zijn). Dit is één iteratie, alles binnen deze functie wordt opnieuw uitgevoerd bij elke klik op de submit knop. Vervolgens zal de view even besproken worden: (Figuur~\ref{fig:gradiopetergptview}).
 
 %deployed_QA_peterGPT_view.png
 \begin{figure}[H]
@@ -1490,7 +1503,7 @@ De gekozen LLM, een letterlijke string-waarde dat gekoppeld is aan de radio-sele
     \caption[Op HuggingFace uitgerolde QA-bot view]{\label{fig:gradiopetergptview}De bijhorende view, live op HF-Spaces.}
 \end{figure}
 
-\textbf{Uitleg bij de view:} huggingface space moet soms herstart worden als deze in slaapstand(hybernation) staat, wanneer men op de submit knop klikt zullen de gekozen input, in dit geval een radio met LLM keuze en de prompt-text als argumenten meegegeven worden aan de functie stream\_output, de returnwaarde van deze functie is de state en LLM response stream. De stream wordt ingevuld in het output-venster en de state welke de chatgeschiedenis bijhoudt wordt bij de volgende submit weer naar de functie gestuurd als argument. De output venster van de LLM wordt wel degelijk letter per letter opgevuld en men kan dus het antwoord opgebouwd zien worden. De system\_prompt werd ook gerespecteerd, namelijk: "Always wrap your entire response inside a fenced Markdown code block.". Jammer genoeg maakt dit de response minder schoon, zonder deze regel zou de LLM response in een markdown container getoond worden waardoor lange regels automatisch onder elkaar komen te staan. Maar er werd geopteerd voor gemakkelijk kopieerbare antwoorden. \\
+\textbf{Uitleg bij de view:} huggingface space moet soms herstart worden als deze in slaapstand (hybernation) staat, wanneer men op de submit knop klikt zullen de gekozen input, in dit geval een radio met LLM keuze en de prompt-text als argumenten meegegeven worden aan de functie stream\_output, de returnwaarde van deze functie is de state en LLM response stream. De stream wordt ingevuld in het output-venster en de state welke de chatgeschiedenis bijhoudt wordt bij de volgende submit weer naar de functie gestuurd als argument. Het output venster van de LLM wordt wel degelijk letter per letter opgevuld en men kan dus het antwoord opgebouwd zien worden. De system\_prompt werd ook gerespecteerd, namelijk: "Always wrap your entire response inside a fenced Markdown code block.". Jammer genoeg maakt dit de response minder leesbaar, zonder deze regel zou de LLM response in een markdown container getoond worden waardoor lange regels automatisch onder elkaar komen te staan. Maar er werd geopteerd voor gemakkelijk kopieerbare antwoorden. \\
 
 De requirements.txt inhoud:\\
 gradio \\
@@ -1498,10 +1511,11 @@ ollama \\
 
 
 \subsection{File Search}
+\label{ssec:filesearch}
 % file_search_code_1.png
 % file_search_code_2.png
 
-Hier volgt een uitwerking van RAG op HuggingFace, de demo staat live op HuggingFace Spaces\footnote{\href{https://huggingface.co/spaces/PeterCypers/File-Search}{https://huggingface.co/spaces/PeterCypers/File-Search}}. Inhoud van de app.py file: \ref{fig:gradiofilesearch} en \ref{fig:gradiofilesearch2} 
+Hier volgt een uitwerking van RAG op HuggingFace, de demo staat live op HuggingFace Spaces\footnote{\href{https://huggingface.co/spaces/PeterCypers/File-Search}{https://huggingface.co/spaces/PeterCypers/File-Search}}. Inhoud van de app.py file in onderstaande figuren: Figuur~\ref{fig:gradiofilesearch} en Figuur~\ref{fig:gradiofilesearch2}.
 %https://huggingface.co/spaces/PeterCypers/File-Search
 
 \begin{figure}[H]
@@ -1510,8 +1524,8 @@ Hier volgt een uitwerking van RAG op HuggingFace, de demo staat live op HuggingF
     \caption[Op HuggingFace uitgerolde RAG-implementatie]{\label{fig:gradiofilesearch}Eigen code implementatie van RAG op HF-Spaces, deel 1.}
 \end{figure}
 
-%todo: is OS import needed?
-\textbf{Uitleg bij de code:} De os wordt geïmporteerd en later bij initialisatie van de LLM gebruikt om de API-key in te stellen. De imports gebeuren, daarna volgt het ophalen van de \textbf{brondata} en \textbf{inladen} als LlamaIndex Document klassen. Het wordt nu aangeraden om een specifieke JSON-loader\footnote{\href{https://llamahub.ai/l/readers/llama-index-readers-json}{https://llamahub.ai/l/readers/llama-index-readers-json}} te gebruiken, maar het lukt hier nog wel om met de SimpleDirectoryLoader met JSON files te werken. Zie mappenstructuur \ref{filestructurerandomfiles}. Uit deze files systeem worden alle documenten met bepaalde extentie ingeladen in de documents variabelen, essay is één enkele tekst bestand, deze RAG-pipeline werkte niet met de qwen3-vl maar wel met een gpt-oss-variant. \\
+%t'do: is OS import needed?
+\textbf{Uitleg bij de code:} De os wordt geïmporteerd en later bij initialisatie van de LLM gebruikt om de API-key in te stellen. De imports gebeuren, daarna volgt het ophalen van de \textbf{brondata} en \textbf{inladen} als LlamaIndex Document klassen. Het wordt nu aangeraden om een specifieke JSON-loader\footnote{\href{https://llamahub.ai/l/readers/llama-index-readers-json}{https://llamahub.ai/l/readers/llama-index-readers-json}} te gebruiken, maar het lukt hier nog wel om met de SimpleDirectoryLoader met JSON files te werken. Zie mappenstructuur \ref{filestructurerandomfiles}. Uit deze files systeem worden alle documenten met bepaalde extentie ingeladen in de documents variabelen, essay is één enkel tekst bestand, deze RAG-pipeline werkte niet met de qwen3-vl maar wel met een gpt-oss-variant. \\
 
 De \textbf{HuggingFaceEmbeddings} worden gedownload en in de settings ingesteld, als men naar de logs kijkt op de live HF-space zal er heel wat output te zien zijn, de progress wordt hiervan uitgeprint. De LLM wordt ook in de settings ingesteld, belangrijk weer om de echte URL te gebruiken naar de Ollama API en niet de localhost poort. Nu bij het opslaan van de 'indices' dictionary waarvan de waarde één van 3 vector-stores is, dit zal ook een procedure opstarten, hier worden de \textbf{Documents geïndexeerd in de vectorstore}, in memory (RAM) op de HF-Space server, eerst zien we de HF-embedding model downloaden, daarna zijn er honderden lijnen output weggelaten en vervolgens het indexeren van de documenten in de vectorstore. Zie onderstaande output van de logs:
 
@@ -1544,7 +1558,7 @@ De \textbf{HuggingFaceEmbeddings} worden gedownload en in de settings ingesteld,
     Loading weights:  73%|███████▎  | 145/199 [00:00<00:00, 2116.87it/s, Materializing param=encoder.layer.8.intermediate.dense.weight]
 \end{minted}
 
-Het is belangrijk dat bovenstaande code buiten de main methode staat dat telkens opnieuw zal aangeroepen worden bij een klik op de submit knop. Deze dure bewerkingen zullen dus eenmalig uitgevoerd worden. We gebruiken nog steeds geen eigen persistent vector-DB. Dat zou ook mogelijk moeten zijn.
+Het is belangrijk dat bovenstaande code buiten de main methode staat die telkens opnieuw zal aangeroepen worden bij een klik op de submit knop. Deze dure bewerkingen zullen dus eenmalig uitgevoerd worden. We gebruiken nog steeds geen eigen persistent vector-DB. Dat zou ook mogelijk moeten zijn.
 
 
 \begin{figure}[H]
@@ -1553,7 +1567,7 @@ Het is belangrijk dat bovenstaande code buiten de main methode staat dat telkens
     \caption[Op HuggingFace uitgerolde RAG-implementatie]{\label{fig:gradiofilesearch2}Eigen code implementatie van RAG op HF-Spaces, deel 2.}
 \end{figure}
 
-\textbf{Uitleg bij de code:} Er is een hulpfunctie om de desbetreffend verzameling Documents uit de dictionary op te halen waarvoor er een relevante prompt klaar staat in de Gradio Interface examples. Dan volgt de main functie waarvan de code heel gelijkaardig is aan figuur: \ref{fig:llamaindexragdemo}. Met het verschil dat we nu kunnen kiezen welke soort files we willen doorzoeken. De bijhorende vectorstore index wordt opgehaald afhankelijk van het gekozen type document, deze wordt omgezet naar een \textbf{query engine} dat binnen de innerfunction (Tool) kan gequeried worden, dat is weer de Retrieval stap. De query embedding en ophalen van top-k meest relevante tekst-stukken, van de tool returnwaarde wordt een nieuwe Augmented prompt gemaakt bestaand uit de samengevatte documentstukken en originel gebruiker prompt. De \textbf{LLM} kan deze tool herkennen omdat deze meegegeven wordt met de AgentWorkflow en eerst zal de prompt aan door de tool verwerkt worden voordat de LLM dan met de response daarvan inferentie doet. Dus \textbf{2x}, eerste \textbf{inferentie} als de gebruiker een prompt aan de agent geeft, er wordt beslist of er genoeg kennis is om al te antwoorden of als de beschikbare tool(s) nodig zijn, de agent weet dat er een \textbf{'search\_documents' tool} beschikbaaar is dus als de gebruiker een vraag stelt om op zoek te gaan in de documenten zal deze tool een hoge kans hebben om gebruikt te worden. Er wordt beslist de tool in te zetten en met de returnwaarde hiervan wordt door de LLM nog eens inferentie op gedaan, nu gewapend met een specifiek prompt en een document samenvatting kan de LLM een context-onderbouwd antwoord terugsturen naar de gebruiker. \\
+\textbf{Uitleg bij de code:} Er is een hulpfunctie om de desbetreffende verzameling Documents uit de dictionary op te halen waarvoor er een relevante prompt klaar staat in de Gradio Interface examples. Dan volgt de main functie waarvan de code heel gelijkaardig is aan figuur: \ref{fig:llamaindexragdemo}. Met het verschil dat we nu kunnen kiezen welke soort files we willen doorzoeken. De bijhorende vectorstore index wordt opgehaald afhankelijk van het gekozen type document, deze wordt omgezet naar een \textbf{query engine} die binnen de innerfunction (Tool) kan gequeried worden, dat is weer de Retrieval stap. De query embedding en ophalen van top-k meest relevante tekst-stukken, van de tool returnwaarde wordt een nieuwe Augmented prompt gemaakt bestaand uit de samengevatte documentstukken en originele gebruiker prompt. De \textbf{LLM} kan deze tool herkennen omdat deze meegegeven wordt met de AgentWorkflow en eerst zal de prompt door de tool verwerkt worden voordat de LLM dan met de response daarvan inferentie doet. Dus \textbf{2x}, de eerste \textbf{inferentie} gebeurt wanneer de gebruiker een prompt aan de agent geeft, er wordt beslist of er genoeg kennis is om direct te antwoorden of als één van de beschikbare tool(s) nodig zijn. De agent weet dat er een \textbf{'search\_documents' tool} beschikbaaar is dus als de gebruiker een vraag stelt om op zoek te gaan in de documenten zal deze tool een hoge kans hebben om gebruikt te worden.Er wordt beslist de tool in te zetten en met de returnwaarde hiervan wordt door de LLM nog eens inferentie uitgevoerd, nu gewapend met een specifieke prompt en een document samenvatting kan de LLM een context-onderbouwd antwoord terugsturen naar de gebruiker. \\
 
 % j J
 
@@ -1586,7 +1600,7 @@ data/
     \caption[HuggingFace RAG-implementatie pdf]{\label{fig:gradiofilesearchpdf}Output van de RAG-demo op pdf bestanden.}
 \end{figure}
 
-\textbf{Uitleg bij de output:} We zien hier \ref{fig:gradiofilesearchpdf} de output van het doorzoeken van files met extensie .pdf met de vraag: "who were the members of the team". Tussen de pdf-files is er één bestand waarin we erkenning van de team bij \autocite{IBM2026} aantreffen.
+\textbf{Uitleg bij de output:} We zien in Figuur~\ref{fig:gradiofilesearchpdf} de output van het doorzoeken van files met extensie .pdf met de vraag: "who were the members of the team". Tussen de pdf-files is er één bestand waarin we erkenning van het team bij \autocite{IBM2026} aantreffen.
 
 \begin{figure}[H]
     \centering
@@ -1594,7 +1608,7 @@ data/
     \caption[HuggingFace RAG-implementatie JSON]{\label{fig:gradiofilesearchjson}Output van de RAG-demo op JSON bestanden.}
 \end{figure}
 
-\textbf{Uitleg bij de output:} Tussen de verschillende JSON bestanden was er één die paste bij de vraag dat werd gesteld. Dus het ophalen hiervan met DocumentLoader is mogelijk, maar mischien herwerken om de JSON loader te gebruiken als er gekozen wordt om verder te gaan met deze technologie.
+\textbf{Uitleg bij de output:} Tussen de verschillende JSON bestanden (Figuur~\ref{fig:gradiofilesearchjson}) was er één die paste bij de vraag die werd gesteld. Dus het ophalen hiervan met DocumentLoader is mogelijk, maar misschien herwerken om de JSON loader te gebruiken als er gekozen wordt om verder te gaan met deze technologie.
 
 \begin{figure}[H]
     \centering
@@ -1602,13 +1616,13 @@ data/
     \caption[HuggingFace RAG-implementatie specifiek bestand]{\label{fig:gradiofilesearchspecificfile}Output van de RAG-demo op één specifiek tekst bestand.}
 \end{figure}
 
-\textbf{Uitleg bij de output:} Een samenvatting werd gemaakt van een bepaalde tekst bestand, een essay van Paul Graham \footnote{\href{https://paulgraham.com/articles.html}{https://paulgraham.com/articles.html}}.
+\textbf{Uitleg bij de output:} Een samenvatting werd gemaakt (Figuur~\ref{fig:gradiofilesearchspecificfile}) van een bepaald tekst bestand, een essay van Paul Graham \footnote{\href{https://paulgraham.com/articles.html}{https://paulgraham.com/articles.html}}.
 
 \subsection{Offline vs Deployed}
+\label{ssec:offlinevsdeployed}
+Kan ook wel als dev. vs prod. omschreven worden. Er moeten enkele kleine aanpassingen gemaakt worden om een lokaal (offline) werkende demo online uit te rollen op HF-spaces.
 
-Kan ook wel als dev. vs prod. omschreven worden. Er moeten enkele kleine aanpassingen gemaakt worden om een lokaal(offline) werkend demo online uit te rollen op HF-spaces.
-
-\textbf{API-keys:} Bij de offline werkende demo's werden de API-keys geïmporteerd uit een aparte folder en in de os-environment als variabele opgeslagen, bij online projecten moet men voor een bepaalde space naar de settings > variables and secrets > secrets de API-sleutel opslaan met als sleutel de exact verwachte naam, vb.: "OLLAMA\_API\_KEY" of "TAVILY\_API\_KEY" en waarde is de waarde van de API-key(zonder ""), deze worden dan opgeslagen in de environment van die space. Wanneer het nodig is om deze expliciet in de code te gebruiken kan men binnen het online project deze code toevoegen:
+\textbf{API-keys:} Bij de offline werkende demo's werden de API-keys geïmporteerd uit een aparte folder en in de os-environment als variabele opgeslagen, bij online projecten moet men voor een bepaalde space naar de settings > variables and secrets > secrets de API-sleutel opslaan met als sleutel de exact verwachte naam, vb.: "OLLAMA\_API\_KEY" of "TAVILY\_API\_KEY" en waarde is de waarde van de API-key (zonder ""), deze worden dan opgeslagen in de environment van die space. Wanneer het nodig is om deze expliciet in de code te gebruiken kan men binnen het online project deze code toevoegen:
 
 \begin{minted}{python}
     import os
@@ -1616,7 +1630,7 @@ Kan ook wel als dev. vs prod. omschreven worden. Er moeten enkele kleine aanpass
     TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 \end{minted}
 
-\textbf{Installaties:} Om bepaalde code te gebruiken werd regelmatig een pip install gedaan in combinatie met een import. Dit moet nu anders gebeuren, op de repository moet er nu een .txt file zijn genaamd 'requirements.txt'. Hier in staan alle packages(dependencies) die nodig zijn om het project te laten lopen. Wanneer hier bijvoorbeeld ollama in staat zal binnen die online omgeving \textit{pip install ollama} gebeuren. Zo voegt men gescheiden met een enter, of \verb|\n| de nodige packages aan de file toe die geïnstalleerd moeten worden. \\
+\textbf{Installaties:} Om bepaalde code te gebruiken werd regelmatig een pip install gedaan in combinatie met een import. Dit moet nu anders gebeuren, op de repository moet er nu een .txt file zijn genaamd 'requirements.txt'. Hier in staan alle packages (dependencies) die nodig zijn om het project te laten lopen. Wanneer hier bijvoorbeeld ollama in staat zal binnen die online omgeving \textit{pip install ollama} gebeuren. Zo voegt men gescheiden met een enter, of \verb|\n| de nodige packages aan de file toe die geïnstalleerd moeten worden. \\
 
 \textbf{Deployment trigger:} Dit is redelijk gemakkelijk te voorzien, zoals 'index' vaak verwacht wordt als naam voor de root van een project wordt op HF-spaces 'app' verwacht, dus bij aanmaak of wijziging van de app.py file zal een build + deploy getriggerd worden van die space. \\
 
@@ -1657,7 +1671,7 @@ Het is ook mogelijk om gestructureerde objecten als LLM antwoorden te voorzien g
     \caption[CrewAI basic offline demo]{\label{fig:crewaibasicdemo}CrewAI Offline Research Demo code.}
 \end{figure}
 
-\textbf{Uitleg bij de code:} We zien de basis bouwblokken van CrewAI, een genest structuur: Crew([Task,...], [Agent(LLM),...]). \\
+\textbf{Uitleg bij de code:} We zien in Figuur~\ref{fig:crewaibasicdemo} de basis bouwblokken van CrewAI, een genest structuur: Crew([Task,...], [Agent(LLM),...]). \\
 
 We gebruiken hier een lokaal LLM, llama3.1, en roepen de localhost poort van Ollama aan om deze te laten werken, geen API-key nodig want we hoeven geen online-API aan te roepen. \\
 
@@ -1667,7 +1681,7 @@ De Tasks hebben elk een agent, een verwachtte output en een omschrijving dat ook
 
 De Crew wordt samengesteld, een lijst van agents en bijhorende taken, her proces is sequentieel, verbose, true. Trouwens ook bij de agents, dus we krijgen veel feedback over hoe ze te werk zullen gaan zoals tool aanroepen en het goed verlopen van de taken, mogelijke fouten of mislukte taken. Dit is toch wel redelijk wat output, het is wel beter om enkel de Crew op verbose te laten en de Agents verbose=False te zetten. Tenzij debugging nodig is. \\
 
-Run de Crew! met de kickoff() functie, het uiteindelijke result variabele zal opgevuld worden met de output van de laatst-lopende agent, we verwachten een afgewerkt rapport. Omdat verbose overal aan staat zal er echter eerst nog veel output komen. CrewAI heeft een interessant vorm van verbose output, ze hebben er een degelijk design van gemaakt, dit gaan we nu bekijken: \\
+Run de Crew! met de kickoff() functie, het uiteindelijke result variabele zal opgevuld worden met de output van de laatst-lopende agent, we verwachten een afgewerkt rapport. Omdat verbose overal aan staat zal er echter eerst nog veel output komen. CrewAI heeft een interessant vorm van verbose output, ze hebben er een degelijk design van gemaakt, dit gaan we nu bekijken: (Figuur~\ref{fig:crewaiofflineoutput1}). \\
 
 \textbf{Output:}
 %crew_output_1.png
@@ -1676,28 +1690,28 @@ Run de Crew! met de kickoff() functie, het uiteindelijke result variabele zal op
     \includegraphics[width=1.0\textwidth]{crew_output_1.png}
     \caption[CrewAI basic offline demo output 1]{\label{fig:crewaiofflineoutput1}CrewAI Offline Research Demo Output 1.}
 \end{figure}
-\textbf{Output 1 uitleg:} We krijgen een kleurrijk tafereel te zien waar de workflow stap voor stap afgebeeld is, dit begint met de Crew waarvan de ID ook beschikbaar is, we volgen de Tasks en Agents sequentieel. Een deel van de output werd hier weggelaten, dit bevatte de rest van het onderzoekwerk van onze "Senior Research Analyst", er zal redelijk wat dubbele output zijn dankzij de agent-verbosity. Deze afbeelding stopt net bij het eerste paragraaf van de eerste agent. 
+\textbf{Output 1 uitleg:} We krijgen een kleurrijk tafereel te zien (Figuur~\ref{fig:crewaiofflineoutput1}) waar de workflow stap voor stap afgebeeld is, dit begint met de Crew waarvan de ID ook beschikbaar is, we volgen de Tasks en Agents sequentieel. Een deel van de output werd hier weggelaten, dit bevatte de rest van het onderzoekwerk van onze "Senior Research Analyst", er zal redelijk wat dubbele output zijn dankzij de agent-verbosity. Deze afbeelding stopt net bij het eerste paragraaf van de eerste agent. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{crew_output_2.png}
     \caption[CrewAI basic offline demo output 2]{\label{fig:crewaiofflineoutput2}CrewAI Offline Research Demo Output 2.}
 \end{figure}
-\textbf{Output 2 uitleg:} Deze afbeelding start bij het einde van de eerste agent output, wat volgt is het opstarten van de volgende taak met bijhorende agent. De output net na deze afbeelding werd weggelaten en bevat het werk van de writer-agent dat een beknopte samenvatting maakte van het werk van zijn voorganger. Een heel belangrijke opmerking bij de output dat we hier te zien krijgen is namelijk een design-fout in de code. We hebben namelijk een onderzoek gedaan dat geen enkel up-to-date informatie bevatte. Onze agents hebben enkel hun trainingsdata gebruikt om tot een antwoord te komen, dit is te herkennen aan de jaartallen van de gebruikte referenties, we zien niets na een bepaalde datum, namelijk de \textbf{model "cutoff date"}. Dit is het laatste moment dat deze LLM nog op nieuwe data werd getraind. Volgens info over dit model op Github \footnote{\href{https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md}{https://github.com/meta-llama/llama-models/blob/main/models/llama3\_1/MODEL\_CARD.md}} was dit december 2023. Dit is ook één van de gevaren bij het gebruiken van LLMs, ze hebben geen kennis van zaken die na dit moment in de tijd gebeurd zijn in de wereld, dus onze onderzoek is niet zo recent als ze zou kunnen zijn.
+\textbf{Output 2 uitleg:} Deze afbeelding (Figuur~\ref{fig:crewaiofflineoutput2}) start bij het einde van de eerste agent output, wat volgt is het opstarten van de volgende taak met bijhorende agent. De output net na deze afbeelding werd weggelaten en bevat het werk van de writer-agent dat een beknopte samenvatting maakte van het werk van zijn voorganger. Een heel belangrijke opmerking bij de output dat we hier te zien krijgen is namelijk een design-fout in de code. We hebben namelijk een onderzoek gedaan dat geen enkel up-to-date informatie bevatte. Onze agents hebben enkel hun trainingsdata gebruikt om tot een antwoord te komen, dit is te herkennen aan de jaartallen van de gebruikte referenties, we zien niets na een bepaalde datum, namelijk de \textbf{model "cutoff date"}. Dit is het laatste moment dat deze LLM nog op nieuwe data werd getraind. Volgens info over dit model op Github \footnote{\href{https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md}{https://github.com/meta-llama/llama-models/blob/main/models/llama3\_1/MODEL\_CARD.md}} was dit december 2023. Dit is ook één van de gevaren bij het gebruiken van LLMs, ze hebben geen kennis van zaken die na dit moment in de tijd gebeurd zijn in de wereld, dus onze onderzoek is niet zo recent als ze zou kunnen zijn.
 %crew_output_trace.png
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{crew_output_trace.png}
     \caption[CrewAI output trace]{\label{fig:outputtrace}CrewAI Output Trace.}
 \end{figure}
-\textbf{Output trace uitleg:} Iets wat CrewAI ook beschikbaar stelt zijn bijhorende data traces gekoppeld aan alles wat de Crew gedaan heeft, dit maakt het mogelijk om fouten na de feiten op te sporen, om te zien wat er mogelijks misliep, men kan ook data in verband met token-gebruik in deze metadata trace terugvinden. Wanneer we in de .env(\ref{sssec:dotenv}) dit specifiek key op True instellen zal een URL beschikbaar zijn in de verbose Crew output verschijnen, dat linkt naar de service van CrewAI waar deze trace bijgehouden wordt.
+\textbf{Output trace uitleg:} Iets wat CrewAI ook beschikbaar stelt zijn bijhorende data traces (Figuur~\ref{fig:outputtrace}) gekoppeld aan alles wat de Crew gedaan heeft, dit maakt het mogelijk om fouten na de feiten op te sporen, om te zien wat er mogelijks misliep, men kan ook data in verband met token-gebruik in deze metadata trace terugvinden. Wanneer we in de .env (zie Sectie: .env \ref{sssec:dotenv}) dit specifiek key op True instellen zal een URL beschikbaar zijn in de verbose Crew output verschijnen, dat linkt naar de service van CrewAI waar deze trace bijgehouden wordt.
 
 \subsection{CrewAI Online-Research Demo}
 \label{ssec:crewaionlineresearchdemo}
 
-In deze demo wordt voor de verandering eens met een andere LLM gewerkt dan gewoonlijk, er werd gekozen om een LLM van Nvidia uit te proberen, de \textbf{nemotron-3-super:cloud}. Toevallig maken ze de vergelijking met een veelgebruikt model uit de demo's van voorgaande hoofdstukken: \textbf{gpt-oss:120b} in de volgende grafiek\footnote{\href{https://ollama.com/library/nemotron-3-super}{https://ollama.com/library/nemotron-3-super}}: \ref{fig:nemovsgpt}\\
+In deze demo wordt voor de verandering eens met een andere LLM gewerkt dan gewoonlijk, er werd gekozen om een LLM van Nvidia uit te proberen, de \textbf{nemotron-3-super:cloud}. Toevallig maken ze de vergelijking met een veelgebruikt model uit de demo's van voorgaande hoofdstukken: \textbf{gpt-oss:120b} in de volgende grafiek\footnote{\href{https://ollama.com/library/nemotron-3-super}{https://ollama.com/library/nemotron-3-super}}: (Figuur~\ref{fig:nemovsgpt}).\\
 
-Nemotron-3-super is een LLM die getraind is om 20 talen te kunnen verstaan, is een MoE(Mixture of Experts) dat initieel inferentie kan doen met 12b parameters en in de verzameling van interne experts een route kan volgen om de rest van de nodige context efficiënt te benutten met een totaal aan 120b parameters en een context-venster van 256k tokens. De performantie is over heel de lijn van tentoongestelde benchmarks iets beter dan gpt-oss:120b, bij lange contexten en coderen is er een serieus verbetering, bij throughput hangt dit van het model af, één van de 2 getoetste nemotrons doet het geweldig, de andere is maar de helft zo sterk als gpt-oss:120b. Onder deze barchart is er nog heel wat meer info te vinden. Op Ollama kan men heel wat specificaties te weten komen over de verschillende modellen die ze aanbieden.
+Nemotron-3-super is een LLM die getraind is om 20 talen te kunnen verstaan, is een MoE (Mixture of Experts) dat initieel inferentie kan doen met 12b parameters en in de verzameling van interne experts een route kan volgen om de rest van de nodige context efficiënt te benutten met een totaal aan 120b parameters en een context-venster van 256k tokens. De performantie is over heel de lijn van tentoongestelde benchmarks iets beter dan gpt-oss:120b, bij lange contexten en coderen is er een serieus verbetering, bij throughput hangt dit van het model af, één van de 2 getoetste nemotrons doet het geweldig, de andere is maar de helft zo sterk als gpt-oss:120b. Onder deze barchart is er nog heel wat meer info te vinden. Op Ollama kan men heel wat specificaties te weten komen over de verschillende modellen die ze aanbieden.
 
 % nu werd er ook gebruikgemaakt van een ander model, eentje die 20 talen verstaat van Nvidia, een Mixture of Experts model, dus het kan heel efficient inference doen op 12B parameters en deze wordt geroute naar interne experts met een totaal aan 120B parameters waardoor het op bepaalde benchmarks hoger scoort dan gelijkaardige grote modellen zoals gpt-oss:120B-cloud
 
@@ -1708,7 +1722,7 @@ Nemotron-3-super is een LLM die getraind is om 20 talen te kunnen verstaan, is e
     \caption[Nemotron vs GPT vs Qwen]{\label{fig:nemovsgpt}De Nemotron modellen vergeleken met GPT en Qwen op ollama.com/library/nemotron-3-super.}
 \end{figure}
 
-Vervolgens bekijken we de code uitwerking waarbij er online gezocht wordt naar recente en up-to-date informatie voor ons onderzoek naar AI in de zorg-sector. Eerst moeten we weer via een web-zoek-API zoals Tavily toegang krijgen tot online zoeken. CrewAI stelt SerperDevTool beschikbaar via crewai\_tools een google-search API-tool. Hiervoor moest een gratis account aangemaakt worden om beschikking te krijgen over een API-key, zoals eerder besproken worden deze gebruikt om gebruiksdata en limieten en kosten bij te houden per gebruiker. \\
+Vervolgens bekijken we de code uitwerking waarbij er online gezocht wordt naar recente en up-to-date informatie voor ons onderzoek naar AI in de zorg-sector (Figuur~\ref{fig:crewaionlineresearchdemo}). Eerst moeten we weer via een web-zoek-API zoals Tavily toegang krijgen tot online zoeken. CrewAI stelt SerperDevTool beschikbaar via crewai\_tools een google-search API-tool. Hiervoor moest een gratis account aangemaakt worden om beschikking te krijgen over een API-key, zoals eerder besproken worden deze gebruikt om gebruiksdata en limieten en kosten bij te houden per gebruiker. \\
 
 %crew_internet_research_demo.png
 \begin{figure}[H]
@@ -1717,7 +1731,7 @@ Vervolgens bekijken we de code uitwerking waarbij er online gezocht wordt naar r
     \caption[CrewAI online-research demo]{\label{fig:crewaionlineresearchdemo}CrewAI online-research demo code.}
 \end{figure}
 
-\textbf{Uitleg bij de code:} De .env file inhoud(zie \ref{sssec:dotenv}) wordt in de actieve python environement ingesteld zodat deze code toegang heeft tot de nodige variabelen, de LLM is deze keer nemotron-3-super:cloud, api\_key variabele wordt achterliggend ingesteld met de ingeladen waarde uit de .env. De provider moet hier zeker ook mee worden gegeven anders probeert de LLM naar de default OpenAI te grijpen wat fouten veroorzaakt. Nog eens een framework dat OpenAI als default instelt wanneer men de parameter niet zelf invult. We beschikken over een SerperDevTool dat web-zoeken mogelijk maakt. We volgen in deze demo een agent-centric aanpak, deze mogen de toolgebruik bepalen, het is ook mogelijk in CrewAI om de Tasks te laten beschikken over de tool verzameling("task-centric approach"). In deze demo staat verbose op niveau van agents op false, de eerste agent heeft toegang tot de internet-zoek tool en voor de rest is er anders niets verschillend met de vorige demo. Natuurlijk loopt deze demo veel sneller dan toen we met een lokaal model werkten, en we verwachten iets meer up-to-date informatie uit onze onderzoek maar nemotron is wel een heel recent model met een cutoff date van februari 2026\footnote{\href{https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16}{https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16}}, 2 maand geleden op het moment van schrijven. Terwijl de vorige demo minuten duurden had deze workflow minder dan een half minuut nodig af te ronden. \\
+\textbf{Uitleg bij de code:} De .env file inhoud (zie Sectie: .env \ref{sssec:dotenv}) wordt in de actieve python environement ingesteld zodat deze code toegang heeft tot de nodige variabelen, de LLM is deze keer nemotron-3-super:cloud, api\_key variabele wordt achterliggend ingesteld met de ingeladen waarde uit de .env. De provider moet hier zeker ook mee worden gegeven anders probeert de LLM naar de default OpenAI te grijpen wat fouten veroorzaakt. Nog eens een framework dat OpenAI als default instelt wanneer men de parameter niet zelf invult. We beschikken over een SerperDevTool dat web-zoeken mogelijk maakt. We volgen in deze demo een agent-centric aanpak, deze mogen de toolgebruik bepalen, het is ook mogelijk in CrewAI om de Tasks te laten beschikken over de tool verzameling ("task-centric approach"). In deze demo staat verbose op niveau van agents op false, de eerste agent heeft toegang tot de internet-zoek tool en voor de rest is er anders niets verschillend met de vorige demo. Natuurlijk loopt deze demo veel sneller dan toen we met een lokaal model werkten, en we verwachten iets meer up-to-date informatie uit onze onderzoek maar nemotron is wel een heel recent model met een cutoff date van februari 2026\footnote{\href{https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16}{https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16}}, 2 maand geleden op het moment van schrijven. Terwijl de vorige demo minuten duurden had deze workflow minder dan een half minuut nodig af te ronden. \\
 %when talking about the py funct. to load .env reference next subsubsect
 % is it agent or task-centric? who has the tools?
 \textbf{Output:}
@@ -1731,7 +1745,7 @@ Vervolgens bekijken we de code uitwerking waarbij er online gezocht wordt naar r
 \subsubsection{.env}
 \label{sssec:dotenv}
 
-Nu werken we met een .env file voor de CrewAI Online-Research Demo, zie hierboven: \ref{ssec:crewaionlineresearchdemo}, het is nog steeds een demo zonder echt project filestructuur, maar met de python functie load\_dotenv() kan alles wat in die file staat in de lokale environment ingeladen worden, belangrijk blijven de sleutel namen, API-keys verwachten een exacte naam. De gebruikte .env file \ref{fig:dotenvfile} met afgekapte sleutels zodat de lezer er niet mee vandoor kan gaan en een extra sleutel op true, deze past de uitwerking van de demo aan zodat een trace beschikbaar is met nuttige informatie.
+Nu werken we met een .env file voor de CrewAI Online-Research Demo, zie hierboven: \ref{ssec:crewaionlineresearchdemo}, het is nog steeds een demo zonder echt project filestructuur, maar met de python functie load\_dotenv() kan alles wat in die file staat in de lokale environment ingeladen worden, belangrijk blijven de sleutel namen, API-keys verwachten een exacte naam. De gebruikte .env file (Figuur~\ref{fig:dotenvfile}) met afgekapte sleutels zodat de lezer er niet mee vandoor kan gaan en een extra sleutel op true, deze past de uitwerking van de demo aan zodat een trace beschikbaar is met nuttige informatie.
 % explain how the new dotenv is working, together with the py function to load .env, we can handle secrets like that, yet another way of handling them, also the secrets have been redacted so as to not leak them
 
 %crew_dotenv.png
@@ -1746,9 +1760,9 @@ Nu werken we met een .env file voor de CrewAI Online-Research Demo, zie hierbove
 % 03_CrewAI_PydanticModel_Decorator_Yaml -> reminder to talk about
 CrewAI gebruiken een aantal speciale technieken om met agents om te gaan. Bijvoorbeeld de instellingen voor de agent kunnen worden afgezonderd in een .yaml file zoals we zien in de boilerplate file-structuur: \ref{verb:filetree}. \\
 
-Ze kunnen gestructureerde output verzorgen door pydantic BaseModels te gebruiken, wanneer agents de output van hun afgewerkte taken doorgeven aan de volgende agent zal deze een vast object-structuur kunnen volgen, dit vaste schema kan bij de Task ingesteld worden als output-format. Zie volgend codefragment: \ref{fig:crewaialgemenefeatures} \\
+Ze kunnen gestructureerde output verzorgen door pydantic BaseModels te gebruiken, wanneer agents de output van hun afgewerkte taken doorgeven aan de volgende agent zal deze een vast object-structuur kunnen volgen, dit vaste schema kan bij de Task ingesteld worden als output-format. Zie volgend codefragment: (Figuur~\ref{fig:crewaialgemenefeatures}). \\
 
-Vooral nuttig in grote AI-projecten kunnen decorators gebruikt worden zoals @CrewBase, @agent, @task, @crew, in dat laatste stukje code kan een Crew als python klasse aangeroepen en een object geïnstantieerd worden, het laatste Decorator stukje code(\ref{fig:crewaialgemenefeatures}) afkomstig van \autocite{IBM2026}. Code voor het configureren van de agent en taak zit ook afgezonderd in een .yaml file om gemakkelijk aanpasbaar te zijn.
+Vooral nuttig in grote AI-projecten kunnen decorators gebruikt worden zoals @CrewBase, @agent, @task, @crew, in dat laatste stukje code kan een Crew als python klasse aangeroepen en een object geïnstantieerd worden, het laatste Decorator stukje code (Figuur~\ref{fig:crewaialgemenefeatures}) afkomstig van \autocite{IBM2026}. Code voor het configureren van de agent en taak zit ook afgezonderd in een .yaml file om gemakkelijk aanpasbaar te zijn.
 
 
 %crew_pydantic_basemodel_decorator_yaml.png
@@ -1811,14 +1825,17 @@ my_project/
     \end{verbatim}
 \end{tcolorbox}
 
-Na het kiezen van Ollama als provider en llama3.1 als model moest dit model enkel nog gedownload worden(\textbf{ollama pull llama3.1}), en een bestaand kant en klare demo kon al draaien(\textbf{crewai run}), dit is zeker een zinvolle werkwijze wanneer men grootschalige AI-projecten wil maken. Wat er ook bij zit maar niet te zien is in de file-structuur is een \textbf{AGENTS.md} file van meer dan 1000 lijnen instructies bedoeld voor AI-agents, best practices, algemene regels, dependencies, guardrails, human in the loop en veel meer. \\
+Na het kiezen van Ollama als provider en llama3.1 als model moest dit model enkel nog gedownload worden (\textbf{ollama pull llama3.1}), en een bestaand kant en klare demo kon al draaien (\textbf{crewai run}), dit is zeker een zinvolle werkwijze wanneer men grootschalige AI-projecten wil maken. Wat er ook bij zit maar niet te zien is in de file-structuur is een \textbf{AGENTS.md} file van meer dan 1000 lijnen instructies bedoeld voor AI-agents, best practices, algemene regels, dependencies, guardrails, human in the loop en veel meer. \\
 
 \section{Pydantic AI}
 \label{sec:pydanticai}
 %als er tijd is om dit ook nog te onderzoeken
+Deze technologie\footnote{\href{https://pydantic.dev/docs/ai/overview/}{https://pydantic.dev/docs/ai/overview/}} viel buiten scope van de onderzoekstijd, maar leek op het eerste zicht wel een sterke framework om te onderzoeken.
 
 \section{n8n}
 \label{sec:n8n}
+
+Werd kort besproken in Sectie: n8n(\ref{ssec:n8n}).
 
 \section{Vergelijking Conclusies}
 \label{sec:vergelijkingconclusies}
@@ -1826,7 +1843,7 @@ Na het kiezen van Ollama als provider en llama3.1 als model moest dit model enke
 
 De bestaande AI- en agentic frameworks evolueren allemaal en integreren de nieuwste technologische ontwikkelingen binnen AI. Sommigen liepen voorop met multi-agent functionaliteiten, de rest sluit nu aan en velen vereenvoudigen de code via abstractielagen en wrapper-klassen. Hoewel er kleine verschillen bestaan tussen de frameworks, zijn er meer gelijkenissen dan verschillen, elk framework streeft ernaar zoveel mogelijk features aan te bieden zodat gebruikers toegang hebben tot de volledige AI-toolkit: MCP \& toolgebruik, RAG, A2A en multi-agent workflows.
 
-%todo: n8n and pydantic
+%t'do: n8n and pydantic
 \begin{itemize}
     \item \textbf{Ollama:} (geen framework) Een provider van online en offline LLMs die een hoge limiet van gratis LLM-gebruik toelaat.
     \item \textbf{LangChain:} Laat diepe controle en aanpasbaarheid toe. Uitbreidbaar met LangGraph voor gestructureerde en zelfs 
@@ -1834,10 +1851,11 @@ De bestaande AI- en agentic frameworks evolueren allemaal en integreren de nieuw
     \item \textbf{LlamaIndex:} Heeft sterke klassen voor het werken met documenten in RAG-AI-workflows. Ook het grondigste onderzocht tijdens dit onderzoek.
     \item \textbf{HuggingFace:} (geen framework) Een onmisbaar bron van AI-projecten, training-models en embedding models. De AI-github. 
     \item \textbf{CrewAI:} Sterke multi-agent samenwerking.
-    \item \textbf{}
-    \item \textbf{}
-    \item \textbf{}
+    \item \textbf{n8n:} Werd kort bekeken maar niet genoeg om conclusies te trekken.
+    \item \textbf{Pydantic:} Viel buiten scope.
 \end{itemize}
+
+Deze vergelijking is vooral toegespitst op het AI en agentic verhaal, er werd in een latere fase nog meer nadrukkelijk onderzocht hoe AI kan helpen bij het testen en documenteren van APIs, dus AI en agentic ondersteuning van bestaande technieken, dit is vooral te vinden in de laatste secties binnen hoofdstuk~\ref{ch:stand-van-zaken} en in de proof of concept in hoofdstuk~\ref{ch:proofofconcept}.
 
 % most of them contain the same kind of things, prompt-template or agent rol, tools, LLM, some form of context-management, methods for interacting with other agents, instructions on how to act, what to do and how to return the data
 

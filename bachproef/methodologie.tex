@@ -32,16 +32,16 @@
 
 \section{Marktonderzoek}
 \label{sec:marktonderzoek}
-%todo: vergelijking Offline -> online mogelijkheden
-Eerst zal er onderzocht worden welke providers en platformen er bestaan en wat het kost om AI te gebruiken, waar vindt men de laatste informatie en ontwikkelingen van AI, hoe kunnen ze met elkaar vergeleken worden qua performantie, nauwkeurigheid en kost-efficiëntie. Ook zal er onderzocht worden welke AI en agentic tools en systemen bestaan,  welke hun capaciteiten en mogelijkheden zijn, hoe deze werken in code en uiteindelijk welke codeer-taal het best ingezet wordt om deze zelf te implementeren.
+%t'do: vergelijking Offline -> online mogelijkheden
+Eerst werd er onderzocht welke providers en platformen er bestaan en wat het kost om AI te gebruiken, waar men de laatste informatie en ontwikkelingen van AI vindt, hoe ze met elkaar vergeleken kunnen worden qua performantie, nauwkeurigheid en kost-efficiëntie. Ook werd er onderzocht welke AI en agentic tools en systemen bestaan, welke hun capaciteiten en mogelijkheden zijn, hoe deze werken in code en uiteindelijk welke codeer-taal het best ingezet wordt om deze zelf te implementeren.
 
 \section{Vergelijkende Studie}
 \label{sec:vergelijkendestudie}
 % j J
 
-De verschillende technologieën worden grondig onderzocht om hun mogelijkheden in kaart te brengen. Op basis van de sterktes en zwaktes wordt vervolgens bepaald welke technologie het meest geschikt is als AI-agent. Mogelijks kunnen er meerdere uitwerkingen worden gevonden die elk een zinvolle taak hebben als AI agent. \\
+De verschillende technologieën werden grondig onderzocht om hun mogelijkheden in kaart te brengen. Op basis van de sterktes en zwaktes werd vervolgens bepaald welke technologie het meest geschikt is als AI-agent. Er werden meerdere uitwerkingen gevonden die elk een zinvolle taak hebben als AI agent, maar niet altijd aansluitend bij de opzet van dit onderzoek. \\
 
-Er werden tientallen werkende demo's gemaakt met verschillende technologieën waarvan maar een deel in deze corpus zal ondernomen worden. \\
+Er werden tientallen werkende demo's gemaakt met verschillende technologieën waarvan maar een deel in dit corpus opgenomen werd. \\
 
 \begin{comment}
     this is fine, just let's wait and see first
@@ -52,34 +52,38 @@ Er werden tientallen werkende demo's gemaakt met verschillende technologieën wa
 
 % j
 \subsection{Keuze van AI-technologie}
+\label{ssec:keuzevanaitechnologie}
+Op dit punt werd er geen verder onderzoek gedaan rond de verschillende mogelijkheden van testen van APIs eerder een focus op bestaande AI technologieën en hoe deze mogelijk kunnen ingezet worden om een zinvolle verbetering in productiviteit teweeg te brengen. Na het volgen van een IBM cursus rond RAG \& Agentic AI werd het snel duidelijk dat efficiënt omgaan met documenten en context voor een AI agent iets van sterk algemene waarde zou kunnen bieden voor ontwikkelaars. Mogelijks ook voor het ontwikkelen en testen van APIs. Daarom is er gekozen om hier een focus op te zetten bij het verdere verloop van dit onderzoek. \\
 
-Er is geen verder onderzoek gebeurd rond de verschillende mogelijkheden van testen van APIs eerder een focus op bestaande AI technologieën en hoe deze mogelijk kunnen ingezet worden om een zinvolle verbetering in productiviteit teweeg te brengen. Bij het onderzoeken van RAG(Retreival Augmented Generation) werd het snel duidelijk dat efficiënt omgaan met documenten en context voor een AI agent iets van sterk algemene waarde zou kunnen bieden voor ontwikkelaars. Mogelijks ook voor het ontwikkelen en testen van APIs. Daarom is er gekozen om hier een focus op te zetten bij het verdere verloop van dit onderzoek. \\
-
-Uit het onderzoek van \autocite{Golmohammadi2023} werd geconstateerd dat openbaar beschikbare APIs bij vele grote bedrijven niet conform waren met de Open Api Specification (OAS)\footnote{\href{https://swagger.io/specification/}{https://swagger.io/specification/}}. Dit is een wereldwijd erkend conventie voor het ontwikkelen van APIs. Dit is ook een online beschikbaar document dat richtlijnen en templates omschrijft over hoe men best te werk bij het ontwerpen en ontwikkelen van APIs. \\
+Uit het onderzoek van \autocite{Golmohammadi2023} werd geconstateerd dat openbaar beschikbare APIs bij vele grote bedrijven niet conform waren met de Open Api Specification (OAS)\footnote{\href{https://swagger.io/specification/}{https://swagger.io/specification/}}. Dit is een wereldwijd erkende conventie voor het ontwikkelen van APIs. Dit is ook een online beschikbaar document dat richtlijnen en templates omschrijft over hoe men best te werk gaat bij het ontwerpen en ontwikkelen van APIs. \\
 
 \subsection{Het nut van RAG bij API design}
-
+\label{ssec:hetnutvanragbijapidesign}
 \subsubsection{Eerste Overweging}
-Retrieval Augmented Generation, een machine learning techniek dat AI-agents kan ondersteunen bij het efficiënt omgaan met documenten en developers zou kunnen ondersteunen bij de interpretatie van delen van de codebase, zoals API-templates, API test-sjablonen, misschien ook een lokaal en bedrijf-specifieke OAD (Open Api Document). Een AI agent die dit kan interpreteren en hierbij vragen kan gesteld worden zou zeker een zinvol uitwerking hebben, API design en testing waar structuur en best-practice vaan groot belang zijn, een AI-Agent die hierover up-to-date en context-onderbouwde antwoorden kan bieden, met behulp van RAG-technieken, zou mogelijks een goede ondersteuning zijn voor developers en bijdragen aan een verhoogde werk-efficiëntie. \\
+\label{sssec:eersteoverweging}
+Retrieval Augmented Generation, een machine learning techniek dat AI-agents kan ondersteunen bij het efficiënt omgaan met documenten en developers zou kunnen ondersteunen bij de interpretatie van delen van de codebase, zoals API-templates, API test-sjablonen, misschien ook een lokaal en bedrijf-specifieke Open Api Document (OAD). Een AI agent die dit kan interpreteren en hierbij vragen kan gesteld worden zou zeker een zinvole uitwerking hebben, API design en testing waar structuur en best-practice van groot belang zijn, een AI-Agent die hierover up-to-date en context-onderbouwde antwoorden kan bieden, met behulp van RAG-technieken, zou mogelijks een goede ondersteuning zijn voor developers en bijdragen aan een verhoogde werk-efficiëntie. \\
 
-Er wordt een onderscheid gemaakt tussen het onderzoeken en begrijpen van de OAS, waar we niet verder op ingaan en het zoeken naar een AI-technologie die deze kan helpen interpreteren, dit wordt wel verder grondig onderzocht. \\
+Er werd een onderscheid gemaakt tussen het onderzoeken en begrijpen van de OAS, waar niet verder op ingegaan zou worden, en het zoeken naar een AI-technologie die deze zou kunnen helpen interpreteren, dit laatste zou wel verder grondig onderzocht worden.
 
 \subsubsection{Alternatieven}
+\label{sssec:alternatieven}
 Andere onderzoeksrichtingen die eveneens tot nuttige AI-toepassingen kunnen leiden, zijn onder meer:
 
 \begin{itemize}
     \item \textbf{MCP:} Onderzoeken welke MCP servers mogelijk leiden tot nuttige tools, bijvoorbeeld: \textit{Postman MCP}
-    \item \textbf{Workflow Automation Platvormen:} Bijvoorbeeld \textbf{n8n} Een no-code/low-code dat men toelaat AI-agent geïntegreerde workflows te creëren gebruikmakend van nodes die stappen of acties in het proces voorstellen en met elkaar verbonden kunnen worden.
+    \item \textbf{Workflow Automation Platformen:} Bijvoorbeeld \textbf{n8n} Een no-code/low-code dat men toelaat AI-agent geïntegreerde workflows te creëren gebruikmakend van nodes die stappen of acties in het proces voorstellen en met elkaar verbonden kunnen worden.
 \end{itemize}
 
-Er werd gekozen voor een meer low-level aanpak met RAG om tot een diepere, algemene inzicht te komen in het verhaal van AI-agents en LLMs.
+Er werd gekozen voor een meer low-level aanpak met RAG om tot een dieper algemeen inzicht te komen in het verhaal van AI-agents en LLMs.
 
 %https://swagger.io/specification/
 
 \section{Opbouw Prototype AI Agent}
 \label{sec:opbouwprototypeaiagent}
 
-Met gevonden AI-technologieën zal er getracht worden een proof of concept AI agent of mischien meerdere AI agents op te zetten die kunnen ingezet worden om te helpen bij de ontwikkeling en testen van APIs, er wordt ook onderzocht voor welke taken deze best kunnen dienen om het werk van ontwikkelaars efficiënter te maken.
+Bij de start van het onderzoek werd het volgende toekomstbeeld geschetst: \\
+
+Met gevonden AI-technologieën zal er getracht worden een proof of concept AI agent of misschien meerdere AI agents op te zetten die kunnen ingezet worden om te helpen bij de ontwikkeling en testen van APIs, er wordt ook onderzocht voor welke taken deze best kunnen dienen om het werk van ontwikkelaars efficiënter te maken. \\
 
 Ook hardware restricties, security risico's en kosten worden in acht genomen.
 
@@ -91,11 +95,13 @@ Ook hardware restricties, security risico's en kosten worden in acht genomen.
 \end{comment}
 
 \section{Revisie}
-
+\label{sec:revisie}
 Na een grondige onderzoek gedaan te hebben rond AI agents en agentic design werd er teruggekeerd op het initiële onderzoeksvraag en werden verschillende mogelijkheden rond het testen en documenteren van APIs onderzocht, iets dat kan helpen bij het ontwikkelen van APIs. Hier werd er ontdekt dat RAG maar een beperkte bruikbaarheid heeft en dat men eerder voor één van de aangehaalde alternatieven grijpt, een traditionele software ondersteund door nieuwe AI-integraties in de vorm van Postman en Postman MCP. Door de conventies van de OAS te gebruiken kunnen APIs binnen projecten gedocumenteerd en getest worden. De proof of concept zal nu eerder een aanbeveling worden voor een bestaande software dat Agentic AI functionaliteiten heeft, alsook een integratie met de gebruikte ontwikkelomgeving van Visual Studio Code. \\
 
-Laattijdig terug in goede banen brengen van het onderzoek naar de initiële opzet zorgt ervoor dat men niet vast blijft op een minder bruikbare technologie, maar heeft wel als gevolg dat er iets dieper op de laatst gekozen technologie had kunnen ingezet worden mits deze iets vroeger de focus van het onderzoek had geweest. Met als neveneffect dat de huidige AI-landschap in kaart werd gebracht.
+Laattijdig terug in goede banen brengen van het onderzoek naar de initiële opzet zorgt ervoor dat men niet vast blijft op een minder bruikbare technologie, maar heeft wel als gevolg dat er iets dieper op de laatst gekozen technologie had kunnen ingezet worden mits deze iets vroeger de focus van het onderzoek had geweest. Met als neveneffect dat de huidige AI-landschap in kaart werd gebracht. \\
 
-%todo: keep updating this chapter with what I actually did, it's got too much what I plan to do at the moment. Don't go into greater detail, but note what I generally did and which choices I made that lead me down certain paths
+Naar het einde van dit onderzoek toe is er een shift gebeurt van het ontwikkelen van een Proof of Concept AI-agent, naar een aanbeveling van een nuttige software met geïntegreerde AI-agent, met een zelf ontwikkelde RAG AI-agent dat mogelijks API ontwikkeling kan ondersteunen in het opzoeken en uitleggen van informatie uit bestaande bronnen.
 
-%todo: mogelyks uitleg waarom ik af geweken heb van wat in het voorstel staat, wat ik heb laten vallen en waarom -> kan ook zyn dat er te weinig tyd was om daar ook nog mee bezig te zyn
+%t'do: keep updating this chapter with what I actually did, it's got too much what I plan to do at the moment. Don't go into greater detail, but note what I generally did and which choices I made that lead me down certain paths
+
+%t'do: mogelyks uitleg waarom ik af geweken heb van wat in het voorstel staat, wat ik heb laten vallen en waarom -> kan ook zyn dat er te weinig tyd was om daar ook nog mee bezig te zyn
