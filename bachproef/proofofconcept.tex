@@ -27,7 +27,7 @@ Er bestaan tools om automatisch een OAD, OpenAPI document te genereren binnen ee
 \label{sec:postmanaigeneratievantestenendocumentatie}
 % TODO MCP? subsection?
 % j
-Postman als software heeft een lange geschiedenis op het gebied van het testen en ontwikkelen van API's \autocite{Lane2021}. De kosten\footnote{\href{https://www.postman.com/pricing/}{https://www.postman.com/pricing/}} voor gebruik als maandelijks subscriptie (korting bij jaarlijkse betaling) is gelijkaardig aan de subscriptie kosten voor copilot chat. Men kan Postman ook gratis gebruiken, de kosten zijn vooral om de AI assistent en wat extra features te gebruiken. Men krijgt met het gratis model ook wel een aantal AI credits die maandelijks hernieuwen. Het kan eventueel zinvol zijn om een tijdelijk subscriptie te nemen, alle nodige tests door AI te laten genereren en daarna verder gaan op het gratis model. \\
+Postman als software heeft een lange geschiedenis op het gebied van het testen en ontwikkelen van API's \autocite{Lane2021}. De kosten\footnote{\href{https://www.postman.com/pricing/}{https://www.postman.com/pricing/}} voor gebruik als maandelijks subscriptie (korting bij jaarlijkse betaling) is gelijkaardig aan de subscriptie kosten voor copilot chat. Men kan Postman ook gratis gebruiken, de kosten zijn vooral om de AI assistent en wat extra features te gebruiken. Men krijgt met het gratis model ook wel een aantal AI credits die maandelijks hernieuwen. Het kan eventueel zinvol zijn om een tijdelijke subscriptie te nemen, alle nodige tests door AI te laten genereren en daarna verder te gaan op het gratis model. \\
 
 Op de desktop applicatie van Postman kan men de AI chatbot vragen om tests te genereren voor alle endpoints binnen een specifieke collectie. Dit kan men mogelijks ook binnen Visual Studio Code doen, maar het is beter om dit binnen Postman te doen omdat deze agent uitgerust is met de nodige tools om goed met de collecties te kunnen werken. \\ % t'do: pictures !
 
@@ -64,7 +64,7 @@ Nu dat er tests bestaan voor de verschillende endpoints zullen deze automatisch 
     \caption[Postman response]{\label{fig:postmantestuitslag}Postman uitslag van de tests na het sturen van een API request.}
 \end{figure}
 
-Postman heeft een degelijk integratie binnen Visual Studio Code. Zie onderstaande Figuur~\ref{fig:postmaninvsc}, dit is wat er te zien is op de Postman tab binnen VSC.
+Postman heeft een degelijke integratie binnen Visual Studio Code. Zie onderstaande Figuur~\ref{fig:postmaninvsc}, dit is wat er te zien is op de Postman tab binnen VSC.
 
 % postman-in-vsc-test-3.png
 \begin{figure}[H]
@@ -118,7 +118,7 @@ Men kan ook proberen om tests te laten genereren door de VSC-geïntegreerde AI A
 % /tests and /setupTests (experimenteel) 2 github copilot commando's proberen tests te genereren aan de hand van een geselecteerde file, deze commando's zetten gewoon bepaalde hardgecodeerde strings klaaar om naar de LLM te sturen (copilot-slash-tests-testgeneration-1.png)
 
 % generated testcode for resource, syntactically without errors, but functionally useless, move this code output to the appendix since it's 5 pages long
-Copilot genereerde voor de opgegeven Filament resource een unit test waarvan de code geen syntactisch fouten bevatte, maar functioneel onbruikbaar bleek te zijn. Voor de code output refereer naar de appendix in Sectie: Test Generatie met Github Copilot
+Copilot genereerde voor de opgegeven Filament resource een unit test waarvan de code geen syntactische fouten bevatte, maar functioneel onbruikbaar bleek te zijn. Voor de code output refereer naar de appendix in Sectie: Test Generatie met Github Copilot
 (\ref{sec:testgeneratiemetgithubcopilot}). De resultaten van deze tests zien we in volgende Figuur~\ref{fig:copilottestresultaat}.
 
 % copilot-generate-tests-for-resource-5.png
@@ -135,7 +135,7 @@ Het feit dat er veel tests falen wil op zich niet zeggen dat ze verkeerd zijn, m
 \label{ssec:publicerenvandocumentatiemetfern}
 % https://learning.postman.com/docs/fern/document-a-collection
 
-Men kan API documentatie als online website publiceren met behulp van Fern\footnote{\href{https://learning.postman.com/docs/fern/document-a-collection}{https://learning.postman.com/docs/fern/document-a-collection}}, zie onderstaand Figuur~\ref{fig:postmanferndocumentation}, dit is volledig aanpasbaar en is aan een github repository gekoppeld. Deze feature werd niet verder uitgewerkt maar is een interessante startpunt voor verdere onderzoek. \\
+Men kan API documentatie als online website publiceren met behulp van Fern\footnote{\href{https://learning.postman.com/docs/fern/document-a-collection}{https://learning.postman.com/docs/fern/document-a-collection}}, zie onderstaand Figuur~\ref{fig:postmanferndocumentation}, dit is volledig aanpasbaar en is aan een github repository gekoppeld. Deze feature werd niet verder uitgewerkt maar is een interessant startpunt voor verder onderzoek. \\
 
 % postman-Fern-published-API-documentation.png
 \begin{figure}[H]
