@@ -128,10 +128,47 @@ Software ingenieurs die AI-codeer agents gebruiken om volledige projecten te gen
 
 De ex-developer, nu orkestrator heeft dan enkel zijn/haar wil kenbaar te maken en goed uit te leggen aan de AI naar keuze en deze taken worden volbracht. Wanneer mensen met of zonder technische vaardigheden AI aanzetten om code en files te genereren zonder zelf ooit code te schrijven wordt dit ook wel \textbf{vibe-coding} genoemd. Er bestaan ook tools zodat men geen toetsenbord meer hoeft aan te raken \ref{sec:varia}. Dit kan als gevolg hebben dat de AI overmatig controle heeft over hoe de codebase eruit ziet, er kan veel inefficiënte code gegenereerd worden en voor lastige code-review zorgen. Dit maakt ook dat het concept van ownership over de code een beetje verwaterd wordt, wanneer men zelf de code schrijft behoudt men een overzicht en kennis van hoe het werkt en kan dit rechtvaardigen, als het door AI gegenereerd werd is het een onbekend gegeven. Ook moet elke lijn code die toegevoegd wordt aan een codebase onderhouden worden, wanneer er slecht onderhoudbare code toegevoegd wordt kan men dit beschouwen als technical-debt, een steeds groter wordende schuld die ooit zal moeten vereffend worden.
 
-\section{Impact op het Milieu (todo)}
+\section{Impact op het Milieu}
 \label{sec:impactophetmilieu}
-%todo
 % prompting large models costs measurably lage amounts of compute/power, etc-> they need a powerplant to train, -> look into
+
+Big-tech bedrijven zoals Meta, Google en xAI investeren miljarden dollars per jaar in infrastructuur in de vorm van AI datacenters, vanwege de sterke competitiviteit blijft de schaal van deze projecten vaak geheim en is het moeilijk om data hierover te verkrijgen, \textcite{BusinessInsider2025} onderzocht de bouw van nieuwe datacenters in de VS door info op te vragen die wel publiek verkrijgbaar was, namelijk de luchtkwaliteit rapporten die geregistreerd moesten worden voor elke back-up diesel-generator. \textcite{BusinessInsider2025} kon zo de locaties van de nieuwe datacenters achterhalen. \\
+
+Staten in Amerika bieden belastingvoordelen aan om datacenters aan te trekken, omdat de enorme omvang van de investering ondanks die vrijstellingen toch nog massale belastinginkomsten genereert \autocite{Jennings2026}. \\
+
+AI datacenters draaien continu en hebben twee grondstoffen nodig om te blijven draaien, namelijk \textbf{elektriciteit} als energiebron en \textbf{water} voor de koelings-systemen, net zoals traditionele datacenters hebben de vele servers koeling nodig om te voorkomen dat ze oververhitten. \\
+
+Een typische AI-datacenter gebruikt even veel elektriciteit als 100.000 huishoudens en grote datacenters kunnen tot 5 miljoen gallons (19 miljoen liter) water per dag verbruiken volgens  \textcite{CBSChicago2026}.
+
+\subsection{Water}
+\label{ssec:water}
+% Volgens Sam Altman gebruiken LLMs gemiddeld 1/15-de van een eetlepel per query
+
+Water is vooral nodig voor het koel houden van de servers binnen AI datacenters, ze worden met lucht of water koelsystemen afgekoeld, beiden hebben water nodig. \\
+
+Datacenters worden ook gebouwd in staten die al kampen met watertekorten door droogte, zoals Arizona, ondanks het feit dat ze enorme hoeveelheden water nodig hebben. Google heeft hier zijn datacenter uitgebreid met nieuwe gebouwen. Ze hebben nu 5 gebouwen die elk 1 miljoen gallons (3.8 miljoen liter) drinkwater per dag verbruiken uit de Colorado-rivier \autocite{BusinessInsider2025}. Het gebruik van drinkwater wordt verkozen omdat de koelsystemen zouden beschadigd worden bij het gebruik van afvalwater dat onzuiverheden en afval kan bevatten. Een groot deel van het water verdampt en de rest komt terug in de rivier terecht.
+
+\subsection{Elektriciteit}
+\label{ssec:elektriciteit}
+De grootste datacenters verbruiken meer dan 2 TWh aan elektriciteit per jaar, wat genoeg is om 200.000 huishoudens van stroom te voorzien volgens \textcite{BusinessInsider2025}. \\ 
+
+Amazon bouwt een datacenter vlak naast een kerncentrale in Susquehanna, Pennsylvania (VS) met de bedoeling de opgewekte stroom rechtstreeks te gebruiken \autocite{Moseman2024}. Microsoft heeft een deal gemaakt om één reactor (Unit 1) in de kerncentrale te Middletown, Pennsylvania (VS) opnieuw op te starten en zal voor de komende 20 jaar exclusieve rechten hebben op de opgewekte stroom \autocite{Reuters2024}. Google financiert de ontwikkeling van 3 nucleaire sites om na voltooiing zelf gebruik te kunnen maken van de opgewekte stroom \autocite{Stevens2025}. \\
+%(building or investing in powerplants)
+
+Door kerncentrales op te zetten kunnen deze bedrijven aan hun eigen energiebehoeften voldoen en dus autonoom werken zonder de plaatselijke infrastructuur te belasten. \\
+
+In Lake Tahoe, Navada (VS) heeft de lokale energieleverancier besloten om uitsluitend energie te leveren aan de plaatselijke datacenters, waardoor de bijna 50.000 inwoners een jaar de tijd kregen om een nieuwe energieleverancier te vinden \autocite{Gioino2026}.\\
+%https://fortune.com/2026/05/12/lake-tahoe-data-center-49000-residents-power-source/
+
+\subsection{Schaal}
+\label{ssec:schaal}
+De grootste datacenters hebben een indrukwekkende schaal. Volgens \textcite{Cottier2025} die de oppervlakte van een aantal van de grootste datacenters vergeleek met Manhattan in New York, had Colossus 1 van xAI omschreven als "Our gigafactory of compute."\footnote{\href{https://x.ai/colossus}{https://x.ai/colossus}} de oppervlakte van een aantal stadsblokken. Het Stargate-datacenter van OpenAI wordt zo groot als Central Park en het Hyperion-datacenter van Meta zal ongeveer 4 keer zo groot als Central Park worden.
+
+\subsection{Weerstand door de lokale bevolking}
+Mensen zijn tegen de opbouw van deze datacenters, vooral in en rond residentiële wijken. De datacenters zijn grote onaantrekkelijke industriële gebouwen die ook voor geluidsoverlast zorgen, de lokale water en energie infrastructuur belasten en land innemen dat voor landbouw had kunnen dienen \autocite{Bahar2026}. \\
+
+Veel lokale gemeenschappen hebben een bouwstop ingesteld voor de bouw van AI-datacenters om deze snelle uitbreiding tegen te gaan \autocite{Bahar2026}.
+%https://www.brookings.edu/articles/new-evidence-on-data-center-employment-effects/
 
 \section{Impact op jobs-markt}
 \label{sec:impactopjobsmarkt}
